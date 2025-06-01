@@ -1,0 +1,208 @@
+2025-05-26 18:35:10.943	info	main                       	Version info	{"gitCommit": "7567f83", "versionTag": "v0.9.10", "buildType": "release"}
+2025-05-26 18:35:10.945	info	deej.config                	Loaded config successfully
+2025-05-26 18:35:10.945	info	deej.config                	Config values	{"sliderMapping": "<5 sliders mapped to 6 targets>", "connectionInfo": {"COMPort":"COM4","BaudRate":9600}, "invertSliders": false}
+2025-05-26 18:35:11.026	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<19 audio sessions>"}
+2025-05-26 18:35:11.117	info	deej                       	Run loop starting
+2025-05-26 18:35:11.118	warn	deej.serial                	Failed to open serial connection	{"error": "The system cannot find the file specified."}
+2025-05-26 18:35:11.118	warn	deej                       	Failed to start first-time serial connection	{"error": "open serial connection: The system cannot find the file specified."}
+2025-05-26 18:35:11.118	warn	deej                       	Provided COM port seems wrong, notifying user and closing	{"comPort": "COM4"}
+2025-05-26 18:35:11.118	info	deej.notifier              	Sending toast notification	{"title": "Can't connect to COM4!", "message": "This serial port doesn't exist, check your configuration and make sure it's set correctly."}
+2025-05-26 18:35:11.557	info	deej                       	Stopping
+2025-05-26 18:38:17.129	info	main                       	Version info	{"gitCommit": "7567f83", "versionTag": "v0.9.10", "buildType": "release"}
+2025-05-26 18:38:17.144	info	deej.config                	Loaded config successfully
+2025-05-26 18:38:17.144	info	deej.config                	Config values	{"sliderMapping": "<5 sliders mapped to 6 targets>", "connectionInfo": {"COMPort":"COM3","BaudRate":9600}, "invertSliders": false}
+2025-05-26 18:38:17.225	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<19 audio sessions>"}
+2025-05-26 18:38:17.284	info	deej                       	Run loop starting
+2025-05-26 18:38:17.284	warn	deej.serial                	Failed to open serial connection	{"error": "The system cannot find the file specified."}
+2025-05-26 18:38:17.284	warn	deej                       	Failed to start first-time serial connection	{"error": "open serial connection: The system cannot find the file specified."}
+2025-05-26 18:38:17.284	warn	deej                       	Provided COM port seems wrong, notifying user and closing	{"comPort": "COM3"}
+2025-05-26 18:38:17.284	info	deej.notifier              	Sending toast notification	{"title": "Can't connect to COM3!", "message": "This serial port doesn't exist, check your configuration and make sure it's set correctly."}
+2025-05-26 18:38:17.682	info	deej                       	Stopping
+2025-05-26 18:38:44.556	info	main                       	Version info	{"gitCommit": "7567f83", "versionTag": "v0.9.10", "buildType": "release"}
+2025-05-26 18:38:44.558	info	deej.config                	Loaded config successfully
+2025-05-26 18:38:44.558	info	deej.config                	Config values	{"sliderMapping": "<5 sliders mapped to 6 targets>", "connectionInfo": {"COMPort":"COM3","BaudRate":9600}, "invertSliders": false}
+2025-05-26 18:38:44.639	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<19 audio sessions>"}
+2025-05-26 18:38:44.700	info	deej                       	Run loop starting
+2025-05-26 18:38:44.700	warn	deej.serial                	Failed to open serial connection	{"error": "Access is denied."}
+2025-05-26 18:38:44.700	warn	deej                       	Failed to start first-time serial connection	{"error": "open serial connection: Access is denied."}
+2025-05-26 18:38:44.700	warn	deej                       	Serial port seems busy, notifying user and closing	{"comPort": "COM3"}
+2025-05-26 18:38:44.700	info	deej.notifier              	Sending toast notification	{"title": "Can't connect to COM3!", "message": "This serial port is busy, make sure to close any serial monitor or other deej instance."}
+2025-05-26 18:38:45.100	info	deej                       	Stopping
+2025-05-26 18:39:11.713	info	main                       	Version info	{"gitCommit": "7567f83", "versionTag": "v0.9.10", "buildType": "release"}
+2025-05-26 18:39:11.715	info	deej.config                	Loaded config successfully
+2025-05-26 18:39:11.715	info	deej.config                	Config values	{"sliderMapping": "<5 sliders mapped to 6 targets>", "connectionInfo": {"COMPort":"COM3","BaudRate":9600}, "invertSliders": false}
+2025-05-26 18:39:11.794	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<19 audio sessions>"}
+2025-05-26 18:39:11.869	info	deej                       	Run loop starting
+2025-05-26 18:39:11.870	info	deej.serial.com3           	Connected	{"conn": {}}
+2025-05-26 18:39:11.870	info	deej.serial.com3           	Detected sliders	{"amount": 5}
+2025-05-26 18:39:42.832	info	main                       	Version info	{"gitCommit": "7567f83", "versionTag": "v0.9.10", "buildType": "release"}
+2025-05-26 18:39:42.834	info	deej.config                	Loaded config successfully
+2025-05-26 18:39:42.834	info	deej.config                	Config values	{"sliderMapping": "<5 sliders mapped to 6 targets>", "connectionInfo": {"COMPort":"COM3","BaudRate":9600}, "invertSliders": false}
+2025-05-26 18:39:42.911	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<19 audio sessions>"}
+2025-05-26 18:39:42.971	info	deej                       	Run loop starting
+2025-05-26 18:39:42.971	warn	deej.serial                	Failed to open serial connection	{"error": "Access is denied."}
+2025-05-26 18:39:42.971	warn	deej                       	Failed to start first-time serial connection	{"error": "open serial connection: Access is denied."}
+2025-05-26 18:39:42.971	warn	deej                       	Serial port seems busy, notifying user and closing	{"comPort": "COM3"}
+2025-05-26 18:39:42.971	info	deej.notifier              	Sending toast notification	{"title": "Can't connect to COM3!", "message": "This serial port is busy, make sure to close any serial monitor or other deej instance."}
+2025-05-26 18:39:43.351	info	deej                       	Stopping
+2025-05-26 18:40:08.916	info	main                       	Version info	{"gitCommit": "7567f83", "versionTag": "v0.9.10", "buildType": "release"}
+2025-05-26 18:40:08.918	info	deej.config                	Loaded config successfully
+2025-05-26 18:40:08.918	info	deej.config                	Config values	{"sliderMapping": "<5 sliders mapped to 6 targets>", "connectionInfo": {"COMPort":"COM3","BaudRate":9600}, "invertSliders": false}
+2025-05-26 18:40:08.997	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<19 audio sessions>"}
+2025-05-26 18:40:09.061	info	deej                       	Run loop starting
+2025-05-26 18:40:09.062	info	deej.serial.com3           	Connected	{"conn": {}}
+2025-05-26 18:40:09.062	info	deej.serial.com3           	Detected sliders	{"amount": 1}
+2025-05-26 18:40:09.062	info	deej.serial.com3           	Detected sliders	{"amount": 3}
+2025-05-26 18:40:09.063	info	deej.serial.com3           	Detected sliders	{"amount": 5}
+2025-05-26 18:41:00.298	info	main                       	Version info	{"gitCommit": "7567f83", "versionTag": "v0.9.10", "buildType": "release"}
+2025-05-26 18:41:00.301	info	deej.config                	Loaded config successfully
+2025-05-26 18:41:00.301	info	deej.config                	Config values	{"sliderMapping": "<5 sliders mapped to 6 targets>", "connectionInfo": {"COMPort":"COM3","BaudRate":9600}, "invertSliders": false}
+2025-05-26 18:41:00.384	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<19 audio sessions>"}
+2025-05-26 18:41:00.445	info	deej                       	Run loop starting
+2025-05-26 18:41:00.446	info	deej.serial.com3           	Connected	{"conn": {}}
+2025-05-26 18:41:00.447	info	deej.serial.com3           	Detected sliders	{"amount": 5}
+2025-05-26 19:20:47.805	info	main                       	Version info	{"gitCommit": "7567f83", "versionTag": "v0.9.10", "buildType": "release"}
+2025-05-26 19:20:47.807	info	deej.config                	Loaded config successfully
+2025-05-26 19:20:47.807	info	deej.config                	Config values	{"sliderMapping": "<5 sliders mapped to 6 targets>", "connectionInfo": {"COMPort":"COM3","BaudRate":9600}, "invertSliders": false}
+2025-05-26 19:20:47.889	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<19 audio sessions>"}
+2025-05-26 19:20:47.950	info	deej                       	Run loop starting
+2025-05-26 19:20:47.952	info	deej.serial.com3           	Connected	{"conn": {}}
+2025-05-26 19:20:47.952	info	deej.serial.com3           	Detected sliders	{"amount": 4}
+2025-05-26 19:20:47.953	info	deej.serial.com3           	Detected sliders	{"amount": 5}
+2025-05-26 19:20:49.519	info	deej.serial.com3           	Detected sliders	{"amount": 6}
+2025-05-26 19:20:49.545	info	deej.serial.com3           	Detected sliders	{"amount": 5}
+2025-05-26 19:20:59.518	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<19 audio sessions>"}
+2025-05-26 19:21:09.859	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<19 audio sessions>"}
+2025-05-26 19:21:14.870	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<19 audio sessions>"}
+2025-05-26 19:21:19.896	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<19 audio sessions>"}
+2025-05-26 19:21:24.954	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<19 audio sessions>"}
+2025-05-26 19:21:29.949	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<19 audio sessions>"}
+2025-05-26 19:21:34.966	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<19 audio sessions>"}
+2025-05-30 17:23:13.370	info	main                       	Version info	{"gitCommit": "7567f83", "versionTag": "v0.9.10", "buildType": "release"}
+2025-05-30 17:23:13.644	info	deej.config                	Loaded config successfully
+2025-05-30 17:23:13.644	info	deej.config                	Config values	{"sliderMapping": "<5 sliders mapped to 6 targets>", "connectionInfo": {"COMPort":"COM3","BaudRate":9600}, "invertSliders": false}
+2025-05-30 17:23:13.886	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<23 audio sessions>"}
+2025-05-30 17:23:13.986	info	deej                       	Run loop starting
+2025-05-30 17:23:13.989	info	deej.serial.com3           	Connected	{"conn": {}}
+2025-05-30 17:23:15.557	info	deej.serial.com3           	Detected sliders	{"amount": 5}
+2025-05-30 17:23:24.705	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<23 audio sessions>"}
+2025-05-30 17:34:19.700	info	main                       	Version info	{"gitCommit": "7567f83", "versionTag": "v0.9.10", "buildType": "release"}
+2025-05-30 17:34:19.717	info	deej.config                	Loaded config successfully
+2025-05-30 17:34:19.717	info	deej.config                	Config values	{"sliderMapping": "<5 sliders mapped to 6 targets>", "connectionInfo": {"COMPort":"COM3","BaudRate":9600}, "invertSliders": false}
+2025-05-30 17:34:20.020	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<24 audio sessions>"}
+2025-05-30 17:34:20.062	info	main                       	Version info	{"gitCommit": "7567f83", "versionTag": "v0.9.10", "buildType": "release"}
+2025-05-30 17:34:20.067	info	deej.config                	Loaded config successfully
+2025-05-30 17:34:20.067	info	deej.config                	Config values	{"sliderMapping": "<5 sliders mapped to 6 targets>", "connectionInfo": {"COMPort":"COM3","BaudRate":9600}, "invertSliders": false}
+2025-05-30 17:34:20.116	info	deej                       	Run loop starting
+2025-05-30 17:34:20.117	info	deej.serial.com3           	Connected	{"conn": {}}
+2025-05-30 17:34:20.120	info	deej.serial.com3           	Detected sliders	{"amount": 3}
+2025-05-30 17:34:20.123	info	deej.serial.com3           	Detected sliders	{"amount": 5}
+2025-05-30 17:34:20.124	info	deej.serial.com3           	Detected sliders	{"amount": 3}
+2025-05-30 17:34:20.124	info	deej.serial.com3           	Detected sliders	{"amount": 5}
+2025-05-30 17:34:20.125	info	deej.serial.com3           	Detected sliders	{"amount": 3}
+2025-05-30 17:34:20.125	info	deej.serial.com3           	Detected sliders	{"amount": 5}
+2025-05-30 17:34:20.294	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<24 audio sessions>"}
+2025-05-30 17:34:20.371	info	deej                       	Run loop starting
+2025-05-30 17:34:20.372	warn	deej.serial                	Failed to open serial connection	{"error": "Access is denied."}
+2025-05-30 17:34:20.372	warn	deej                       	Failed to start first-time serial connection	{"error": "open serial connection: Access is denied."}
+2025-05-30 17:34:20.372	warn	deej                       	Serial port seems busy, notifying user and closing	{"comPort": "COM3"}
+2025-05-30 17:34:20.372	info	deej.notifier              	Sending toast notification	{"title": "Can't connect to COM3!", "message": "This serial port is busy, make sure to close any serial monitor or other deej instance."}
+2025-05-30 17:34:21.679	info	deej.serial.com3           	Detected sliders	{"amount": 6}
+2025-05-30 17:34:21.696	info	deej.serial.com3           	Detected sliders	{"amount": 5}
+2025-05-30 17:34:22.036	info	deej                       	Stopping
+2025-05-30 17:34:33.640	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<24 audio sessions>"}
+2025-05-30 17:34:41.595	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<24 audio sessions>"}
+2025-05-30 17:34:49.235	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<24 audio sessions>"}
+2025-05-30 17:34:54.472	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<24 audio sessions>"}
+2025-05-30 17:35:43.036	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<24 audio sessions>"}
+2025-05-30 17:39:10.365	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<24 audio sessions>"}
+2025-05-30 17:39:10.850	info	deej.serial.com3           	Detected sliders	{"amount": 3}
+2025-05-30 17:39:10.995	info	deej.serial.com3           	Detected sliders	{"amount": 5}
+2025-05-30 17:39:10.998	info	deej.serial.com3           	Detected sliders	{"amount": 6}
+2025-05-30 17:39:11.000	info	deej.serial.com3           	Detected sliders	{"amount": 5}
+2025-05-30 17:39:54.704	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<24 audio sessions>"}
+2025-05-30 17:39:59.891	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<24 audio sessions>"}
+2025-05-30 17:40:05.174	warn	deej.session_finder        	CoInitializeEx failed with E_FALSE due to redundant invocation
+2025-05-30 17:40:05.365	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<24 audio sessions>"}
+2025-05-30 17:40:12.710	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<24 audio sessions>"}
+2025-05-30 17:40:20.937	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<24 audio sessions>"}
+2025-05-30 18:03:19.787	info	main                       	Version info	{"gitCommit": "7567f83", "versionTag": "v0.9.10", "buildType": "release"}
+2025-05-30 18:03:19.790	info	deej.config                	Loaded config successfully
+2025-05-30 18:03:19.790	info	deej.config                	Config values	{"sliderMapping": "<5 sliders mapped to 6 targets>", "connectionInfo": {"COMPort":"COM3","BaudRate":9600}, "invertSliders": false}
+2025-05-30 18:03:19.973	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<23 audio sessions>"}
+2025-05-30 18:03:20.031	info	deej                       	Run loop starting
+2025-05-30 18:03:20.033	info	deej.serial.com3           	Connected	{"conn": {}}
+2025-05-30 18:03:20.033	info	deej.serial.com3           	Detected sliders	{"amount": 5}
+2025-05-30 18:03:20.035	info	deej.serial.com3           	Detected sliders	{"amount": 8}
+2025-05-30 18:03:20.035	info	deej.serial.com3           	Detected sliders	{"amount": 5}
+2025-05-30 18:03:20.035	info	deej.serial.com3           	Detected sliders	{"amount": 8}
+2025-05-30 18:03:20.036	info	deej.serial.com3           	Detected sliders	{"amount": 5}
+2025-05-30 18:03:21.594	info	deej.serial.com3           	Detected sliders	{"amount": 8}
+2025-05-30 18:03:21.606	info	deej.serial.com3           	Detected sliders	{"amount": 5}
+2025-05-30 18:03:31.703	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<23 audio sessions>"}
+2025-05-30 18:03:37.124	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<23 audio sessions>"}
+2025-05-30 18:03:46.966	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<23 audio sessions>"}
+2025-05-30 18:03:57.778	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<23 audio sessions>"}
+2025-05-30 18:04:55.181	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<23 audio sessions>"}
+2025-05-30 18:05:00.188	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<23 audio sessions>"}
+2025-05-30 18:05:06.654	warn	deej.session_finder        	CoInitializeEx failed with E_FALSE due to redundant invocation
+2025-05-30 18:05:06.759	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<23 audio sessions>"}
+2025-05-30 18:05:46.419	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<24 audio sessions>"}
+2025-05-30 18:06:06.867	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<24 audio sessions>"}
+2025-05-30 18:06:12.071	warn	deej.session_finder        	CoInitializeEx failed with E_FALSE due to redundant invocation
+2025-05-30 18:06:12.166	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<24 audio sessions>"}
+2025-05-30 19:01:10.325	info	main                       	Version info	{"gitCommit": "7567f83", "versionTag": "v0.9.10", "buildType": "release"}
+2025-05-30 19:01:10.327	info	deej.config                	Loaded config successfully
+2025-05-30 19:01:10.327	info	deej.config                	Config values	{"sliderMapping": "<5 sliders mapped to 6 targets>", "connectionInfo": {"COMPort":"COM3","BaudRate":9600}, "invertSliders": false}
+2025-05-30 19:01:10.504	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<18 audio sessions>"}
+2025-05-30 19:01:10.568	info	deej                       	Run loop starting
+2025-05-30 19:01:10.570	info	deej.serial.com3           	Connected	{"conn": {}}
+2025-05-30 19:01:10.570	info	deej.serial.com3           	Detected sliders	{"amount": 6}
+2025-05-30 19:01:10.571	info	deej.serial.com3           	Detected sliders	{"amount": 5}
+2025-05-30 19:01:10.571	info	deej.serial.com3           	Detected sliders	{"amount": 8}
+2025-05-30 19:01:10.571	info	deej.serial.com3           	Detected sliders	{"amount": 5}
+2025-05-30 19:01:10.573	info	deej.serial.com3           	Detected sliders	{"amount": 8}
+2025-05-30 19:01:10.573	info	deej.serial.com3           	Detected sliders	{"amount": 5}
+2025-05-30 19:01:12.126	info	deej.serial.com3           	Detected sliders	{"amount": 9}
+2025-05-30 19:01:12.139	info	deej.serial.com3           	Detected sliders	{"amount": 5}
+2025-05-30 19:01:33.148	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<19 audio sessions>"}
+2025-05-30 19:01:38.425	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<19 audio sessions>"}
+2025-05-30 19:32:38.405	info	main                       	Version info	{"gitCommit": "7567f83", "versionTag": "v0.9.10", "buildType": "release"}
+2025-05-30 19:32:38.407	info	deej.config                	Loaded config successfully
+2025-05-30 19:32:38.407	info	deej.config                	Config values	{"sliderMapping": "<5 sliders mapped to 6 targets>", "connectionInfo": {"COMPort":"COM3","BaudRate":9600}, "invertSliders": false}
+2025-05-30 19:32:38.593	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<19 audio sessions>"}
+2025-05-30 19:32:38.648	info	deej                       	Run loop starting
+2025-05-30 19:32:38.649	info	deej.serial.com3           	Connected	{"conn": {}}
+2025-05-30 19:32:38.651	info	deej.serial.com3           	Detected sliders	{"amount": 5}
+2025-05-30 19:32:40.214	info	deej.serial.com3           	Detected sliders	{"amount": 6}
+2025-05-30 19:32:40.313	info	deej.serial.com3           	Detected sliders	{"amount": 5}
+2025-05-30 19:32:52.627	info	deej.tray                  	Quit menu item clicked, stopping
+2025-05-30 19:32:52.627	info	deej                       	Stopping
+2025-05-30 19:33:36.453	info	deej.tray                  	Refresh sessions menu item clicked, triggering session map refresh
+2025-05-30 19:33:36.567	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<27 audio sessions>"}
+2025-05-30 19:33:39.766	info	deej.tray                  	Edit config menu item clicked, opening config for editing
+2025-05-30 19:33:47.326	info	deej.tray                  	Refresh sessions menu item clicked, triggering session map refresh
+2025-05-30 19:33:47.437	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<27 audio sessions>"}
+2025-05-30 19:33:55.963	info	deej.tray                  	Quit menu item clicked, stopping
+2025-05-30 19:33:55.963	info	deej                       	Stopping
+2025-05-30 19:33:58.859	info	main                       	Version info	{"gitCommit": "7567f83", "versionTag": "v0.9.10", "buildType": "release"}
+2025-05-30 19:33:58.861	info	deej.config                	Loaded config successfully
+2025-05-30 19:33:58.861	info	deej.config                	Config values	{"sliderMapping": "<5 sliders mapped to 6 targets>", "connectionInfo": {"COMPort":"COM3","BaudRate":9600}, "invertSliders": false}
+2025-05-30 19:33:59.090	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<27 audio sessions>"}
+2025-05-30 19:33:59.149	info	deej                       	Run loop starting
+2025-05-30 19:33:59.150	info	deej.serial.com3           	Connected	{"conn": {}}
+2025-05-30 19:33:59.151	info	deej.serial.com3           	Detected sliders	{"amount": 4}
+2025-05-30 19:33:59.152	warn	deej.sessions.chrome       	Failed to set session volume	{"error": "The parameter is incorrect."}
+2025-05-30 19:33:59.153	warn	deej.sessions              	Failed to set target session volume	{"error": "adjust session volume: The parameter is incorrect."}
+2025-05-30 19:33:59.267	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<27 audio sessions>"}
+2025-05-30 19:33:59.267	info	deej.serial.com3           	Detected sliders	{"amount": 5}
+2025-05-30 19:34:35.373	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<27 audio sessions>"}
+2025-05-30 19:34:40.334	warn	deej.session_finder        	CoInitializeEx failed with E_FALSE due to redundant invocation
+2025-05-30 19:34:40.461	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<27 audio sessions>"}
+2025-05-30 19:34:54.268	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<28 audio sessions>"}
+2025-05-30 19:35:28.088	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<28 audio sessions>"}
+2025-05-30 19:38:10.847	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<28 audio sessions>"}
+2025-05-30 19:38:15.955	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<28 audio sessions>"}
+2025-05-30 19:38:34.206	info	deej.sessions              	Got all audio sessions successfully	{"sessionMap": "<28 audio sessions>"}
+2025-05-30 19:52:51.392	info	deej.tray                  	Quit menu item clicked, stopping
+2025-05-30 19:52:51.392	info	deej                       	Stopping
