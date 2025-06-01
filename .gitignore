@@ -1,3 +1,11 @@
 /.others/Mixr (functional without display)
+
+# Build results
 bin/
 obj/
+
+# Rider / VS / VS Code
+.vs/
+.vscode/
+*.user
+*.suo
