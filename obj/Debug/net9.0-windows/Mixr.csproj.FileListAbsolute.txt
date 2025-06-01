@@ -1,5 +1,0 @@
-C:\Users\paulm\.mainroot\Mixr\Mixr\Mixr\obj\Debug\net9.0-windows\Mixr.csproj.AssemblyReference.cache
-C:\Users\paulm\.mainroot\Mixr\Mixr\Mixr\obj\Debug\net9.0-windows\Mixr.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\paulm\.mainroot\Mixr\Mixr\Mixr\obj\Debug\net9.0-windows\Mixr.AssemblyInfoInputs.cache
-C:\Users\paulm\.mainroot\Mixr\Mixr\Mixr\obj\Debug\net9.0-windows\Mixr.AssemblyInfo.cs
-C:\Users\paulm\.mainroot\Mixr\Mixr\Mixr\obj\Debug\net9.0-windows\Mixr.csproj.CoreCompileInputs.cache
