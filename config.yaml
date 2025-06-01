@@ -14,7 +14,7 @@ slider_mapping:
   - Chrome
   - Spotify
   - Discord
-  - Icarus
+  - icarus.exe
 
 
 # settings for connecting to the arduino board
