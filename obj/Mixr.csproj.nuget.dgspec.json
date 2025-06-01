@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\paulm\\.mainroot\\Mixr\\Mixr\\Mixr\\Mixr.csproj": {}
+    "C:\\Users\\paulm\\.mainroot\\Mixr\\Mixr.csproj": {}
   },
   "projects": {
-    "C:\\Users\\paulm\\.mainroot\\Mixr\\Mixr\\Mixr\\Mixr.csproj": {
+    "C:\\Users\\paulm\\.mainroot\\Mixr\\Mixr.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\paulm\\.mainroot\\Mixr\\Mixr\\Mixr\\Mixr.csproj",
+        "projectUniqueName": "C:\\Users\\paulm\\.mainroot\\Mixr\\Mixr.csproj",
         "projectName": "Mixr",
-        "projectPath": "C:\\Users\\paulm\\.mainroot\\Mixr\\Mixr\\Mixr\\Mixr.csproj",
+        "projectPath": "C:\\Users\\paulm\\.mainroot\\Mixr\\Mixr.csproj",
         "packagesPath": "C:\\Users\\paulm\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\paulm\\.mainroot\\Mixr\\Mixr\\Mixr\\obj\\",
+        "outputPath": "C:\\Users\\paulm\\.mainroot\\Mixr\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\paulm\\AppData\\Roaming\\NuGet\\NuGet.Config"
