@@ -33,7 +33,7 @@ namespace Mixr
 
             if (!LoadConfig("config.yaml"))
             {
-                Console.WriteLine("Config konnte nicht geladen werden. Programm beendet.");
+                Console.WriteLine("Unable to load config. Ending Program.");
                 return;
             }
 
