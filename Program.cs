@@ -40,9 +40,9 @@ namespace Mixr
             BuildSessionMap();
             lastLevels = Enumerable.Repeat(-1f, config.slider_mapping.Count).ToList();
 
-            if (!OpenSerialPort("COM3", config.baud_rate))
+            if (!OpenSerialPort("COM4", config.baud_rate))
             {
-                Console.WriteLine("Seriellen Port COM3 konnte nicht geöffnet werden. Programm beendet.");
+                Console.WriteLine("Seriellen Port COM4 konnte nicht geöffnet werden. Programm beendet.");
                 return;
             }
 
