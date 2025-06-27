@@ -7,7 +7,7 @@
 # windows only - you can use 'system' to control the "system sounds" volume
 # important: slider indexes start at 0, regardless of which analog pins you're using!
 com_port: COM4
-baud_rate: 9600
+baud_rate: 230400
 invert_sliders: false
 slider_mapping:
   - master

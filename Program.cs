@@ -11,19 +11,22 @@ using Windows.Media.Control;
 using Windows.Storage.Streams;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
+using System.Drawing;
+using System.Drawing.Imaging;
+
 
 namespace Mixr
 {
     class Program
     {
-        static SerialPort serialPort;
+        static SerialPort serialPort = null!;
         static CoreAudioController audioController = new();
         static AppConfig config = new();
 
         static Dictionary<string, IAudioSession> sessionMap = new();
         static List<float> lastLevels = new();
 
-        private static GlobalSystemMediaTransportControlsSessionManager sessionManager;
+        private static GlobalSystemMediaTransportControlsSessionManager sessionManager = null!;
         private static readonly Dictionary<string, GlobalSystemMediaTransportControlsSession> registeredSessions = new();
         private static readonly Dictionary<string, string> lastKnownTitles = new();
 
@@ -57,15 +60,16 @@ namespace Mixr
             serialPort.DataReceived += SerialPort_DataReceived;
 
             ManualResetEvent quitEvent = new(false);
-            Console.CancelKeyPress += (s, e) => {
+            Console.CancelKeyPress += (s, e) =>
+            {
                 e.Cancel = true;
                 quitEvent.Set();
             };
 
-            Console.WriteLine("Lese Daten vom Seriellen Port (COM3). Drücke Ctrl+C zum Beenden.");
+            Console.WriteLine("Reading from SerialPort. Press Ctrl+C to quit.");
             quitEvent.WaitOne();
 
-            Console.WriteLine("Beende Programm...");
+            Console.WriteLine("Exit...");
             serialPort.Close();
         }
 
@@ -251,21 +255,63 @@ namespace Mixr
                         using var stream = await props.Thumbnail.OpenReadAsync();
                         using var memStream = new MemoryStream();
                         await stream.AsStreamForRead().CopyToAsync(memStream);
-                        File.WriteAllBytes("cover.jpg", memStream.ToArray());
-                        Console.WriteLine("   🖼️ Coverbild 'cover.jpg' gespeichert.");
+                        memStream.Position = 0;
+
+                        using var img = Image.FromStream(memStream);
+                        using var resized = new Bitmap(img, new Size(170, 170));
+
+                        var encoder = ImageCodecInfo.GetImageEncoders()
+                            .First(c => c.FormatID == ImageFormat.Jpeg.Guid);
+
+                        var encoderParams = new EncoderParameters(1);
+                        encoderParams.Param[0] = new EncoderParameter(Encoder.Quality, 40L);
+
+                        resized.Save("cover.jpg", encoder, encoderParams);
+
+                        Console.WriteLine("   🖼️ Komprimiertes Cover gespeichert.");
+                        SendImageOverSerial("cover.jpg");
+                        Console.WriteLine("   🖼️ Komprimiertes Cover geschickt.");
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"⚠️ Fehler beim Speichern des Covers: {ex.Message}");
+                        Console.WriteLine($"⚠️ Fehler beim Verarbeiten des Covers: {ex.Message}");
                     }
-                }
-                else
-                {
-                    Console.WriteLine("   ❌ Kein Coverbild verfügbar.");
                 }
 
                 Console.WriteLine();
             }
         }
+        static void SendImageOverSerial(string path)
+        {
+            try
+            {
+                if (!File.Exists(path))
+                {
+                    Console.WriteLine("❌ Datei nicht gefunden: " + path);
+                    return;
+                }
+
+                byte[] imageBytes = File.ReadAllBytes(path);
+                Console.WriteLine($"📤 Sende Bild ({imageBytes.Length} Bytes)...");
+
+                serialPort.Write("<IMG>");
+
+                int chunkSize = 512;
+                for (int i = 0; i < imageBytes.Length; i += chunkSize)
+                {
+                    int remaining = Math.Min(chunkSize, imageBytes.Length - i);
+                    serialPort.Write(imageBytes, i, remaining);
+                    Thread.Sleep(2);
+                }
+
+                serialPort.Write("<END>");
+                Console.WriteLine("✅ Bild gesendet.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"❌ Fehler beim Bildsenden: {ex.Message}");
+            }
+        }
+
     }
 }
