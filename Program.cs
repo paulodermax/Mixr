@@ -30,23 +30,50 @@ namespace Mixr
         private static readonly Dictionary<string, GlobalSystemMediaTransportControlsSession> registeredSessions = new();
         private static readonly Dictionary<string, string> lastKnownTitles = new();
 
+        private static bool songinfo = false;
+        static void Log(string message)
+        {
+            try
+            {
+                string logEntry = $"[{DateTime.Now:HH:mm:ss}] {message}\n";
+                File.AppendAllText("log.txt", logEntry);
+            }
+            catch { /* Falls Logging fehlschlägt, ignoriere */ }
+        }
+
         static async Task Main()
         {
             Console.WriteLine("Starte Mixr...");
-
-            if (!LoadConfig("config.yaml"))
+            Log("Start");
+            if (!LoadConfig("./config.yaml"))
             {
                 Console.WriteLine("Unable to load config. Ending Program.");
+                Log("Unable to load config. Ending Program.");
                 return;
             }
 
             BuildSessionMap();
             lastLevels = Enumerable.Repeat(-1f, config.slider_mapping.Count).ToList();
 
-            if (!OpenSerialPort("COM4", config.baud_rate))
+            if (!OpenSerialPort(config.com_port, config.baud_rate))
             {
-                Console.WriteLine("Seriellen Port COM4 konnte nicht geöffnet werden. Programm beendet.");
-                return;
+                Console.WriteLine("Seriellen Port "+config.com_port+" konnte nicht geöffnet werden.");
+                Log("Seriellen Port " + config.com_port + " konnte nicht geöffnet werden.");
+                await Task.Delay(30000);
+                while (true)
+                {
+                    Log("Retrying to open Serial Port...");
+                    if (OpenSerialPort(config.com_port, config.baud_rate))
+                    {
+                        Log("Opened COM-Port successfully.");
+                        break;
+                    }
+                    else
+                    {
+                        Log("Serial Port " + config.com_port + " couldn't be opened.");
+                    }
+                    await Task.Delay(30000);
+                }
             }
 
             sessionManager = await GlobalSystemMediaTransportControlsSessionManager.RequestAsync();
@@ -56,7 +83,7 @@ namespace Mixr
             {
                 RegisterSession(session);
             }
-
+            
             serialPort.DataReceived += SerialPort_DataReceived;
 
             ManualResetEvent quitEvent = new(false);
@@ -67,6 +94,7 @@ namespace Mixr
             };
 
             Console.WriteLine("Reading from SerialPort. Press Ctrl+C to quit.");
+            Log("Reading from SerialPort..");
             quitEvent.WaitOne();
 
             Console.WriteLine("Exit...");
@@ -88,12 +116,17 @@ namespace Mixr
                 Console.WriteLine($"  Invert Sliders: {config.invert_sliders}");
                 Console.WriteLine($"  Noise Reduction: {config.noise_reduction}");
                 Console.WriteLine($"  Slider Mapping: {config.slider_mapping.Count} Einträge");
-
+                Log("Config geladen:");
+                Log($"  - Baudrate: {config.baud_rate}");
+                Log($"  - Invert Sliders: {config.invert_sliders}");
+                Log($"  - Noise Reduction: {config.noise_reduction}");
+                Log($"  - Slider Mapping: {config.slider_mapping.Count} Einträge");
                 return true;
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Fehler beim Laden der Config: {ex.Message}");
+                Log($"Fehler beim Laden der Config: {ex.Message}");
                 return false;
             }
         }
@@ -128,11 +161,13 @@ namespace Mixr
                 serialPort = new SerialPort(portName, baudRate);
                 serialPort.Open();
                 Console.WriteLine($"Serieller Port {portName} geöffnet mit {baudRate} Baud.");
+                Log($"Serieller Port {portName} geöffnet mit {baudRate} Baud.");
                 return true;
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Fehler beim Öffnen des Seriellen Ports {portName}: {ex.Message}");
+                Log($"Fehler beim Öffnen des Seriellen Ports {portName}: {ex.Message}");
                 return false;
             }
         }
@@ -143,7 +178,9 @@ namespace Mixr
             {
                 string line = serialPort.ReadLine().Trim();
                 Console.WriteLine($"(PC)Empfangen: {line}");
-
+                Log($"{line}");
+                if (!line.Contains('|') || line.StartsWith("IMG_OK") || line.StartsWith("TXT_OK"))
+                return;
                 string[] parts = line.Split('|');
 
                 for (int i = 0; i < parts.Length && i < config.slider_mapping.Count; i++)
@@ -151,7 +188,7 @@ namespace Mixr
                     if (!int.TryParse(parts[i], out int rawValue)) continue;
 
                     float normalizedLevel = rawValue / 1023f;
-
+                    normalizedLevel = Math.Clamp(normalizedLevel, 0f, 1f);
                     if (Math.Abs(normalizedLevel - lastLevels[i]) < 0.01f) continue;
 
                     lastLevels[i] = normalizedLevel;
@@ -162,6 +199,7 @@ namespace Mixr
             catch (Exception ex)
             {
                 Console.WriteLine($"Fehler beim Verarbeiten der seriellen Daten: {ex.Message}");
+                Log($"Fehler beim Verarbeiten der seriellen Daten: {ex.Message}");
             }
         }
 
@@ -239,16 +277,21 @@ namespace Mixr
             string album = props.AlbumTitle;
 
             string lastTitle = lastKnownTitles.ContainsKey(appId) ? lastKnownTitles[appId] : "";
-            if (title != lastTitle)
+            if (title != lastTitle&&title!="")
             {
                 lastKnownTitles[appId] = title;
                 Console.WriteLine($"\n🎵 Neue Wiedergabe ({appId}):");
                 Console.WriteLine($"   ▶ Titel:    {title}");
                 Console.WriteLine($"   🎤 Künstler: {artist}");
                 Console.WriteLine($"   💿 Album:    {album}");
-                serialPort.Write($"sp|{appId}|{title}|{artist}|{album}\n");
+                Log($"Change in {appId}: {title} by {artist} ({album})");
 
-                if (props.Thumbnail != null)
+                if (songinfo)
+                {
+                    serialPort.Write($"sp|{appId}|{title}|{artist}|{album}\n");
+                }
+
+                if (props.Thumbnail != null && songinfo)
                 {
                     try
                     {
@@ -266,15 +309,23 @@ namespace Mixr
                         var encoderParams = new EncoderParameters(1);
                         encoderParams.Param[0] = new EncoderParameter(Encoder.Quality, 40L);
 
-                        resized.Save("cover.jpg", encoder, encoderParams);
+                        string exeDir = AppDomain.CurrentDomain.BaseDirectory;
+                        string coverPath = Path.Combine(exeDir, "cover.jpg");
+                        Log("Path:" + coverPath);
+                        Log("exeDir"+exeDir);
+                        resized.Save(coverPath, encoder, encoderParams);
 
-                        Console.WriteLine("   🖼️ Komprimiertes Cover gespeichert.");
+
+                        Console.WriteLine("Komprimiertes Cover gespeichert.");
+                        Log("Komprimiertes Cover gespeichert.");
                         SendImageOverSerial("cover.jpg");
                         Console.WriteLine("   🖼️ Komprimiertes Cover geschickt.");
+                        Log("Komprimiertes Cover geschickt.");
                     }
                     catch (Exception ex)
                     {
                         Console.WriteLine($"⚠️ Fehler beim Verarbeiten des Covers: {ex.Message}");
+                        Log($"⚠️ Fehler beim Verarbeiten des Covers: {ex.Message}");
                     }
                 }
 
@@ -288,6 +339,7 @@ namespace Mixr
                 if (!File.Exists(path))
                 {
                     Console.WriteLine("❌ Datei nicht gefunden: " + path);
+                    Log("❌ Datei nicht gefunden: " + path);
                     return;
                 }
 

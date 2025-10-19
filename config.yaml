@@ -6,16 +6,24 @@
 # windows only - you can use a device's full name, i.e. "Speakers (Realtek High Definition Audio)", to bind it. this works for both output and input devices
 # windows only - you can use 'system' to control the "system sounds" volume
 # important: slider indexes start at 0, regardless of which analog pins you're using!
-com_port: COM4
+com_port: COM7
 baud_rate: 230400
-invert_sliders: false
+invert_sliders: true
 slider_mapping:
   - master
-  - Chrome
-  - Spotify
   - Discord
-  - icarus.exe
+  - Chrome
+  - Games
+  - Steam
+  - Media
 
+#session_groups:
+#  Media:
+#    - Chrome
+#    - Spotify
+#  Games:
+#    - DayZ
+#    - AdVenture Capitalist
 
 # settings for connecting to the arduino board
 invert_sliders: false
