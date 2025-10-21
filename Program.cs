@@ -13,6 +13,7 @@ using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Diagnostics;
 
 
 namespace Mixr
@@ -23,7 +24,8 @@ namespace Mixr
         static CoreAudioController audioController = new();
         static AppConfig config = new();
 
-        static Dictionary<string, IAudioSession> sessionMap = new();
+        static Dictionary<string, List<IAudioSession>> sessionMap = new();
+        static Dictionary<string, List<string>> sessionGroups = new();
         static List<float> lastLevels = new();
 
         private static GlobalSystemMediaTransportControlsSessionManager sessionManager = null!;
@@ -31,6 +33,34 @@ namespace Mixr
         private static readonly Dictionary<string, string> lastKnownTitles = new();
 
         private static bool songinfo = false;
+        static readonly HashSet<string> ignoredProcesses = new(StringComparer.OrdinalIgnoreCase)
+        {
+            // Systemprozesse & essentielle Windows-Komponenten
+            "System", "System Idle Process", "Secure System", "Registry", "smss", "csrss", "wininit",
+            "services", "lsass", "LsaIso", "fontdrvhost", "dwm", "winlogon", "WUDFHost",
+            "svchost", "dasHost", "Memory Compression", "WmiPrvSE", "audiodg", "ctfmon", "taskhostw",
+            "unsecapp", "ShellExperienceHost", "StartMenuExperienceHost", "SearchHost", "RuntimeBroker",
+            "SearchIndexer", "WidgetBoard", "WidgetService", "TextInputHost", "PhoneExperienceHost",
+            "ApplicationFrameHost", "UserOOBEBroker", "NgcIso", "backgroundTaskHost", "svchost",
+            "AggregatorHost", "ShellHost", "smartscreen", "OpenConsole", "dllhost", "conhost",
+
+            // Hersteller-Services und bekannte Hintergrund-Tools
+            "RstMwService", "EvtEng", "RegSrvc", "jhi_service", "lghub_updater", "logi_lamparray_service",
+            "DragonCenter_Service", "APP_Dragon_Center_Keeper", "LightKeeperService",
+            "GigabyteUpdateService", "CorsairDeviceControlService", "EasyTuneEngineService",
+            "aswEngSrv", "aswidsagent", "MpDefenderCoreService", "SecurityHealthSystray",
+            "SecurityHealthService", "WMIRegistrationService", "OfficeClickToRun",
+            "VpnSvc", "NahimicService", "NahimicSvc32", "NahimicSvc64", "nahimicNotifSys",
+
+            // Norton, Avast, Nvidia, Steam Services
+            "NortonSvc", "NortonUI", "AvDump", "steamservice", "nvcontainer", "NVDisplay.Container",
+
+            // Windows Store, Edge WebView, Widgets
+            "msedgewebview2", "MicrosoftStartFeedProvider",
+
+            // Andere nicht sichtbare Helfer
+            "sdxhelper", "AppActions", "CC_Engine_x64", "escape-node-job", "tasklist"
+        };
         static void Log(string message)
         {
             try
@@ -52,7 +82,10 @@ namespace Mixr
                 return;
             }
 
+            sessionGroups = config.session_groups ?? new Dictionary<string, List<string>>();
+
             BuildSessionMap();
+            StartProcessWatcher();
             lastLevels = Enumerable.Repeat(-1f, config.slider_mapping.Count).ToList();
 
             if (!OpenSerialPort(config.com_port, config.baud_rate))
@@ -136,21 +169,50 @@ namespace Mixr
             sessionMap.Clear();
             var sessions = audioController.DefaultPlaybackDevice.SessionController.ActiveSessions();
 
-            foreach (var target in config.slider_mapping)
+            foreach (var session in sessions)
             {
-                var match = sessions.FirstOrDefault(s =>
-                    !string.IsNullOrEmpty(s.DisplayName) &&
-                    s.DisplayName.IndexOf(target, StringComparison.OrdinalIgnoreCase) >= 0);
+                if (string.IsNullOrEmpty(session.DisplayName))
+                    continue;
 
-                if (match != null)
+                string? matchedSlider = null;
+
+                foreach (var sliderName in config.slider_mapping)
                 {
-                    sessionMap[target] = match;
-                    Console.WriteLine($"Mapped '{target}' → Session '{match.DisplayName}'");
+                    if (session.DisplayName.IndexOf(sliderName, StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        matchedSlider = sliderName;
+                        break;
+                    }
+                }
+
+                if (matchedSlider == null && config.session_groups != null)
+                {
+                    foreach (var (groupName, keywords) in config.session_groups)
+                    {
+                        foreach (var keyword in keywords)
+                        {
+                            if (session.DisplayName.IndexOf(keyword, StringComparison.OrdinalIgnoreCase) >= 0)
+                            {
+                                matchedSlider = groupName;
+                                break;
+                            }
+                        }
+                        if (matchedSlider != null) break;
+                    }
+                }
+                if (matchedSlider != null)
+                {
+                    if (!sessionMap.ContainsKey(matchedSlider))
+                        sessionMap[matchedSlider] = new List<IAudioSession>();
+
+                    sessionMap[matchedSlider].Add(session);
+                    Log($"Session '{session.DisplayName}' → Slider '{matchedSlider}' hinzugefügt.");
                 }
                 else
                 {
-                    Console.WriteLine($"Keine Session gefunden für '{target}'");
+                    Log($"Session '{session.DisplayName}' wurde keiner Gruppe zugeordnet.");
                 }
+
             }
         }
 
@@ -216,37 +278,37 @@ namespace Mixr
                     return;
                 }
 
-                if (!sessionMap.TryGetValue(target, out var session))
+                if (!sessionMap.TryGetValue(target, out var sessions) || sessions.Count == 0)
                 {
-                    var sessions = audioController.DefaultPlaybackDevice.SessionController.ActiveSessions();
-                    session = sessions.FirstOrDefault(s =>
-                        !string.IsNullOrEmpty(s.DisplayName) &&
-                        s.DisplayName.IndexOf(target, StringComparison.OrdinalIgnoreCase) >= 0);
-
-                    if (session != null)
-                        sessionMap[target] = session;
+                    Log($"⚠️ Keine Sessions für '{target}' gefunden.");
+                    return;
                 }
 
-                if (session != null)
+                foreach (var session in sessions)
                 {
-                    session.Volume = volume;
-                    Console.WriteLine($"🎚 {session.DisplayName}: Lautstärke auf {volume}% gesetzt.");
-                }
-                else
-                {
-                    Console.WriteLine($"⚠️ Keine Session gefunden für '{target}', Lautstärke nicht geändert.");
+                    try
+                    {
+                        session.Volume = volume;
+                        Console.WriteLine($"{session.DisplayName}: Lautstärke auf {volume}% gesetzt.");
+                        Log($"{session.DisplayName}: Lautstärke auf {volume}% gesetzt.");
+                    }
+                    catch (Exception ex)
+                    {
+                        Log($"Fehler beim Setzen der Lautstärke für {session.DisplayName}: {ex.Message}");
+                    }
                 }
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                Log($"Fehler  bei SetVolume({target}):{ex.Message}");
+            }
         }
 
         private static void OnSessionsChanged(GlobalSystemMediaTransportControlsSessionManager sender, object args)
         {
-            Console.WriteLine("🔄 MediaSessions geändert.");
-            foreach (var session in sender.GetSessions())
-            {
-                RegisterSession(session);
-            }
+            Console.WriteLine("Session changed, rebuilding SessionMap");
+            Log("Session changed, rebuilding SessionMap");
+            BuildSessionMap();
         }
 
         private static void RegisterSession(GlobalSystemMediaTransportControlsSession session)
@@ -362,8 +424,49 @@ namespace Mixr
             catch (Exception ex)
             {
                 Console.WriteLine($"❌ Fehler beim Bildsenden: {ex.Message}");
+                Log($"❌ Fehler beim Bildsenden: {ex.Message}");
             }
         }
+        static void StartProcessWatcher()
+        {
+            _ = Task.Run(async () =>
+            {
+                var knownPIDs = Process.GetProcesses()
+                .Where(p => !ignoredProcesses.Contains(Path.GetFileNameWithoutExtension(p.ProcessName)))
+                .Select(p => p.Id).ToHashSet();
 
+                while (true)
+                    {
+                        try
+                        {
+                        var currentRelevant = Process.GetProcesses()
+                        .Where(p =>
+                        {
+                            try
+                            {
+                            return !ignoredProcesses.Contains(Path.GetFileNameWithoutExtension(p.ProcessName));
+                            }
+                            catch { return false; }
+                        })
+                        .Select(p => p.Id).ToHashSet();
+
+
+                        if (!currentRelevant.SetEquals(knownPIDs))
+                        {
+                            knownPIDs = currentRelevant;
+                            Log("Prozessänderung (No Hash) detected. Rebuilding SessionMap.");
+                            BuildSessionMap();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                    Log($"Error ProcessWatcher: {ex.Message}");
+                    }
+
+
+                await Task.Delay(5000);
+                }
+            });
+        }
     }
 }

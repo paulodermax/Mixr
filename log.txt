@@ -1,0 +1,10 @@
+[21:16:39] Start
+[21:16:42] Config geladen:
+[21:16:42]   - Baudrate: 230400
+[21:16:42]   - Invert Sliders: False
+[21:16:42]   - Noise Reduction: default
+[21:16:42]   - Slider Mapping: 6 Einträge
+[21:16:42] Session 'OBS Studio' wurde keiner Gruppe zugeordnet.
+[21:16:42] Session 'Discord' → Slider 'social' hinzugefügt.
+[21:16:42] Serieller Port COM7 geöffnet mit 230400 Baud.
+[21:16:42] Reading from SerialPort..

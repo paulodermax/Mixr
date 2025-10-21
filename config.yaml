@@ -11,19 +11,30 @@ baud_rate: 230400
 invert_sliders: true
 slider_mapping:
   - master
-  - Discord
-  - Chrome
-  - Games
-  - Steam
-  - Media
+  - social
+  - media
+  - games
+  - hubs
+  - tmm
 
-#session_groups:
-#  Media:
-#    - Chrome
-#    - Spotify
-#  Games:
-#    - DayZ
-#    - AdVenture Capitalist
+session_groups:
+  media:
+    - Chrome
+    - Google Chrome
+    - Spotify
+    - Spotify Premium
+  games:
+    - DayZ
+    - AdCap!
+    - Stardew Valley
+    - Battlefield 6
+  social:
+    - Discord
+    - TeamSpeak 4
+  hubs:
+    - Steam
+    - Steam (32 Bit)
+    - EA Play
 
 # settings for connecting to the arduino board
 invert_sliders: false
