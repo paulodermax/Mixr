@@ -33,33 +33,42 @@ namespace Mixr
         private static readonly Dictionary<string, string> lastKnownTitles = new();
 
         private static bool songinfo = false;
-        static readonly HashSet<string> ignoredProcesses = new(StringComparer.OrdinalIgnoreCase)
+        readonly static HashSet<string> ignoredProcesses = new()
         {
-            // Systemprozesse & essentielle Windows-Komponenten
-            "System", "System Idle Process", "Secure System", "Registry", "smss", "csrss", "wininit",
-            "services", "lsass", "LsaIso", "fontdrvhost", "dwm", "winlogon", "WUDFHost",
-            "svchost", "dasHost", "Memory Compression", "WmiPrvSE", "audiodg", "ctfmon", "taskhostw",
-            "unsecapp", "ShellExperienceHost", "StartMenuExperienceHost", "SearchHost", "RuntimeBroker",
-            "SearchIndexer", "WidgetBoard", "WidgetService", "TextInputHost", "PhoneExperienceHost",
-            "ApplicationFrameHost", "UserOOBEBroker", "NgcIso", "backgroundTaskHost", "svchost",
-            "AggregatorHost", "ShellHost", "smartscreen", "OpenConsole", "dllhost", "conhost",
+            // Windows System
+            "system", "system idle process", "registry", "smss", "csrss",
+            "wininit", "services", "lsass", "lsaiso", "svchost", "fontdrvhost",
+            "runtimebroker", "winlogon", "audiodg", "wudfhost", "dwm",
+            "dasHost", "searchapp", "sihost", "ctfmon", "taskhostw",
+            "memory compression", "wmiPrvSE", "backgroundtaskhost","WmiPrvSE",
 
-            // Hersteller-Services und bekannte Hintergrund-Tools
-            "RstMwService", "EvtEng", "RegSrvc", "jhi_service", "lghub_updater", "logi_lamparray_service",
-            "DragonCenter_Service", "APP_Dragon_Center_Keeper", "LightKeeperService",
-            "GigabyteUpdateService", "CorsairDeviceControlService", "EasyTuneEngineService",
-            "aswEngSrv", "aswidsagent", "MpDefenderCoreService", "SecurityHealthSystray",
-            "SecurityHealthService", "WMIRegistrationService", "OfficeClickToRun",
-            "VpnSvc", "NahimicService", "NahimicSvc32", "NahimicSvc64", "nahimicNotifSys",
+            // Security / Antivirus / Update
+            "avdump", "aswengsrv", "aswidsagent", "nortonui", "nortonSvc",
+            "nordupdateservice", "defender", "securityhealthservice",
+            "securityhealthsystray", "officeclicktorun", "updateservice",
+            "ipoverusbsvc", "wslservice", "windowsdefender", "searchindexer",
 
-            // Norton, Avast, Nvidia, Steam Services
-            "NortonSvc", "NortonUI", "AvDump", "steamservice", "nvcontainer", "NVDisplay.Container",
+            // Herstellerdienste / Treiber
+            "dragoncenter_service", "nahimicservice", "nahimicsvc64",
+            "nahimicsvc32", "gigabyteupdateservice", "lghub_updater",
+            "logi_lamparray_service", "rtkauduservice64", "nvdisplay.container",
+            "nvcontainer", "afwserv", "vpnsvc", "spoolsv", "evteng", "regsrvc",
 
-            // Windows Store, Edge WebView, Widgets
-            "msedgewebview2", "MicrosoftStartFeedProvider",
+            // Visual Studio Code / Dev Helper
+            "code", "conhost", "openconsole", "cmd",
+            "microsoft.codeanalysis.languageserver",
+            "microsoft.visualstudio.code.server",
+            "microsoft.visualstudio.code.servicecontroller",
+            "microsoft.visualstudio.code.servicehost",
+            "escape-node-job", "appactions",
 
-            // Andere nicht sichtbare Helfer
-            "sdxhelper", "AppActions", "CC_Engine_x64", "escape-node-job", "tasklist"
+            // Edge WebView2 / Widgets / Windows Shell
+            "msedgewebview2", "widgetboard", "widgetservice",
+            "startmenuexperiencehost", "searchhost", "textinputhost",
+            "phoneexperiencehost", "shellhost", "shellexperiencehost",
+
+            // Smartscreen / Explorer
+            "smartscreen", "explorer", "useroobebroker", "applicationframehost"
         };
         static void Log(string message)
         {
@@ -427,46 +436,59 @@ namespace Mixr
                 Log($"❌ Fehler beim Bildsenden: {ex.Message}");
             }
         }
-        static void StartProcessWatcher()
+       static void StartProcessWatcher()
         {
             _ = Task.Run(async () =>
             {
-                var knownPIDs = Process.GetProcesses()
-                .Where(p => !ignoredProcesses.Contains(Path.GetFileNameWithoutExtension(p.ProcessName)))
-                .Select(p => p.Id).ToHashSet();
+                var whitelist = config.whitelist?.Select(p => p.ToLowerInvariant()).ToHashSet() ?? new();
+
+                var known = Process.GetProcesses()
+                    .Where(p => whitelist.Contains(Path.GetFileNameWithoutExtension(p.ProcessName).ToLowerInvariant()))
+                    .Select(p => (p.ProcessName, p.Id))
+                    .ToHashSet();
 
                 while (true)
+                {
+                    try
                     {
-                        try
-                        {
-                        var currentRelevant = Process.GetProcesses()
-                        .Where(p =>
-                        {
-                            try
+                        var current = Process.GetProcesses()
+                            .Where(p =>
                             {
-                            return !ignoredProcesses.Contains(Path.GetFileNameWithoutExtension(p.ProcessName));
-                            }
-                            catch { return false; }
-                        })
-                        .Select(p => p.Id).ToHashSet();
+                                try
+                                {
+                                    return whitelist.Contains(Path.GetFileNameWithoutExtension(p.ProcessName).ToLowerInvariant());
+                                }
+                                catch { return false; }
+                            })
+                            .Select(p => (p.ProcessName, p.Id))
+                            .ToHashSet();
 
+                        var added = current.Except(known);
+                        var removed = known.Except(current);
 
-                        if (!currentRelevant.SetEquals(knownPIDs))
+                        foreach (var proc in added)
+                            Log($"[ProcessWatcher] Neuer Whitelist-Prozess gestartet: {proc.ProcessName} (PID: {proc.Id})");
+
+                        foreach (var proc in removed)
+                            Log($"[ProcessWatcher] Whitelist-Prozess beendet: {proc.ProcessName} (PID: {proc.Id})");
+
+                        if (added.Any() || removed.Any())
                         {
-                            knownPIDs = currentRelevant;
-                            Log("Prozessänderung (No Hash) detected. Rebuilding SessionMap.");
+                            Log("[ProcessWatcher] Änderung erkannt → Rebuild der SessionMap.");
                             BuildSessionMap();
                         }
+
+                        known = current;
                     }
                     catch (Exception ex)
                     {
-                    Log($"Error ProcessWatcher: {ex.Message}");
+                        Log($"[ProcessWatcher] Fehler: {ex.Message}");
                     }
 
-
-                await Task.Delay(5000);
+                    await Task.Delay(5000); // z. B. alle 5 Sekunden
                 }
             });
         }
+
     }
 }

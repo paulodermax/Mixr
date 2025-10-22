@@ -30,11 +30,35 @@ session_groups:
     - Battlefield 6
   social:
     - Discord
+    - Discord.exe
     - TeamSpeak 4
   hubs:
     - Steam
     - Steam (32 Bit)
     - EA Play
+
+whitelist:
+  - Chrome
+  - Google Chrome
+  - Spotify
+  - Spotify Premium
+  - DayZ
+  - AdCap!
+  - Stardew Valley
+  - Battlefield 6
+  - Discord
+  - discord
+  - Discord.exe
+  - TeamSpeak 4
+  - Firefox
+  - Apple Music
+  - Apple Music Premium
+  - Modern Warfare 2
+  - Modern Warfare 2 Multiplayer
+  - Balatro
+  - Factorio
+  - Path of Exile
+
 
 # settings for connecting to the arduino board
 invert_sliders: false
