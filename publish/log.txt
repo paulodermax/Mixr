@@ -1,0 +1,265 @@
+[00:07:23] Start
+[00:07:26] Config geladen:
+[00:07:26]   - Baudrate: 230400
+[00:07:26]   - Invert Sliders: True
+[00:07:26]   - Noise Reduction: default
+[00:07:26]   - Slider Mapping: 6 Einträge
+[00:07:26] Session 'Discord' → Slider 'social' hinzugefügt.
+[00:07:26] Session 'Google Chrome' → Slider 'media' hinzugefügt.
+[00:07:26] Session 'OBS Studio' wurde keiner Gruppe zugeordnet.
+[00:07:26] Serieller Port COM7 geöffnet mit 230400 Baud.
+[00:07:26] Reading from SerialPort..
+[00:08:01] 596|648|497|455|593|573
+[00:08:01] Discord: Lautstärke auf 63% gesetzt.
+[00:08:01] Google Chrome: Lautstärke auf 48% gesetzt.
+[00:08:01] ⚠️ Keine Sessions für 'games' gefunden.
+[00:08:01] ⚠️ Keine Sessions für 'hubs' gefunden.
+[00:08:01] ⚠️ Keine Sessions für 'tmm' gefunden.
+[00:08:01] 598|648|497|455|593|573
+[00:08:02] 597|648|497|455|593|573
+[00:08:02] 633|648|497|455|593|573
+[00:08:02] 681|648|497|455|593|573
+[00:08:02] 657|648|497|455|593|573
+[00:08:03] 604|648|497|455|593|573
+[00:08:03] 546|648|497|455|593|573
+[00:08:03] 529|648|497|455|593|573
+[00:08:03] 551|648|497|454|593|573
+[00:08:03] 604|648|497|455|593|573
+[00:08:03] 641|648|497|455|593|573
+[00:08:04] 655|648|497|455|593|573
+[00:08:04] 671|648|497|455|593|573
+[00:08:04] 712|648|497|455|593|573
+[00:08:04] 645|648|497|454|593|573
+[00:08:05] 598|648|497|455|593|573
+[00:08:05] 558|648|497|455|593|573
+[00:08:05] 544|648|497|455|593|573
+[00:08:06] 603|648|497|455|593|573
+[00:08:06] 652|648|497|455|593|573
+[00:08:07] 699|648|497|455|593|573
+[00:08:07] 668|648|497|455|593|573
+[00:08:07] 595|648|497|455|593|574
+[00:08:07] 513|648|497|455|593|573
+[00:08:07] 447|648|497|454|593|573
+[00:08:08] 402|648|497|455|593|573
+[00:08:08] 447|648|497|455|593|573
+[00:08:08] 504|648|497|455|593|573
+[00:08:08] 559|648|497|455|593|573
+[00:08:09] 612|648|497|455|593|573
+[00:08:09] 628|648|497|455|593|573
+[00:08:09] 640|648|497|455|593|573
+[00:08:09] 553|648|497|455|593|573
+[00:08:09] 454|648|497|455|593|573
+[00:08:09] 347|648|497|455|593|573
+[00:08:09] 287|648|497|455|593|573
+[00:08:10] 313|648|497|455|593|573
+[00:08:10] 486|648|497|454|593|573
+[00:08:10] 538|648|498|455|593|573
+[00:08:10] 419|648|497|455|593|573
+[00:08:10] 388|648|497|454|593|574
+[00:08:10] 514|648|497|455|593|573
+[00:08:10] 553|648|497|455|593|573
+[00:08:11] 538|648|497|455|593|573
+[00:08:11] 479|648|497|455|593|573
+[00:08:53] 522|648|497|455|593|573
+[00:08:53] 537|648|497|455|593|573
+[00:08:54] 568|648|497|455|593|573
+[00:08:54] 588|648|497|455|593|573
+[00:08:54] 644|648|497|455|593|573
+[00:08:54] 697|649|497|455|593|573
+[00:08:57] 820|650|497|455|593|573
+[00:08:57] 938|650|497|455|593|573
+[00:08:58] 1023|650|497|454|593|573
+[00:08:58] 1002|650|497|455|593|573
+[00:09:00] 985|650|497|455|593|573
+[00:09:00] 996|650|497|455|593|573
+[00:09:01] 1023|650|497|455|593|573
+[00:09:01] 997|650|497|455|593|573
+[00:09:01] 1023|650|497|455|593|573
+[00:09:03] 988|650|497|455|593|573
+[00:09:03] 948|650|497|455|593|573
+[00:09:03] 1018|650|497|455|593|573
+[00:09:04] 927|650|497|455|593|573
+[00:09:04] 911|650|497|455|593|572
+[00:09:05] 1023|650|497|455|593|573
+[00:09:05] 1000|650|498|454|593|573
+[00:09:06] 976|651|497|455|593|573
+[00:09:06] 1023|650|497|455|593|573
+[00:09:06] 1023|650|564|455|593|573
+[00:09:06] Google Chrome: Lautstärke auf 55% gesetzt.
+[00:09:06] 1023|650|652|455|593|573
+[00:09:06] Google Chrome: Lautstärke auf 63% gesetzt.
+[00:09:06] 1023|650|745|454|593|573
+[00:09:06] Google Chrome: Lautstärke auf 72% gesetzt.
+[00:09:06] 1023|650|766|455|593|573
+[00:09:06] Google Chrome: Lautstärke auf 74% gesetzt.
+[00:09:06] 1023|651|780|455|593|573
+[00:09:06] Google Chrome: Lautstärke auf 76% gesetzt.
+[00:09:06] 1023|651|816|455|593|573
+[00:09:06] Google Chrome: Lautstärke auf 79% gesetzt.
+[00:09:08] 1023|651|867|455|593|573
+[00:09:08] Google Chrome: Lautstärke auf 84% gesetzt.
+[00:09:08] 1023|651|906|455|593|573
+[00:09:08] Google Chrome: Lautstärke auf 88% gesetzt.
+[00:09:09] 1023|651|928|455|593|573
+[00:09:09] Google Chrome: Lautstärke auf 90% gesetzt.
+[00:09:09] 1023|651|982|455|593|573
+[00:09:09] Google Chrome: Lautstärke auf 95% gesetzt.
+[00:09:09] 1023|651|1023|455|593|573
+[00:09:09] Google Chrome: Lautstärke auf 100% gesetzt.
+[00:09:09] 1023|662|1023|455|593|573
+[00:09:09] Discord: Lautstärke auf 64% gesetzt.
+[00:09:11] 1023|732|1023|455|593|573
+[00:09:11] Discord: Lautstärke auf 71% gesetzt.
+[00:09:11] 1023|872|1023|454|593|573
+[00:09:11] Discord: Lautstärke auf 85% gesetzt.
+[00:09:12] 1023|1023|1023|455|593|573
+[00:09:12] Discord: Lautstärke auf 100% gesetzt.
+[00:09:12] 1023|1023|1023|432|593|573
+[00:09:12] ⚠️ Keine Sessions für 'games' gefunden.
+[00:09:12] 1023|1023|1023|319|593|573
+[00:09:12] ⚠️ Keine Sessions für 'games' gefunden.
+[00:09:13] 1023|1023|1023|390|593|572
+[00:09:13] ⚠️ Keine Sessions für 'games' gefunden.
+[00:09:13] 1023|1023|1023|534|593|573
+[00:09:13] ⚠️ Keine Sessions für 'games' gefunden.
+[00:09:13] 1023|1023|1022|634|594|574
+[00:09:13] ⚠️ Keine Sessions für 'games' gefunden.
+[00:09:14] 1023|1023|1023|792|594|573
+[00:09:14] ⚠️ Keine Sessions für 'games' gefunden.
+[00:09:14] 1023|1023|1023|955|593|573
+[00:09:14] ⚠️ Keine Sessions für 'games' gefunden.
+[00:09:14] 1023|1023|1023|1023|593|573
+[00:09:14] ⚠️ Keine Sessions für 'games' gefunden.
+[00:09:14] 1023|1023|1023|1023|610|573
+[00:09:14] ⚠️ Keine Sessions für 'hubs' gefunden.
+[00:09:14] 1023|1023|1023|1023|661|573
+[00:09:14] ⚠️ Keine Sessions für 'hubs' gefunden.
+[00:09:14] 1023|1023|1023|1023|758|573
+[00:09:14] ⚠️ Keine Sessions für 'hubs' gefunden.
+[00:09:15] 1023|1023|1023|1023|892|573
+[00:09:15] ⚠️ Keine Sessions für 'hubs' gefunden.
+[00:09:15] 1023|1023|1023|1023|988|573
+[00:09:15] ⚠️ Keine Sessions für 'hubs' gefunden.
+[00:09:16] 1023|1023|1023|1023|1023|573
+[00:09:16] ⚠️ Keine Sessions für 'hubs' gefunden.
+[00:09:16] 1023|1023|1023|1023|1022|640
+[00:09:16] ⚠️ Keine Sessions für 'tmm' gefunden.
+[00:09:18] 1023|1023|1023|1023|1023|768
+[00:09:18] ⚠️ Keine Sessions für 'tmm' gefunden.
+[00:09:18] 1023|1023|1023|1023|1023|916
+[00:09:18] ⚠️ Keine Sessions für 'tmm' gefunden.
+[00:09:18] 1023|1023|1023|1023|1023|1014
+[00:09:18] ⚠️ Keine Sessions für 'tmm' gefunden.
+[00:09:18] 938|945|941|952|967|1023
+[00:09:18] Discord: Lautstärke auf 92% gesetzt.
+[00:09:18] Google Chrome: Lautstärke auf 91% gesetzt.
+[00:09:18] ⚠️ Keine Sessions für 'games' gefunden.
+[00:09:18] ⚠️ Keine Sessions für 'hubs' gefunden.
+[00:09:18] 785|802|816|846|889|1023
+[00:09:18] Discord: Lautstärke auf 78% gesetzt.
+[00:09:18] Google Chrome: Lautstärke auf 79% gesetzt.
+[00:09:18] ⚠️ Keine Sessions für 'games' gefunden.
+[00:09:18] ⚠️ Keine Sessions für 'hubs' gefunden.
+[00:09:19] 659|678|698|734|783|1023
+[00:09:19] Discord: Lautstärke auf 66% gesetzt.
+[00:09:19] Google Chrome: Lautstärke auf 68% gesetzt.
+[00:09:19] ⚠️ Keine Sessions für 'games' gefunden.
+[00:09:19] ⚠️ Keine Sessions für 'hubs' gefunden.
+[00:09:19] 551|569|578|598|638|1023
+[00:09:19] Discord: Lautstärke auf 55% gesetzt.
+[00:09:19] Google Chrome: Lautstärke auf 56% gesetzt.
+[00:09:19] ⚠️ Keine Sessions für 'games' gefunden.
+[00:09:19] ⚠️ Keine Sessions für 'hubs' gefunden.
+[00:09:19] 518|536|553|574|612|1023
+[00:09:19] Discord: Lautstärke auf 52% gesetzt.
+[00:09:19] Google Chrome: Lautstärke auf 54% gesetzt.
+[00:09:19] ⚠️ Keine Sessions für 'games' gefunden.
+[00:09:19] ⚠️ Keine Sessions für 'hubs' gefunden.
+[00:09:19] 506|536|553|574|612|1023
+[00:09:19] 470|532|553|575|612|963
+[00:09:19] ⚠️ Keine Sessions für 'tmm' gefunden.
+[00:09:19] 325|373|391|378|421|604
+[00:09:19] Discord: Lautstärke auf 36% gesetzt.
+[00:09:19] Google Chrome: Lautstärke auf 38% gesetzt.
+[00:09:19] ⚠️ Keine Sessions für 'games' gefunden.
+[00:09:19] ⚠️ Keine Sessions für 'hubs' gefunden.
+[00:09:19] ⚠️ Keine Sessions für 'tmm' gefunden.
+[00:09:19] 199|233|237|210|248|387
+[00:09:19] Discord: Lautstärke auf 22% gesetzt.
+[00:09:19] Google Chrome: Lautstärke auf 23% gesetzt.
+[00:09:19] ⚠️ Keine Sessions für 'games' gefunden.
+[00:09:19] ⚠️ Keine Sessions für 'hubs' gefunden.
+[00:09:19] ⚠️ Keine Sessions für 'tmm' gefunden.
+[00:09:27] 17|52|51|33|59|154
+[00:09:27] Discord: Lautstärke auf 5% gesetzt.
+[00:09:27] Google Chrome: Lautstärke auf 4% gesetzt.
+[00:09:27] ⚠️ Keine Sessions für 'games' gefunden.
+[00:09:27] ⚠️ Keine Sessions für 'hubs' gefunden.
+[00:09:27] ⚠️ Keine Sessions für 'tmm' gefunden.
+[00:09:27] 0|0|0|0|0|11
+[00:09:27] Discord: Lautstärke auf 0% gesetzt.
+[00:09:27] Google Chrome: Lautstärke auf 0% gesetzt.
+[00:09:27] ⚠️ Keine Sessions für 'games' gefunden.
+[00:09:27] ⚠️ Keine Sessions für 'hubs' gefunden.
+[00:09:27] ⚠️ Keine Sessions für 'tmm' gefunden.
+[00:09:27] 0|0|0|0|0|0
+[00:09:27] ⚠️ Keine Sessions für 'tmm' gefunden.
+[00:09:27] 1|0|0|0|1|12
+[00:09:27] ⚠️ Keine Sessions für 'tmm' gefunden.
+[00:09:27] 96|46|0|8|71|72
+[00:09:27] Discord: Lautstärke auf 4% gesetzt.
+[00:09:27] ⚠️ Keine Sessions für 'hubs' gefunden.
+[00:09:27] ⚠️ Keine Sessions für 'tmm' gefunden.
+[00:09:27] 193|149|103|93|137|130
+[00:09:27] Discord: Lautstärke auf 14% gesetzt.
+[00:09:27] Google Chrome: Lautstärke auf 10% gesetzt.
+[00:09:27] ⚠️ Keine Sessions für 'games' gefunden.
+[00:09:27] ⚠️ Keine Sessions für 'hubs' gefunden.
+[00:09:27] ⚠️ Keine Sessions für 'tmm' gefunden.
+[00:09:27] 281|227|191|166|205|198
+[00:09:27] Discord: Lautstärke auf 22% gesetzt.
+[00:09:27] Google Chrome: Lautstärke auf 18% gesetzt.
+[00:09:27] ⚠️ Keine Sessions für 'games' gefunden.
+[00:09:27] ⚠️ Keine Sessions für 'hubs' gefunden.
+[00:09:27] ⚠️ Keine Sessions für 'tmm' gefunden.
+[00:09:27] 361|301|276|249|281|273
+[00:09:27] Discord: Lautstärke auf 29% gesetzt.
+[00:09:27] Google Chrome: Lautstärke auf 26% gesetzt.
+[00:09:27] ⚠️ Keine Sessions für 'games' gefunden.
+[00:09:27] ⚠️ Keine Sessions für 'hubs' gefunden.
+[00:09:27] ⚠️ Keine Sessions für 'tmm' gefunden.
+[00:09:28] 431|365|374|352|384|367
+[00:09:28] Discord: Lautstärke auf 35% gesetzt.
+[00:09:28] Google Chrome: Lautstärke auf 36% gesetzt.
+[00:09:28] ⚠️ Keine Sessions für 'games' gefunden.
+[00:09:28] ⚠️ Keine Sessions für 'hubs' gefunden.
+[00:09:28] ⚠️ Keine Sessions für 'tmm' gefunden.
+[00:09:28] 472|416|431|415|455|439
+[00:09:28] Discord: Lautstärke auf 40% gesetzt.
+[00:09:28] Google Chrome: Lautstärke auf 42% gesetzt.
+[00:09:28] ⚠️ Keine Sessions für 'games' gefunden.
+[00:09:28] ⚠️ Keine Sessions für 'hubs' gefunden.
+[00:09:28] ⚠️ Keine Sessions für 'tmm' gefunden.
+[00:09:29] 483|427|440|425|470|455
+[00:09:29] Discord: Lautstärke auf 41% gesetzt.
+[00:09:29] ⚠️ Keine Sessions für 'hubs' gefunden.
+[00:09:29] ⚠️ Keine Sessions für 'tmm' gefunden.
+[00:09:29] 522|452|441|425|471|457
+[00:09:29] Discord: Lautstärke auf 44% gesetzt.
+[00:09:29] 526|469|470|449|472|457
+[00:09:29] Discord: Lautstärke auf 45% gesetzt.
+[00:09:29] Google Chrome: Lautstärke auf 45% gesetzt.
+[00:09:29] ⚠️ Keine Sessions für 'games' gefunden.
+[00:09:30] 531|492|497|455|475|457
+[00:09:30] Discord: Lautstärke auf 48% gesetzt.
+[00:09:30] Google Chrome: Lautstärke auf 48% gesetzt.
+[00:09:31] 531|509|506|457|475|458
+[00:09:31] Discord: Lautstärke auf 49% gesetzt.
+[00:09:31] 531|522|514|465|475|458
+[00:09:31] Discord: Lautstärke auf 51% gesetzt.
+[00:09:31] Google Chrome: Lautstärke auf 50% gesetzt.
+[00:09:31] ⚠️ Keine Sessions für 'games' gefunden.
+[00:09:31] 532|522|517|481|495|470
+[00:09:31] ⚠️ Keine Sessions für 'games' gefunden.
+[00:09:31] ⚠️ Keine Sessions für 'hubs' gefunden.
+[00:09:31] ⚠️ Keine Sessions für 'tmm' gefunden.

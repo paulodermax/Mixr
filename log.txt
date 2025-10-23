@@ -8,3 +8,268 @@
 [21:16:42] Session 'Discord' → Slider 'social' hinzugefügt.
 [21:16:42] Serieller Port COM7 geöffnet mit 230400 Baud.
 [21:16:42] Reading from SerialPort..
+[00:11:07] Start
+[00:11:10] Config geladen:
+[00:11:10]   - Baudrate: 230400
+[00:11:10]   - Invert Sliders: True
+[00:11:10]   - Noise Reduction: default
+[00:11:10]   - Slider Mapping: 6 Einträge
+[00:11:10] Session 'Discord' → Slider 'social' hinzugefügt.
+[00:11:10] Session 'Google Chrome' → Slider 'media' hinzugefügt.
+[00:11:10] Session 'OBS Studio' wurde keiner Gruppe zugeordnet.
+[00:11:10] Serieller Port COM7 geöffnet mit 230400 Baud.
+[00:11:10] Reading from SerialPort..
+[00:11:18] 532|538|541|510|524|510
+[00:11:18] System.String[]
+[00:11:18] Discord: Lautstärke auf 52% gesetzt.
+[00:11:18] Google Chrome: Lautstärke auf 52% gesetzt.
+[00:11:18] ⚠️ Keine Sessions für 'games' gefunden.
+[00:11:18] ⚠️ Keine Sessions für 'hubs' gefunden.
+[00:11:18] ⚠️ Keine Sessions für 'tmm' gefunden.
+[00:11:18] 545|539|542|509|524|502
+[00:11:18] System.String[]
+[00:11:18] 606|539|542|510|524|501
+[00:11:18] System.String[]
+[00:11:19] 621|539|542|509|524|502
+[00:11:19] System.String[]
+[00:11:19] 603|539|542|510|524|502
+[00:11:19] System.String[]
+[00:11:19] 554|538|542|509|524|502
+[00:11:19] System.String[]
+[00:11:20] 534|538|542|510|524|502
+[00:11:20] System.String[]
+[00:11:21] 570|539|542|509|524|501
+[00:11:21] System.String[]
+[00:11:21] 533|539|542|509|524|502
+[00:11:21] System.String[]
+[00:11:21] 507|539|542|509|524|502
+[00:11:21] System.String[]
+[00:11:23] 482|539|542|510|524|502
+[00:11:23] System.String[]
+[00:11:23] 464|539|542|509|524|502
+[00:11:23] System.String[]
+[00:11:23] 342|539|542|509|524|502
+[00:11:23] System.String[]
+[00:11:24] 276|539|542|509|524|502
+[00:11:24] System.String[]
+[00:11:24] 290|538|542|509|524|502
+[00:11:24] System.String[]
+[00:11:24] 338|539|542|509|524|502
+[00:11:24] System.String[]
+[00:11:24] 390|539|542|508|524|502
+[00:11:24] System.String[]
+[00:11:25] 412|539|542|509|524|502
+[00:11:25] System.String[]
+[00:11:25] 467|539|542|509|524|502
+[00:11:25] System.String[]
+[00:11:25] 519|539|542|509|524|502
+[00:11:25] System.String[]
+[00:11:26] 544|539|542|509|524|502
+[00:11:26] System.String[]
+[00:11:26] 579|539|542|510|524|502
+[00:11:26] System.String[]
+[00:11:27] 682|539|542|509|524|502
+[00:11:27] System.String[]
+[00:11:27] 728|539|542|509|524|502
+[00:11:27] System.String[]
+[00:11:27] 789|539|542|509|524|502
+[00:11:27] System.String[]
+[00:11:30] [ProcessWatcher] Whitelist-Prozess beendet: chrome (PID: 7512)
+[00:11:30] [ProcessWatcher] Whitelist-Prozess beendet: chrome (PID: 14040)
+[00:11:30] [ProcessWatcher] Änderung erkannt → Rebuild der SessionMap.
+[00:11:30] Session 'Discord' → Slider 'social' hinzugefügt.
+[00:11:30] Session 'Google Chrome' → Slider 'media' hinzugefügt.
+[00:11:30] Session 'OBS Studio' wurde keiner Gruppe zugeordnet.
+[00:11:33] 830|539|542|509|524|502
+[00:11:33] System.String[]
+[00:11:34] 861|539|542|510|524|502
+[00:11:34] System.String[]
+[00:11:36] 1023|539|542|509|524|502
+[00:11:36] System.String[]
+[00:11:36] 1023|640|542|510|524|501
+[00:11:36] System.String[]
+[00:11:36] Discord: Lautstärke auf 62% gesetzt.
+[00:11:36] 1023|707|542|509|524|502
+[00:11:36] System.String[]
+[00:11:36] Discord: Lautstärke auf 69% gesetzt.
+[00:11:37] 1023|762|542|509|524|502
+[00:11:37] System.String[]
+[00:11:37] Discord: Lautstärke auf 74% gesetzt.
+[00:11:37] 1023|714|542|510|524|502
+[00:11:37] System.String[]
+[00:11:37] Discord: Lautstärke auf 69% gesetzt.
+[00:11:37] 1023|655|542|509|524|502
+[00:11:37] System.String[]
+[00:11:37] Discord: Lautstärke auf 64% gesetzt.
+[00:11:37] 1023|603|542|509|524|502
+[00:11:37] System.String[]
+[00:11:37] Discord: Lautstärke auf 58% gesetzt.
+[00:11:38] 841|603|542|509|524|502
+[00:11:38] System.String[]
+[00:11:38] 600|603|542|510|524|502
+[00:11:38] System.String[]
+[00:11:38] 553|603|542|509|524|502
+[00:11:38] System.String[]
+[00:11:38] 585|603|542|509|524|502
+[00:11:38] System.String[]
+[00:11:39] 621|603|542|510|524|501
+[00:11:39] System.String[]
+[00:11:40] 579|603|542|509|524|501
+[00:11:40] System.String[]
+[00:11:40] 578|563|542|509|524|502
+[00:11:40] System.String[]
+[00:11:40] Discord: Lautstärke auf 55% gesetzt.
+[00:11:40] 577|444|542|509|524|502
+[00:11:40] System.String[]
+[00:11:40] Discord: Lautstärke auf 43% gesetzt.
+[00:11:40] 552|444|542|510|524|501
+[00:11:40] System.String[]
+[00:11:41] 498|444|542|510|524|502
+[00:11:41] System.String[]
+[00:11:41] 497|456|542|509|524|502
+[00:11:41] System.String[]
+[00:11:41] Discord: Lautstärke auf 44% gesetzt.
+[00:11:41] 497|481|542|509|524|502
+[00:11:41] System.String[]
+[00:11:41] Discord: Lautstärke auf 47% gesetzt.
+[00:11:41] 497|512|542|510|524|502
+[00:11:41] System.String[]
+[00:11:41] Discord: Lautstärke auf 50% gesetzt.
+[00:11:41] 498|526|542|509|524|501
+[00:11:41] System.String[]
+[00:11:41] Discord: Lautstärke auf 51% gesetzt.
+[00:11:42] 538|525|542|509|524|502
+[00:11:42] System.String[]
+[01:51:07] Start
+[01:51:10] Config geladen:
+[01:51:10]   - Baudrate: 230400
+[01:51:10]   - Invert Sliders: True
+[01:51:10]   - Noise Reduction: default
+[01:51:10]   - Slider Mapping: 6 Einträge
+[01:51:10] Session 'Discord' → Slider 'social' hinzugefügt.
+[01:51:10] Session 'OBS Studio' wurde keiner Gruppe zugeordnet.
+[01:51:10] Serieller Port COM7 geöffnet mit 230400 Baud.
+[01:51:10] Reading from SerialPort..
+[01:51:17] 558|560|499|517|480|406
+[01:51:17] Discord: Lautstärke auf 54% gesetzt.
+[01:51:17] ⚠️ Keine Sessions für 'media' gefunden.
+[01:51:17] ⚠️ Keine Sessions für 'games' gefunden.
+[01:51:17] ⚠️ Keine Sessions für 'hubs' gefunden.
+[01:51:17] ⚠️ Keine Sessions für 'tmm' gefunden.
+[01:51:17] 597|560|499|517|480|406
+[01:51:17] 621|561|499|517|480|406
+[01:51:18] 553|560|499|517|480|406
+[01:51:18] 470|560|499|517|480|406
+[01:51:18] 420|561|499|517|480|406
+[01:51:18] 475|561|499|517|480|406
+[01:51:19] 522|560|499|517|480|406
+[01:51:19] 588|561|499|517|480|406
+[01:51:19] 626|560|499|517|480|406
+[01:51:20] 507|560|499|517|480|406
+[01:51:20] 450|561|499|517|480|406
+[01:51:21] 527|561|499|517|480|406
+[01:51:21] 591|561|499|517|480|406
+[01:51:21] 659|560|499|517|480|406
+[01:51:21] 739|561|499|517|480|406
+[01:51:22] 783|560|499|517|480|406
+[01:51:22] 832|561|499|517|480|406
+[01:51:22] 910|561|499|517|480|406
+[01:51:22] 985|561|499|517|480|406
+[01:51:22] 1023|561|499|517|480|406
+[01:51:24] 923|561|499|517|480|406
+[01:51:24] 825|561|499|517|480|406
+[01:51:24] 760|561|499|517|480|406
+[01:51:24] 709|560|499|517|480|406
+[01:51:24] 677|560|499|517|480|406
+[01:51:25] 636|561|499|517|480|406
+[01:51:25] 563|561|499|517|480|406
+[01:51:26] 563|560|468|517|480|406
+[01:51:26] ⚠️ Keine Sessions für 'media' gefunden.
+[01:51:26] 563|561|391|517|480|406
+[01:51:26] ⚠️ Keine Sessions für 'media' gefunden.
+[01:51:26] 563|560|379|517|480|406
+[01:51:26] ⚠️ Keine Sessions für 'media' gefunden.
+[01:51:27] 563|561|414|517|480|406
+[01:51:27] ⚠️ Keine Sessions für 'media' gefunden.
+[01:51:27] 563|561|457|517|480|406
+[01:51:27] ⚠️ Keine Sessions für 'media' gefunden.
+[01:51:27] 563|561|525|517|480|406
+[01:51:27] ⚠️ Keine Sessions für 'media' gefunden.
+[01:51:27] 563|560|573|517|480|406
+[01:51:27] ⚠️ Keine Sessions für 'media' gefunden.
+[01:51:27] 563|561|572|619|480|406
+[01:51:27] ⚠️ Keine Sessions für 'games' gefunden.
+[01:51:27] 563|560|571|708|480|406
+[01:51:27] ⚠️ Keine Sessions für 'games' gefunden.
+[01:51:28] 563|561|571|492|480|406
+[01:51:28] ⚠️ Keine Sessions für 'games' gefunden.
+[01:51:28] 563|561|572|388|480|406
+[01:51:28] ⚠️ Keine Sessions für 'games' gefunden.
+[01:51:29] 564|560|572|386|457|406
+[01:51:29] ⚠️ Keine Sessions für 'hubs' gefunden.
+[01:51:29] 563|561|571|386|392|406
+[01:51:29] ⚠️ Keine Sessions für 'hubs' gefunden.
+[01:51:29] 563|561|572|386|332|406
+[01:51:29] ⚠️ Keine Sessions für 'hubs' gefunden.
+[01:51:29] 564|560|572|386|317|406
+[01:51:29] ⚠️ Keine Sessions für 'hubs' gefunden.
+[01:51:30] 563|560|572|386|336|406
+[01:51:30] ⚠️ Keine Sessions für 'hubs' gefunden.
+[01:51:30] 563|561|572|386|379|406
+[01:51:30] ⚠️ Keine Sessions für 'hubs' gefunden.
+[01:51:30] 563|561|571|386|433|406
+[01:51:30] ⚠️ Keine Sessions für 'hubs' gefunden.
+[01:51:30] 563|560|571|386|455|406
+[01:51:30] ⚠️ Keine Sessions für 'hubs' gefunden.
+[01:51:31] 563|560|572|386|457|419
+[01:51:31] ⚠️ Keine Sessions für 'tmm' gefunden.
+[01:51:31] 564|561|571|386|456|440
+[01:51:31] ⚠️ Keine Sessions für 'tmm' gefunden.
+[01:51:31] 563|561|572|386|456|495
+[01:51:31] ⚠️ Keine Sessions für 'tmm' gefunden.
+[01:51:31] 563|560|572|386|456|525
+[01:51:31] ⚠️ Keine Sessions für 'tmm' gefunden.
+[01:51:31] 564|561|571|386|456|547
+[01:51:31] ⚠️ Keine Sessions für 'tmm' gefunden.
+[01:51:31] 563|561|571|386|457|502
+[01:51:31] ⚠️ Keine Sessions für 'tmm' gefunden.
+[01:51:31] 564|560|572|386|456|488
+[01:51:31] ⚠️ Keine Sessions für 'tmm' gefunden.
+[01:51:32] 563|560|571|386|457|470
+[01:51:32] ⚠️ Keine Sessions für 'tmm' gefunden.
+[01:51:33] 613|561|572|386|457|472
+[01:51:33] 663|560|572|386|456|472
+[01:51:33] 696|560|571|386|457|472
+[01:51:34] 558|560|571|386|456|472
+[01:51:35] 482|560|572|386|457|472
+[01:51:35] 515|560|572|386|457|472
+[01:51:35] 547|560|572|386|456|472
+[01:51:38] 548|584|572|386|457|472
+[01:51:38] Discord: Lautstärke auf 57% gesetzt.
+[01:51:38] 548|645|572|386|457|472
+[01:51:38] Discord: Lautstärke auf 63% gesetzt.
+[01:51:38] 548|694|572|386|457|472
+[01:51:38] Discord: Lautstärke auf 67% gesetzt.
+[01:51:38] 548|648|572|386|457|472
+[01:51:38] Discord: Lautstärke auf 63% gesetzt.
+[01:51:39] 548|539|572|386|456|472
+[01:51:39] Discord: Lautstärke auf 52% gesetzt.
+[01:51:39] 641|539|571|386|457|472
+[01:51:39] 702|540|572|386|457|472
+[01:51:39] 737|539|572|386|457|472
+[01:51:39] 706|539|572|386|457|472
+[01:51:39] 628|538|571|386|457|472
+[01:51:40] 603|542|571|386|457|472
+[01:51:40] 603|556|572|386|456|472
+[01:51:40] Discord: Lautstärke auf 54% gesetzt.
+[01:51:40] 603|575|571|386|457|472
+[01:51:40] Discord: Lautstärke auf 56% gesetzt.
+[01:51:42] 609|578|571|490|456|472
+[01:51:42] ⚠️ Keine Sessions für 'games' gefunden.
+[01:51:43] 609|578|571|538|456|472
+[01:51:43] ⚠️ Keine Sessions für 'games' gefunden.
+[01:51:43] 608|578|571|519|478|472
+[01:51:43] ⚠️ Keine Sessions für 'games' gefunden.
+[01:51:43] ⚠️ Keine Sessions für 'hubs' gefunden.
+[01:51:44] 609|578|571|518|483|499
+[01:51:44] ⚠️ Keine Sessions für 'tmm' gefunden.

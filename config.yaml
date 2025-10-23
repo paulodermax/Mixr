@@ -8,7 +8,7 @@
 # important: slider indexes start at 0, regardless of which analog pins you're using!
 com_port: COM7
 baud_rate: 230400
-invert_sliders: true
+
 slider_mapping:
   - master
   - social
@@ -61,7 +61,7 @@ whitelist:
 
 
 # settings for connecting to the arduino board
-invert_sliders: false
+invert_sliders: true
 # adjust the amount of signal noise reduction depending on your hardware quality
 # supported values are "low" (excellent hardware), "default" (regular hardware) or "high" (bad, noisy hardware)
 noise_reduction: default

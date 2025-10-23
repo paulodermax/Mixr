@@ -230,6 +230,7 @@ namespace Mixr
             try
             {
                 serialPort = new SerialPort(portName, baudRate);
+                serialPort.NewLine = "\r\n";
                 serialPort.Open();
                 Console.WriteLine($"Serieller Port {portName} geöffnet mit {baudRate} Baud.");
                 Log($"Serieller Port {portName} geöffnet mit {baudRate} Baud.");
@@ -248,12 +249,12 @@ namespace Mixr
             try
             {
                 string line = serialPort.ReadLine().Trim();
-                Console.WriteLine($"(PC)Empfangen: {line}");
+                //Console.WriteLine($"(PC)Empfangen: {line}");
                 Log($"{line}");
                 if (!line.Contains('|') || line.StartsWith("IMG_OK") || line.StartsWith("TXT_OK"))
                 return;
                 string[] parts = line.Split('|');
-
+                //Log($"{parts}");
                 for (int i = 0; i < parts.Length && i < config.slider_mapping.Count; i++)
                 {
                     if (!int.TryParse(parts[i], out int rawValue)) continue;
