@@ -6,7 +6,7 @@
 # windows only - you can use a device's full name, i.e. "Speakers (Realtek High Definition Audio)", to bind it. this works for both output and input devices
 # windows only - you can use 'system' to control the "system sounds" volume
 # important: slider indexes start at 0, regardless of which analog pins you're using!
-com_port: COM7
+com_port: COM9
 baud_rate: 230400
 
 slider_mapping:
@@ -27,7 +27,9 @@ session_groups:
     - DayZ
     - AdCap!
     - Stardew Valley
-    - Battlefield 6
+    - bf6.exe
+    - Battlefield™ 6
+
   social:
     - Discord
     - Discord.exe

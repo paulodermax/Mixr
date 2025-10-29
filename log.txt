@@ -273,3 +273,89 @@
 [01:51:43] ⚠️ Keine Sessions für 'hubs' gefunden.
 [01:51:44] 609|578|571|518|483|499
 [01:51:44] ⚠️ Keine Sessions für 'tmm' gefunden.
+[01:55:10] [ProcessWatcher] Neuer Whitelist-Prozess gestartet: chrome (PID: 30392)
+[01:55:10] [ProcessWatcher] Neuer Whitelist-Prozess gestartet: chrome (PID: 11608)
+[01:55:10] [ProcessWatcher] Neuer Whitelist-Prozess gestartet: chrome (PID: 26600)
+[01:55:10] [ProcessWatcher] Neuer Whitelist-Prozess gestartet: chrome (PID: 21336)
+[01:55:10] [ProcessWatcher] Neuer Whitelist-Prozess gestartet: chrome (PID: 29756)
+[01:55:10] [ProcessWatcher] Neuer Whitelist-Prozess gestartet: chrome (PID: 25632)
+[01:55:10] [ProcessWatcher] Änderung erkannt → Rebuild der SessionMap.
+[01:55:10] Session 'Discord' → Slider 'social' hinzugefügt.
+[01:55:10] Session 'OBS Studio' wurde keiner Gruppe zugeordnet.
+[01:55:15] [ProcessWatcher] Neuer Whitelist-Prozess gestartet: chrome (PID: 12588)
+[01:55:15] [ProcessWatcher] Whitelist-Prozess beendet: chrome (PID: 12164)
+[01:55:15] [ProcessWatcher] Whitelist-Prozess beendet: chrome (PID: 30392)
+[01:55:15] [ProcessWatcher] Änderung erkannt → Rebuild der SessionMap.
+[01:55:15] Session 'Discord' → Slider 'social' hinzugefügt.
+[01:55:15] Session 'OBS Studio' wurde keiner Gruppe zugeordnet.
+[01:55:40] [ProcessWatcher] Whitelist-Prozess beendet: chrome (PID: 21336)
+[01:55:40] [ProcessWatcher] Änderung erkannt → Rebuild der SessionMap.
+[01:55:40] Session 'Discord' → Slider 'social' hinzugefügt.
+[01:55:40] Session 'OBS Studio' wurde keiner Gruppe zugeordnet.
+[02:12:58] Start
+[02:12:59] Config geladen:
+[02:12:59]   - Baudrate: 230400
+[02:12:59]   - Invert Sliders: True
+[02:12:59]   - Noise Reduction: default
+[02:12:59]   - Slider Mapping: 6 Einträge
+[02:12:59] Session 'Google Chrome' → Slider 'media' hinzugefügt.
+[02:12:59] Session 'Discord' → Slider 'social' hinzugefügt.
+[02:12:59] Session 'Stardew Valley' → Slider 'games' hinzugefügt.
+[02:12:59] Session 'OBS Studio' wurde keiner Gruppe zugeordnet.
+[02:12:59] Serieller Port COM7 geöffnet mit 230400 Baud.
+[02:12:59] Reading from SerialPort..
+[02:12:59] 344|480|172|356|488|512
+[02:12:59] Discord: Lautstärke auf 46% gesetzt.
+[02:12:59] Google Chrome: Lautstärke auf 16% gesetzt.
+[02:12:59] Stardew Valley: Lautstärke auf 34% gesetzt.
+[02:12:59] ⚠️ Keine Sessions für 'hubs' gefunden.
+[02:12:59] ⚠️ Keine Sessions für 'tmm' gefunden.
+[02:13:01] 433|480|172|356|488|512
+[02:13:01] 507|480|172|356|488|512
+[02:13:01] 564|480|172|356|489|512
+[02:13:01] 608|480|172|356|488|512
+[02:13:02] 636|480|172|355|488|512
+[02:13:02] 652|480|172|356|488|512
+[02:13:02] 566|480|172|356|488|512
+[02:13:02] 428|480|172|356|488|512
+[02:13:02] 327|480|172|356|489|512
+[02:13:03] 258|480|172|356|488|512
+[02:13:03] 212|480|172|355|488|512
+[02:13:03] 286|480|172|356|488|512
+[02:13:03] 362|480|172|356|488|512
+[02:13:04] 450|480|172|356|489|512
+[02:13:04] 524|480|172|356|489|512
+[02:13:04] 584|480|172|356|488|512
+[02:13:04] 618|480|172|356|488|512
+[02:13:04] 605|480|172|356|489|512
+[02:13:19] Start
+[02:13:20] Config geladen:
+[02:13:20]   - Baudrate: 230400
+[02:13:20]   - Invert Sliders: True
+[02:13:20]   - Noise Reduction: default
+[02:13:20]   - Slider Mapping: 6 Einträge
+[02:13:20] Session 'Google Chrome' → Slider 'media' hinzugefügt.
+[02:13:20] Session 'Discord' → Slider 'social' hinzugefügt.
+[02:13:20] Session 'Stardew Valley' → Slider 'games' hinzugefügt.
+[02:13:20] Session 'OBS Studio' wurde keiner Gruppe zugeordnet.
+[02:13:20] Serieller Port COM7 geöffnet mit 230400 Baud.
+[02:13:20] Reading from SerialPort..
+[02:13:25] 456|474|172|356|488|512
+[02:13:25] Discord: Lautstärke auf 46% gesetzt.
+[02:13:25] Google Chrome: Lautstärke auf 16% gesetzt.
+[02:13:25] Stardew Valley: Lautstärke auf 34% gesetzt.
+[02:13:25] ⚠️ Keine Sessions für 'hubs' gefunden.
+[02:13:25] ⚠️ Keine Sessions für 'tmm' gefunden.
+[02:13:25] 307|474|172|356|488|512
+[02:13:26] 276|474|172|356|488|512
+[02:13:26] 307|474|172|356|488|512
+[02:13:26] 389|474|172|356|488|512
+[02:13:26] 468|474|172|356|488|512
+[02:13:26] 482|474|172|356|488|512
+[02:13:27] 402|474|172|356|488|512
+[02:13:27] 361|474|172|356|489|512
+[02:13:27] 428|474|172|356|488|512
+[02:13:27] 487|474|172|356|488|512
+[02:13:27] 548|475|172|356|488|512
+[02:13:28] 582|474|172|356|489|512
+[02:13:28] 595|475|172|356|488|512

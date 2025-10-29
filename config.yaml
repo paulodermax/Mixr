@@ -27,7 +27,9 @@ session_groups:
     - DayZ
     - AdCap!
     - Stardew Valley
-    - Battlefield 6
+    - bf6.exe
+    - Battlefield™ 6
+
   social:
     - Discord
     - Discord.exe
