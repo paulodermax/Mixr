@@ -249,7 +249,7 @@ namespace Mixr
             try
             {
                 string line = serialPort.ReadLine().Trim();
-                //Console.WriteLine($"(PC)Empfangen: {line}");
+                Console.WriteLine($"(PC)Empfangen: {line}");
                 Log($"{line}");
                 if (!line.Contains('|') || line.StartsWith("IMG_OK") || line.StartsWith("TXT_OK"))
                 return;
@@ -265,6 +265,7 @@ namespace Mixr
 
                     lastLevels[i] = normalizedLevel;
                     string target = config.slider_mapping[i];
+                    //ggf. hier sound pausieren
                     SetVolume(target, normalizedLevel);
                 }
             }
