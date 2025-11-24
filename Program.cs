@@ -135,11 +135,12 @@ namespace Mixr
                 quitEvent.Set();
             };
 
-            Console.WriteLine("Reading from SerialPort. Press Ctrl+C to quit.");
+            //Console.WriteLine("Reading from SerialPort. Press Ctrl+C to quit.");
             Log("Reading from SerialPort..");
             quitEvent.WaitOne();
 
-            Console.WriteLine("Exit...");
+            //Console.WriteLine("Exit...");
+            Log("Exit...");
             serialPort.Close();
         }
 
@@ -153,11 +154,11 @@ namespace Mixr
                 var deserializer = new DeserializerBuilder().WithNamingConvention(UnderscoredNamingConvention.Instance).Build();
                 config = deserializer.Deserialize<AppConfig>(yaml);
 
-                Console.WriteLine("Config geladen:");
-                Console.WriteLine($"  Baudrate: {config.baud_rate}");
-                Console.WriteLine($"  Invert Sliders: {config.invert_sliders}");
-                Console.WriteLine($"  Noise Reduction: {config.noise_reduction}");
-                Console.WriteLine($"  Slider Mapping: {config.slider_mapping.Count} Einträge");
+                // Console.WriteLine("Config geladen:");
+                // Console.WriteLine($"  Baudrate: {config.baud_rate}");
+                // Console.WriteLine($"  Invert Sliders: {config.invert_sliders}");
+                // Console.WriteLine($"  Noise Reduction: {config.noise_reduction}");
+                // Console.WriteLine($"  Slider Mapping: {config.slider_mapping.Count} Einträge");
                 Log("Config geladen:");
                 Log($"  - Baudrate: {config.baud_rate}");
                 Log($"  - Invert Sliders: {config.invert_sliders}");
@@ -167,7 +168,7 @@ namespace Mixr
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Fehler beim Laden der Config: {ex.Message}");
+                // Console.WriteLine($"Fehler beim Laden der Config: {ex.Message}");
                 Log($"Fehler beim Laden der Config: {ex.Message}");
                 return false;
             }
@@ -230,7 +231,7 @@ namespace Mixr
             try
             {
                 serialPort = new SerialPort(portName, baudRate);
-                serialPort.NewLine = "\r\n";
+                serialPort.NewLine = "\n";
                 serialPort.Open();
                 Console.WriteLine($"Serieller Port {portName} geöffnet mit {baudRate} Baud.");
                 Log($"Serieller Port {portName} geöffnet mit {baudRate} Baud.");
@@ -249,8 +250,10 @@ namespace Mixr
             try
             {
                 string line = serialPort.ReadLine().Trim();
-                Console.WriteLine($"(PC)Empfangen: {line}");
-                Log($"{line}");
+                //Console.WriteLine($"(PC)Empfangen: {line}");
+                //Log($"{line}");
+
+                // /*
                 if (!line.Contains('|') || line.StartsWith("IMG_OK") || line.StartsWith("TXT_OK"))
                 return;
                 string[] parts = line.Split('|');
@@ -261,13 +264,16 @@ namespace Mixr
 
                     float normalizedLevel = rawValue / 1023f;
                     normalizedLevel = Math.Clamp(normalizedLevel, 0f, 1f);
-                    if (Math.Abs(normalizedLevel - lastLevels[i]) < 0.01f) continue;
+                    
+                    // Thresh-Hold ein oder aus:
+                    if (Math.Abs(normalizedLevel - lastLevels[i]) < 0.001f) continue;
 
                     lastLevels[i] = normalizedLevel;
                     string target = config.slider_mapping[i];
                     //ggf. hier sound pausieren
                     SetVolume(target, normalizedLevel);
                 }
+                //*/
             }
             catch (Exception ex)
             {
@@ -334,11 +340,13 @@ namespace Mixr
             session.MediaPropertiesChanged += async (s, e) => await OnMediaPropertiesChangedAsync(s);
         }
 
-        private static async Task OnPlaybackInfoChangedAsync(GlobalSystemMediaTransportControlsSession session)
+        private static Task OnPlaybackInfoChangedAsync(GlobalSystemMediaTransportControlsSession session)
         {
             var status = session.GetPlaybackInfo().PlaybackStatus;
             string appId = session.SourceAppUserModelId;
-            Console.WriteLine($"▶️ Wiedergabestatus ({appId}): {status}");
+            // Console.WriteLine($"▶️ Wiedergabestatus ({appId}): {status}");
+            Log($"▶️ Wiedergabestatus ({appId}): {status}");
+            return Task.CompletedTask;
         }
 
         private static async Task OnMediaPropertiesChangedAsync(GlobalSystemMediaTransportControlsSession session)
