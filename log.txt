@@ -4465,3 +4465,106 @@
 [01:43:13] Google Chrome: Lautstärke auf 23% gesetzt.
 [01:43:13] Google Chrome: Lautstärke auf 26% gesetzt.
 [01:43:13] Google Chrome: Lautstärke auf 26% gesetzt.
+[15:49:50] Start
+[15:49:52] Config geladen:
+[15:49:52]   - Baudrate: 230400
+[15:49:52]   - Invert Sliders: True
+[15:49:52]   - Noise Reduction: default
+[15:49:52]   - Slider Mapping: 6 Einträge
+[15:49:52] Session 'Spotify' → Slider 'media' hinzugefügt.
+[15:49:52] Fehler beim Öffnen des Seriellen Ports COM6: Could not find file 'COM6'.
+[15:49:52] Seriellen Port COM6 konnte nicht geöffnet werden.
+[15:50:22] Retrying to open Serial Port...
+[15:50:22] Fehler beim Öffnen des Seriellen Ports COM6: Could not find file 'COM6'.
+[15:50:22] Serial Port COM6 couldn't be opened.
+[15:50:52] Retrying to open Serial Port...
+[15:50:52] Fehler beim Öffnen des Seriellen Ports COM6: Could not find file 'COM6'.
+[15:50:52] Serial Port COM6 couldn't be opened.
+[15:50:57] [ProcessWatcher] Neuer Whitelist-Prozess gestartet: Spotify (PID: 25564)
+[15:50:57] [ProcessWatcher] Änderung erkannt → Rebuild der SessionMap.
+[15:50:57] Session 'Spotify' → Slider 'media' hinzugefügt.
+[15:51:02] [ProcessWatcher] Whitelist-Prozess beendet: Spotify (PID: 25564)
+[15:51:02] [ProcessWatcher] Änderung erkannt → Rebuild der SessionMap.
+[15:51:02] Session 'Spotify' → Slider 'media' hinzugefügt.
+[15:51:24] Start
+[15:51:26] Config geladen:
+[15:51:26]   - Baudrate: 230400
+[15:51:26]   - Invert Sliders: True
+[15:51:26]   - Noise Reduction: default
+[15:51:26]   - Slider Mapping: 6 Einträge
+[15:51:26] Session 'Spotify' → Slider 'media' hinzugefügt.
+[15:51:26] Fehler beim Öffnen des Seriellen Ports COM6: Could not find file 'COM6'.
+[15:51:26] Seriellen Port COM6 konnte nicht geöffnet werden.
+[15:51:50] Start
+[15:51:52] Config geladen:
+[15:51:52]   - Baudrate: 230400
+[15:51:52]   - Invert Sliders: True
+[15:51:52]   - Noise Reduction: default
+[15:51:52]   - Slider Mapping: 6 Einträge
+[15:51:52] Session 'Spotify' → Slider 'media' hinzugefügt.
+[15:51:52] Fehler beim Öffnen des Seriellen Ports COM9: Could not find file 'COM9'.
+[15:51:52] Seriellen Port COM9 konnte nicht geöffnet werden.
+[15:52:22] Retrying to open Serial Port...
+[15:52:22] Fehler beim Öffnen des Seriellen Ports COM9: Could not find file 'COM9'.
+[15:52:22] Serial Port COM9 couldn't be opened.
+[15:52:52] Retrying to open Serial Port...
+[15:52:52] Fehler beim Öffnen des Seriellen Ports COM9: Could not find file 'COM9'.
+[15:52:52] Serial Port COM9 couldn't be opened.
+[15:53:36] Start
+[15:53:37] Config geladen:
+[15:53:37]   - Baudrate: 230400
+[15:53:37]   - Invert Sliders: True
+[15:53:37]   - Noise Reduction: default
+[15:53:37]   - Slider Mapping: 6 Einträge
+[15:53:37] Session 'Spotify' → Slider 'media' hinzugefügt.
+[15:53:37] Serieller Port COM11 geöffnet mit 230400 Baud.
+[15:53:37] Reading from SerialPort..
+[15:54:10] Change in Spotify.exe: Aglio e Olio by Con Cook (Aglio e Olio)
+[15:57:12] Change in Spotify.exe: Somewhere to Sydney by Demm Deep (A Better Tomorrow)
+[15:57:30] Change in Spotify.exe: Guess featuring billie eilish by Charli xcx (Brat and it’s completely different but also still brat)
+[15:59:54] Change in Spotify.exe: Didn't Wanna Know by Luke Gomm (Didn't Wanna Know)
+[16:01:48] Start
+[16:01:50] Config geladen:
+[16:01:50]   - Baudrate: 230400
+[16:01:50]   - Invert Sliders: True
+[16:01:50]   - Noise Reduction: default
+[16:01:50]   - Slider Mapping: 6 Einträge
+[16:01:50] Session 'Spotify' → Slider 'media' hinzugefügt.
+[16:01:50] Serieller Port COM11 geöffnet mit 230400 Baud.
+[16:01:50] Reading from SerialPort..
+[16:02:14] Change in Spotify.exe: Big Fi Dem by Cesco (Big Fi Dem)
+[16:02:14] Path:C:\Users\paulm\.mainroot\Mixr\bin\Debug\net9.0-windows10.0.26100.0\cover.jpg
+[16:02:14] exeDirC:\Users\paulm\.mainroot\Mixr\bin\Debug\net9.0-windows10.0.26100.0\
+[16:02:14] Komprimiertes Cover gespeichert.
+[16:02:14] Komprimiertes Cover geschickt.
+[16:06:07] Change in Spotify.exe: tom did by Niko B (dog eat dog food world)
+[16:06:07] Path:C:\Users\paulm\.mainroot\Mixr\bin\Debug\net9.0-windows10.0.26100.0\cover.jpg
+[16:06:07] exeDirC:\Users\paulm\.mainroot\Mixr\bin\Debug\net9.0-windows10.0.26100.0\
+[16:06:07] Komprimiertes Cover gespeichert.
+[16:06:07] Komprimiertes Cover geschickt.
+[16:06:17] Change in Spotify.exe: How We Feelin' by Fonzo (HARD14)
+[16:06:17] Path:C:\Users\paulm\.mainroot\Mixr\bin\Debug\net9.0-windows10.0.26100.0\cover.jpg
+[16:06:17] exeDirC:\Users\paulm\.mainroot\Mixr\bin\Debug\net9.0-windows10.0.26100.0\
+[16:06:17] Komprimiertes Cover gespeichert.
+[16:06:17] Komprimiertes Cover geschickt.
+[16:07:50] Change in Spotify.exe: Take Time by Con Cook (Take Time)
+[16:07:50] Path:C:\Users\paulm\.mainroot\Mixr\bin\Debug\net9.0-windows10.0.26100.0\cover.jpg
+[16:07:50] exeDirC:\Users\paulm\.mainroot\Mixr\bin\Debug\net9.0-windows10.0.26100.0\
+[16:07:50] Komprimiertes Cover gespeichert.
+[16:07:50] Komprimiertes Cover geschickt.
+[16:08:04] Change in Spotify.exe: Big Mood by Zefer (Big Mood)
+[16:08:04] Path:C:\Users\paulm\.mainroot\Mixr\bin\Debug\net9.0-windows10.0.26100.0\cover.jpg
+[16:08:04] exeDirC:\Users\paulm\.mainroot\Mixr\bin\Debug\net9.0-windows10.0.26100.0\
+[16:08:04] Komprimiertes Cover gespeichert.
+[16:08:05] Komprimiertes Cover geschickt.
+[16:08:41] [ProcessWatcher] Neuer Whitelist-Prozess gestartet: Spotify (PID: 2468)
+[16:08:41] [ProcessWatcher] Änderung erkannt → Rebuild der SessionMap.
+[16:08:41] Session 'Spotify' → Slider 'media' hinzugefügt.
+[16:08:46] [ProcessWatcher] Whitelist-Prozess beendet: Spotify (PID: 2468)
+[16:08:46] [ProcessWatcher] Änderung erkannt → Rebuild der SessionMap.
+[16:08:46] Session 'Spotify' → Slider 'media' hinzugefügt.
+[16:09:06] Change in Spotify.exe: Losing Control by Rendah (Losing Control)
+[16:09:06] Path:C:\Users\paulm\.mainroot\Mixr\bin\Debug\net9.0-windows10.0.26100.0\cover.jpg
+[16:09:06] exeDirC:\Users\paulm\.mainroot\Mixr\bin\Debug\net9.0-windows10.0.26100.0\
+[16:09:06] Komprimiertes Cover gespeichert.
+[16:09:06] Komprimiertes Cover geschickt.

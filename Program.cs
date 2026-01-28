@@ -32,7 +32,7 @@ namespace Mixr
         private static readonly Dictionary<string, GlobalSystemMediaTransportControlsSession> registeredSessions = new();
         private static readonly Dictionary<string, string> lastKnownTitles = new();
 
-        private static bool songinfo = false;
+        private static bool songinfo = true;
         readonly static HashSet<string> ignoredProcesses = new()
         {
             // Windows System
@@ -270,8 +270,8 @@ namespace Mixr
 
                     lastLevels[i] = normalizedLevel;
                     string target = config.slider_mapping[i];
-                    //ggf. hier sound pausieren
-                    SetVolume(target, normalizedLevel);
+                    //ggf. hier sound pausieren !!! fewfew
+                    //SetVolume(target, normalizedLevel);
                 }
                 //*/
             }
@@ -392,15 +392,14 @@ namespace Mixr
 
                         string exeDir = AppDomain.CurrentDomain.BaseDirectory;
                         string coverPath = Path.Combine(exeDir, "cover.jpg");
-                        Log("Path:" + coverPath);
-                        Log("exeDir"+exeDir);
                         resized.Save(coverPath, encoder, encoderParams);
-
-
-                        Console.WriteLine("Komprimiertes Cover gespeichert.");
+                        //Console.WriteLine("Komprimiertes Cover gespeichert.");
                         Log("Komprimiertes Cover gespeichert.");
+                        Log("↳Path: " + coverPath);
+                        Log("(↳exeDir: "+exeDir)+")";
+
                         SendImageOverSerial("cover.jpg");
-                        Console.WriteLine("   🖼️ Komprimiertes Cover geschickt.");
+                        //Console.WriteLine("   🖼️ Komprimiertes Cover geschickt.");
                         Log("Komprimiertes Cover geschickt.");
                     }
                     catch (Exception ex)

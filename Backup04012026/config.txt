@@ -1,0 +1,17 @@
+# ==========================================================
+# Raspberry Pi Zero 2 W - vollständige config.txt
+# ==========================================================
+
+# ---- Basisoptionen ----
+arm_64bit=1
+disable_overscan=1
+arm_boost=1
+enable_uart=1
+dtoverlay=disable-bt
+
+dtparam=spi=on
+dtparam=audio=on
+
+dtoverlay=vc4-fb
+dtoverlay=dwc2
+otg_mode=0
