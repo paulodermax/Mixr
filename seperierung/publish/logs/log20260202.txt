@@ -1,0 +1,305 @@
+[04:00:11 INF] Mixr startet...
+[04:00:13 INF] Neue aktive Session: Brave
+[04:00:13 INF] 🎵 Erkannt: Netflix - 
+[04:00:13 INF] 📤 Bild gefunden & gesendet (4490 Bytes)
+[04:00:13 INF] MediaService: Watchdog aktiv.
+[04:00:53 INF] ♻️ Audio-Quelle gewechselt.
+[04:00:53 INF] Neue aktive Session: Spotify.exe
+[04:00:53 INF] 🎵 Erkannt: Alpha House / Bando - A COLORS SHOW - Knucks
+[04:00:53 INF] 📤 Bild gefunden & gesendet (4006 Bytes)
+[04:00:53 INF] 📤 Starte Bild-Upload...
+[04:00:54 INF] 🎵 Erkannt: Ballerina - John on a Mission
+[04:00:54 INF] 📤 Bild gefunden & gesendet (6011 Bytes)
+[04:00:54 INF] 📤 Starte Bild-Upload...
+[04:00:55 INF] ✅ Bild-Upload abgeschlossen.
+[04:00:55 INF] ✅ Bild-Upload abgeschlossen.
+[04:01:02 INF] 🎵 Erkannt: Leaving You (A Message) - Matti
+[04:01:02 INF] 📤 Bild gefunden & gesendet (5417 Bytes)
+[04:01:02 INF] 📤 Starte Bild-Upload...
+[04:01:02 INF] 📤 Bild gefunden & gesendet (5417 Bytes)
+[04:01:02 INF] 📤 Starte Bild-Upload...
+[04:01:02 INF] 📤 Bild gefunden & gesendet (5417 Bytes)
+[04:01:02 INF] 📤 Starte Bild-Upload...
+[04:01:04 INF] ✅ Bild-Upload abgeschlossen.
+[04:01:04 INF] ✅ Bild-Upload abgeschlossen.
+[04:01:04 INF] ✅ Bild-Upload abgeschlossen.
+[04:01:08 INF] 🎵 Erkannt: Something Worth My While - Redish
+[04:01:08 INF] 📤 Bild gefunden & gesendet (3422 Bytes)
+[04:01:08 INF] 📤 Starte Bild-Upload...
+[04:01:08 INF] 📤 Bild gefunden & gesendet (3422 Bytes)
+[04:01:08 INF] 📤 Starte Bild-Upload...
+[04:01:09 INF] 📤 Bild gefunden & gesendet (3422 Bytes)
+[04:01:09 INF] 📤 Starte Bild-Upload...
+[04:01:09 INF] ✅ Bild-Upload abgeschlossen.
+[04:01:09 INF] ✅ Bild-Upload abgeschlossen.
+[04:01:10 INF] ✅ Bild-Upload abgeschlossen.
+[04:02:27 INF] Mixr startet...
+[04:02:28 INF] Mapped: Spotify -> media
+[04:02:28 INF] Mapped: Spotify -> media
+[04:02:29 INF] Neue aktive Session: Spotify.exe
+[04:02:29 INF] 🎵 Erkannt: Something Worth My While - Redish
+[04:02:29 INF] 📤 Bild gefunden & gesendet (3422 Bytes)
+[04:02:29 INF] MediaService: Watchdog aktiv.
+[04:02:47 INF] 🎵 Erkannt: That's On Me - Mac Miller
+[04:02:47 INF] 📤 Bild gefunden & gesendet (2128 Bytes)
+[04:02:47 INF] 📤 Bild gefunden & gesendet (2128 Bytes)
+[04:02:47 INF] 📤 Starte Bild-Upload...
+[04:02:47 INF] 📤 Starte Bild-Upload...
+[04:02:48 INF] 📤 Bild gefunden & gesendet (2128 Bytes)
+[04:02:48 INF] 📤 Starte Bild-Upload...
+[04:02:48 INF] ✅ Bild-Upload abgeschlossen.
+[04:02:48 INF] ✅ Bild-Upload abgeschlossen.
+[04:02:48 INF] ✅ Bild-Upload abgeschlossen.
+[04:02:54 INF] 🎵 Erkannt: I'm God - Clams Casino
+[04:02:54 INF] 📤 Bild gefunden & gesendet (2172 Bytes)
+[04:02:54 INF] 📤 Starte Bild-Upload...
+[04:02:54 INF] 📤 Bild gefunden & gesendet (2172 Bytes)
+[04:02:54 INF] 📤 Starte Bild-Upload...
+[04:02:54 INF] 📤 Bild gefunden & gesendet (2172 Bytes)
+[04:02:54 INF] 📤 Starte Bild-Upload...
+[04:02:55 INF] ✅ Bild-Upload abgeschlossen.
+[04:02:55 INF] ✅ Bild-Upload abgeschlossen.
+[04:02:55 INF] ✅ Bild-Upload abgeschlossen.
+[04:02:59 INF] 🎵 Erkannt: Did It First (with Central Cee) - Ice Spice
+[04:02:59 INF] 📤 Bild gefunden & gesendet (6204 Bytes)
+[04:02:59 INF] 📤 Starte Bild-Upload...
+[04:02:59 INF] 📤 Bild gefunden & gesendet (6204 Bytes)
+[04:02:59 INF] 📤 Starte Bild-Upload...
+[04:02:59 INF] 📤 Bild gefunden & gesendet (6204 Bytes)
+[04:02:59 INF] 📤 Starte Bild-Upload...
+[04:03:00 INF] ✅ Bild-Upload abgeschlossen.
+[04:03:00 INF] ✅ Bild-Upload abgeschlossen.
+[04:03:01 INF] ✅ Bild-Upload abgeschlossen.
+[04:03:01 INF] 🎵 Erkannt: I'm God - Clams Casino
+[04:03:01 INF] 📤 Bild gefunden & gesendet (2172 Bytes)
+[04:03:01 INF] 📤 Starte Bild-Upload...
+[04:03:01 INF] 📤 Bild gefunden & gesendet (2172 Bytes)
+[04:03:01 INF] 📤 Starte Bild-Upload...
+[04:03:02 INF] 📤 Bild gefunden & gesendet (2172 Bytes)
+[04:03:02 INF] 📤 Starte Bild-Upload...
+[04:03:02 INF] ✅ Bild-Upload abgeschlossen.
+[04:03:02 INF] ✅ Bild-Upload abgeschlossen.
+[04:03:02 INF] ✅ Bild-Upload abgeschlossen.
+[04:03:09 INF] 🎵 Erkannt: Did It First (with Central Cee) - Ice Spice
+[04:03:09 INF] 📤 Bild gefunden & gesendet (6204 Bytes)
+[04:03:09 INF] 📤 Starte Bild-Upload...
+[04:03:09 INF] 📤 Bild gefunden & gesendet (6204 Bytes)
+[04:03:09 INF] 📤 Starte Bild-Upload...
+[04:03:09 INF] 📤 Bild gefunden & gesendet (6204 Bytes)
+[04:03:09 INF] 📤 Starte Bild-Upload...
+[04:03:11 INF] ✅ Bild-Upload abgeschlossen.
+[04:03:11 INF] ✅ Bild-Upload abgeschlossen.
+[04:03:11 INF] ✅ Bild-Upload abgeschlossen.
+[04:04:18 INF] Mixr startet...
+[04:04:19 INF] Mapped: Spotify -> media
+[04:04:19 INF] Mapped: Spotify -> media
+[04:04:19 INF] Neue aktive Session: Spotify.exe
+[04:04:19 INF] 🎵 Erkannt: Did It First (with Central Cee) - Ice Spice
+[04:04:19 INF] 📤 Bild gefunden & gesendet (6204 Bytes)
+[04:04:19 INF] MediaService: Watchdog aktiv.
+[04:04:30 INF] 🎵 Erkannt: Schau dass du nicht fällst - kevin
+[04:04:30 INF] 📤 Bild gefunden & gesendet (5400 Bytes)
+[04:04:30 INF] 📤 Starte Bild-Upload...
+[04:04:30 INF] 📤 Bild gefunden & gesendet (5400 Bytes)
+[04:04:30 INF] 📤 Starte Bild-Upload...
+[04:04:30 INF] 📤 Bild gefunden & gesendet (5400 Bytes)
+[04:04:30 INF] 📤 Starte Bild-Upload...
+[04:04:32 INF] ✅ Bild-Upload abgeschlossen.
+[04:04:32 INF] ✅ Bild-Upload abgeschlossen.
+[04:04:32 INF] ✅ Bild-Upload abgeschlossen.
+[04:04:50 INF] 🎵 Erkannt: Fight Dirty - Salvatore Ganacci
+[04:04:50 INF] 📤 Bild gefunden & gesendet (4881 Bytes)
+[04:04:50 INF] 📤 Starte Bild-Upload...
+[04:04:50 INF] 📤 Bild gefunden & gesendet (4881 Bytes)
+[04:04:50 INF] 📤 Starte Bild-Upload...
+[04:04:50 INF] 📤 Bild gefunden & gesendet (4881 Bytes)
+[04:04:50 INF] 📤 Starte Bild-Upload...
+[04:04:51 INF] ✅ Bild-Upload abgeschlossen.
+[04:04:51 INF] ✅ Bild-Upload abgeschlossen.
+[04:04:51 INF] ✅ Bild-Upload abgeschlossen.
+[04:04:55 INF] 🎵 Erkannt: Kernkraft 400 - DJ Gius Mix, Radio Edit - Zombie Nation
+[04:04:55 INF] 📤 Bild gefunden & gesendet (4250 Bytes)
+[04:04:55 INF] 📤 Starte Bild-Upload...
+[04:04:55 INF] 📤 Bild gefunden & gesendet (4250 Bytes)
+[04:04:55 INF] 📤 Starte Bild-Upload...
+[04:04:56 INF] 📤 Bild gefunden & gesendet (4250 Bytes)
+[04:04:56 INF] 📤 Starte Bild-Upload...
+[04:04:57 INF] ✅ Bild-Upload abgeschlossen.
+[04:04:57 INF] ✅ Bild-Upload abgeschlossen.
+[04:04:58 INF] ✅ Bild-Upload abgeschlossen.
+[04:05:06 INF] 🎵 Erkannt: Du ohne ich - DOI
+[04:05:06 INF] 📤 Bild gefunden & gesendet (2200 Bytes)
+[04:05:06 INF] 📤 Bild gefunden & gesendet (2200 Bytes)
+[04:05:06 INF] 📤 Starte Bild-Upload...
+[04:05:06 INF] 📤 Starte Bild-Upload...
+[04:05:07 INF] 📤 Bild gefunden & gesendet (2200 Bytes)
+[04:05:07 INF] 📤 Starte Bild-Upload...
+[04:05:07 INF] ✅ Bild-Upload abgeschlossen.
+[04:05:07 INF] ✅ Bild-Upload abgeschlossen.
+[04:05:07 INF] ✅ Bild-Upload abgeschlossen.
+[04:05:10 INF] 🎵 Erkannt: Moon Walker - Chetta
+[04:05:10 INF] 📤 Bild gefunden & gesendet (6038 Bytes)
+[04:05:10 INF] 📤 Starte Bild-Upload...
+[04:05:10 INF] 📤 Bild gefunden & gesendet (6038 Bytes)
+[04:05:10 INF] 📤 Starte Bild-Upload...
+[04:05:11 INF] 📤 Bild gefunden & gesendet (6038 Bytes)
+[04:05:11 INF] 📤 Starte Bild-Upload...
+[04:05:12 INF] ✅ Bild-Upload abgeschlossen.
+[04:05:12 INF] ✅ Bild-Upload abgeschlossen.
+[04:05:13 INF] ✅ Bild-Upload abgeschlossen.
+[04:05:56 INF] Mixr startet...
+[04:05:58 INF] Mapped: Spotify -> media
+[04:05:58 INF] Mapped: Spotify -> media
+[04:05:58 INF] Neue aktive Session: Spotify.exe
+[04:05:58 INF] 🎵 Erkannt: Moon Walker - Chetta
+[04:05:58 INF] 📤 Bild gefunden & gesendet (6038 Bytes)
+[04:05:58 INF] MediaService: Watchdog aktiv.
+[04:06:02 INF] 🎵 Erkannt: Soul Bossa Nova - Quincy Jones
+[04:06:02 INF] 📤 Bild gefunden & gesendet (4295 Bytes)
+[04:06:02 INF] 📤 Bild gefunden & gesendet (4295 Bytes)
+[04:06:02 INF] 📤 Starte Bild-Upload...
+[04:06:02 INF] 📤 Starte Bild-Upload...
+[04:06:03 INF] 📤 Bild gefunden & gesendet (4295 Bytes)
+[04:06:03 INF] 📤 Starte Bild-Upload...
+[04:06:03 INF] ✅ Bild-Upload abgeschlossen.
+[04:06:03 INF] ✅ Bild-Upload abgeschlossen.
+[04:06:04 INF] ✅ Bild-Upload abgeschlossen.
+[04:06:06 INF] 🎵 Erkannt: Concrete - Crystal Castles
+[04:06:06 INF] 📤 Bild gefunden & gesendet (5354 Bytes)
+[04:06:06 INF] 📤 Starte Bild-Upload...
+[04:06:06 INF] 📤 Bild gefunden & gesendet (5354 Bytes)
+[04:06:06 INF] 📤 Starte Bild-Upload...
+[04:06:06 INF] 📤 Bild gefunden & gesendet (5354 Bytes)
+[04:06:06 INF] 📤 Starte Bild-Upload...
+[04:06:07 INF] ✅ Bild-Upload abgeschlossen.
+[04:06:07 INF] ✅ Bild-Upload abgeschlossen.
+[04:06:07 INF] ✅ Bild-Upload abgeschlossen.
+[04:06:11 INF] 🎵 Erkannt: Potz Blitz - Filow
+[04:06:11 INF] 📤 Bild gefunden & gesendet (3764 Bytes)
+[04:06:11 INF] 📤 Starte Bild-Upload...
+[04:06:11 INF] 📤 Bild gefunden & gesendet (3764 Bytes)
+[04:06:11 INF] 📤 Starte Bild-Upload...
+[04:06:11 INF] 📤 Bild gefunden & gesendet (3764 Bytes)
+[04:06:11 INF] 📤 Starte Bild-Upload...
+[04:06:12 INF] ✅ Bild-Upload abgeschlossen.
+[04:06:12 INF] ✅ Bild-Upload abgeschlossen.
+[04:06:12 INF] ✅ Bild-Upload abgeschlossen.
+[04:06:22 INF] 🎵 Erkannt: Let Me Down - Oliver Tree
+[04:06:22 INF] 📤 Bild gefunden & gesendet (6295 Bytes)
+[04:06:22 INF] 📤 Starte Bild-Upload...
+[04:06:22 INF] 📤 Bild gefunden & gesendet (6295 Bytes)
+[04:06:22 INF] 📤 Starte Bild-Upload...
+[04:06:22 INF] 📤 Bild gefunden & gesendet (6295 Bytes)
+[04:06:22 INF] 📤 Starte Bild-Upload...
+[04:06:24 INF] ✅ Bild-Upload abgeschlossen.
+[04:06:24 INF] ✅ Bild-Upload abgeschlossen.
+[04:06:24 INF] ✅ Bild-Upload abgeschlossen.
+[04:08:14 INF] 🎵 Erkannt: The Void - BLVTH
+[04:08:14 INF] 📤 Bild gefunden & gesendet (3050 Bytes)
+[04:08:14 INF] 📤 Starte Bild-Upload...
+[04:12:33 INF] Mixr startet...
+[04:12:34 INF] Mapped: Spotify -> media
+[04:12:34 INF] Mapped: Spotify -> media
+[04:12:34 INF] Neue aktive Session: Spotify.exe
+[04:12:34 INF] 🎵 Erkannt: twirlanta - slowed + reverb - bbygirl
+[04:12:34 INF] 📤 Bild gefunden & gesendet (2985 Bytes)
+[04:12:34 INF] MediaService: Watchdog aktiv.
+[04:12:38 INF] 🎵 Erkannt: ThruYa - DAT ADAM
+[04:12:38 INF] 📤 Bild gefunden & gesendet (1110 Bytes)
+[04:12:38 INF] 📤 Starte Bild-Upload...
+[04:12:39 INF] ✅ Bild-Upload abgeschlossen.
+[04:12:58 INF] 🎵 Erkannt: She Is Not Electric - Redish
+[04:12:58 INF] 📤 Bild gefunden & gesendet (2740 Bytes)
+[04:12:58 INF] 📤 Starte Bild-Upload...
+[04:12:58 INF] ✅ Bild-Upload abgeschlossen.
+[04:13:02 INF] 🎵 Erkannt: Start a Riot - Duckwrth
+[04:13:02 INF] 📤 Bild gefunden & gesendet (2509 Bytes)
+[04:13:02 INF] 📤 Starte Bild-Upload...
+[04:13:02 INF] ✅ Bild-Upload abgeschlossen.
+[04:13:16 INF] 🎵 Erkannt: THE ONE THAT GOT AWAY - HARDSTYLE - POSEIDON
+[04:13:16 INF] 📤 Bild gefunden & gesendet (4123 Bytes)
+[04:13:16 INF] 📤 Starte Bild-Upload...
+[04:13:17 INF] ✅ Bild-Upload abgeschlossen.
+[04:13:23 INF] 🎵 Erkannt: DANCE NOW - Joey Valence & Brae
+[04:13:23 INF] 📤 Bild gefunden & gesendet (6724 Bytes)
+[04:13:23 INF] 📤 Starte Bild-Upload...
+[04:13:25 INF] ✅ Bild-Upload abgeschlossen.
+[04:13:30 INF] 🎵 Erkannt: This might be it - Hyphen
+[04:13:30 INF] 📤 Bild gefunden & gesendet (8176 Bytes)
+[04:13:30 INF] 📤 Starte Bild-Upload...
+[04:13:30 INF] 🎵 Erkannt: Megan's Piano - Megan Thee Stallion
+[04:13:30 INF] 🎵 Erkannt: Something (Demo) - Yxngxr1
+[04:13:30 INF] 🎵 Erkannt: Verliebt - Arkan
+[04:13:30 INF] 🎵 Erkannt: On My Mind - Diplo
+[04:13:32 INF] ✅ Bild-Upload abgeschlossen.
+[04:14:28 INF] 🎵 Erkannt: sniffing vicodin in paris (Danny Olson Remix) [feat. Danny Olson] - blackbear
+[04:14:28 INF] 📤 Bild gefunden & gesendet (3160 Bytes)
+[04:14:28 INF] 📤 Starte Bild-Upload...
+[04:14:29 INF] ✅ Bild-Upload abgeschlossen.
+[04:14:35 INF] 🎵 Erkannt: A Horse with No Name - America
+[04:14:35 INF] 📤 Bild gefunden & gesendet (6234 Bytes)
+[04:14:35 INF] 📤 Starte Bild-Upload...
+[04:14:37 INF] ✅ Bild-Upload abgeschlossen.
+[04:14:44 INF] 🎵 Erkannt: Zoom - Blastoyz
+[04:14:44 INF] 📤 Bild gefunden & gesendet (7351 Bytes)
+[04:14:44 INF] 📤 Starte Bild-Upload...
+[04:14:45 INF] ✅ Bild-Upload abgeschlossen.
+[04:18:01 INF] 🎵 Erkannt: Oligarchy - Teen Mortgage
+[04:18:01 INF] 📤 Bild gefunden & gesendet (4373 Bytes)
+[04:18:01 INF] 📤 Starte Bild-Upload...
+[04:18:02 INF] ✅ Bild-Upload abgeschlossen.
+[04:18:08 INF] 🎵 Erkannt: Just a Friend - Biz Markie
+[04:18:08 INF] 📤 Bild gefunden & gesendet (6861 Bytes)
+[04:18:08 INF] 📤 Starte Bild-Upload...
+[04:18:10 INF] ✅ Bild-Upload abgeschlossen.
+[04:18:21 INF] 🎵 Erkannt: 4EVA - KAYTRAMINÉ
+[04:18:21 INF] 📤 Bild gefunden & gesendet (3230 Bytes)
+[04:18:21 INF] 📤 Starte Bild-Upload...
+[04:18:22 INF] ✅ Bild-Upload abgeschlossen.
+[04:18:23 INF] 🎵 Erkannt: Killer / Papa Was a Rollin' Stone - George Michael
+[04:18:23 INF] 📤 Bild gefunden & gesendet (3005 Bytes)
+[04:18:23 INF] 📤 Starte Bild-Upload...
+[04:18:24 INF] ✅ Bild-Upload abgeschlossen.
+[04:18:46 INF] 🎵 Erkannt: One Week Love - badchieff
+[04:18:46 INF] 📤 Bild gefunden & gesendet (3034 Bytes)
+[04:18:46 INF] 📤 Starte Bild-Upload...
+[04:18:47 INF] ✅ Bild-Upload abgeschlossen.
+[04:18:50 INF] 🎵 Erkannt: Dance No More (with Kaleena Zanders) - Sunday Scaries
+[04:18:50 INF] 📤 Bild gefunden & gesendet (3109 Bytes)
+[04:18:50 INF] 📤 Starte Bild-Upload...
+[04:18:51 INF] ✅ Bild-Upload abgeschlossen.
+[04:18:56 INF] 🎵 Erkannt: Groll - STOCKMANN
+[04:18:56 INF] 📤 Bild gefunden & gesendet (3557 Bytes)
+[04:18:56 INF] 📤 Starte Bild-Upload...
+[04:18:57 INF] ✅ Bild-Upload abgeschlossen.
+[04:21:45 INF] 🎵 Erkannt: CASH & HOES - Kwam.E
+[04:21:45 INF] 📤 Bild gefunden & gesendet (6033 Bytes)
+[04:21:45 INF] 📤 Starte Bild-Upload...
+[04:21:46 INF] ✅ Bild-Upload abgeschlossen.
+[04:23:05 INF] 🎵 Erkannt: No Type - Rae Sremmurd
+[04:23:05 INF] 📤 Bild gefunden & gesendet (3797 Bytes)
+[04:23:05 INF] 📤 Starte Bild-Upload...
+[04:23:06 INF] ✅ Bild-Upload abgeschlossen.
+[04:25:53 INF] 🎵 Erkannt: Hang Me Up To Dry - Cold War Kids
+[04:25:53 INF] 📤 Bild gefunden & gesendet (5745 Bytes)
+[04:25:53 INF] 📤 Starte Bild-Upload...
+[04:29:21 INF] ✅ Bild-Upload abgeschlossen.
+[04:29:22 INF] 🎵 Erkannt: Goldrausch - NiksDa
+[04:29:22 INF] 📤 Bild gefunden & gesendet (6067 Bytes)
+[04:29:22 INF] 📤 Starte Bild-Upload...
+[04:29:24 INF] ✅ Bild-Upload abgeschlossen.
+[04:29:35 INF] 🎵 Erkannt: Born Again (feat. Doja Cat & RAYE) - LISA
+[04:29:35 INF] 📤 Bild gefunden & gesendet (2851 Bytes)
+[04:29:35 INF] 📤 Starte Bild-Upload...
+[04:29:36 INF] ✅ Bild-Upload abgeschlossen.
+[04:31:37 INF] ♻️ Audio-Quelle gewechselt.
+[04:31:37 INF] ♻️ Audio-Quelle gewechselt.
+[04:31:37 INF] ♻️ Audio-Quelle gewechselt.
+[15:19:57 INF] Mixr startet...
+[15:20:05 INF] MediaService: Watchdog aktiv.
+[15:21:44 INF] ♻️ Audio-Quelle gewechselt.
+[15:21:44 INF] Neue aktive Session: Brave
+[15:21:44 INF] 🎵 Erkannt: Netflix - 
+[15:21:44 INF] 📤 Bild gefunden & gesendet (3779 Bytes)
+[15:21:44 INF] 📤 Starte Bild-Upload...
+[15:21:45 INF] ✅ Bild-Upload abgeschlossen.
