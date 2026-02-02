@@ -1,0 +1,34 @@
+com_port: COM11
+baud_rate: 230400
+invert_sliders: true
+noise_reduction: default
+
+slider_mapping:
+  - master
+  - social
+  - media
+  - games
+  - hubs
+  - tmm
+
+session_groups:
+  media:
+    - Chrome
+    - Spotify
+    - Firefox
+  games:
+    - DayZ
+    - Stardew Valley
+    - Battlefield
+  social:
+    - Discord
+    - TeamSpeak
+  hubs:
+    - Steam
+    - Battle.net
+
+whitelist:
+  - Chrome
+  - Spotify
+  - Discord
+  - Steam
