@@ -3,6 +3,7 @@ using AudioSwitcher.AudioApi.CoreAudio;
 using AudioSwitcher.AudioApi.Session;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,42 +14,53 @@ public class AudioService
     private readonly CoreAudioController _controller = new CoreAudioController();
     private Dictionary<string, List<IAudioSession>> _sessionMap = new();
 
-    public void RebuildSessionMap(List<string> mappings, Dictionary<string, List<string>> groups)
+    // Parameter 'silent' steuert Logging
+    public void RebuildSessionMap(List<string> mappings, Dictionary<string, List<string>> groups, bool silent = false)
     {
-        // Da die API async ist, wir aber synchron aufgerufen werden, lagern wir das aus
-        Task.Run(async () => await RebuildSessionMapAsync(mappings, groups)).Wait();
+        Task.Run(async () => await RebuildSessionMapAsync(mappings, groups, silent)).Wait();
     }
 
-    private async Task RebuildSessionMapAsync(List<string> mappings, Dictionary<string, List<string>> groups)
+    private async Task RebuildSessionMapAsync(List<string> mappings, Dictionary<string, List<string>> groups, bool silent)
     {
         _sessionMap.Clear();
 
         var device = _controller.DefaultPlaybackDevice;
         if (device == null) return;
 
-        // FIX 1: SessionController über Capability holen (Alpha 5 Änderung)
         var sessionController = device.GetCapability<IAudioSessionController>();
         if (sessionController == null) return;
 
-        // Async Sessions abrufen
         var sessions = await sessionController.ActiveSessionsAsync();
 
         foreach (var session in sessions)
         {
-            if (string.IsNullOrEmpty(session.DisplayName)) continue;
-
-            string? matchedSlider = null;
             string name = session.DisplayName;
 
-            // 1. Suche in direkten Mappings
-            // Erst exakt, dann Teilstring
+            if (string.IsNullOrEmpty(name))
+            {
+                try
+                {
+                    var p = Process.GetProcessById(session.ProcessId);
+                    name = p.ProcessName; 
+                }
+                catch 
+                { 
+                    continue; 
+                }
+            }
+            
+            if (string.IsNullOrEmpty(name)) continue;
+            // -------------------------------------
+
+            string? matchedSlider = null;
+
+            // 1. Direkte Suche
             matchedSlider = mappings.FirstOrDefault(m => name.Equals(m, StringComparison.OrdinalIgnoreCase)) 
                  ?? mappings.FirstOrDefault(m => name.Contains(m, StringComparison.OrdinalIgnoreCase));
 
-            // 2. Suche in Gruppen (falls oben nichts gefunden wurde)
+            // 2. Gruppensuche
             if (matchedSlider == null && groups != null)
             {
-                // A. Exakter Treffer in einer Gruppe?
                 var matchedGroup = groups.FirstOrDefault(g => 
                     g.Value.Any(k => name.Equals(k, StringComparison.OrdinalIgnoreCase)));
 
@@ -58,13 +70,11 @@ public class AudioService
                 }
                 else
                 {
-                    // B. Teilstring-Treffer in einer Gruppe?
                     matchedSlider = groups.FirstOrDefault(g => 
                         g.Value.Any(k => name.Contains(k, StringComparison.OrdinalIgnoreCase))).Key;
                 }
             }
 
-            // 3. Wenn gefunden -> zur Map hinzufügen
             if (matchedSlider != null)
             {
                 if (!_sessionMap.ContainsKey(matchedSlider)) 
@@ -72,15 +82,16 @@ public class AudioService
                 
                 _sessionMap[matchedSlider].Add(session);
                 
-                // Loggen (jetzt mit LoggerService statt Console)
-                LoggerService.Info($"Mapped: {name} -> {matchedSlider}");
+                if (!silent)
+                {
+                    //LoggerService.Info($"Mapped: {name} -> {matchedSlider}");
+                }
             }
         }
     }
 
     public void SetVolume(string target, float level)
     {
-        // Wir starten den Task "Fire & Forget", damit der Slider nicht laggt
         Task.Run(async () => await SetVolumeAsync(target, level));
     }
 
@@ -95,7 +106,6 @@ public class AudioService
             {
                 if (device != null) 
                 {
-                    // FIX 2: SetVolumeAsync statt Property nutzen
                     await device.SetVolumeAsync(vol);
                 }
                 return;
@@ -107,16 +117,57 @@ public class AudioService
                 {
                     try 
                     { 
-                        // FIX 3: Auch hier SetVolumeAsync nutzen
                         await session.SetVolumeAsync(vol); 
                     } 
-                    catch { }
+                    catch 
+                    { 
+                    }
                 }
             }
         }
         catch (Exception ex)
         {
-            LoggerService.Error($"Fehler beim Setzen der Lautstärke für {target}", ex);
+            LoggerService.Error($"Fehler beim Setzen der Lautstärke für {target}: {ex.Message}");
         }
+    }
+    public void PrintDebugMappings()
+    {
+        LoggerService.Info("=== AKTUELLE MAPPINGS ===");
+        
+        if (_sessionMap.Count == 0)
+        {
+            LoggerService.Info("  (Keine Programme zugeordnet)");
+        }
+
+        foreach (var entry in _sessionMap)
+        {
+            string sliderName = entry.Key;     // z.B. "games"
+            var sessionList = entry.Value;     // Liste der Sessions (DayZ, Icarus...)
+            
+            List<string> names = new List<string>();
+
+            foreach (var session in sessionList)
+            {
+                string name = session.DisplayName;
+
+                // Fallback für DayZ & Co., die keinen DisplayNamen haben
+                if (string.IsNullOrEmpty(name))
+                {
+                    try 
+                    { 
+                        name = Process.GetProcessById(session.ProcessId).ProcessName + "*"; // Sternchen zeigt an: Name wurde über ID geholt
+                    }
+                    catch 
+                    { 
+                        name = $"[PID:{session.ProcessId}]"; 
+                    }
+                }
+                names.Add(name);
+            }
+
+            // Ausgabe: "🎚️ games: DayZ*, Icarus*"
+            LoggerService.Info($"🎚️ {sliderName}: {string.Join(", ", names)}");
+        }
+        LoggerService.Info("=========================");
     }
 }

@@ -136,26 +136,33 @@ public class MixrWorker : BackgroundService
             Console.WriteLine("Media Service läuft.");
 
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("--- ALLES BEREIT - WARTE AUF ARDUINO ---");
+            Console.WriteLine("--- ALLES BEREIT - WARTE AUF PI ---");
             Console.ResetColor();
             
-            int cycleCount = 0;
+            int rebuildCycle = 0;
+            int logCycle = 0;
             while (!stoppingToken.IsCancellationRequested)
             {
 
                 if (!_serial.IsOpen) 
                 {
-                    Console.Write("."); // Herzschlag in der Konsole
+                    Console.Write(".");
                     if (_serial.Connect(cfg.com_port, cfg.baud_rate))
                     {
                         Console.WriteLine($"\nVerbunden mit {cfg.com_port}!");
                     }
                 }
-                cycleCount++;
-                if(cycleCount>=1)
+                rebuildCycle++;
+                if(rebuildCycle>=1)
                 {
-                    cycleCount = 0;
+                    rebuildCycle = 0;
                     _audio.RebuildSessionMap(cfg.slider_mapping,cfg.session_groups);
+                }
+                logCycle++;
+                if(logCycle>=5)
+                {
+                    logCycle = 0;
+                    _audio.PrintDebugMappings();
                 }
                 await Task.Delay(2000, stoppingToken);
             }

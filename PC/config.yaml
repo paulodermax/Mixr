@@ -20,8 +20,13 @@ session_groups:
   games:
     - DayZ
     - Stardew Valley
-    - Battlefield
+    - Battlefield 6
     - Icarus
+    - Rocket League
+    - Enshrouded
+    - Terraria
+    - Rust
+    - Diablo 3
   social:
     - Discord
     - TeamSpeak
