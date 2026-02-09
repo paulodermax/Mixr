@@ -37,22 +37,43 @@ public class AudioService
         {
             if (string.IsNullOrEmpty(session.DisplayName)) continue;
 
-            string? matchedSlider = mappings.FirstOrDefault(m => 
-                session.DisplayName.Contains(m, StringComparison.OrdinalIgnoreCase));
+            string? matchedSlider = null;
+            string name = session.DisplayName;
 
+            // 1. Suche in direkten Mappings
+            // Erst exakt, dann Teilstring
+            matchedSlider = mappings.FirstOrDefault(m => name.Equals(m, StringComparison.OrdinalIgnoreCase)) 
+                 ?? mappings.FirstOrDefault(m => name.Contains(m, StringComparison.OrdinalIgnoreCase));
+
+            // 2. Suche in Gruppen (falls oben nichts gefunden wurde)
             if (matchedSlider == null && groups != null)
             {
-                matchedSlider = groups.FirstOrDefault(g => 
-                    g.Value.Any(k => session.DisplayName.Contains(k, StringComparison.OrdinalIgnoreCase))).Key;
+                // A. Exakter Treffer in einer Gruppe?
+                var matchedGroup = groups.FirstOrDefault(g => 
+                    g.Value.Any(k => name.Equals(k, StringComparison.OrdinalIgnoreCase)));
+
+                if (matchedGroup.Key != null)
+                {
+                    matchedSlider = matchedGroup.Key;
+                }
+                else
+                {
+                    // B. Teilstring-Treffer in einer Gruppe?
+                    matchedSlider = groups.FirstOrDefault(g => 
+                        g.Value.Any(k => name.Contains(k, StringComparison.OrdinalIgnoreCase))).Key;
+                }
             }
 
+            // 3. Wenn gefunden -> zur Map hinzufügen
             if (matchedSlider != null)
             {
                 if (!_sessionMap.ContainsKey(matchedSlider)) 
                     _sessionMap[matchedSlider] = new List<IAudioSession>();
                 
                 _sessionMap[matchedSlider].Add(session);
-                LoggerService.Info($"Mapped: {session.DisplayName} -> {matchedSlider}");
+                
+                // Loggen (jetzt mit LoggerService statt Console)
+                LoggerService.Info($"Mapped: {name} -> {matchedSlider}");
             }
         }
     }

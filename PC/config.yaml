@@ -16,19 +16,15 @@ session_groups:
     - Chrome
     - Spotify
     - Firefox
+    - Brave
   games:
     - DayZ
     - Stardew Valley
     - Battlefield
+    - Icarus
   social:
     - Discord
     - TeamSpeak
   hubs:
     - Steam
     - Battle.net
-
-whitelist:
-  - Chrome
-  - Spotify
-  - Discord
-  - Steam

@@ -55,13 +55,44 @@ public class MixrWorker : BackgroundService
             var cfg = _config.Current;
             _lastLevels = Enumerable.Repeat(-1f, cfg.slider_mapping.Count).ToList();
 
+            // 1,5. Whitelist-Management
+            var autoWhitelist = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            if (cfg.slider_mapping != null)
+            {
+                foreach (var item in cfg.slider_mapping)
+                {
+                    autoWhitelist.Add(item);
+                    // Automatisch auch die .exe Variante hinzufügen, falls nicht vorhanden
+                    if (!item.EndsWith(".exe", StringComparison.OrdinalIgnoreCase))
+                    {
+                        autoWhitelist.Add(item + ".exe");
+                    }
+                }
+            } 
+            if (cfg.session_groups != null)
+                    {
+                        foreach (var group in cfg.session_groups)
+                        {
+                            foreach (var item in group.Value)
+                            {
+                                autoWhitelist.Add(item);
+                                // Auch hier die .exe Variante sicherheitshalber dazu
+                                if (!item.EndsWith(".exe", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    autoWhitelist.Add(item + ".exe");
+                                }
+                            }
+                        }
+                    }
+
+
             // 2. Audio Map bauen
             Console.WriteLine("Initialisiere Audio...");
             _audio.RebuildSessionMap(cfg.slider_mapping, cfg.session_groups);
             Console.WriteLine("Audio Initialisiert.");
 
             // 3. Watcher starten
-            _watcher.SetWhitelist(cfg.whitelist);
+            _watcher.SetWhitelist(autoWhitelist.ToList());
             _watcher.OnWhitelistChanged += () => {
                 Console.WriteLine("Prozess-Änderung erkannt -> Audio Rebuild");
                 _audio.RebuildSessionMap(cfg.slider_mapping, cfg.session_groups);
@@ -107,9 +138,11 @@ public class MixrWorker : BackgroundService
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("--- ALLES BEREIT - WARTE AUF ARDUINO ---");
             Console.ResetColor();
-
+            
+            int cycleCount = 0;
             while (!stoppingToken.IsCancellationRequested)
             {
+
                 if (!_serial.IsOpen) 
                 {
                     Console.Write("."); // Herzschlag in der Konsole
@@ -117,6 +150,12 @@ public class MixrWorker : BackgroundService
                     {
                         Console.WriteLine($"\nVerbunden mit {cfg.com_port}!");
                     }
+                }
+                cycleCount++;
+                if(cycleCount>=1)
+                {
+                    cycleCount = 0;
+                    _audio.RebuildSessionMap(cfg.slider_mapping,cfg.session_groups);
                 }
                 await Task.Delay(2000, stoppingToken);
             }
