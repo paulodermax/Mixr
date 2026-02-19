@@ -136,7 +136,7 @@ public class MixrWorker : BackgroundService
             Console.WriteLine("Media Service läuft.");
 
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("--- ALLES BEREIT - WARTE AUF PI ---");
+            Console.WriteLine("--- Waiting for Pi");
             Console.ResetColor();
             
             int rebuildCycle = 0;
