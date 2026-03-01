@@ -75,31 +75,20 @@ public class SerialService
 
         try
         {
-            LoggerService.Info("📤 Starte Bild-Upload...");
+            LoggerService.Info($"📤 Starte Highspeed Bild-Upload ({imageBytes.Length} Bytes)...");
 
-            // 1. Start-Tag senden & flushen
+            // 1. Start-Tag senden
             _serialPort!.Write("<IMG>");
-            _serialPort.BaseStream.Flush();
-            Thread.Sleep(50); // Kurz warten, damit Python umschalten kann
 
-            // 2. Daten in kleinen Chunks senden (Paketweise)
-            // Wir nehmen kleine Pakete (64 Byte), das ist langsamer aber VIEL sicherer
-            int chunkSize = 64; 
-            for (int i = 0; i < imageBytes.Length; i += chunkSize)
-            {
-                int remaining = Math.Min(chunkSize, imageBytes.Length - i);
-                
-                _serialPort.Write(imageBytes, i, remaining);
-                _serialPort.BaseStream.Flush(); // Zwingt Windows, die Daten SOFORT zu senden
-                
-                // Eine winzige Pause gibt dem Raspberry Pi Zeit, den Puffer zu leeren
-                // Ohne das verschluckt sich der Linux-Gadget-Treiber oft
-                Thread.Sleep(2); 
-            }
+            // 2. Volle Ladung: Das gesamte Array in einem einzigen Rutsch senden!
+            // Kein Chunking, keine kuenstlichen Pausen mehr.
+            _serialPort.Write(imageBytes, 0, imageBytes.Length);
 
-            // 3. Ende-Tag senden & flushen
-            Thread.Sleep(50); // Sicherheitsabstand zum letzten Datenbyte
+            // 3. Ende-Tag senden (Der Pi ignoriert es zwar durch den Byte-Zähler,
+            // aber es hält den Datenstrom sauber, falls sich mal was verschiebt).
             _serialPort.Write("<END>");
+            
+            // Alles sofort aus dem Windows-Puffer drücken
             _serialPort.BaseStream.Flush();
             
             LoggerService.Info("✅ Bild-Upload abgeschlossen.");

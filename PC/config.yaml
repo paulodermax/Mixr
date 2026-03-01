@@ -16,19 +16,20 @@ session_groups:
     - Chrome
     - Spotify
     - Firefox
+    - Brave
   games:
     - DayZ
     - Stardew Valley
-    - Battlefield
+    - Battlefield 6
+    - Icarus
+    - Rocket League
+    - Enshrouded
+    - Terraria
+    - Rust
+    - Diablo III
   social:
     - Discord
     - TeamSpeak
   hubs:
     - Steam
     - Battle.net
-
-whitelist:
-  - Chrome
-  - Spotify
-  - Discord
-  - Steam
