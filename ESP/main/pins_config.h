@@ -56,4 +56,4 @@
 
 // I2C für Touch (falls in Zukunft benötigt)
 #define I2C_SCL               39
-#define I2C_SDA               38
+#define I2C_SDA               40
