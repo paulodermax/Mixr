@@ -8,7 +8,9 @@ enum class PktType : uint8_t {
     SONG_TITLE = 0x01,
     SONG_ARTIST = 0x02,
     SLIDER_VALS = 0x03,
-    BTN_CMD = 0x04
+    BTN_CMD = 0x04,
+    IMAGE_CHUNK = 0x05, 
+    IMAGE_READY = 0x06  
 };
 
 enum class BtnCmd : uint8_t {
