@@ -1,13 +1,24 @@
 using System;
 using System.IO.Ports;
+using System.Text;
 using System.Threading;
 
 namespace Mixr.Services;
 
-public class SerialService
+public class SerialService : IDisposable
 {
     private SerialPort? _serialPort;
-    public event Action<string>? OnDataReceived;
+    private Thread? _readThread;
+    private bool _isRunning;
+
+    // Protokoll-Konstanten
+    const byte PKT_START_BYTE = 0xAA;
+    const byte TYPE_SONG_TITLE  = 0x01;
+    const byte TYPE_SONG_ARTIST = 0x02;
+    const byte TYPE_SLIDER_VALS = 0x03;
+    const byte TYPE_IMAGE_CHUNK = 0x05;
+
+    public event Action<byte[]>? OnSliderDataReceived;
     
     public bool IsOpen => _serialPort != null && _serialPort.IsOpen;
 
@@ -18,33 +29,18 @@ public class SerialService
         try
         {
             _serialPort = new SerialPort(portName, baudRate);
-            _serialPort.NewLine = "\n";
-            
-            // WICHTIG: Flusssteuerung aktivieren, damit der Puffer nicht überläuft
             _serialPort.DtrEnable = true; 
             _serialPort.RtsEnable = true;
-            
-            // Puffergrößen erhöhen
             _serialPort.WriteBufferSize = 8192;
             _serialPort.ReadBufferSize = 8192;
-
-            _serialPort.DataReceived += (s, e) => 
-            {
-                try 
-                {
-                    if (_serialPort.IsOpen)
-                    {
-                        string line = _serialPort.ReadLine().Trim();
-
-                        OnDataReceived?.Invoke(line);
-                    }
-                } 
-                catch { }
-            };
             
             _serialPort.Open();
             _serialPort.DiscardInBuffer();
-            // Kurze Wartezeit nach dem Öffnen
+
+            _isRunning = true;
+            _readThread = new Thread(ReadLoop) { IsBackground = true };
+            _readThread.Start();
+
             Thread.Sleep(500);
             return true;
         }
@@ -55,42 +51,66 @@ public class SerialService
         }
     }
 
-    public void Send(string data)
+    private void ReadLoop()
     {
-        if (IsOpen)
+        while (_isRunning && _serialPort != null && _serialPort.IsOpen)
         {
-            try 
-            { 
-                _serialPort!.Write(data);
-                // WICHTIG: Sofort rausschicken!
-                _serialPort.BaseStream.Flush(); 
-            } 
-            catch { }
+            try
+            {
+                if (_serialPort.BytesToRead > 0 && _serialPort.ReadByte() == PKT_START_BYTE)
+                {
+                    int len = _serialPort.ReadByte();
+                    int type = _serialPort.ReadByte();
+                    
+                    byte[] payload = new byte[len];
+                    int read = 0;
+                    while (read < len)
+                    {
+                        read += _serialPort.Read(payload, read, len - read);
+                    }
+                    
+                    int crc = _serialPort.ReadByte();
+                    int calcCrc = (len ^ type);
+                    foreach (byte b in payload) calcCrc ^= b;
+
+                    // Wenn Slider-Werte reinkommen, ans System weiterleiten
+                    if (crc == calcCrc && type == TYPE_SLIDER_VALS)
+                    {
+                        OnSliderDataReceived?.Invoke(payload);
+                    }
+                }
+                else
+                {
+                    Thread.Sleep(1); // CPU entlasten
+                }
+            }
+            catch { /* Timeout ignorieren */ }
         }
     }
 
-    public void SendImage(byte[] imageBytes)
+    public void SendSongData(string title, string artist)
     {
-        if (!IsOpen || imageBytes.Length == 0) return;
+        SendPacket(TYPE_SONG_TITLE, Encoding.UTF8.GetBytes(title ?? ""));
+        SendPacket(TYPE_SONG_ARTIST, Encoding.UTF8.GetBytes(artist ?? ""));
+    }
+
+    public void SendImageInChunks(byte[] imageData)
+    {
+        if (!IsOpen || imageData.Length == 0) return;
 
         try
         {
-            LoggerService.Info($"📤 Starte Highspeed Bild-Upload ({imageBytes.Length} Bytes)...");
-
-            // 1. Start-Tag senden
-            _serialPort!.Write("<IMG>");
-
-            // 2. Volle Ladung: Das gesamte Array in einem einzigen Rutsch senden!
-            // Kein Chunking, keine kuenstlichen Pausen mehr.
-            _serialPort.Write(imageBytes, 0, imageBytes.Length);
-
-            // 3. Ende-Tag senden (Der Pi ignoriert es zwar durch den Byte-Zähler,
-            // aber es hält den Datenstrom sauber, falls sich mal was verschiebt).
-            _serialPort.Write("<END>");
+            LoggerService.Info($"📤 Starte Highspeed Bild-Upload ({imageData.Length} Bytes)...");
+            int chunkSize = 250; 
             
-            // Alles sofort aus dem Windows-Puffer drücken
-            _serialPort.BaseStream.Flush();
-            
+            for (int i = 0; i < imageData.Length; i += chunkSize)
+            {
+                int currentChunkSize = Math.Min(chunkSize, imageData.Length - i);
+                byte[] chunk = new byte[currentChunkSize];
+                Buffer.BlockCopy(imageData, i, chunk, 0, currentChunkSize);
+                
+                SendPacket(TYPE_IMAGE_CHUNK, chunk);
+            }
             LoggerService.Info("✅ Bild-Upload abgeschlossen.");
         }
         catch (Exception ex)
@@ -99,13 +119,31 @@ public class SerialService
         }
     }
 
+    private void SendPacket(byte type, byte[] payload)
+    {
+        if (payload.Length > 255 || !IsOpen) return;
+
+        byte length = (byte)payload.Length;
+        byte crc = (byte)(length ^ type);
+        foreach (byte b in payload) crc ^= b;
+
+        byte[] packet = new byte[3 + payload.Length + 1];
+        packet[0] = PKT_START_BYTE;
+        packet[1] = length;
+        packet[2] = type;
+        Buffer.BlockCopy(payload, 0, packet, 3, payload.Length);
+        packet[packet.Length - 1] = crc;
+
+        _serialPort!.Write(packet, 0, packet.Length);
+    }
+
     public void Close()
     {
+        _isRunning = false;
         try 
         { 
             if (_serialPort != null && _serialPort.IsOpen)
             {
-                // DTR zurücksetzen signalisiert dem Pi oft "Verbindung getrennt"
                 _serialPort.DtrEnable = false;
                 _serialPort.RtsEnable = false;
                 _serialPort.Close();
@@ -115,4 +153,6 @@ public class SerialService
         catch { }
         _serialPort = null;
     }
+
+    public void Dispose() => Close();
 }

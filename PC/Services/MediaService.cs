@@ -28,59 +28,59 @@ public class MediaService
         {
             _manager = await GlobalSystemMediaTransportControlsSessionManager.RequestAsync();
             
-            _manager.CurrentSessionChanged += (s, e) => 
+            // Event: Wenn Windows die primäre App wechselt (z.B. Spotify -> Chrome)
+            _manager.CurrentSessionChanged += async (s, e) => 
             {
-                LoggerService.Info("Audio-Quelle gewechselt.");
-                _ = UpdateCurrentSession();
+                LoggerService.Info("Media-Fokus hat gewechselt.");
+                await UpdateCurrentSession();
             };
 
             await UpdateCurrentSession();
 
-            // Watchdog für Fortschritt und Session-Sicherheit (1 Sekunde Takt)
+            // Der Watchdog prüft nun alle 2 Sekunden, ob wir die Session verloren haben
             _ = Task.Run(async () => 
             {
                 while (_isRunning)
                 {
-                    await Task.Delay(1000);
-                    if (_currentSession != null)
+                    await Task.Delay(2000);
+                    try 
                     {
-                        await ProcessMedia(_currentSession);
-                        ProcessTimeline(_currentSession); // Fortschritt berechnen
+                        var session = _manager.GetCurrentSession();
+                        if (session == null) continue;
+
+                        // Falls die Session-ID sich geändert hat, ohne dass das Event gefeuert wurde
+                        if (_currentSession == null || _currentSession.SourceAppUserModelId != session.SourceAppUserModelId)
+                        {
+                            await UpdateCurrentSession();
+                        }
+                        
+                        // WICHTIG: Erzwungener Check auf Song-Daten (hilft bei hängenden Events)
+                        await ProcessMedia(session);
                     }
-                    else
-                    {
-                        await UpdateCurrentSession();
-                    }
+                    catch (Exception ex) { LoggerService.Error("Watchdog Fehler", ex); }
                 }
             });
-            
-            LoggerService.Info("MediaService: Watchdog aktiv.");
         } 
         catch (Exception ex) { LoggerService.Error("Media Init Fehler", ex); }
     }
 
     private async Task UpdateCurrentSession()
     {
-        if (_manager == null) return;
+        var newSession = _manager?.GetCurrentSession();
+        if (newSession == null) return;
 
-        var newSession = _manager.GetCurrentSession();
-        
-        if (_currentSession?.SourceAppUserModelId == newSession?.SourceAppUserModelId && newSession != null) 
-            return;
-
+        // Wir speichern die neue Session stabil
         _currentSession = newSession;
+        LoggerService.Info($"Neue Session aktiv: {_currentSession.SourceAppUserModelId}");
 
-        if (_currentSession != null)
-        {
-            LoggerService.Info($"Neue aktive Session: {_currentSession.SourceAppUserModelId}");
-            
-            await ProcessMedia(_currentSession);
-            ProcessTimeline(_currentSession);
+        // Events binden
+        _currentSession.MediaPropertiesChanged += async (s, e) => {
+            LoggerService.Info("Windows meldet: Song-Eigenschaften geändert.");
+            await ProcessMedia(s);
+        };
 
-            _currentSession.MediaPropertiesChanged += async (s, e) => await ProcessMedia(s);
-            _currentSession.PlaybackInfoChanged += async (s, e) => await ProcessMedia(s);
-            _currentSession.TimelinePropertiesChanged += (s, e) => ProcessTimeline(s);
-        }
+        // Initialen Stand sofort abgreifen
+        await ProcessMedia(_currentSession);
     }
 
     private void ProcessTimeline(GlobalSystemMediaTransportControlsSession session)
@@ -109,15 +109,20 @@ public class MediaService
     {
         try
         {
+            // 1. Hole die PlaybackInfo (nur einmal deklarieren!)
             var playbackInfo = session.GetPlaybackInfo();
-            if (playbackInfo != null && playbackInfo.PlaybackStatus != GlobalSystemMediaTransportControlsSessionPlaybackStatus.Playing)
+            
+            // Prüfe, ob überhaupt etwas abgespielt wird
+            if (playbackInfo == null || playbackInfo.PlaybackStatus != GlobalSystemMediaTransportControlsSessionPlaybackStatus.Playing)
             {
                 return; 
             }
 
+            // 2. Hole die Metadaten
             var props = await session.TryGetMediaPropertiesAsync();
             if (props == null || string.IsNullOrEmpty(props.Title)) return;
 
+            // Prüfe auf Songwechsel
             bool isNewSong = props.Title != _lastTitle;
 
             if (isNewSong)
@@ -125,15 +130,16 @@ public class MediaService
                 _lastTitle = props.Title;
                 _imageSentForCurrentTrack = false;
                 
-                LoggerService.Info($"Erkannt: {props.Title} - {props.Artist}");
+                LoggerService.Info($"Wechsel erkannt: {props.Title} - {props.Artist}");
                 OnSongChanged?.Invoke(session.SourceAppUserModelId, props.Title, props.Artist, props.AlbumTitle);
             }
 
+            // 3. Bildverarbeitung (nur wenn noch nicht gesendet)
             if (!_imageSentForCurrentTrack && props.Thumbnail != null && !_isProcessingImage)
             {
+                _isProcessingImage = true;
                 try 
                 {
-                    _isProcessingImage = true;
                     using var stream = await props.Thumbnail.OpenReadAsync();
                     using var memStream = new MemoryStream();
                     await stream.AsStreamForRead().CopyToAsync(memStream);
@@ -141,12 +147,9 @@ public class MediaService
                     if (memStream.Length > 0)
                     {
                         using var img = Image.FromStream(memStream);
-                        using var resized = new Bitmap(img, new Size(120, 120));
+                        using var resized = new Bitmap(img, new Size(240, 240));
                         
-                        // Direkte Konvertierung in das vom Display benötigte Format
-                        byte[] rgb565Bytes = ConvertToBgr565(resized);
-
-                        LoggerService.Info($"Bild generiert ({rgb565Bytes.Length} Bytes).");
+                        byte[] rgb565Bytes = ConvertToRgb565(resized);
                         OnCoverReady?.Invoke(rgb565Bytes);
                         
                         _imageSentForCurrentTrack = true;
@@ -158,25 +161,19 @@ public class MediaService
                 }
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            _isProcessingImage = false;
+            LoggerService.Error("Fehler in ProcessMedia", ex);
         }
     }
 
-    /// <summary>
-    /// Konvertiert ein 120x120 Bitmap direkt in ein 28.800 Byte langes BGR565 Array.
-    /// Exakt die Logik, die zuvor in Python auf dem Raspberry Pi ausgeführt wurde.
-    /// </summary>
-    private byte[] ConvertToBgr565(Bitmap img)
+    private byte[] ConvertToRgb565(Bitmap img)
     {
         int width = img.Width;
         int height = img.Height;
-        byte[] buffer = new byte[width * height * 2];
+        byte[] buffer = new byte[width * height * 2]; // 115.200 Bytes
         
-        // LockBits greift direkt auf den RAM zu -> Keine Verzögerung mehr
         BitmapData bmpData = img.LockBits(new Rectangle(0, 0, width, height), ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
-        
         int bytes = Math.Abs(bmpData.Stride) * height;
         byte[] rgbValues = new byte[bytes];
         Marshal.Copy(bmpData.Scan0, rgbValues, 0, bytes);
@@ -187,14 +184,15 @@ public class MediaService
         {
             for (int x = 0; x < width; x++)
             {
-                // Pixel-Position im rohen Byte-Array berechnen
                 int p = (y * bmpData.Stride) + (x * 3);
                 int b = rgbValues[p];
                 int g = rgbValues[p + 1];
                 int r = rgbValues[p + 2];
                 
-                int val = ((b & 0xF8) << 8) | ((g & 0xFC) << 3) | (r >> 3);
+                // RGB565 Berechnung
+                int val = ((r & 0xF8) << 8) | ((g & 0xFC) << 3) | (b >> 3);
                 
+                // Little-Endian (High Byte, dann Low Byte)
                 buffer[idx++] = (byte)(val >> 8);
                 buffer[idx++] = (byte)(val & 0xFF);
             }

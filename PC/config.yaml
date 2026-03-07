@@ -1,4 +1,4 @@
-com_port: COM11
+com_port: COM6
 baud_rate: 230400
 invert_sliders: true
 noise_reduction: default

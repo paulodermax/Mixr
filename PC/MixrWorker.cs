@@ -17,7 +17,6 @@ public class MixrWorker : BackgroundService
     private readonly MediaService _media;
     private readonly ProcessWatcher _watcher;
     private List<float> _lastLevels = new();
-    private string _lastMsg = "";
     public MixrWorker(ConfigService config, SerialService serial, AudioService audio, MediaService media, ProcessWatcher watcher)
     {
         _config = config; _serial = serial; _audio = audio; _media = media; _watcher = watcher;
@@ -88,19 +87,19 @@ public class MixrWorker : BackgroundService
 
             // 2. Audio Map bauen
             Console.WriteLine("Initialisiere Audio...");
-            _audio.RebuildSessionMap(cfg.slider_mapping, cfg.session_groups);
+            _audio.RebuildSessionMap(cfg.slider_mapping ?? new(), cfg.session_groups ?? new());
             Console.WriteLine("Audio Initialisiert.");
 
             // 3. Watcher starten
             _watcher.SetWhitelist(autoWhitelist.ToList());
             _watcher.OnWhitelistChanged += () => {
                 Console.WriteLine("Prozess-Änderung erkannt -> Audio Rebuild");
-                _audio.RebuildSessionMap(cfg.slider_mapping, cfg.session_groups);
+                _audio.RebuildSessionMap(cfg.slider_mapping ?? new(), cfg.session_groups ?? new());
             };
             _watcher.Start();
 
             // 4. Serial Events
-            _serial.OnDataReceived += HandleInput;
+            _serial.OnSliderDataReceived += HandleSliderInput;
             /*_serial.OnDataReceived += (data) => 
             {
                 // Trim() entfernt Leerzeichen am Anfang/Ende, falls welche da sind
@@ -110,29 +109,21 @@ public class MixrWorker : BackgroundService
                 LoggerService.Info($"🎛️ Input: {cleanData}");
             };*/
             // 5. Media Service
+            _media.OnSongChanged += (app, title, artist, album) => 
+            {
+                _serial.SendSongData(title ?? "", artist ?? "");
+            };
+            
+            _media.OnCoverReady += (imageBytes) => 
+            {
+                Task.Run(() => _serial.SendImageInChunks(imageBytes)); 
+            };
+
+            // --- DAS HIER HAT GEFEHLT: ---
             Console.WriteLine("Starte Media Service...");
-            await _media.InitializeAsync();
-            _media.OnSongChanged += (a, t, ar, al) => 
-            {
-                string msg = $"sp|{a}|{t}|{ar}|{al}\n";
-                _lastMsg = msg; // <--- Merken für später!
-                _serial.Send(msg);
-            };
-            _media.OnCoverReady += async (b) => 
-            {
-                // 1. Bild senden
-                _serial.SendImage(b); 
+            await _media.InitializeAsync(); 
+            // -----------------------------
 
-                // 2. Sicherheits-Pause (damit der Pi Zeit hat das Bild zu speichern)
-                await Task.Delay(1000); 
-
-                // 3. Text nochmal hinterherschicken (falls er vorhanden ist)
-                if (!string.IsNullOrEmpty(_lastMsg))
-                {
-                    _serial.Send(_lastMsg);
-                    // Console.WriteLine("Sicherheits-Update gesendet."); // Optional fürs Debugging
-                }
-            };
             Console.WriteLine("Media Service läuft.");
 
             Console.ForegroundColor = ConsoleColor.Green;
@@ -175,18 +166,17 @@ public class MixrWorker : BackgroundService
         }
     }
 
-    private void HandleInput(string line)
+    private void HandleSliderInput(byte[] sliders)
     {
-        // Debugging für Serial Input (Optional aktivieren)
-        // Console.WriteLine($"RX: {line}"); 
-
-        if (line.StartsWith("IMG_OK") || !line.Contains('|')) return;
-        var parts = line.Split('|');
-        for (int i = 0; i < parts.Length && i < _config.Current.slider_mapping.Count; i++)
+        // Wir iterieren über die empfangenen Bytes (Werte 0-255)
+        for (int i = 0; i < sliders.Length && i < _config.Current.slider_mapping.Count; i++)
         {
-            if (!int.TryParse(parts[i], out int val)) continue;
-            float level = val / 1023f;
+            // Umrechnung von 0-255 (ESP32) auf 0.0 - 1.0 (Windows Audio API)
+            float level = sliders[i] / 255f; 
+            
             if (_config.Current.invert_sliders) level = 1f - level;
+            
+            // Hysterese: Nur ändern, wenn der Regler physisch spürbar bewegt wurde
             if (Math.Abs(level - _lastLevels[i]) > 0.005f)
             {
                 _lastLevels[i] = level;
