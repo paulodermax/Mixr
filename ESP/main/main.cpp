@@ -81,7 +81,7 @@ void create_player_screen() {
     // Titel
     ui_title = lv_label_create(screen_player);
     lv_label_set_text(ui_title, "Aktueller Song");
-    lv_obj_set_style_text_font(ui_title, &lv_font_montserrat_20, 0);
+    lv_obj_set_style_text_font(ui_title, &lv_font_montserrat_14, 0);
     lv_obj_set_style_text_color(ui_title, lv_color_white(), 0);
     lv_obj_align(ui_title, LV_ALIGN_CENTER, 0, 100);
 
@@ -195,11 +195,16 @@ extern "C" void app_main(void)
     lcd_setRotation(0);
     touch.begin();
 
-    // 2. LVGL Init & Display Buffer
     lv_init();
     size_t buf_size = (TFT_WIDTH * TFT_HEIGHT) / 10;
-    void *buf = heap_caps_malloc(buf_size * sizeof(lv_color_t), MALLOC_CAP_SPIRAM);
     
+    // Geändert: MALLOC_CAP_INTERNAL statt SPIRAM für maximale Geschwindigkeit
+    void *buf = heap_caps_malloc(buf_size * sizeof(lv_color_t), MALLOC_CAP_INTERNAL | MALLOC_CAP_8BIT);
+    
+    if (buf == NULL) {
+        ESP_LOGE(TAG, "Interner RAM für Buffer nicht verfügbar, nutze SPIRAM als Fallback");
+        buf = heap_caps_malloc(buf_size * sizeof(lv_color_t), MALLOC_CAP_SPIRAM);
+    }
     lv_display_t *disp = lv_display_create(TFT_WIDTH, TFT_HEIGHT);
     lv_display_set_buffers(disp, buf, NULL, buf_size * sizeof(lv_color_t), LV_DISPLAY_RENDER_MODE_PARTIAL);
     lv_display_set_flush_cb(disp, my_disp_flush);
@@ -234,39 +239,42 @@ extern "C" void app_main(void)
     lv_screen_load(screen_loading);
 
     // 7. Main Loop
-    bool last_usb_state = false;
+bool last_usb_state = false;
     UiMessage incoming_msg;
+    uint8_t last_sliders[4] = {0, 0, 0, 0};
+    uint8_t current_sliders[4] = {0, 0, 0, 0};
 
     while (1) {
         bool current_usb_state = usb_serial_jtag_is_connected();
-        // In app_main vor der while-Schleife:
-        uint8_t last_sliders[4] = {0, 0, 0, 0};
-
-        // In der while(1):
-        uint8_t current_sliders[4];
-        // Hier deine ADC-Abfrage einfügen, z.B.:
-        // current_sliders[0] = (uint8_t)(adc_read_raw(ADC_CH_0) >> 4); 
-
-        // Nur senden, wenn sich ein Wert geändert hat (Traffic sparen)
-        if (memcmp(current_sliders, last_sliders, 4) != 0) {
-            send_to_pc(PktType::SLIDER_VALS, current_sliders, 4);
-            memcpy(last_sliders, current_sliders, 4);
-        }
+        
+        // USB Status Wechsel
         if (current_usb_state != last_usb_state) {
             lv_screen_load(current_usb_state ? screen_player : screen_loading);
             last_usb_state = current_usb_state;
         }
 
+        // Slider-Logik (nur senden wenn USB verbunden)
+        if (current_usb_state) {
+            // HIER später echte ADC-Werte einlesen! 
+            // Aktuell als Platzhalter auf 0 lassen oder Testwerte nutzen:
+            // current_sliders[0] = (uint8_t)deine_adc_funktion(); 
+
+            if (memcmp(current_sliders, last_sliders, 4) != 0) {
+                send_to_pc(PktType::SLIDER_VALS, current_sliders, 4);
+                memcpy(last_sliders, current_sliders, 4);
+            }
+        }
+
+        // UI Updates verarbeiten
         if (xQueueReceive(ui_queue, &incoming_msg, 0) == pdTRUE) {
+            // ... (dein restlicher switch-case Block bleibt gleich)
             switch (incoming_msg.type) {
                 case PktType::SONG_TITLE:
                     if (ui_title) lv_label_set_text(ui_title, incoming_msg.payload.text);
                     break;
-
                 case PktType::SONG_ARTIST:
                     if (ui_artist) lv_label_set_text(ui_artist, incoming_msg.payload.text);
                     break;
-
                 case PktType::IMAGE_READY:
                     if (ui_cover && img_buf) {
                         img_dsc.header.magic = LV_IMAGE_HEADER_MAGIC;
@@ -276,25 +284,10 @@ extern "C" void app_main(void)
                         img_dsc.header.stride = 240 * 2;
                         img_dsc.data_size = IMG_SIZE;
                         img_dsc.data = img_buf;
-                        
                         lv_image_set_src(ui_cover, &img_dsc);
                     }
                     break;
-
-                case PktType::SLIDER_VALS:
-                    ESP_LOGI(TAG, "S1:%d S2:%d S3:%d S4:%d", 
-                             incoming_msg.payload.slider_values[0],
-                             incoming_msg.payload.slider_values[1],
-                             incoming_msg.payload.slider_values[2],
-                             incoming_msg.payload.slider_values[3]);
-                    break;
-
-                case PktType::BTN_CMD:
-                    ESP_LOGI(TAG, "CMD ID: %d", static_cast<int>(incoming_msg.payload.command));
-                    break;
-
-                default:
-                    break;
+                default: break;
             }
         }
 
