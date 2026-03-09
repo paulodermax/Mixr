@@ -14,15 +14,17 @@ enum class PktType : uint8_t {
 };
 
 enum class BtnCmd : uint8_t {
-    PLAY_PAUSE = 0x01,
-    NEXT = 0x02,
-    PREV = 0x03
+    BTN_0 = 0x00, // GPIO 33
+    BTN_1 = 0x01, // GPIO 26
+    BTN_2 = 0x02, // GPIO 38
+    BTN_3 = 0x03, // GPIO 10
+    BTN_4 = 0x04  // GPIO 4
 };
 
 struct UiMessage {
     PktType type;
     union {
-        uint8_t slider_values[4];
+        uint8_t slider_values[8];
         char text[64];
         BtnCmd command;
     } payload;
