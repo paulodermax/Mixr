@@ -1,4 +1,5 @@
 #include "rm67162.h"
+#include "board_pins.h"
 #include <string.h>
 #include "esp_heap_caps.h"
 #include "driver/spi_master.h"
@@ -89,7 +90,7 @@ void rm67162_init(void)
 
 void lcd_setRotation(uint8_t r)
 {
-    uint8_t gbr = TFT_MAD_RGB;
+    uint8_t gbr = MIXR_LCD_MADCTL_BGR ? TFT_MAD_BGR : TFT_MAD_RGB;
 
     switch (r) {
     case 0:

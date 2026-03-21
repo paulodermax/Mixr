@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.IO.Ports;
 using System.Text;
@@ -89,7 +89,7 @@ class Program
     {
         if (type == TYPE_SLIDER_VALS && payload.Length >= 4)
         {
-            Console.WriteLine($"[ESP32] Slider: S1={payload[0]}, S2={payload[1]}, S3={payload[2]}, S4={payload[3]}");
+            Console.WriteLine($"[ESP32] Slider: S1={payload[0]}, S2={payload[1]}, S3={payload[2]}, S4={payload[3]} (4 Kanäle)");
         }
         else if (type == TYPE_BTN_CMD && payload.Length >= 1)
         {

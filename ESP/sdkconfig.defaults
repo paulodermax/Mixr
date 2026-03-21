@@ -1,0 +1,2 @@
+# LVGL auf dem Main-Task braucht deutlich mehr als 3,5 KB Stack
+CONFIG_ESP_MAIN_TASK_STACK_SIZE=16384
