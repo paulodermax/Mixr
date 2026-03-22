@@ -8,6 +8,12 @@ void mixr_ui_init(lv_display_t *disp, uint8_t *cover_buf, uint32_t cover_bytes, 
 
 void mixr_ui_set_debug_overlay(uint32_t boot_count, uint32_t uptime_sec);
 
+/** Letzter Chip-Reset (Kurzform), für Debug-Ecke */
+void mixr_ui_set_last_reset_reason(int reset_reason_as_int);
+
+/** Fehlertext unten auf dem Player-Screen; leer = ausblenden */
+void mixr_ui_set_error_banner(const char *text_utf8);
+
 void mixr_ui_set_usb_connected(bool connected);
 
 void mixr_ui_on_message(const UiMessage *msg);

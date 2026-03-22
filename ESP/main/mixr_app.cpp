@@ -3,8 +3,7 @@
  * Mixr-Binärprotokoll (send_to_pc / comm_task). Sobald Pakete gesendet werden
  * (z. B. Slider geändert, Taste), erscheinen rohe Bytes im Terminal als
  * „Krautzeichen“ — das ist keine zufällige Störung, sondern Daten + Text im
- * selben Strom. Saubere Logs: UART0 (GPIO) mit separatem USB-UART, oder
- * Protokoll auf anderem UART (Hardware).
+ * selben Strom. Produkt: ein USB-Kabel (native USB-Serial/JTAG) für Logs + Protokoll.
  */
 
 #include "board_pins.h"
@@ -21,6 +20,7 @@
 #include "esp_attr.h"
 #include "esp_heap_caps.h"
 #include "esp_log.h"
+#include "esp_system.h"
 #include "esp_timer.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/queue.h"
@@ -48,6 +48,10 @@ static const uint32_t IMG_SIZE = 240 * 240 * 2;
 static QueueHandle_t ui_queue;
 static Ky040Encoder g_encoder;
 
+/** USB-Slider/Buttons: vom Timer statt aus main, damit es bei langem LVGL-Cover-Draw weiterläuft */
+static uint8_t s_last_sliders[MIXR_SLIDER_COUNT] = {0};
+static uint8_t s_last_buttons[5] = {1, 1, 1, 1, 1};
+
 static void my_disp_flush(lv_display_t *disp, const lv_area_t *area, uint8_t *px_map)
 {
     uint32_t w = (uint32_t)(area->x2 - area->x1 + 1);
@@ -63,6 +67,9 @@ static void my_disp_flush(lv_display_t *disp, const lv_area_t *area, uint8_t *px
 
     lcd_PushColors(area->x1, area->y1, w, h, p);
     lv_display_flush_ready(disp);
+    /* Partial-Render: mehrere Streifen hintereinander ohne Yield → IDLE0 bekommt keine CPU,
+     * Task-WDT (ESP-IDF) löst aus. Nach jedem Flush dem Idle-Task Zeit geben. */
+    taskYIELD();
 }
 
 static void my_touchpad_read(lv_indev_t *indev, lv_indev_data_t *data)
@@ -145,6 +152,11 @@ static int mcp3008_read(int channel)
     return ((rx_data[1] & 0x03) << 8) | rx_data[2];
 }
 
+static bool mixr_pc_link_up(void)
+{
+    return usb_serial_jtag_is_connected();
+}
+
 static void send_to_pc(PktType type, const uint8_t *payload, uint8_t len)
 {
     if (len > 250) {
@@ -164,6 +176,14 @@ static void send_to_pc(PktType type, const uint8_t *payload, uint8_t len)
     packet[3 + len] = crc;
 
     usb_serial_jtag_write_bytes(packet, 4 + len, portMAX_DELAY);
+}
+
+void mixr_pc_send_media_cmd(uint8_t subcmd)
+{
+    if (!mixr_pc_link_up()) {
+        return;
+    }
+    send_to_pc(PktType::MEDIA_CMD, &subcmd, 1);
 }
 
 static void comm_task(void *pvParameters)
@@ -246,6 +266,37 @@ static void comm_task(void *pvParameters)
     }
 }
 
+static void mixr_poll_sliders_buttons(void)
+{
+    if (!mixr_pc_link_up()) {
+        return;
+    }
+    if (mixr_sliders_send_enabled()) {
+        uint8_t current_sliders[MIXR_SLIDER_COUNT];
+        for (int j = 0; j < MIXR_SLIDER_COUNT; j++) {
+            current_sliders[j] = (uint8_t)(mcp3008_read(j) >> 2);
+        }
+        if (memcmp(current_sliders, s_last_sliders, MIXR_SLIDER_COUNT) != 0) {
+            send_to_pc(PktType::SLIDER_VALS, current_sliders, MIXR_SLIDER_COUNT);
+            memcpy(s_last_sliders, current_sliders, MIXR_SLIDER_COUNT);
+        }
+    }
+    for (int b = 0; b < 5; b++) {
+        uint8_t state = gpio_get_level(mixr_button_gpios[b]);
+        if (mixr_buttons_send_enabled() && state == 0 && s_last_buttons[b] == 1) {
+            uint8_t btn_id = (uint8_t)b;
+            send_to_pc(PktType::BTN_CMD, &btn_id, 1);
+        }
+        s_last_buttons[b] = state;
+    }
+}
+
+static void mixr_controls_timer_cb(void *arg)
+{
+    (void)arg;
+    mixr_poll_sliders_buttons();
+}
+
 void mixr_app_run(void)
 {
     s_mixr_boot_count++;
@@ -253,9 +304,10 @@ void mixr_app_run(void)
 
     rm67162_init();
 
+    /* Ein Kabel: USB-Serial/JTAG für Protokoll + Logs. Großer RX-Puffer gegen Überlauf bei Cover-Bursts. */
     usb_serial_jtag_driver_config_t usb_config = {
-        .tx_buffer_size = 256,
-        .rx_buffer_size = 8192,
+        .tx_buffer_size = 512,
+        .rx_buffer_size = 65536,
     };
     ESP_ERROR_CHECK(usb_serial_jtag_driver_install(&usb_config));
 
@@ -264,15 +316,22 @@ void mixr_app_run(void)
     init_hardware_peripherals();
 
     lv_init();
-    /* Größerer Partial-Buffer = weniger Band-Artefakte / weicher wirkende Schrift */
-    const size_t buf_pixels = (TFT_WIDTH * TFT_HEIGHT) / 2;
-    size_t buf_size = buf_pixels;
+    /* Halber Frame (~128 KiB) passt oft nicht ins interne DRAM → Ausweich nach PSRAM.
+     * PSRAM + SW-Renderer beim Cover = sehr langsam → IDLE0-WDT / Neustart.
+     * ~1/8 Frame (~32 KiB) bleibt i. d. R. intern und schnell genug (evtl. etwas mehr Partial-Streifen). */
+    const size_t total_px = (size_t)TFT_WIDTH * (size_t)TFT_HEIGHT;
+    const size_t buf_pixels = total_px / 8U;
+    const size_t buf_size = buf_pixels;
 
     void *disp_buf =
         heap_caps_malloc(buf_size * sizeof(lv_color_t), MALLOC_CAP_INTERNAL | MALLOC_CAP_8BIT);
     if (disp_buf == nullptr) {
         ESP_LOGW(TAG, "Interner RAM voll, nutze PSRAM fuer Display Buffer");
         disp_buf = heap_caps_malloc(buf_size * sizeof(lv_color_t), MALLOC_CAP_SPIRAM);
+    }
+    if (disp_buf == nullptr) {
+        ESP_LOGE(TAG, "LVGL Display Buffer: Allokation fehlgeschlagen");
+        abort();
     }
 
     lv_display_t *disp = lv_display_create(TFT_WIDTH, TFT_HEIGHT);
@@ -306,7 +365,11 @@ void mixr_app_run(void)
         ESP_LOGE(TAG, "PSRAM Allokation fuer Cover fehlgeschlagen");
     }
 
+    mixr_ui_set_last_reset_reason(static_cast<int>(esp_reset_reason()));
     mixr_ui_init(disp, img_buf, IMG_SIZE, s_mixr_boot_count);
+    if (img_buf == nullptr) {
+        mixr_ui_set_error_banner("Cover: PSRAM fehlt");
+    }
 
     const esp_timer_create_args_t timer_args = {
         .callback = &lv_tick_task,
@@ -331,16 +394,28 @@ void mixr_app_run(void)
     /* 1 ms: Quadratur zwischen zwei langsamen Hauptschleifen-Takten nicht verlieren */
     ESP_ERROR_CHECK(esp_timer_start_periodic(enc_timer, 1000));
 
+    const esp_timer_create_args_t controls_timer_args = {
+        .callback = &mixr_controls_timer_cb,
+        .arg = nullptr,
+        .dispatch_method = ESP_TIMER_TASK,
+        .name = "usb_ctrl",
+        .skip_unhandled_events = false,
+    };
+    esp_timer_handle_t controls_timer;
+    ESP_ERROR_CHECK(esp_timer_create(&controls_timer_args, &controls_timer));
+    /* ~40 Hz: genug für „Echtzeit“ am Host, entlastet main während LVGL-Redraw */
+    ESP_ERROR_CHECK(esp_timer_start_periodic(controls_timer, 25000));
+
     ui_queue = xQueueCreate(10, sizeof(UiMessage));
+    /* USB kurz stabilisieren (Enumeration), bevor große RX-Strom kommt */
+    vTaskDelay(pdMS_TO_TICKS(500));
     xTaskCreate(comm_task, "comm_task", 4096, nullptr, 5, nullptr);
 
-    mixr_ui_set_usb_connected(usb_serial_jtag_is_connected());
+    mixr_ui_set_usb_connected(mixr_pc_link_up());
 
     bool last_usb_state = usb_serial_jtag_is_connected();
     UiMessage incoming_msg;
 
-    uint8_t last_sliders[MIXR_SLIDER_COUNT] = {0};
-    uint8_t last_buttons[5] = {1, 1, 1, 1, 1};
     uint32_t last_dbg_ms = 0;
 
     while (1) {
@@ -356,28 +431,6 @@ void mixr_app_run(void)
             last_usb_state = current_usb_state;
             if (!current_usb_state && mixr_ui_is_menu_open()) {
                 mixr_ui_menu_refresh_dynamic_rows();
-            }
-        }
-
-        if (current_usb_state) {
-            if (mixr_sliders_send_enabled()) {
-                uint8_t current_sliders[MIXR_SLIDER_COUNT];
-                for (int j = 0; j < MIXR_SLIDER_COUNT; j++) {
-                    current_sliders[j] = (uint8_t)(mcp3008_read(j) >> 2);
-                }
-                if (memcmp(current_sliders, last_sliders, MIXR_SLIDER_COUNT) != 0) {
-                    send_to_pc(PktType::SLIDER_VALS, current_sliders, MIXR_SLIDER_COUNT);
-                    memcpy(last_sliders, current_sliders, MIXR_SLIDER_COUNT);
-                }
-            }
-
-            for (int b = 0; b < 5; b++) {
-                uint8_t state = gpio_get_level(mixr_button_gpios[b]);
-                if (mixr_buttons_send_enabled() && state == 0 && last_buttons[b] == 1) {
-                    uint8_t btn_id = (uint8_t)b;
-                    send_to_pc(PktType::BTN_CMD, &btn_id, 1);
-                }
-                last_buttons[b] = state;
             }
         }
 

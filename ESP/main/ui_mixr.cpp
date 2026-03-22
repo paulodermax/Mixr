@@ -4,6 +4,8 @@
 #include "mixr_settings.hpp"
 #include "pins_config.h"
 
+#include "esp_system.h"
+
 #include <cstdio>
 #include <cstring>
 
@@ -24,6 +26,15 @@ static lv_obj_t *focus_run_panel;
 static lv_obj_t *focus_run_lbl;
 static lv_obj_t *debug_corner = nullptr;
 static lv_obj_t *debug_lbl = nullptr;
+static lv_obj_t *err_banner_lbl = nullptr;
+/** Cover-Rahmen für Layout (Titel/Artist darunter) */
+static lv_obj_t *s_cover_frame = nullptr;
+
+static char s_reset_tag[14] = "R:?";
+
+/** Vom PC empfangen; Anzeige erst mit Cover (IMAGE_READY) gemeinsam */
+static char s_pending_title[64] = "-";
+static char s_pending_artist[64] = "-";
 
 static uint8_t *s_cover_buf = nullptr;
 static uint32_t s_cover_bytes = 0;
@@ -45,6 +56,8 @@ static void apply_menu_highlight(void)
     if (menu_col == nullptr) {
         return;
     }
+    size_t cat_n = 0;
+    const MenuItemDef *cat_items = menu_catalog_items(&cat_n);
     uint32_t n = lv_obj_get_child_count(menu_col);
     for (uint32_t i = 0; i < n; i++) {
         lv_obj_t *row = lv_obj_get_child(menu_col, i);
@@ -59,9 +72,12 @@ static void apply_menu_highlight(void)
         }
         lv_obj_t *lbl = lv_obj_get_child(row, 0);
         if (lbl) {
-            lv_obj_set_style_text_color(lbl,
-                                       (int)i == menu_sel ? lv_color_white() : lv_color_hex(0xd0d0d8),
-                                       0);
+            lv_color_t unsel = lv_color_hex(0xd0d0d8);
+            if (menu_nav_current() == MenuScreenId::Settings && cat_items != nullptr && (size_t)i < cat_n
+                && std::strcmp(cat_items[i].id, "restart") == 0) {
+                unsel = lv_palette_main(LV_PALETTE_PINK);
+            }
+            lv_obj_set_style_text_color(lbl, (int)i == menu_sel ? lv_color_white() : unsel, 0);
         }
     }
 }
@@ -105,6 +121,9 @@ static void rebuild_list_rows(void)
         lv_label_set_text(lbl, menu_catalog_row_title(i));
         lv_obj_set_width(lbl, LV_PCT(100));
         lv_obj_set_style_text_font(lbl, &lv_font_montserrat_14, 0);
+        if (menu_nav_current() == MenuScreenId::Settings && std::strcmp(items[i].id, "restart") == 0) {
+            lv_obj_set_style_text_color(lbl, lv_palette_main(LV_PALETTE_PINK), 0);
+        }
         lv_obj_set_style_text_align(lbl, LV_TEXT_ALIGN_CENTER, 0);
         lv_obj_align(lbl, LV_ALIGN_CENTER, 0, 0);
         lv_obj_add_event_cb(row, menu_row_clicked, LV_EVENT_CLICKED, reinterpret_cast<void *>(static_cast<intptr_t>(i)));
@@ -126,8 +145,14 @@ static void set_menu_title_for_screen(MenuScreenId s)
         case MenuScreenId::Brightness:
             lv_label_set_text(menu_title_lbl, "Brightness");
             break;
+        case MenuScreenId::Restart:
+            lv_label_set_text(menu_title_lbl, "Restart");
+            break;
         case MenuScreenId::Debug:
             lv_label_set_text(menu_title_lbl, "Debug");
+            break;
+        case MenuScreenId::Playback:
+            lv_label_set_text(menu_title_lbl, "Playback Control");
             break;
         case MenuScreenId::Focus:
             lv_label_set_text(menu_title_lbl, "Focus mode (app)");
@@ -418,9 +443,11 @@ void mixr_ui_init(lv_display_t *disp, uint8_t *cover_buf, uint32_t cover_bytes, 
     lv_obj_set_style_border_width(screen_player, 0, 0);
     lv_obj_set_style_outline_width(screen_player, 0, 0);
 
-    lv_obj_t *cover_frame = lv_obj_create(screen_player);
+    s_cover_frame = lv_obj_create(screen_player);
+    lv_obj_t *cover_frame = s_cover_frame;
     lv_obj_set_size(cover_frame, 240, 240);
-    lv_obj_align(cover_frame, LV_ALIGN_TOP_MID, 0, 12);
+    /* Etwas nach unten, damit Text darunter mehr Platz hat */
+    lv_obj_align(cover_frame, LV_ALIGN_TOP_MID, 0, 36);
     lv_obj_set_style_radius(cover_frame, 14, 0);
     lv_obj_set_style_clip_corner(cover_frame, true, 0);
     lv_obj_set_style_border_width(cover_frame, 0, 0);
@@ -436,19 +463,38 @@ void mixr_ui_init(lv_display_t *disp, uint8_t *cover_buf, uint32_t cover_bytes, 
 
     ui_title = lv_label_create(screen_player);
     lv_label_set_text(ui_title, "-");
+#if defined(LV_FONT_MONTSERRAT_18) && LV_FONT_MONTSERRAT_18
+    lv_obj_set_style_text_font(ui_title, &lv_font_montserrat_18, 0);
+#else
     lv_obj_set_style_text_font(ui_title, &lv_font_montserrat_14, 0);
+#endif
     lv_obj_set_style_text_color(ui_title, lv_color_hex(0xf2f2f8), 0);
     lv_label_set_long_mode(ui_title, LV_LABEL_LONG_DOT);
-    lv_obj_set_width(ui_title, 220);
-    lv_obj_align(ui_title, LV_ALIGN_TOP_MID, 0, 268);
+    lv_obj_set_width(ui_title, 228);
+    lv_obj_set_style_text_align(ui_title, LV_TEXT_ALIGN_CENTER, 0);
+    lv_obj_align_to(ui_title, cover_frame, LV_ALIGN_OUT_BOTTOM_MID, 0, 10);
 
     ui_artist = lv_label_create(screen_player);
     lv_label_set_text(ui_artist, "-");
+#if defined(LV_FONT_MONTSERRAT_18) && LV_FONT_MONTSERRAT_18
+    lv_obj_set_style_text_font(ui_artist, &lv_font_montserrat_18, 0);
+#else
     lv_obj_set_style_text_font(ui_artist, &lv_font_montserrat_14, 0);
+#endif
     lv_obj_set_style_text_color(ui_artist, lv_palette_lighten(LV_PALETTE_GREY, 1), 0);
     lv_label_set_long_mode(ui_artist, LV_LABEL_LONG_DOT);
-    lv_obj_set_width(ui_artist, 220);
-    lv_obj_align(ui_artist, LV_ALIGN_TOP_MID, 0, 296);
+    lv_obj_set_width(ui_artist, 228);
+    lv_obj_set_style_text_align(ui_artist, LV_TEXT_ALIGN_CENTER, 0);
+    lv_obj_align_to(ui_artist, ui_title, LV_ALIGN_OUT_BOTTOM_MID, 0, 6);
+
+    err_banner_lbl = lv_label_create(screen_player);
+    lv_label_set_text(err_banner_lbl, "");
+    lv_obj_set_style_text_font(err_banner_lbl, &lv_font_montserrat_14, 0);
+    lv_obj_set_style_text_color(err_banner_lbl, lv_palette_main(LV_PALETTE_RED), 0);
+    lv_label_set_long_mode(err_banner_lbl, LV_LABEL_LONG_DOT);
+    lv_obj_set_width(err_banner_lbl, 228);
+    lv_obj_align(err_banner_lbl, LV_ALIGN_BOTTOM_MID, 0, -44);
+    lv_obj_add_flag(err_banner_lbl, LV_OBJ_FLAG_HIDDEN);
 
     lv_obj_t *hint = lv_label_create(screen_player);
     lv_label_set_text(hint, "Encoder: Menu");
@@ -463,14 +509,67 @@ void mixr_ui_init(lv_display_t *disp, uint8_t *cover_buf, uint32_t cover_bytes, 
     strip_display_layers(disp);
 }
 
+void mixr_ui_set_last_reset_reason(int reset_reason_as_int)
+{
+    esp_reset_reason_t r = static_cast<esp_reset_reason_t>(reset_reason_as_int);
+    const char *t = "?";
+    switch (r) {
+        case ESP_RST_POWERON:
+            t = "POR";
+            break;
+        case ESP_RST_USB:
+            t = "USB";
+            break;
+        case ESP_RST_SW:
+            t = "SW";
+            break;
+        case ESP_RST_PANIC:
+            t = "PAN";
+            break;
+        case ESP_RST_INT_WDT:
+            t = "IWD";
+            break;
+        case ESP_RST_TASK_WDT:
+            t = "TWD";
+            break;
+        case ESP_RST_WDT:
+            t = "WD";
+            break;
+        case ESP_RST_BROWNOUT:
+            t = "BRN";
+            break;
+        case ESP_RST_DEEPSLEEP:
+            t = "SLP";
+            break;
+        default:
+            t = "???";
+            break;
+    }
+    snprintf(s_reset_tag, sizeof(s_reset_tag), "R:%s", t);
+}
+
+void mixr_ui_set_error_banner(const char *text_utf8)
+{
+    if (err_banner_lbl == nullptr) {
+        return;
+    }
+    if (text_utf8 == nullptr || text_utf8[0] == '\0') {
+        lv_obj_add_flag(err_banner_lbl, LV_OBJ_FLAG_HIDDEN);
+        lv_label_set_text(err_banner_lbl, "");
+        return;
+    }
+    lv_label_set_text(err_banner_lbl, text_utf8);
+    lv_obj_clear_flag(err_banner_lbl, LV_OBJ_FLAG_HIDDEN);
+}
+
 void mixr_ui_set_debug_overlay(uint32_t boot_count, uint32_t uptime_sec)
 {
     if (debug_lbl == nullptr) {
         return;
     }
-    char buf[56];
-    snprintf(buf, sizeof(buf), "#%lu\n%lus\nS%u B%u",
-             (unsigned long)boot_count, (unsigned long)uptime_sec,
+    char buf[64];
+    snprintf(buf, sizeof(buf), "#%lu %s\n%lus\nS%u B%u",
+             (unsigned long)boot_count, s_reset_tag, (unsigned long)uptime_sec,
              mixr_sliders_send_enabled() ? 1U : 0U, mixr_buttons_send_enabled() ? 1U : 0U);
     lv_label_set_text(debug_lbl, buf);
 }
@@ -479,7 +578,7 @@ void mixr_ui_set_usb_connected(bool connected)
 {
     menu_catalog_set_usb_connected(connected);
     lv_screen_load(connected ? screen_player : screen_loading);
-    if (mixr_ui_is_menu_open() && menu_nav_current() == MenuScreenId::Debug) {
+    if (mixr_ui_is_menu_open() && (menu_nav_current() == MenuScreenId::Debug)) {
         mixr_ui_menu_refresh_dynamic_rows();
     }
 }
@@ -491,14 +590,12 @@ void mixr_ui_on_message(const UiMessage *msg)
     }
     switch (msg->type) {
         case PktType::SONG_TITLE:
-            if (ui_title) {
-                lv_label_set_text(ui_title, msg->payload.text);
-            }
+            std::strncpy(s_pending_title, msg->payload.text, sizeof(s_pending_title) - 1);
+            s_pending_title[sizeof(s_pending_title) - 1] = '\0';
             break;
         case PktType::SONG_ARTIST:
-            if (ui_artist) {
-                lv_label_set_text(ui_artist, msg->payload.text);
-            }
+            std::strncpy(s_pending_artist, msg->payload.text, sizeof(s_pending_artist) - 1);
+            s_pending_artist[sizeof(s_pending_artist) - 1] = '\0';
             break;
         case PktType::IMAGE_READY:
             if (ui_cover && s_cover_buf && s_cover_bytes >= 240U * 240U * 2U) {
@@ -511,6 +608,15 @@ void mixr_ui_on_message(const UiMessage *msg)
                 s_img_dsc.data_size = 240 * 240 * 2;
                 s_img_dsc.data = s_cover_buf;
                 lv_image_set_src(ui_cover, &s_img_dsc);
+                if (ui_title) {
+                    lv_label_set_text(ui_title, s_pending_title);
+                }
+                if (ui_artist) {
+                    lv_label_set_text(ui_artist, s_pending_artist);
+                }
+                mixr_ui_set_error_banner("");
+            } else {
+                mixr_ui_set_error_banner("Cover: kein PSRAM");
             }
             break;
         default:
@@ -609,15 +715,15 @@ void mixr_ui_menu_navigate(int8_t detent_delta, bool activate_click)
     if (screen == MenuScreenId::Focus && !mixr_focus_is_running()) {
         if (activate_click) {
             if (menu_sel == 0) {
+                menu_nav_pop();
+                mixr_ui_menu_rebuild();
+            } else if (menu_sel == 1) {
                 s_focus_timer_edit = !s_focus_timer_edit;
                 mixr_ui_menu_refresh_dynamic_rows();
                 apply_menu_highlight();
-            } else if (menu_sel == 1) {
+            } else if (menu_sel == 2) {
                 mixr_focus_start();
                 s_focus_timer_edit = false;
-                mixr_ui_menu_rebuild();
-            } else {
-                menu_nav_pop();
                 mixr_ui_menu_rebuild();
             }
             return;
@@ -627,7 +733,7 @@ void mixr_ui_menu_navigate(int8_t detent_delta, bool activate_click)
             if (items == nullptr || menu_count < 3) {
                 return;
             }
-            if (menu_sel == 0 && s_focus_timer_edit) {
+            if (menu_sel == 1 && s_focus_timer_edit) {
                 if (detent_delta > 0) {
                     mixr_focus_preset_add_sec(60);
                 } else if (mixr_focus_preset_sec_get() > 60U) {
@@ -638,7 +744,7 @@ void mixr_ui_menu_navigate(int8_t detent_delta, bool activate_click)
                 const int n = (int)menu_count;
                 int a = menu_sel + (int)detent_delta;
                 menu_sel = (a % n + n) % n;
-                if (menu_sel != 0) {
+                if (menu_sel != 1) {
                     s_focus_timer_edit = false;
                 }
                 apply_menu_highlight();

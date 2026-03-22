@@ -3,6 +3,7 @@
 #include <string.h>
 #include "esp_heap_caps.h"
 #include "driver/spi_master.h"
+#include "freertos/task.h"
 
 // Map Arduino allocation to ESP-IDF SPIRAM allocation
 #define ps_malloc(size) heap_caps_malloc(size, MALLOC_CAP_SPIRAM | MALLOC_CAP_8BIT)
@@ -173,6 +174,9 @@ void lcd_PushColors(uint16_t x, uint16_t y, uint16_t width, uint16_t high, uint1
         spi_device_polling_transmit(spi, (spi_transaction_t *)&t);
         len -= chunk_size;
         p += chunk_size;
+        if (len > 0) {
+            taskYIELD();
+        }
     } while (len > 0);
     TFT_CS_H;
 }
@@ -208,6 +212,9 @@ void lcd_PushColors(uint16_t *data, uint32_t len)
         spi_device_polling_transmit(spi, (spi_transaction_t *)&t);
         len -= chunk_size;
         p += chunk_size;
+        if (len > 0) {
+            taskYIELD();
+        }
     } while (len > 0);
     TFT_CS_H;
 }

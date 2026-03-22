@@ -13,7 +13,16 @@ enum class PktType : uint8_t {
     SLIDER_VALS = 0x03,
     BTN_CMD = 0x04,
     IMAGE_CHUNK = 0x05,
-    IMAGE_READY = 0x06
+    IMAGE_READY = 0x06,
+    /** ESP → PC: Nutzlast 1 Byte, siehe MediaSubCmd */
+    MEDIA_CMD = 0x07,
+};
+
+/** Nutzlast für PktType::MEDIA_CMD (gleiche Reihenfolge wie Playback-Menü). */
+enum class MediaSubCmd : uint8_t {
+    NEXT = 0,
+    PLAY_PAUSE = 1,
+    PREVIOUS = 2,
 };
 
 enum class BtnCmd : uint8_t {

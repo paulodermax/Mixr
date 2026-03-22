@@ -1,2 +1,14 @@
 # LVGL auf dem Main-Task braucht deutlich mehr als 3,5 KB Stack
 CONFIG_ESP_MAIN_TASK_STACK_SIZE=16384
+
+# Große RGB565-Flächen (Albumcover): LVGL blockiert main lange → IDLE0 läuft nicht → Task-WDT.
+CONFIG_ESP_TASK_WDT_TIMEOUT_S=15
+# Ohne diese Zeile greift oft weiterhin der Idle-Check (trotz taskYIELD im Flush-Callback).
+CONFIG_ESP_TASK_WDT_CHECK_IDLE_TASK_CPU0=n
+CONFIG_ESP_TASK_WDT_CHECK_IDLE_TASK_CPU1=n
+
+# Lange QSPI-Polling-Transfers / LVGL: Interrupt-WDT nicht bei 300ms
+CONFIG_ESP_INT_WDT_TIMEOUT_MS=800
+
+# Größere Schrift für Titel/Artist unter dem Cover (Player)
+CONFIG_LV_FONT_MONTSERRAT_18=y

@@ -1,8 +1,11 @@
 #include "menu_catalog.hpp"
+#include "mixr_app.hpp"
 #include "mixr_prefs.hpp"
 #include "mixr_settings.hpp"
+#include "protocol.h"
 #include "ui_mixr.hpp"
 #include "esp_log.h"
+#include "esp_system.h"
 
 #include <cstdio>
 #include <cstring>
@@ -70,9 +73,32 @@ static void cb_open_brightness(void)
     mixr_ui_menu_rebuild();
 }
 
+static void cb_open_restart(void)
+{
+    menu_nav_push(MenuScreenId::Restart);
+    mixr_ui_menu_rebuild();
+}
+
+static void cb_restart_yes(void)
+{
+    esp_restart();
+}
+
+static void cb_restart_no(void)
+{
+    menu_nav_pop();
+    mixr_ui_menu_rebuild();
+}
+
 static void cb_open_debug(void)
 {
     menu_nav_push(MenuScreenId::Debug);
+    mixr_ui_menu_rebuild();
+}
+
+static void cb_open_playback(void)
+{
+    menu_nav_push(MenuScreenId::Playback);
     mixr_ui_menu_rebuild();
 }
 
@@ -105,30 +131,64 @@ static void cb_toggle_buttons_tx(void)
 
 static void cb_noop(void) {}
 
+static void cb_media_next(void)
+{
+    mixr_pc_send_media_cmd(static_cast<uint8_t>(MediaSubCmd::NEXT));
+    ESP_LOGI(TAG, "-> PC: Next");
+}
+
+static void cb_media_play_pause(void)
+{
+    mixr_pc_send_media_cmd(static_cast<uint8_t>(MediaSubCmd::PLAY_PAUSE));
+    ESP_LOGI(TAG, "-> PC: Play/Pause");
+}
+
+static void cb_media_previous(void)
+{
+    mixr_pc_send_media_cmd(static_cast<uint8_t>(MediaSubCmd::PREVIOUS));
+    ESP_LOGI(TAG, "-> PC: Previous");
+}
+
 static const MenuItemDef g_root[] = {
+    {"close", "Back", cb_close_to_player},
     {"focus", "Focus mode (app)", cb_open_focus},
     {"settings", "Settings", cb_open_settings},
-    {"close", "Back", cb_close_to_player},
 };
 
 static const MenuItemDef g_settings[] = {
-    {"brightness", "Brightness", cb_open_brightness},
-    {"debug", "Debug", cb_open_debug},
     {"back", "Back", cb_back_pop},
+    {"brightness", "Brightness", cb_open_brightness},
+    {"restart", "Restart", cb_open_restart},
+    {"debug", "Debug", cb_open_debug},
+};
+
+static const MenuItemDef g_restart[] = {
+    {"back", "Back", cb_restart_no},
+    {"restart_sure", "Are you sure?", cb_noop},
+    {"restart_yes", "Yes", cb_restart_yes},
+    {"restart_no", "No", cb_restart_no},
 };
 
 static const MenuItemDef g_debug[] = {
+    {"back", "Back", cb_back_pop},
     {"sliders_tx", "", cb_toggle_sliders_tx},
     {"buttons_tx", "", cb_toggle_buttons_tx},
-    {"usb", "", cb_noop},
     {"touch", "", cb_toggle_touch},
+    {"usb", "", cb_noop},
+    {"playback", "Playback Control ->", cb_open_playback},
+};
+
+static const MenuItemDef g_playback[] = {
     {"back", "Back", cb_back_pop},
+    {"next", "Next Song", cb_media_next},
+    {"play_pause", "Pause/Play", cb_media_play_pause},
+    {"prev", "Last Song", cb_media_previous},
 };
 
 static const MenuItemDef g_focus[] = {
+    {"back", "Back", cb_back_pop},
     {"focus_time", "", cb_noop},
     {"focus_start", "Start", cb_noop},
-    {"back", "Back", cb_back_pop},
 };
 
 const char *menu_catalog_row_title(size_t index)
@@ -148,7 +208,7 @@ const char *menu_catalog_row_title(size_t index)
         return mixr_buttons_send_enabled() ? "Button: ON" : "Button: OFF";
     }
     if (std::strcmp(items[index].id, "usb") == 0) {
-        return s_usb_connected ? "USB-C: connected" : "USB-C: disconnected";
+        return s_usb_connected ? "USB-C connected: Yes" : "USB-C connected: No";
     }
     if (std::strcmp(items[index].id, "focus_time") == 0) {
         uint32_t t = mixr_focus_preset_sec_get();
@@ -173,9 +233,15 @@ const MenuItemDef *menu_catalog_items(size_t *out_count)
         case MenuScreenId::Brightness:
             *out_count = 0;
             return nullptr;
+        case MenuScreenId::Restart:
+            *out_count = sizeof(g_restart) / sizeof(g_restart[0]);
+            return g_restart;
         case MenuScreenId::Debug:
             *out_count = sizeof(g_debug) / sizeof(g_debug[0]);
             return g_debug;
+        case MenuScreenId::Playback:
+            *out_count = sizeof(g_playback) / sizeof(g_playback[0]);
+            return g_playback;
         case MenuScreenId::Focus:
             if (mixr_focus_is_running()) {
                 *out_count = 0;

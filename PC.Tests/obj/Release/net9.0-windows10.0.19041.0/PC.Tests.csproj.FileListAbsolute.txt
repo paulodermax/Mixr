@@ -1,0 +1,7 @@
+C:\Users\paulm\.mainroot\Mixr\PC.Tests\obj\Release\net9.0-windows10.0.19041.0\PC.Tests.csproj.AssemblyReference.cache
+c:\Users\paulm\.mainroot\Mixr\PC.Tests\bin\Release\net9.0-windows10.0.19041.0\.msCoverageSourceRootsMapping_PC.Tests
+c:\Users\paulm\.mainroot\Mixr\PC.Tests\obj\Release\net9.0-windows10.0.19041.0\PC.Tests.GeneratedMSBuildEditorConfig.editorconfig
+c:\Users\paulm\.mainroot\Mixr\PC.Tests\obj\Release\net9.0-windows10.0.19041.0\PC.Tests.AssemblyInfoInputs.cache
+c:\Users\paulm\.mainroot\Mixr\PC.Tests\obj\Release\net9.0-windows10.0.19041.0\PC.Tests.AssemblyInfo.cs
+c:\Users\paulm\.mainroot\Mixr\PC.Tests\obj\Release\net9.0-windows10.0.19041.0\PC.Tests.csproj.CoreCompileInputs.cache
+c:\Users\paulm\.mainroot\Mixr\PC.Tests\obj\Release\net9.0-windows10.0.19041.0\PC.Tests.sourcelink.json
