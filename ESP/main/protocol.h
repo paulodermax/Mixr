@@ -7,6 +7,11 @@
 /** Anzahl Fader auf der Mixr-Platine (MCP3008 Kanäle 0–3) */
 #define MIXR_SLIDER_COUNT 4
 
+/** Mindest-Differenz pro Kanal (0–255), sonst kein SLIDER_VALS (ADC-Rauschen filtern). */
+#ifndef MIXR_SLIDER_DEADBAND
+#define MIXR_SLIDER_DEADBAND 2
+#endif
+
 enum class PktType : uint8_t {
     SONG_TITLE = 0x01,
     SONG_ARTIST = 0x02,

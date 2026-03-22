@@ -125,21 +125,22 @@ public sealed class MixrSerialTransport : IDisposable
         {
             try
             {
-                if (port.BytesToRead > 0 && port.ReadByte() == PktStartByte)
-                {
-                    int len = port.ReadByte();
-                    int type = port.ReadByte();
-                    var payload = new byte[len];
-                    int read = 0;
-                    while (read < len)
-                        read += port.Read(payload, read, len - read);
-                    int crc = port.ReadByte();
-                    int calc = len ^ type;
-                    foreach (byte b in payload)
-                        calc ^= b;
-                    if (crc == calc)
-                        onIncoming?.Invoke(type, payload);
-                }
+                /* ReadByte blockiert bis Timeout (s. ReadTimeout), verhindert Busy-Spin bei leerem RX */
+                if (port.ReadByte() != PktStartByte)
+                    continue;
+
+                int len = port.ReadByte();
+                int type = port.ReadByte();
+                var payload = new byte[len];
+                int read = 0;
+                while (read < len)
+                    read += port.Read(payload, read, len - read);
+                int crc = port.ReadByte();
+                int calc = len ^ type;
+                foreach (byte b in payload)
+                    calc ^= b;
+                if (crc == calc)
+                    onIncoming?.Invoke(type, payload);
             }
             catch (TimeoutException) { }
             catch (IOException) { break; }

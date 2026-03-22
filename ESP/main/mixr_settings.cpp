@@ -33,7 +33,11 @@ bool mixr_buttons_send_enabled(void)
 
 void mixr_sliders_send_set(bool on)
 {
+    bool was = s_sliders_send;
     s_sliders_send = on;
+    if (on && !was) {
+        mixr_sliders_resync_baseline();
+    }
 }
 
 void mixr_buttons_send_set(bool on)
@@ -44,6 +48,9 @@ void mixr_buttons_send_set(bool on)
 void mixr_sliders_send_toggle(void)
 {
     s_sliders_send = !s_sliders_send;
+    if (s_sliders_send) {
+        mixr_sliders_resync_baseline();
+    }
 }
 
 void mixr_buttons_send_toggle(void)

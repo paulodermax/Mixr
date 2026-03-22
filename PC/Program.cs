@@ -31,17 +31,16 @@ media.SessionUpdated += (title, artist, cover) =>
 
 await media.InitializeAsync();
 
-void OnEspPacket(int type, byte[] payload)
+var espIncoming = new EspIncomingDispatcher();
+espIncoming.SliderValues += mem =>
 {
-    const byte typeSlider = 0x03;
-    const byte typeBtn = 0x04;
-    if (type == typeSlider && payload.Length >= 4)
-        Console.WriteLine($"[ESP] Slider: {payload[0]} {payload[1]} {payload[2]} {payload[3]}");
-    else if (type == typeBtn && payload.Length >= 1)
-        Console.WriteLine($"[ESP] Button: {payload[0]}");
-    else if (type == MixrSerialTransport.TypeMediaCmd && payload.Length >= 1)
-        _ = Task.Run(() => media.ExecuteMediaCommandAsync(payload[0]));
-}
+    var s = mem.Span;
+    Console.WriteLine($"[ESP] Slider: {s[0]} {s[1]} {s[2]} {s[3]}");
+};
+espIncoming.ButtonPressed += id => Console.WriteLine($"[ESP] Button: {id}");
+espIncoming.MediaCommand += sub => _ = Task.Run(() => media.ExecuteMediaCommandAsync(sub));
+
+void OnEspPacket(int type, byte[] payload) => espIncoming.Dispatch(type, payload);
 
 serial.StartDrainRxThread(OnEspPacket);
 

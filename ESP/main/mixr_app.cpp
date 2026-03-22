@@ -159,10 +159,6 @@ static bool mixr_pc_link_up(void)
 
 static void send_to_pc(PktType type, const uint8_t *payload, uint8_t len)
 {
-    if (len > 250) {
-        return;
-    }
-
     uint8_t packet[256];
     packet[0] = PKT_START_BYTE;
     packet[1] = len;
@@ -249,21 +245,39 @@ static void comm_task(void *pvParameters)
                                     img_offset = 0;
                                 }
                             }
-                        } else {
-                            if (msg.type == PktType::SONG_TITLE || msg.type == PktType::SONG_ARTIST) {
-                                uint8_t copy_len =
-                                    (len < sizeof(msg.payload.text) - 1) ? len : sizeof(msg.payload.text) - 1;
-                                memcpy(msg.payload.text, payload, copy_len);
-                                msg.payload.text[copy_len] = '\0';
-                            }
+                        } else if (msg.type == PktType::SONG_TITLE || msg.type == PktType::SONG_ARTIST) {
+                            /* Neuer Titel/Artist: altes halbes Cover verwerfen */
+                            img_offset = 0;
+                            uint8_t copy_len =
+                                (len < sizeof(msg.payload.text) - 1) ? len : sizeof(msg.payload.text) - 1;
+                            memcpy(msg.payload.text, payload, copy_len);
+                            msg.payload.text[copy_len] = '\0';
                             xQueueSend(ui_queue, &msg, 0);
                         }
+                        /* andere Typen vom PC ignorieren (keine halb initialisierte UiMessage in die Queue) */
+                    } else {
+                        /* CRC falsch: Frame verworfen, Cover-Reassembly nicht mehr vertrauen */
+                        img_offset = 0;
                     }
                     state = 0;
                     break;
             }
         }
     }
+}
+
+static bool sliders_delta_over_deadband(const uint8_t *cur, const uint8_t *last)
+{
+    for (int j = 0; j < MIXR_SLIDER_COUNT; j++) {
+        int d = (int)cur[j] - (int)last[j];
+        if (d < 0) {
+            d = -d;
+        }
+        if (d >= MIXR_SLIDER_DEADBAND) {
+            return true;
+        }
+    }
+    return false;
 }
 
 static void mixr_poll_sliders_buttons(void)
@@ -276,7 +290,7 @@ static void mixr_poll_sliders_buttons(void)
         for (int j = 0; j < MIXR_SLIDER_COUNT; j++) {
             current_sliders[j] = (uint8_t)(mcp3008_read(j) >> 2);
         }
-        if (memcmp(current_sliders, s_last_sliders, MIXR_SLIDER_COUNT) != 0) {
+        if (sliders_delta_over_deadband(current_sliders, s_last_sliders)) {
             send_to_pc(PktType::SLIDER_VALS, current_sliders, MIXR_SLIDER_COUNT);
             memcpy(s_last_sliders, current_sliders, MIXR_SLIDER_COUNT);
         }
@@ -288,6 +302,16 @@ static void mixr_poll_sliders_buttons(void)
             send_to_pc(PktType::BTN_CMD, &btn_id, 1);
         }
         s_last_buttons[b] = state;
+    }
+}
+
+extern "C" void mixr_sliders_resync_baseline(void)
+{
+    for (int j = 0; j < MIXR_SLIDER_COUNT; j++) {
+        s_last_sliders[j] = (uint8_t)(mcp3008_read(j) >> 2);
+    }
+    if (mixr_sliders_send_enabled() && mixr_pc_link_up()) {
+        send_to_pc(PktType::SLIDER_VALS, s_last_sliders, MIXR_SLIDER_COUNT);
     }
 }
 
@@ -406,7 +430,7 @@ void mixr_app_run(void)
     /* ~40 Hz: genug für „Echtzeit“ am Host, entlastet main während LVGL-Redraw */
     ESP_ERROR_CHECK(esp_timer_start_periodic(controls_timer, 25000));
 
-    ui_queue = xQueueCreate(10, sizeof(UiMessage));
+    ui_queue = xQueueCreate(24, sizeof(UiMessage));
     /* USB kurz stabilisieren (Enumeration), bevor große RX-Strom kommt */
     vTaskDelay(pdMS_TO_TICKS(500));
     xTaskCreate(comm_task, "comm_task", 4096, nullptr, 5, nullptr);
