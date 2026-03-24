@@ -31,9 +31,6 @@ void mixr_ui_enter_menu(void);
  */
 void mixr_ui_main_navigate(int8_t detent_delta, bool activate_click);
 
-/** Nur Anzeige: z. B. später aus PC-Protokoll speisen */
-void mixr_ui_set_mute_indicators(bool mic_muted, bool full_mute);
-
 void mixr_ui_enter_song_view_from_menu(void);
 
 bool mixr_ui_is_menu_open(void);
@@ -44,17 +41,12 @@ void mixr_ui_menu_rebuild(void);
 
 void mixr_ui_menu_refresh_dynamic_rows(void);
 
-/** @deprecated alias */
-void mixr_ui_menu_refresh_settings_rows(void);
-
 void mixr_ui_brightness_enter_list_mode(void);
 
 /** Langdruck Encoder: erste Folie (Cover), Menü zu */
 void mixr_ui_goto_first_slide(void);
 
 void mixr_ui_apply_prefs_to_display(void);
-
-void mixr_ui_focus_refresh(void);
 
 /** 1 Hz aus Hauptschleife: Countdown + UI */
 void mixr_ui_on_focus_timer_tick(void);

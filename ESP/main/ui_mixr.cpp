@@ -273,7 +273,7 @@ void mixr_ui_apply_prefs_to_display(void)
     lv_obj_set_style_bg_opa(dim_layer, (lv_opa_t)opa, 0);
 }
 
-void mixr_ui_focus_refresh(void)
+static void mixr_ui_focus_refresh(void)
 {
     if (focus_run_lbl == nullptr) {
         return;
@@ -600,13 +600,6 @@ static void mixr_ui_sync_slide_focus_preset(void)
     lv_label_set_text(s_sl1_min_lbl, buf);
     snprintf(buf, sizeof(buf), "%02lu", (unsigned long)s);
     lv_label_set_text(s_sl1_sec_lbl, buf);
-}
-
-void mixr_ui_set_mute_indicators(bool mic_muted, bool full_mute)
-{
-    (void)mic_muted;
-    (void)full_mute;
-    /* Mikrofon/Kopfhörer sind in Slide1.svg; kein separates Overlay */
 }
 
 static void mixr_ui_update_pager_dots(void)
@@ -1562,11 +1555,6 @@ void mixr_ui_menu_refresh_dynamic_rows(void)
     }
     apply_menu_highlight();
     mixr_ui_sync_slide_focus_preset();
-}
-
-void mixr_ui_menu_refresh_settings_rows(void)
-{
-    mixr_ui_menu_refresh_dynamic_rows();
 }
 
 void mixr_ui_enter_menu(void)
