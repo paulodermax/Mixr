@@ -18,7 +18,18 @@ void mixr_ui_set_usb_connected(bool connected);
 
 void mixr_ui_on_message(const UiMessage *msg);
 
+/** Legacy: zeigt nur noch „Close“ (Navigation laeuft ueber Slides). */
 void mixr_ui_enter_menu(void);
+
+/**
+ * Wenn kein Menü offen: zuerst Slides drehen; ein Klick aktiviert die Folie.
+ * Danach Encoder = Optionen (Focus/Settings-Raster), erneuter Klick = Aktion; oben rechts „<<“ beendet die Aktivierung
+ * (nicht auf der Cover-Folie). Carousel wechselt die Folie nur im nicht-aktivierten Modus bzw. auf Cover/Platzhalter.
+ */
+void mixr_ui_main_navigate(int8_t detent_delta, bool activate_click);
+
+/** Nur Anzeige: z. B. später aus PC-Protokoll speisen */
+void mixr_ui_set_mute_indicators(bool mic_muted, bool full_mute);
 
 void mixr_ui_enter_song_view_from_menu(void);
 

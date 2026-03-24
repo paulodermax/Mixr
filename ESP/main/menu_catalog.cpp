@@ -55,18 +55,6 @@ static void cb_close_to_player(void)
     mixr_ui_enter_song_view_from_menu();
 }
 
-static void cb_open_settings(void)
-{
-    menu_nav_push(MenuScreenId::Settings);
-    mixr_ui_menu_rebuild();
-}
-
-static void cb_open_focus(void)
-{
-    menu_nav_push(MenuScreenId::Focus);
-    mixr_ui_menu_rebuild();
-}
-
 static void cb_open_brightness(void)
 {
     menu_nav_push(MenuScreenId::Brightness);
@@ -86,8 +74,8 @@ static void cb_restart_yes(void)
 
 static void cb_restart_no(void)
 {
-    menu_nav_pop();
-    mixr_ui_menu_rebuild();
+    menu_nav_reset();
+    mixr_ui_enter_song_view_from_menu();
 }
 
 static void cb_open_debug(void)
@@ -102,10 +90,11 @@ static void cb_open_playback(void)
     mixr_ui_menu_rebuild();
 }
 
+/** Immer zum Player (Slides) zurück — kein altes Menü-Stapelverhalten mehr */
 static void cb_back_pop(void)
 {
-    menu_nav_pop();
-    mixr_ui_menu_rebuild();
+    menu_nav_reset();
+    mixr_ui_enter_song_view_from_menu();
 }
 
 static void cb_toggle_touch(void)
@@ -149,10 +138,9 @@ static void cb_media_previous(void)
     ESP_LOGI(TAG, "-> PC: Previous");
 }
 
+/** Nur noch Schließen — Navigation läuft über die Slides (Settings-Raster etc.) */
 static const MenuItemDef g_root[] = {
-    {"close", "Back", cb_close_to_player},
-    {"focus", "Focus mode (app)", cb_open_focus},
-    {"settings", "Settings", cb_open_settings},
+    {"close", "Close", cb_close_to_player},
 };
 
 static const MenuItemDef g_settings[] = {
@@ -160,6 +148,12 @@ static const MenuItemDef g_settings[] = {
     {"brightness", "Brightness", cb_open_brightness},
     {"restart", "Restart", cb_open_restart},
     {"debug", "Debug", cb_open_debug},
+};
+
+static const MenuItemDef g_hardware[] = {
+    {"back", "Back", cb_back_pop},
+    {"sliders_tx", "", cb_toggle_sliders_tx},
+    {"buttons_tx", "", cb_toggle_buttons_tx},
 };
 
 static const MenuItemDef g_restart[] = {
@@ -230,6 +224,9 @@ const MenuItemDef *menu_catalog_items(size_t *out_count)
         case MenuScreenId::Settings:
             *out_count = sizeof(g_settings) / sizeof(g_settings[0]);
             return g_settings;
+        case MenuScreenId::Hardware:
+            *out_count = sizeof(g_hardware) / sizeof(g_hardware[0]);
+            return g_hardware;
         case MenuScreenId::Brightness:
             *out_count = 0;
             return nullptr;

@@ -1,0 +1,17 @@
+{
+  "name": "scripts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "assets": "node rasterize_svg.mjs ../ESP/main/assets/svg ../ESP/main/assets/png && python gen_lvgl_assets.py --png-dir ../ESP/main/assets/png --out-c ../ESP/main/ui_assets.c --out-h ../ESP/main/ui_assets.h",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "sharp": "^0.34.5"
+  }
+}

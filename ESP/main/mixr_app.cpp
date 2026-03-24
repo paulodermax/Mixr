@@ -365,7 +365,7 @@ void mixr_app_run(void)
 #if LV_USE_THEME_DEFAULT
     /* Dunkles Theme: Partial-Render löscht mit passender Hintergrundfarbe (nicht Weiß). */
     lv_theme_t *theme = lv_theme_default_init(disp, lv_palette_main(LV_PALETTE_BLUE), lv_palette_main(LV_PALETTE_GREY),
-                                              true, &lv_font_montserrat_14);
+                                              true, &lv_font_montserrat_22);
     lv_display_set_theme(disp, theme);
 #endif
     /* Default-Screen-BG = gleiche RGB565 wie screen_player (0x0e0e12), sonst minimaler Farbversatz
@@ -373,7 +373,8 @@ void mixr_app_run(void)
     {
         lv_obj_t *ds = lv_display_get_screen_active(disp);
         if (ds != nullptr) {
-            lv_obj_set_style_bg_color(ds, lv_color_hex(0x0e0e12), 0);
+            /* Gleicher Rostton wie Carousel (MIXR_COLOR_BG), sonst Streifen am Rand */
+            lv_obj_set_style_bg_color(ds, lv_color_hex(0x765858), 0);
             lv_obj_set_style_bg_opa(ds, LV_OPA_COVER, 0);
             lv_obj_set_style_border_width(ds, 0, 0);
             lv_obj_set_style_outline_width(ds, 0, 0);
@@ -462,7 +463,7 @@ void mixr_app_run(void)
             int8_t step = g_encoder.read_detent_step();
             bool click = g_encoder.consume_click();
             if (step != 0 || click) {
-                mixr_ui_enter_menu();
+                mixr_ui_main_navigate(step, click);
             }
         } else {
             int8_t step = g_encoder.read_detent_step();

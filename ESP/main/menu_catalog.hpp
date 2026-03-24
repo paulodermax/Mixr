@@ -6,6 +6,7 @@
 enum class MenuScreenId : uint8_t {
     Root,
     Settings,
+    Hardware,
     Brightness,
     Restart,
     Debug,

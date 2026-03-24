@@ -9,4 +9,5 @@ idf_component_register(
         "mixr_prefs.cpp"
         "rm67162.cpp"
         "FT3168.cpp"
+        "ui_assets.c"
     INCLUDE_DIRS ".")
