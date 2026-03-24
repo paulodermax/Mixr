@@ -26,6 +26,7 @@
 #include "freertos/queue.h"
 #include "freertos/task.h"
 #include "lvgl.h"
+#include "mixr_ui_font.h"
 #if LV_USE_THEME_DEFAULT
 #include "src/themes/default/lv_theme_default.h"
 #endif
@@ -365,7 +366,7 @@ void mixr_app_run(void)
 #if LV_USE_THEME_DEFAULT
     /* Dunkles Theme: Partial-Render löscht mit passender Hintergrundfarbe (nicht Weiß). */
     lv_theme_t *theme = lv_theme_default_init(disp, lv_palette_main(LV_PALETTE_BLUE), lv_palette_main(LV_PALETTE_GREY),
-                                              true, &lv_font_montserrat_22);
+                                              true, MIXR_UI_FONT);
     lv_display_set_theme(disp, theme);
 #endif
     /* Default-Screen-BG = gleiche RGB565 wie screen_player (0x0e0e12), sonst minimaler Farbversatz
@@ -459,7 +460,9 @@ void mixr_app_run(void)
             }
         }
 
-        if (!mixr_ui_is_menu_open()) {
+        if (g_encoder.consume_long_press()) {
+            mixr_ui_goto_first_slide();
+        } else if (!mixr_ui_is_menu_open()) {
             int8_t step = g_encoder.read_detent_step();
             bool click = g_encoder.consume_click();
             if (step != 0 || click) {

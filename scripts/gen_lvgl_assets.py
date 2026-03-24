@@ -121,15 +121,12 @@ def main() -> None:
 
     # symbol name -> png filename
     mapping = [
-        ("img_brightness", "brightness.png"),
-        ("img_hardware", "hardware.png"),
-        ("img_debug", "debug.png"),
-        ("img_restart", "restart.png"),
-        ("img_bell", "bell.png"),
-        ("img_clock_indicator_up", "clock_indicator_up.png"),
-        ("img_clock_indicator_down", "clock_indicator_down.png"),
-        ("img_mic", "mic.png"),
-        ("img_headphones", "headphones.png"),
+        ("img_slide1_bg", "slide1_bg.png"),
+        ("img_slide2_bg", "slide2_bg.png"),
+        ("img_slide3_bg", "slide3_bg.png"),
+        ("img_slide4_bg", "slide4_bg.png"),
+        ("img_clock_updown_selected", "clock_updown_selected.png"),
+        ("img_clock_updown_unselected", "clock_updown_unselected.png"),
     ]
     assets = []
     for sym, name in mapping:

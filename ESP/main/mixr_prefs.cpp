@@ -2,7 +2,7 @@
 
 #include <stdint.h>
 
-static uint8_t s_brightness = 100U;
+static uint8_t s_brightness = 70U;
 
 static uint32_t s_focus_preset_sec = 25U * 60U;
 static uint32_t s_focus_remaining_sec = 0;

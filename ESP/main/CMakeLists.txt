@@ -10,4 +10,5 @@ idf_component_register(
         "rm67162.cpp"
         "FT3168.cpp"
         "ui_assets.c"
-    INCLUDE_DIRS ".")
+    INCLUDE_DIRS "."
+    PRIV_REQUIRES esp_timer z_mixr_partition)

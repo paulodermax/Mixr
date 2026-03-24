@@ -16,9 +16,13 @@ void Ky040Encoder::init(gpio_num_t clk, gpio_num_t dt, gpio_num_t sw)
     gpio_config(&io);
 
     prev_ab_ = (uint8_t)((gpio_get_level(clk_) << 1) | gpio_get_level(dt_));
-    last_sw_ = gpio_get_level(sw_);
+    last_sw_level_ = gpio_get_level(sw_);
     pending_detents_.store(0);
     detent_acc_ = 0;
+    sw_pressed_ = false;
+    long_emitted_ = false;
+    pending_click_.store(false);
+    pending_long_.store(false);
 }
 
 int8_t Ky040Encoder::read_delta()
@@ -57,6 +61,32 @@ void Ky040Encoder::tick()
     if (net != 0) {
         pending_detents_.fetch_add(net);
     }
+
+    /* Taster: Kurzklick bei Loslassen; Langdruck ≥ 800 ms */
+    static const uint32_t k_long_hold_ms = 800;
+    static const uint32_t k_debounce_ms = 40;
+    int sw = gpio_get_level(sw_);
+    uint32_t now = (uint32_t)(esp_timer_get_time() / 1000);
+    if (sw == 0 && last_sw_level_ == 1) {
+        sw_pressed_ = true;
+        sw_down_ms_ = now;
+        long_emitted_ = false;
+    }
+    if (sw == 0 && sw_pressed_) {
+        if (!long_emitted_ && (now - sw_down_ms_ >= k_long_hold_ms)) {
+            pending_long_.store(true);
+            long_emitted_ = true;
+        }
+    }
+    if (sw == 1 && last_sw_level_ == 0) {
+        uint32_t dur = (now >= sw_down_ms_) ? (now - sw_down_ms_) : 0;
+        if (sw_pressed_ && !long_emitted_ && dur >= k_debounce_ms && dur < k_long_hold_ms) {
+            pending_click_.store(true);
+        }
+        sw_pressed_ = false;
+        long_emitted_ = false;
+    }
+    last_sw_level_ = sw;
 }
 
 int8_t Ky040Encoder::read_detent_step()
@@ -73,15 +103,10 @@ int8_t Ky040Encoder::read_detent_step()
 
 bool Ky040Encoder::consume_click()
 {
-    int level = gpio_get_level(sw_);
-    uint32_t now = (uint32_t)(esp_timer_get_time() / 1000);
-    if (level == 0 && last_sw_ == 1) {
-        if (now - last_sw_ms_ > 40) {
-            last_sw_ms_ = now;
-            last_sw_ = 0;
-            return true;
-        }
-    }
-    last_sw_ = level;
-    return false;
+    return pending_click_.exchange(false);
+}
+
+bool Ky040Encoder::consume_long_press()
+{
+    return pending_long_.exchange(false);
 }

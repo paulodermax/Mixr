@@ -57,6 +57,7 @@ static void cb_close_to_player(void)
 
 static void cb_open_brightness(void)
 {
+    mixr_ui_brightness_enter_list_mode();
     menu_nav_push(MenuScreenId::Brightness);
     mixr_ui_menu_rebuild();
 }
@@ -90,9 +91,14 @@ static void cb_open_playback(void)
     mixr_ui_menu_rebuild();
 }
 
-/** Immer zum Player (Slides) zurück — kein altes Menü-Stapelverhalten mehr */
+/** Oberstes Untermenü (sp==1): zu Slides; tiefer (z. B. Playback): eine Ebene zurück */
 static void cb_back_pop(void)
 {
+    if (s_sp > 1) {
+        menu_nav_pop();
+        mixr_ui_menu_rebuild();
+        return;
+    }
     menu_nav_reset();
     mixr_ui_enter_song_view_from_menu();
 }
@@ -116,6 +122,12 @@ static void cb_toggle_buttons_tx(void)
     mixr_buttons_send_toggle();
     ESP_LOGI(TAG, "Button USB: %s", mixr_buttons_send_enabled() ? "ON" : "OFF");
     mixr_ui_menu_refresh_dynamic_rows();
+}
+
+static void cb_toggle_debug_overlay(void)
+{
+    mixr_ui_debug_overlay_toggle();
+    ESP_LOGI(TAG, "Debug overlay: %s", mixr_ui_debug_overlay_is_visible() ? "ON" : "OFF");
 }
 
 static void cb_noop(void) {}
@@ -157,8 +169,6 @@ static const MenuItemDef g_hardware[] = {
 };
 
 static const MenuItemDef g_restart[] = {
-    {"back", "Back", cb_restart_no},
-    {"restart_sure", "Are you sure?", cb_noop},
     {"restart_yes", "Yes", cb_restart_yes},
     {"restart_no", "No", cb_restart_no},
 };
@@ -169,7 +179,8 @@ static const MenuItemDef g_debug[] = {
     {"buttons_tx", "", cb_toggle_buttons_tx},
     {"touch", "", cb_toggle_touch},
     {"usb", "", cb_noop},
-    {"playback", "Playback Control ->", cb_open_playback},
+    {"debug_overlay", "", cb_toggle_debug_overlay},
+    {"playback", "Playback Control", cb_open_playback},
 };
 
 static const MenuItemDef g_playback[] = {
@@ -177,6 +188,11 @@ static const MenuItemDef g_playback[] = {
     {"next", "Next Song", cb_media_next},
     {"play_pause", "Pause/Play", cb_media_play_pause},
     {"prev", "Last Song", cb_media_previous},
+};
+
+/** Erster Schritt: nur Liste; Encoder-Bestätigung öffnet den Slider (siehe ui_mixr) */
+static const MenuItemDef g_brightness_menu[] = {
+    {"brightness_entry", "Brightness", cb_noop},
 };
 
 static const MenuItemDef g_focus[] = {
@@ -204,6 +220,9 @@ const char *menu_catalog_row_title(size_t index)
     if (std::strcmp(items[index].id, "usb") == 0) {
         return s_usb_connected ? "USB-C connected: Yes" : "USB-C connected: No";
     }
+    if (std::strcmp(items[index].id, "debug_overlay") == 0) {
+        return mixr_ui_debug_overlay_is_visible() ? "Overlay: ON" : "Overlay: OFF";
+    }
     if (std::strcmp(items[index].id, "focus_time") == 0) {
         uint32_t t = mixr_focus_preset_sec_get();
         uint32_t m = t / 60U;
@@ -228,8 +247,8 @@ const MenuItemDef *menu_catalog_items(size_t *out_count)
             *out_count = sizeof(g_hardware) / sizeof(g_hardware[0]);
             return g_hardware;
         case MenuScreenId::Brightness:
-            *out_count = 0;
-            return nullptr;
+            *out_count = sizeof(g_brightness_menu) / sizeof(g_brightness_menu[0]);
+            return g_brightness_menu;
         case MenuScreenId::Restart:
             *out_count = sizeof(g_restart) / sizeof(g_restart[0]);
             return g_restart;

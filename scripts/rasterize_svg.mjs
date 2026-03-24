@@ -1,6 +1,6 @@
 /**
- * Rasterize SVG files to PNG (fixed size). Uses sharp (Windows-friendly).
- * ClockIndicator.svg: beide Pfeile in einer Datei → linke Spalte: oben=up, unten=down.
+ * Carousel-Hintergründe: Slide1.svg … Slide4.svg (240×536) → slide1_bg.png … slide4_bg.png.
+ * Untere 28px weglassen (Pager separat), Ausgabe 240×508.
  */
 import fs from "fs";
 import path from "path";
@@ -13,74 +13,48 @@ if (!root || !outDir) {
   process.exit(1);
 }
 
-const jobs = [
-  { file: "Brightness.svg", out: "brightness.png", size: 110 },
-  { file: "Hardware.svg", out: "hardware.png", size: 110 },
-  { file: "Debug.svg", out: "debug.png", size: 110 },
-  { file: "Restart.svg", out: "restart.png", size: 110 },
-  { file: "Bell.svg", out: "bell.png", size: 112 },
-  { file: "Mic.svg", out: "mic.png", size: 72 },
-  { file: "Headphones.svg", out: "headphones.png", size: 72 },
-];
-
-const CLOCK_OUT_PX = 32;
-
-async function rasterizeClockSplit(svgPath, destDir) {
-  const buf = fs.readFileSync(svgPath);
-  const baseW = 168;
-  const baseH = 186;
-  const scaledW = 256;
-  const scaledH = Math.round((scaledW * baseH) / baseW);
-  const resized = await sharp(buf)
-    .resize(scaledW, scaledH, { fit: "fill" })
-    .ensureAlpha()
-    .png()
-    .toBuffer();
-  const halfW = Math.floor(scaledW / 2);
-  const halfH = Math.floor(scaledH / 2);
-  const bottomH = scaledH - halfH;
-  await sharp(resized)
-    .extract({ left: 0, top: 0, width: halfW, height: halfH })
-    .resize(CLOCK_OUT_PX, CLOCK_OUT_PX, {
-      fit: "contain",
-      background: { r: 0, g: 0, b: 0, alpha: 0 },
-    })
-    .ensureAlpha()
-    .png()
-    .toFile(path.join(destDir, "clock_indicator_up.png"));
-  await sharp(resized)
-    .extract({ left: 0, top: halfH, width: halfW, height: bottomH })
-    .resize(CLOCK_OUT_PX, CLOCK_OUT_PX, {
-      fit: "contain",
-      background: { r: 0, g: 0, b: 0, alpha: 0 },
-    })
-    .ensureAlpha()
-    .png()
-    .toFile(path.join(destDir, "clock_indicator_down.png"));
-  console.log("clock_indicator_up.png", CLOCK_OUT_PX, "(linke Spalte, oben)");
-  console.log("clock_indicator_down.png", CLOCK_OUT_PX, "(linke Spalte, unten)");
-}
+const TFT_W = 240;
+const SRC_H = 536;
+const CAROUSEL_H = 508;
 
 fs.mkdirSync(outDir, { recursive: true });
 
-for (const j of jobs) {
-  const p = path.join(root, j.file);
+async function rasterSlide(name, outFile) {
+  const p = path.join(root, `${name}.svg`);
   if (!fs.existsSync(p)) {
     console.error("Missing:", p);
     process.exit(1);
   }
   const buf = fs.readFileSync(p);
   await sharp(buf)
-    .resize(j.size, j.size, { fit: "contain", background: { r: 0, g: 0, b: 0, alpha: 0 } })
+    .resize(TFT_W, SRC_H, { fit: "fill" })
+    .extract({ left: 0, top: 0, width: TFT_W, height: CAROUSEL_H })
     .ensureAlpha()
     .png()
-    .toFile(path.join(outDir, j.out));
-  console.log(j.out, j.size);
+    .toFile(path.join(outDir, outFile));
+  console.log(outFile, TFT_W, CAROUSEL_H);
 }
 
-const clockP = path.join(root, "ClockIndicator.svg");
-if (!fs.existsSync(clockP)) {
-  console.error("Missing:", clockP);
-  process.exit(1);
+await rasterSlide("Slide1", "slide1_bg.png");
+await rasterSlide("Slide2", "slide2_bg.png");
+await rasterSlide("Slide3", "slide3_bg.png");
+await rasterSlide("Slide4", "slide4_bg.png");
+
+/** Focus-Slide: Pfeil-Stack (74×181) → schmal neben der Uhr */
+async function rasterClockArrows(name, outFile, w) {
+  const p = path.join(root, `${name}.svg`);
+  if (!fs.existsSync(p)) {
+    console.error("Missing:", p);
+    process.exit(1);
+  }
+  const buf = fs.readFileSync(p);
+  await sharp(buf)
+    .resize(w, null, { fit: "inside" })
+    .ensureAlpha()
+    .png()
+    .toFile(path.join(outDir, outFile));
+  console.log(outFile, "w=", w);
 }
-await rasterizeClockSplit(clockP, outDir);
+
+await rasterClockArrows("ClockUpDownSelected", "clock_updown_selected.png", 56);
+await rasterClockArrows("ClockUpDownUnselected", "clock_updown_unselected.png", 56);

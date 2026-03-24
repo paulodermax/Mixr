@@ -8,6 +8,9 @@ void mixr_ui_init(lv_display_t *disp, uint8_t *cover_buf, uint32_t cover_bytes, 
 
 void mixr_ui_set_debug_overlay(uint32_t boot_count, uint32_t uptime_sec);
 
+bool mixr_ui_debug_overlay_is_visible(void);
+void mixr_ui_debug_overlay_toggle(void);
+
 /** Letzter Chip-Reset (Kurzform), für Debug-Ecke */
 void mixr_ui_set_last_reset_reason(int reset_reason_as_int);
 
@@ -43,6 +46,11 @@ void mixr_ui_menu_refresh_dynamic_rows(void);
 
 /** @deprecated alias */
 void mixr_ui_menu_refresh_settings_rows(void);
+
+void mixr_ui_brightness_enter_list_mode(void);
+
+/** Langdruck Encoder: erste Folie (Cover), Menü zu */
+void mixr_ui_goto_first_slide(void);
 
 void mixr_ui_apply_prefs_to_display(void);
 

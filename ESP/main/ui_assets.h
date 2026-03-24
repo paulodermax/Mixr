@@ -6,23 +6,17 @@
 extern "C" {
 #endif
 
-LV_IMAGE_DECLARE(img_brightness);
+LV_IMAGE_DECLARE(img_slide1_bg);
 
-LV_IMAGE_DECLARE(img_hardware);
+LV_IMAGE_DECLARE(img_slide2_bg);
 
-LV_IMAGE_DECLARE(img_debug);
+LV_IMAGE_DECLARE(img_slide3_bg);
 
-LV_IMAGE_DECLARE(img_restart);
+LV_IMAGE_DECLARE(img_slide4_bg);
 
-LV_IMAGE_DECLARE(img_bell);
+LV_IMAGE_DECLARE(img_clock_updown_selected);
 
-LV_IMAGE_DECLARE(img_clock_indicator_up);
-
-LV_IMAGE_DECLARE(img_clock_indicator_down);
-
-LV_IMAGE_DECLARE(img_mic);
-
-LV_IMAGE_DECLARE(img_headphones);
+LV_IMAGE_DECLARE(img_clock_updown_unselected);
 
 #ifdef __cplusplus
 }

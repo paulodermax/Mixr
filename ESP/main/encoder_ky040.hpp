@@ -34,8 +34,11 @@ public:
      */
     int8_t read_detent_step();
 
-    /** Flanke am Taster (gedrückt), entprellt */
+    /** Kurzer Klick: Loslassen nach < 800 ms (nicht nach Langdruck) */
     bool consume_click();
+
+    /** Einmal true, wenn Taster ≥ 800 ms gehalten */
+    bool consume_long_press();
 
 private:
     int8_t read_delta();
@@ -46,6 +49,11 @@ private:
     uint8_t prev_ab_{0};
     int detent_acc_{0};
     std::atomic<int32_t> pending_detents_{0};
-    int last_sw_{1};
-    uint32_t last_sw_ms_{0};
+
+    int last_sw_level_{1};
+    uint32_t sw_down_ms_{0};
+    bool sw_pressed_{false};
+    bool long_emitted_{false};
+    std::atomic<bool> pending_click_{false};
+    std::atomic<bool> pending_long_{false};
 };

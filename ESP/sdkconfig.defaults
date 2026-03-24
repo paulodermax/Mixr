@@ -1,3 +1,7 @@
+# App + eingebettete LVGL-Assets > 1 MiB → größere Factory-Partition (siehe partitions.csv)
+CONFIG_PARTITION_TABLE_CUSTOM=y
+CONFIG_PARTITION_TABLE_CUSTOM_FILENAME="partitions.csv"
+
 # LVGL auf dem Main-Task braucht deutlich mehr als 3,5 KB Stack
 CONFIG_ESP_MAIN_TASK_STACK_SIZE=16384
 
@@ -10,6 +14,9 @@ CONFIG_ESP_TASK_WDT_CHECK_IDLE_TASK_CPU1=n
 # Lange QSPI-Polling-Transfers / LVGL: Interrupt-WDT nicht bei 300ms
 CONFIG_ESP_INT_WDT_TIMEOUT_MS=800
 
+# Bei Panic/Assert: Log ausgeben und neu starten (Absturz → Reboot)
+CONFIG_ESP_SYSTEM_PANIC_PRINT_REBOOT=y
+
 # UI: Montserrat (LVGL built-in, zuverlässig auf dem Display).
 CONFIG_LV_FONT_MONTSERRAT_14=y
 CONFIG_LV_FONT_MONTSERRAT_16=y
@@ -21,3 +28,4 @@ CONFIG_LV_FONT_MONTSERRAT_26=y
 CONFIG_LV_FONT_MONTSERRAT_28=y
 CONFIG_LV_FONT_MONTSERRAT_30=y
 CONFIG_LV_FONT_MONTSERRAT_32=y
+CONFIG_LV_FONT_MONTSERRAT_40=y
