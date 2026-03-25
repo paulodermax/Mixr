@@ -5,7 +5,7 @@ using WindowsInput.Native;
 namespace Mixr.Services;
 
 /// <summary>
-/// Discord: Strg+Linksshift+Alt+9 (Mute), Strg+Linksshift+Alt+0 (Deafen) — in Discord dieselben Shortcuts eintragen.
+/// Discord: Strg+Linksshift+Alt+9 (Mute), +0 (Deafen), +8 (Bildschirm teilen) — in Discord dieselben Shortcuts eintragen.
 /// Simulation: LControl, LShift, LMenu + Taste; zuerst Scan-Codes, dann VK, zuletzt InputSimulator.
 /// </summary>
 public static class DiscordHotkeySimulator
@@ -21,6 +21,8 @@ public static class DiscordHotkeySimulator
     public const uint VkMuteKey = 0x39;
     /// <summary>VK_0 — Deafen (Ziffernreihe).</summary>
     public const uint VkDeafenKey = 0x30;
+    /// <summary>VK_8 — Bildschirm teilen (Ziffernreihe).</summary>
+    public const uint VkShareScreenKey = 0x38;
 
     private const uint MapvkVkToVsc = 0;
 
@@ -52,6 +54,20 @@ public static class DiscordHotkeySimulator
             Sim.Keyboard.ModifiedKeyStroke(
                 new[] { VirtualKeyCode.LCONTROL, VirtualKeyCode.LSHIFT, VirtualKeyCode.LMENU },
                 VirtualKeyCode.VK_0);
+        }
+    }
+
+    public static void TriggerShareScreen()
+    {
+        lock (Gate)
+        {
+            if (TrySendCtrlShiftAltChordScan(VkShareScreenKey))
+                return;
+            if (TrySendCtrlShiftAltChordVk(VkShareScreenKey))
+                return;
+            Sim.Keyboard.ModifiedKeyStroke(
+                new[] { VirtualKeyCode.LCONTROL, VirtualKeyCode.LSHIFT, VirtualKeyCode.LMENU },
+                VirtualKeyCode.VK_8);
         }
     }
 

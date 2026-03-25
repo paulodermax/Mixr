@@ -1,7 +1,7 @@
 namespace Mixr.Services;
 
 /// <summary>
-/// Zentrale Eingangs-Stelle für ESP → PC (Slider, Tasten, Media, VoIP-Mute 0x08, VoIP-Deafen 0x0B).
+/// Zentrale Eingangs-Stelle für ESP → PC (Slider, Tasten, Media, VoIP, Share Screen 0x0C).
 /// </summary>
 public sealed class EspIncomingDispatcher
 {
@@ -19,6 +19,9 @@ public sealed class EspIncomingDispatcher
     /// <summary>ESP Debug-Menü / Deafen-Befehl (Pkt 0x0B VOIP_DEAFEN).</summary>
     public event Action? VoipDeafenRequested;
 
+    /// <summary>ESP Debug-Menü — Bildschirm teilen (Pkt 0x0C).</summary>
+    public event Action? ShareScreenRequested;
+
     public void Dispatch(int type, byte[] payload)
     {
         const byte typeSlider = 0x03;
@@ -33,6 +36,12 @@ public sealed class EspIncomingDispatcher
         if (type == MixrSerialTransport.TypeVoipDeafen && payload.Length == 0)
         {
             VoipDeafenRequested?.Invoke();
+            return;
+        }
+
+        if (type == MixrSerialTransport.TypeShareScreenCmd && payload.Length == 0)
+        {
+            ShareScreenRequested?.Invoke();
             return;
         }
 

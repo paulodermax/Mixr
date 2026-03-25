@@ -13,8 +13,8 @@ if (args.Any(a => a is "--help" or "-h" or "/?"))
 
         Von der Firmware:
           • Slider, Tasten, Media-Befehle
-          • Pkt 0x08 / 0x0B: VoIP-Mute / Deafen (Debug-Menü / Button) → Hotkey; PC antwortet 0x0A (VK_9) / 0x0B (VK_0) → Icons
-          • Tastatur: Strg+Linksshift+Alt+9 / +0 (Deafen) — in Discord identisch zuordnen
+          • Pkt 0x08 / 0x0B / 0x0C: VoIP-Mute / Deafen / Bildschirm teilen (Debug-Menü / Button) → Hotkey; PC antwortet 0x0A / 0x0B → VoIP-Icons
+          • Tastatur: Strg+Linksshift+Alt+9 / +0 / +8 (Share) — in Discord identisch zuordnen
 
         config.yaml: voip_mute_button (0–4, -1 aus), com_port, baud_rate
         """);
@@ -68,6 +68,7 @@ espIncoming.ButtonPressed += id =>
 };
 espIncoming.VoipMuteRequested += () => TriggerDiscordMute("ESP Debug-Menü");
 espIncoming.VoipDeafenRequested += () => TriggerDiscordDeafen("ESP Debug-Menü");
+espIncoming.ShareScreenRequested += TriggerShareScreenFromEsp;
 espIncoming.MediaCommand += sub => _ = Task.Run(() => media.ExecuteMediaCommandAsync(sub));
 
 void TriggerDiscordMute(string quelle)
@@ -91,6 +92,19 @@ void TriggerDiscordDeafen(string quelle)
         DiscordHotkeySimulator.TriggerToggleDeafen();
         Console.WriteLine($"→ Discord: Toggle-Deafen ({quelle})");
         serial.SendVoipDeafenOverlayToggle();
+    }
+    catch (Exception ex)
+    {
+        Console.Error.WriteLine(ex.Message);
+    }
+}
+
+void TriggerShareScreenFromEsp()
+{
+    try
+    {
+        DiscordHotkeySimulator.TriggerShareScreen();
+        Console.WriteLine("→ Discord: Share Screen (ESP Debug-Menü)");
     }
     catch (Exception ex)
     {
@@ -125,7 +139,7 @@ VoipHotkeyListener.Start(
     });
 
 Console.WriteLine(
-    "Discord: Mute = Strg+Linksshift+Alt+9, Deafen = Strg+Linksshift+Alt+0.");
+    "Discord-Hotkeys: Strg+Linksshift+Alt+Ziffer — 9 Mute, 0 Deafen, 8 Share Screen.");
 Console.WriteLine("Windows-Mediensteuerung (SMTC) aktiv. Ctrl+C beenden.");
 using var done = new ManualResetEventSlim(false);
 Console.CancelKeyPress += (_, e) =>

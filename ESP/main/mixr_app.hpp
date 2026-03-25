@@ -12,3 +12,6 @@ void mixr_pc_send_voip_mute(void);
 
 /** Discord-Deafen am PC (Hotkey), siehe PktType::VOIP_DEAFEN */
 void mixr_pc_send_voip_deafen(void);
+
+/** Bildschirm teilen am PC (Hotkey), siehe PktType::SHARE_SCREEN_CMD */
+void mixr_pc_send_share_screen(void);

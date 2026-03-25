@@ -199,6 +199,14 @@ void mixr_pc_send_voip_deafen(void)
     send_to_pc(PktType::VOIP_DEAFEN, nullptr, 0);
 }
 
+void mixr_pc_send_share_screen(void)
+{
+    if (!mixr_pc_link_up()) {
+        return;
+    }
+    send_to_pc(PktType::SHARE_SCREEN_CMD, nullptr, 0);
+}
+
 static void comm_task(void *pvParameters)
 {
     (void)pvParameters;

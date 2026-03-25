@@ -162,6 +162,12 @@ static void cb_pc_voip_deafen(void)
     ESP_LOGI(TAG, "-> PC: VoIP deafen toggle");
 }
 
+static void cb_pc_share_screen(void)
+{
+    mixr_pc_send_share_screen();
+    ESP_LOGI(TAG, "-> PC: share screen");
+}
+
 /** Nur noch Schließen — Navigation läuft über die Slides (Settings-Raster etc.) */
 static const MenuItemDef g_root[] = {
     {"close", "Close", cb_close_to_player},
@@ -192,6 +198,7 @@ static const MenuItemDef g_debug[] = {
     {"debug_overlay", "", cb_toggle_debug_overlay},
     {"pc_mute", "", cb_pc_voip_mute},
     {"pc_deafen", "", cb_pc_voip_deafen},
+    {"share_screen", "Share Screen", cb_pc_share_screen},
     {"playback", "Playback Control", cb_open_playback},
 };
 

@@ -30,6 +30,8 @@ enum class PktType : uint8_t {
      * Gleiches Byte 0x0B, Richtung getrennt — VK_0 / Strg+Linksshift+Alt+0.
      */
     VOIP_DEAFEN = 0x0B,
+    /** ESP → PC: Nutzlast 0 — Bildschirm teilen (Hotkey), VK_8 / Strg+Linksshift+Alt+8 */
+    SHARE_SCREEN_CMD = 0x0C,
 };
 
 /** Nutzlast für PktType::MEDIA_CMD (gleiche Reihenfolge wie Playback-Menü). */

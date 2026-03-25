@@ -28,6 +28,9 @@ public sealed class MixrSerialTransport : IDisposable
     /// </summary>
     public const byte TypeVoipDeafen = 0x0B;
 
+    /// <summary>ESP → PC: Nutzlast 0 — Bildschirm teilen (Strg+Linksshift+Alt+8).</summary>
+    public const byte TypeShareScreenCmd = 0x0C;
+
     public const int ChunkMax = 255;
 
     readonly SerialPort _port;
