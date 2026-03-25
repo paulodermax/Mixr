@@ -8,6 +8,10 @@ extern "C" {
 
 LV_IMAGE_DECLARE(img_slide1_bg);
 
+LV_IMAGE_DECLARE(img_mic_muted);
+
+LV_IMAGE_DECLARE(img_headphones_deafened);
+
 LV_IMAGE_DECLARE(img_slide2_bg);
 
 LV_IMAGE_DECLARE(img_slide3_bg);

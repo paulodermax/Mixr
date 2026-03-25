@@ -183,6 +183,22 @@ void mixr_pc_send_media_cmd(uint8_t subcmd)
     send_to_pc(PktType::MEDIA_CMD, &subcmd, 1);
 }
 
+void mixr_pc_send_voip_mute(void)
+{
+    if (!mixr_pc_link_up()) {
+        return;
+    }
+    send_to_pc(PktType::VOIP_MUTE_CMD, nullptr, 0);
+}
+
+void mixr_pc_send_voip_deafen(void)
+{
+    if (!mixr_pc_link_up()) {
+        return;
+    }
+    send_to_pc(PktType::VOIP_DEAFEN, nullptr, 0);
+}
+
 static void comm_task(void *pvParameters)
 {
     (void)pvParameters;
@@ -254,8 +270,12 @@ static void comm_task(void *pvParameters)
                             memcpy(msg.payload.text, payload, copy_len);
                             msg.payload.text[copy_len] = '\0';
                             xQueueSend(ui_queue, &msg, 0);
+                        } else if (msg.type == PktType::VOIP_MUTE_TOGGLE_UI && len == 0) {
+                            xQueueSend(ui_queue, &msg, 0);
+                        } else if (msg.type == PktType::VOIP_DEAFEN && len == 0) {
+                            xQueueSend(ui_queue, &msg, 0);
                         }
-                        /* andere Typen vom PC ignorieren (keine halb initialisierte UiMessage in die Queue) */
+                        /* andere Typen vom PC ignorieren */
                     } else {
                         /* CRC falsch: Frame verworfen, Cover-Reassembly nicht mehr vertrauen */
                         img_offset = 0;
@@ -436,7 +456,7 @@ void mixr_app_run(void)
     /* USB kurz stabilisieren (Enumeration), bevor große RX-Strom kommt */
     vTaskDelay(pdMS_TO_TICKS(500));
     xTaskCreate(comm_task, "comm_task", 4096, nullptr, 5, nullptr);
-
+        
     mixr_ui_set_usb_connected(mixr_pc_link_up());
 
     bool last_usb_state = usb_serial_jtag_is_connected();

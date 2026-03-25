@@ -1,3 +1,6 @@
 # Wie workdir: serieller Port zum ESP (Mixr). Überschreibbar mit: --port=COM7  --baud=115200
 com_port: COM6
 baud_rate: 115200
+
+# Welcher der 5 ESP-Taster (0–4) denselben Mute-Hotkey auslöst wie „PC: Discord mute“; -1 = nur Menü
+voip_mute_button: 0

@@ -49,6 +49,14 @@ static lv_obj_t *debug_lbl = nullptr;
 /** Unten rechts: Stats-Overlay; nur sichtbar wenn im Debug-Menü aktiviert */
 static bool s_debug_overlay_visible = false;
 static lv_obj_t *err_banner_lbl = nullptr;
+/**
+ * Slide 0: Mute-/Deafen-Icons (PC 0x0A / 0x0B). Deafen an → Mic immer stumm-Anzeige; Undeafen → Mic-Anzeige aus.
+ * Nur Mute (ohne Deafen): Toggle wie bisher. Während Deafen werden Mute-Pakete ignoriert (Anzeige fix).
+ */
+static lv_obj_t *s_sl0_mic_muted_overlay = nullptr;
+static bool s_mic_muted_overlay_visible = false;
+static lv_obj_t *s_sl0_deafened_overlay = nullptr;
+static bool s_deafened_overlay_visible = false;
 /** Cover-Rahmen für Layout (Titel/Artist darunter) */
 static lv_obj_t *s_cover_frame = nullptr;
 
@@ -1091,6 +1099,20 @@ static void build_main_carousel(lv_obj_t *parent)
     lv_obj_align(err_banner_lbl, LV_ALIGN_BOTTOM_MID, 0, -12);
     lv_obj_add_flag(err_banner_lbl, LV_OBJ_FLAG_HIDDEN);
 
+    s_sl0_mic_muted_overlay = lv_image_create(s_slide_pages[0]);
+    lv_image_set_src(s_sl0_mic_muted_overlay, &img_mic_muted);
+    lv_obj_set_size(s_sl0_mic_muted_overlay, 65, 98);
+    lv_obj_align(s_sl0_mic_muted_overlay, LV_ALIGN_TOP_LEFT, 28, 392);
+    lv_obj_add_flag(s_sl0_mic_muted_overlay, LV_OBJ_FLAG_HIDDEN);
+    s_mic_muted_overlay_visible = false;
+
+    s_sl0_deafened_overlay = lv_image_create(s_slide_pages[0]);
+    lv_image_set_src(s_sl0_deafened_overlay, &img_headphones_deafened);
+    lv_obj_set_size(s_sl0_deafened_overlay, 96, 102);
+    lv_obj_align(s_sl0_deafened_overlay, LV_ALIGN_TOP_LEFT, 124, 390);
+    lv_obj_add_flag(s_sl0_deafened_overlay, LV_OBJ_FLAG_HIDDEN);
+    s_deafened_overlay_visible = false;
+
     /* --- Slide 1: Focus – Preset-Zeit, Pfeile links/rechts, großes Start unter der Uhr --- */
     mixr_ui_put_slide_bg(s_slide_pages[1], &img_slide2_bg);
     lv_obj_add_flag(s_slide_pages[1], LV_OBJ_FLAG_OVERFLOW_VISIBLE);
@@ -1490,6 +1512,31 @@ void mixr_ui_set_usb_connected(bool connected)
     }
 }
 
+/** Mic-Stumm-Icon ein/aus; aktualisiert Flag + LVGL. */
+static void mic_overlay_set_visible(bool visible)
+{
+    if (s_sl0_mic_muted_overlay == nullptr) {
+        return;
+    }
+    s_mic_muted_overlay_visible = visible;
+    if (visible) {
+        lv_obj_clear_flag(s_sl0_mic_muted_overlay, LV_OBJ_FLAG_HIDDEN);
+        lv_obj_move_foreground(s_sl0_mic_muted_overlay);
+    } else {
+        lv_obj_add_flag(s_sl0_mic_muted_overlay, LV_OBJ_FLAG_HIDDEN);
+    }
+}
+
+bool mixr_ui_voip_mic_muted_displayed(void)
+{
+    return s_mic_muted_overlay_visible;
+}
+
+bool mixr_ui_voip_deafened_displayed(void)
+{
+    return s_deafened_overlay_visible;
+}
+
 void mixr_ui_on_message(const UiMessage *msg)
 {
     if (msg == nullptr) {
@@ -1509,6 +1556,30 @@ void mixr_ui_on_message(const UiMessage *msg)
             if (ui_artist != nullptr) {
                 lv_label_set_text(ui_artist, s_pending_artist);
             }
+            break;
+        case PktType::VOIP_MUTE_TOGGLE_UI:
+            /* Während Deafen: Mic immer „stumm“ anzeigen; Mute-Toggles ignorieren (Discord kann trotzdem toggeln). */
+            if (s_deafened_overlay_visible) {
+                break;
+            }
+            mic_overlay_set_visible(!s_mic_muted_overlay_visible);
+            mixr_ui_menu_refresh_dynamic_rows();
+            break;
+        case PktType::VOIP_DEAFEN:
+            if (s_sl0_deafened_overlay != nullptr) {
+                s_deafened_overlay_visible = !s_deafened_overlay_visible;
+                if (s_deafened_overlay_visible) {
+                    lv_obj_clear_flag(s_sl0_deafened_overlay, LV_OBJ_FLAG_HIDDEN);
+                    lv_obj_move_foreground(s_sl0_deafened_overlay);
+                    /* Deafen (auch nur Deafen): Mic wie stumm anzeigen. */
+                    mic_overlay_set_visible(true);
+                } else {
+                    lv_obj_add_flag(s_sl0_deafened_overlay, LV_OBJ_FLAG_HIDDEN);
+                    /* Undeafen: Mic wieder als nicht stumm (z. B. nach Mute→Deafen→Undeafen). */
+                    mic_overlay_set_visible(false);
+                }
+            }
+            mixr_ui_menu_refresh_dynamic_rows();
             break;
         case PktType::IMAGE_READY:
             if (ui_cover && s_cover_buf && s_cover_bytes >= 240U * 240U * 2U) {

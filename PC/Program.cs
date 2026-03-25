@@ -3,8 +3,31 @@ using Mixr.Services;
 
 Console.OutputEncoding = System.Text.Encoding.UTF8;
 
+if (args.Any(a => a is "--help" or "-h" or "/?"))
+{
+    Console.WriteLine(
+        """
+        Mixr PC — SMTC → ESP, serielles Protokoll.
+
+        Seriell: --port COM6 --baud 115200
+
+        Von der Firmware:
+          • Slider, Tasten, Media-Befehle
+          • Pkt 0x08 / 0x0B: VoIP-Mute / Deafen (Debug-Menü / Button) → Hotkey; PC antwortet 0x0A (VK_9) / 0x0B (VK_0) → Icons
+          • Tastatur: Strg+Linksshift+Alt+9 / +0 (Deafen) — in Discord identisch zuordnen
+
+        config.yaml: voip_mute_button (0–4, -1 aus), com_port, baud_rate
+        """);
+    return;
+}
+
 var cfg = MixrConfigLoader.Load(args);
-Console.WriteLine($"Mixr PC → {cfg.ComPort} @ {cfg.BaudRate} (SMTC → ESP, Burst wie mixr_send_demo.py --fast)");
+Console.WriteLine($"Mixr PC → {cfg.ComPort} @ {cfg.BaudRate} (SMTC → ESP)");
+if (cfg.VoipMuteButton is >= 0 and <= 4)
+    Console.WriteLine(
+        $"VoIP: Hardware-Button {cfg.VoipMuteButton} → Mute; Debug-Menü „PC: Discord mute/deafen“");
+else
+    Console.WriteLine("VoIP: nur Debug-Menü „PC: Discord mute“ / „PC: Discord deafen“ (voip_mute_button: -1)");
 
 using var serial = new MixrSerialTransport(cfg.ComPort, cfg.BaudRate);
 serial.Open();
@@ -37,13 +60,72 @@ espIncoming.SliderValues += mem =>
     var s = mem.Span;
     Console.WriteLine($"[ESP] Slider: {s[0]} {s[1]} {s[2]} {s[3]}");
 };
-espIncoming.ButtonPressed += id => Console.WriteLine($"[ESP] Button: {id}");
+espIncoming.ButtonPressed += id =>
+{
+    Console.WriteLine($"[ESP] Button: {id}");
+    if (cfg.VoipMuteButton is >= 0 and <= 4 && id == cfg.VoipMuteButton)
+        TriggerDiscordMute($"Hardware-Button {id}");
+};
+espIncoming.VoipMuteRequested += () => TriggerDiscordMute("ESP Debug-Menü");
+espIncoming.VoipDeafenRequested += () => TriggerDiscordDeafen("ESP Debug-Menü");
 espIncoming.MediaCommand += sub => _ = Task.Run(() => media.ExecuteMediaCommandAsync(sub));
+
+void TriggerDiscordMute(string quelle)
+{
+    try
+    {
+        DiscordHotkeySimulator.TriggerToggleMute();
+        Console.WriteLine($"→ Discord: Toggle-Mute ({quelle})");
+        serial.SendVoipMuteOverlayToggle();
+    }
+    catch (Exception ex)
+    {
+        Console.Error.WriteLine(ex.Message);
+    }
+}
+
+void TriggerDiscordDeafen(string quelle)
+{
+    try
+    {
+        DiscordHotkeySimulator.TriggerToggleDeafen();
+        Console.WriteLine($"→ Discord: Toggle-Deafen ({quelle})");
+        serial.SendVoipDeafenOverlayToggle();
+    }
+    catch (Exception ex)
+    {
+        Console.Error.WriteLine(ex.Message);
+    }
+}
 
 void OnEspPacket(int type, byte[] payload) => espIncoming.Dispatch(type, payload);
 
 serial.StartDrainRxThread(OnEspPacket);
 
+VoipHotkeyListener.Start(
+    () =>
+    {
+        try
+        {
+            serial.SendVoipMuteOverlayToggle();
+        }
+        catch (IOException)
+        {
+        }
+    },
+    () =>
+    {
+        try
+        {
+            serial.SendVoipDeafenOverlayToggle();
+        }
+        catch (IOException)
+        {
+        }
+    });
+
+Console.WriteLine(
+    "Discord: Mute = Strg+Linksshift+Alt+9, Deafen = Strg+Linksshift+Alt+0.");
 Console.WriteLine("Windows-Mediensteuerung (SMTC) aktiv. Ctrl+C beenden.");
 using var done = new ManualResetEventSlim(false);
 Console.CancelKeyPress += (_, e) =>

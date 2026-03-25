@@ -150,6 +150,18 @@ static void cb_media_previous(void)
     ESP_LOGI(TAG, "-> PC: Previous");
 }
 
+static void cb_pc_voip_mute(void)
+{
+    mixr_pc_send_voip_mute();
+    ESP_LOGI(TAG, "-> PC: VoIP mute toggle");
+}
+
+static void cb_pc_voip_deafen(void)
+{
+    mixr_pc_send_voip_deafen();
+    ESP_LOGI(TAG, "-> PC: VoIP deafen toggle");
+}
+
 /** Nur noch Schließen — Navigation läuft über die Slides (Settings-Raster etc.) */
 static const MenuItemDef g_root[] = {
     {"close", "Close", cb_close_to_player},
@@ -166,6 +178,7 @@ static const MenuItemDef g_hardware[] = {
     {"back", "Back", cb_back_pop},
     {"sliders_tx", "", cb_toggle_sliders_tx},
     {"buttons_tx", "", cb_toggle_buttons_tx},
+    {"touch", "", cb_toggle_touch},
 };
 
 static const MenuItemDef g_restart[] = {
@@ -175,11 +188,10 @@ static const MenuItemDef g_restart[] = {
 
 static const MenuItemDef g_debug[] = {
     {"back", "Back", cb_back_pop},
-    {"sliders_tx", "", cb_toggle_sliders_tx},
-    {"buttons_tx", "", cb_toggle_buttons_tx},
-    {"touch", "", cb_toggle_touch},
     {"usb", "", cb_noop},
     {"debug_overlay", "", cb_toggle_debug_overlay},
+    {"pc_mute", "", cb_pc_voip_mute},
+    {"pc_deafen", "", cb_pc_voip_deafen},
     {"playback", "Playback Control", cb_open_playback},
 };
 
@@ -222,6 +234,12 @@ const char *menu_catalog_row_title(size_t index)
     }
     if (std::strcmp(items[index].id, "debug_overlay") == 0) {
         return mixr_ui_debug_overlay_is_visible() ? "Overlay: ON" : "Overlay: OFF";
+    }
+    if (std::strcmp(items[index].id, "pc_mute") == 0) {
+        return mixr_ui_voip_mic_muted_displayed() ? "Mute Discord: On" : "Mute Discord: Off";
+    }
+    if (std::strcmp(items[index].id, "pc_deafen") == 0) {
+        return mixr_ui_voip_deafened_displayed() ? "Deafen Discord: On" : "Deafen Discord: Off";
     }
     if (std::strcmp(items[index].id, "focus_time") == 0) {
         uint32_t t = mixr_focus_preset_sec_get();

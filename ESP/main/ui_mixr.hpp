@@ -21,6 +21,10 @@ void mixr_ui_set_usb_connected(bool connected);
 
 void mixr_ui_on_message(const UiMessage *msg);
 
+/** Anzeige-Zustand Slide-0-Overlays (für Debug-Menü-Zeilen). */
+bool mixr_ui_voip_mic_muted_displayed(void);
+bool mixr_ui_voip_deafened_displayed(void);
+
 /** Legacy: zeigt nur noch „Close“ (Navigation laeuft ueber Slides). */
 void mixr_ui_enter_menu(void);
 

@@ -1,0 +1,18 @@
+{
+  "name": "node_raster",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "raster-mic": "node raster_mic_muted.cjs",
+    "raster-slide0": "node raster_slide0_assets.cjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "sharp": "^0.34.5"
+  }
+}

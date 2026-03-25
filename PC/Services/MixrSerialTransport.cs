@@ -1,3 +1,4 @@
+using System.IO;
 using System.IO.Ports;
 using System.Text;
 
@@ -15,6 +16,17 @@ public sealed class MixrSerialTransport : IDisposable
     public const byte TypeImageChunk = 0x05;
     /// <summary>ESP → PC: 1 Byte Nutzlast — 0 Next, 1 Play/Pause, 2 Previous (MediaSubCmd).</summary>
     public const byte TypeMediaCmd = 0x07;
+
+    /// <summary>ESP → PC: Nutzlast 0 — VoIP-/Discord-Mute am PC auslösen.</summary>
+    public const byte TypeVoipMuteCmd = 0x08;
+
+    /// <summary>PC → ESP: Nutzlast 0 — Stumm-Overlay (VK_9 / Strg+Linksshift+Alt+9).</summary>
+    public const byte TypeVoipMuteToggleUi = 0x0A;
+
+    /// <summary>
+    /// ESP → PC: Deafen-Hotkey; PC → ESP: Deafen-Overlay — gleiches Byte 0x0B (VK_0 / Strg+Linksshift+Alt+0).
+    /// </summary>
+    public const byte TypeVoipDeafen = 0x0B;
 
     public const int ChunkMax = 255;
 
@@ -90,6 +102,31 @@ public sealed class MixrSerialTransport : IDisposable
         packet[^1] = crc;
 
         _port.Write(packet, 0, packet.Length);
+    }
+
+    /// <summary>Nach erfolgreichem Discord-Mute: ESP zeigt Stumm-Icon auf Slide 1.</summary>
+    public void SendVoipMuteOverlayToggle()
+    {
+        try
+        {
+            SendPacket(TypeVoipMuteToggleUi, Array.Empty<byte>());
+        }
+        catch (IOException)
+        {
+            /* seriell weg — ignorieren */
+        }
+    }
+
+    public void SendVoipDeafenOverlayToggle()
+    {
+        try
+        {
+            SendPacket(TypeVoipDeafen, Array.Empty<byte>());
+        }
+        catch (IOException)
+        {
+            /* seriell weg — ignorieren */
+        }
     }
 
     static byte[] Utf8TruncateBytes(string s, int maxBytes)

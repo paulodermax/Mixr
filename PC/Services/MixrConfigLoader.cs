@@ -73,6 +73,8 @@ public static class MixrConfigLoader
     {
         public string? Com_port { get; set; }
         public int? Baud_rate { get; set; }
+        public int? Discord_mute_button { get; set; }
+        public int? Voip_mute_button { get; set; }
 
         public MixrConfig ToConfig()
         {
@@ -81,6 +83,9 @@ public static class MixrConfigLoader
                 c.ComPort = Com_port.Trim();
             if (Baud_rate is > 0)
                 c.BaudRate = Baud_rate.Value;
+            var btn = Voip_mute_button ?? Discord_mute_button;
+            if (btn is >= -1 and <= 4)
+                c.VoipMuteButton = btn.Value;
             return c;
         }
     }

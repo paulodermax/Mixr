@@ -21,6 +21,15 @@ enum class PktType : uint8_t {
     IMAGE_READY = 0x06,
     /** ESP → PC: Nutzlast 1 Byte, siehe MediaSubCmd */
     MEDIA_CMD = 0x07,
+    /** ESP → PC: Nutzlast 0 — PC löst Discord-VoIP-Mute (Hotkey), VK_9 / Strg+Linksshift+Alt+9 */
+    VOIP_MUTE_CMD = 0x08,
+    /** PC → ESP: Nutzlast 0 — Stumm-Icon toggeln (VK_9 / Strg+Linksshift+Alt+9) */
+    VOIP_MUTE_TOGGLE_UI = 0x0A,
+    /**
+     * PC → ESP: Deafen-Icon toggeln; ESP → PC: Deafen-Hotkey auslösen.
+     * Gleiches Byte 0x0B, Richtung getrennt — VK_0 / Strg+Linksshift+Alt+0.
+     */
+    VOIP_DEAFEN = 0x0B,
 };
 
 /** Nutzlast für PktType::MEDIA_CMD (gleiche Reihenfolge wie Playback-Menü). */
