@@ -14,7 +14,7 @@ public sealed class WindowsNowPlayingService : IDisposable
     GlobalSystemMediaTransportControlsSession? _session;
     readonly SemaphoreSlim _pushGate = new(1, 1);
 
-    /// <summary>Titel, Artist, 240×240 RGB565 LE (115200 B).</summary>
+    /// <summary>Titel, Artist, 240×240 RGB565 LE (seriell, Standard 921600 Baud).</summary>
     public event Action<string, string, byte[]>? SessionUpdated;
 
     public async Task InitializeAsync(CancellationToken cancellationToken = default)

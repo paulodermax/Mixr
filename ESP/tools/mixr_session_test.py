@@ -44,7 +44,7 @@ def main() -> None:
         metavar="FILE",
         help="Albumcover-PNG; ohne diese Option: einfarbiges Grau-Platzhalterbild",
     )
-    p.add_argument("--baud", type=int, default=115200, help="Baudrate")
+    p.add_argument("--baud", type=int, default=921600, help="Baudrate")
     p.add_argument(
         "--warmup-sec",
         type=float,

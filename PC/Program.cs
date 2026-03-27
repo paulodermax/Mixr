@@ -9,7 +9,7 @@ if (args.Any(a => a is "--help" or "-h" or "/?"))
         """
         Mixr PC — SMTC → ESP, serielles Protokoll.
 
-        Seriell: --port COM6 --baud 115200
+        Seriell: --port COM6 --baud 921600
 
         Von der Firmware:
           • Slider, Tasten, Media-Befehle

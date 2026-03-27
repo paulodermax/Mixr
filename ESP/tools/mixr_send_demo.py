@@ -22,7 +22,7 @@ Hinweis rst:0x15 (USB_UART_CHIP_RESET):
   Chip neu gestartet. Zuerst --listen-sec 0 testen; --chunk-delay-ms erhöhen (8–12);
   --post-send-ms 500. Kein 100% Schutz bei einem USB möglich (siehe TESTING.md).
 
-Cover-Zeit: grob (115200 / 255) × chunk-delay-ms Pause zwischen Paketen — bei Bedarf
+Cover-Zeit: grob (baud/255) × chunk-delay-ms Pause zwischen Paketen — bei Bedarf
   --chunk-delay-ms 2 oder 0 (max. Speed), wenn stabil.
 """
 
@@ -222,7 +222,7 @@ def main() -> None:
     p.add_argument("--title", default="Test Titel", help="Songtitel")
     p.add_argument("--artist", default="Test Artist", help="Interpret")
     p.add_argument("--png", metavar="FILE", help="Albumcover (beliebiges Seitenverhältnis → 240×240, beschnitten)")
-    p.add_argument("--baud", type=int, default=115200, help="Baud (Standard 115200)")
+    p.add_argument("--baud", type=int, default=921600, help="Baud (Standard 921600)")
     p.add_argument(
         "--listen-sec",
         type=float,
