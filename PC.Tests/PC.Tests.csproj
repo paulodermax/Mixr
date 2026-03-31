@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\PC\Services\SessionDedup.cs" Link="SessionDedup.cs" />
+    <Compile Include="..\Mixr.Core\Services\SessionDedup.cs" Link="SessionDedup.cs" />
   </ItemGroup>
 
   <ItemGroup>

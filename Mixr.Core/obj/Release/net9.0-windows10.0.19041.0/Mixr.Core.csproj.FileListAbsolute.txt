@@ -1,0 +1,14 @@
+c:\Users\paulm\.mainroot\Mixr\Mixr.Core\bin\Release\net9.0-windows10.0.19041.0\config.yaml
+c:\Users\paulm\.mainroot\Mixr\Mixr.Core\bin\Release\net9.0-windows10.0.19041.0\Mixr.Core.deps.json
+c:\Users\paulm\.mainroot\Mixr\Mixr.Core\bin\Release\net9.0-windows10.0.19041.0\Mixr.Core.dll
+c:\Users\paulm\.mainroot\Mixr\Mixr.Core\bin\Release\net9.0-windows10.0.19041.0\Mixr.Core.pdb
+c:\Users\paulm\.mainroot\Mixr\Mixr.Core\obj\Release\net9.0-windows10.0.19041.0\Mixr.Core.csproj.AssemblyReference.cache
+c:\Users\paulm\.mainroot\Mixr\Mixr.Core\obj\Release\net9.0-windows10.0.19041.0\Mixr.Core.GeneratedMSBuildEditorConfig.editorconfig
+c:\Users\paulm\.mainroot\Mixr\Mixr.Core\obj\Release\net9.0-windows10.0.19041.0\Mixr.Core.AssemblyInfoInputs.cache
+c:\Users\paulm\.mainroot\Mixr\Mixr.Core\obj\Release\net9.0-windows10.0.19041.0\Mixr.Core.AssemblyInfo.cs
+c:\Users\paulm\.mainroot\Mixr\Mixr.Core\obj\Release\net9.0-windows10.0.19041.0\Mixr.Core.csproj.CoreCompileInputs.cache
+c:\Users\paulm\.mainroot\Mixr\Mixr.Core\obj\Release\net9.0-windows10.0.19041.0\Mixr.Core.sourcelink.json
+c:\Users\paulm\.mainroot\Mixr\Mixr.Core\obj\Release\net9.0-windows10.0.19041.0\Mixr.Core.dll
+c:\Users\paulm\.mainroot\Mixr\Mixr.Core\obj\Release\net9.0-windows10.0.19041.0\refint\Mixr.Core.dll
+c:\Users\paulm\.mainroot\Mixr\Mixr.Core\obj\Release\net9.0-windows10.0.19041.0\Mixr.Core.pdb
+c:\Users\paulm\.mainroot\Mixr\Mixr.Core\obj\Release\net9.0-windows10.0.19041.0\ref\Mixr.Core.dll

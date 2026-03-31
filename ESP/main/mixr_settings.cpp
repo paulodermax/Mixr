@@ -2,7 +2,7 @@
 
 static bool s_sliders_send = true;
 static bool s_buttons_send = true;
-static bool s_touch = false;
+static bool s_touch = true;
 
 extern "C" {
 
