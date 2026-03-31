@@ -12,22 +12,29 @@ if (args.Any(a => a is "--help" or "-h" or "/?"))
         Seriell: --port COM6 --baud 921600
 
         Von der Firmware:
-          • Slider, Tasten, Media-Befehle
-          • Pkt 0x08 / 0x0B / 0x0C: VoIP-Mute / Deafen / Bildschirm teilen (Debug-Menü / Button) → Hotkey; PC antwortet 0x0A / 0x0B → VoIP-Icons
-          • Tastatur: Strg+Linksshift+Alt+9 / +0 / +8 (Share) — in Discord identisch zuordnen
+          • Slider, Tasten (0–4): 0 Previous, 1 Play/Pause, 2 Next (SMTC), 3 Discord Mute, 4 Discord Deafen
+          • Pkt 0x08 / 0x0B / 0x0C: VoIP / Share (Debug-Menü) → Hotkey; PC antwortet 0x0A / 0x0B → VoIP-Icons
+          • Tastatur: Strg+Linksshift+Alt+9 / +0 / +8 (Share)
 
-        config.yaml: voip_mute_button (0–4, -1 aus), com_port, baud_rate
+        config.yaml: com_port, baud_rate, slider_mapping, session_groups, invert_sliders
         """);
     return;
 }
 
 var cfg = MixrConfigLoader.Load(args);
 Console.WriteLine($"Mixr PC → {cfg.ComPort} @ {cfg.BaudRate} (SMTC → ESP)");
-if (cfg.VoipMuteButton is >= 0 and <= 4)
-    Console.WriteLine(
-        $"VoIP: Hardware-Button {cfg.VoipMuteButton} → Mute; Debug-Menü „PC: Discord mute/deafen“");
-else
-    Console.WriteLine("VoIP: nur Debug-Menü „PC: Discord mute“ / „PC: Discord deafen“ (voip_mute_button: -1)");
+Console.WriteLine(
+    "Taster: 0 Previous | 1 Play/Pause | 2 Next | 3 Discord Mute | 4 Discord Deafen (zusätzlich Debug-Menü VoIP)");
+Console.WriteLine("Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele (session_groups in config.yaml)");
+
+using var cts = new CancellationTokenSource();
+using var done = new ManualResetEventSlim(false);
+Console.CancelKeyPress += (_, e) =>
+{
+    e.Cancel = true;
+    cts.Cancel();
+    done.Set();
+};
 
 using var serial = new MixrSerialTransport(cfg.ComPort, cfg.BaudRate);
 serial.Open();
@@ -54,17 +61,60 @@ media.SessionUpdated += (title, artist, cover) =>
 
 await media.InitializeAsync();
 
+var audio = new AudioService();
+try
+{
+    audio.RebuildSessionMap(cfg.SliderMapping, cfg.SessionGroups);
+}
+catch (Exception ex)
+{
+    Console.Error.WriteLine($"Audio-Init: {ex.Message}");
+}
+
+var lastSlider = new float[] { -1, -1, -1, -1 };
+
 var espIncoming = new EspIncomingDispatcher();
 espIncoming.SliderValues += mem =>
 {
     var s = mem.Span;
-    Console.WriteLine($"[ESP] Slider: {s[0]} {s[1]} {s[2]} {s[3]}");
+    if (s.Length < 4)
+        return;
+    for (var i = 0; i < 4 && i < cfg.SliderMapping.Count; i++)
+    {
+        var level = s[i] / 255f;
+        if (cfg.InvertSliders)
+            level = 1f - level;
+        if (Math.Abs(level - lastSlider[i]) > 0.005f)
+        {
+            lastSlider[i] = level;
+            audio.SetVolume(cfg.SliderMapping[i], level);
+        }
+    }
 };
 espIncoming.ButtonPressed += id =>
 {
     Console.WriteLine($"[ESP] Button: {id}");
-    if (cfg.VoipMuteButton is >= 0 and <= 4 && id == cfg.VoipMuteButton)
-        TriggerDiscordMute($"Hardware-Button {id}");
+    switch (id)
+    {
+        case 0:
+            _ = Task.Run(() => media.ExecuteMediaCommandAsync(2)); /* MediaSubCmd: Previous */
+            Console.WriteLine("→ SMTC: Previous");
+            break;
+        case 1:
+            _ = Task.Run(() => media.ExecuteMediaCommandAsync(1)); /* Play/Pause */
+            Console.WriteLine("→ SMTC: Play/Pause");
+            break;
+        case 2:
+            _ = Task.Run(() => media.ExecuteMediaCommandAsync(0)); /* Next */
+            Console.WriteLine("→ SMTC: Next");
+            break;
+        case 3:
+            TriggerDiscordMute("Taster 3 / SW4");
+            break;
+        case 4:
+            TriggerDiscordDeafen("Taster 4 / SW5 (CHIP_UP)");
+            break;
+    }
 };
 espIncoming.VoipMuteRequested += () => TriggerDiscordMute("ESP Debug-Menü");
 espIncoming.VoipDeafenRequested += () => TriggerDiscordDeafen("ESP Debug-Menü");
@@ -116,6 +166,22 @@ void OnEspPacket(int type, byte[] payload) => espIncoming.Dispatch(type, payload
 
 serial.StartDrainRxThread(OnEspPacket);
 
+_ = Task.Run(async () =>
+{
+    try
+    {
+        while (!cts.Token.IsCancellationRequested)
+        {
+            await Task.Delay(2000, cts.Token);
+            audio.RebuildSessionMap(cfg.SliderMapping, cfg.SessionGroups, silent: true);
+        }
+    }
+    catch (OperationCanceledException)
+    {
+        /* Beenden */
+    }
+});
+
 VoipHotkeyListener.Start(
     () =>
     {
@@ -141,10 +207,4 @@ VoipHotkeyListener.Start(
 Console.WriteLine(
     "Discord-Hotkeys: Strg+Linksshift+Alt+Ziffer — 9 Mute, 0 Deafen, 8 Share Screen.");
 Console.WriteLine("Windows-Mediensteuerung (SMTC) aktiv. Ctrl+C beenden.");
-using var done = new ManualResetEventSlim(false);
-Console.CancelKeyPress += (_, e) =>
-{
-    e.Cancel = true;
-    done.Set();
-};
 done.Wait();

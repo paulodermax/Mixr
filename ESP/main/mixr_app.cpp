@@ -52,6 +52,61 @@ static Ky040Encoder g_encoder;
 /** USB-Slider/Buttons: vom Timer statt aus main, damit es bei langem LVGL-Cover-Draw weiterläuft */
 static uint8_t s_last_sliders[MIXR_SLIDER_COUNT] = {0};
 static uint8_t s_last_buttons[5] = {1, 1, 1, 1, 1};
+/** Letzter BTN_CMD pro Taste (esp_timer_get_time, µs) — Sperre gegen Prellen/Doppeltreffer */
+static int64_t s_last_btn_cmd_us[5] = {0};
+
+#ifndef MIXR_BUTTON_DEBOUNCE_US
+#define MIXR_BUTTON_DEBOUNCE_US (50 * 1000) /* 50 ms; optional per -DMIXR_BUTTON_DEBOUNCE_US=… überschreiben */
+#endif
+
+#ifndef MIXR_TX_LED_PULSE_US
+#define MIXR_TX_LED_PULSE_US 4000 /* ~4 ms sichtbar; optional -DMIXR_TX_LED_PULSE_US=… */
+#endif
+
+/** 0 = aus; sonst esp_timer_get_time ab dem LED wieder aus */
+static int64_t s_tx_led_off_at_us = 0;
+
+static void mixr_tx_led_set_level(int level_on)
+{
+#if MIXR_TX_LED_ACTIVE_LOW
+    gpio_set_level(MIXR_PIN_TX_ACTIVITY, level_on ? 0 : 1);
+#else
+    gpio_set_level(MIXR_PIN_TX_ACTIVITY, level_on ? 1 : 0);
+#endif
+}
+
+static void mixr_tx_led_init(void)
+{
+    gpio_config_t txled = {};
+    txled.pin_bit_mask = 1ULL << MIXR_PIN_TX_ACTIVITY;
+    txled.mode = GPIO_MODE_OUTPUT;
+    txled.pull_up_en = GPIO_PULLUP_DISABLE;
+    txled.pull_down_en = GPIO_PULLDOWN_DISABLE;
+    txled.intr_type = GPIO_INTR_DISABLE;
+    gpio_config(&txled);
+    mixr_tx_led_set_level(0);
+}
+
+static void mixr_tx_led_pulse(void)
+{
+    mixr_tx_led_set_level(1);
+    int64_t now = esp_timer_get_time();
+    int64_t end = now + (int64_t)MIXR_TX_LED_PULSE_US;
+    if (end > s_tx_led_off_at_us) {
+        s_tx_led_off_at_us = end;
+    }
+}
+
+static void mixr_tx_led_tick(void)
+{
+    if (s_tx_led_off_at_us == 0) {
+        return;
+    }
+    if (esp_timer_get_time() >= s_tx_led_off_at_us) {
+        mixr_tx_led_set_level(0);
+        s_tx_led_off_at_us = 0;
+    }
+}
 
 static void my_disp_flush(lv_display_t *disp, const lv_area_t *area, uint8_t *px_map)
 {
@@ -102,6 +157,7 @@ static void encoder_timer_cb(void *arg)
 {
     (void)arg;
     g_encoder.tick();
+    mixr_tx_led_tick();
 }
 
 static void init_hardware_peripherals(void)
@@ -129,6 +185,14 @@ static void init_hardware_peripherals(void)
     io_conf.pull_down_en = GPIO_PULLDOWN_DISABLE;
     io_conf.intr_type = GPIO_INTR_DISABLE;
     gpio_config(&io_conf);
+
+    mixr_tx_led_init();
+
+#if MIXR_HW_BUTTON3_DISABLED
+    /* SW4 nicht auslesen: Pin reset, Eingangstreiber aus. */
+    gpio_reset_pin(MIXR_PIN_BTN_3);
+    gpio_input_disable(MIXR_PIN_BTN_3);
+#endif
 
     g_encoder.init(MIXR_PIN_ENC_CLK, MIXR_PIN_ENC_DT, MIXR_PIN_ENC_SW);
 }
@@ -173,6 +237,7 @@ static void send_to_pc(PktType type, const uint8_t *payload, uint8_t len)
     packet[3 + len] = crc;
 
     usb_serial_jtag_write_bytes(packet, 4 + len, portMAX_DELAY);
+    mixr_tx_led_pulse();
 }
 
 void mixr_pc_send_media_cmd(uint8_t subcmd)
@@ -325,10 +390,22 @@ static void mixr_poll_sliders_buttons(void)
         }
     }
     for (int b = 0; b < 5; b++) {
-        uint8_t state = gpio_get_level(mixr_button_gpios[b]);
+        uint8_t state;
+#if MIXR_HW_BUTTON3_DISABLED
+        if (b == 3) {
+            state = 1;
+        } else
+#endif
+        {
+            state = gpio_get_level(mixr_button_gpios[b]);
+        }
         if (mixr_buttons_send_enabled() && state == 0 && s_last_buttons[b] == 1) {
-            uint8_t btn_id = (uint8_t)b;
-            send_to_pc(PktType::BTN_CMD, &btn_id, 1);
+            int64_t now_us = esp_timer_get_time();
+            if (now_us - s_last_btn_cmd_us[b] >= MIXR_BUTTON_DEBOUNCE_US) {
+                uint8_t btn_id = (uint8_t)b;
+                send_to_pc(PktType::BTN_CMD, &btn_id, 1);
+                s_last_btn_cmd_us[b] = now_us;
+            }
         }
         s_last_buttons[b] = state;
     }

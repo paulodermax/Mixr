@@ -2,5 +2,39 @@
 com_port: COM6
 baud_rate: 921600
 
-# Welcher der 5 ESP-Taster (0–4) denselben Mute-Hotkey auslöst wie „PC: Discord mute“; -1 = nur Menü
-voip_mute_button: 0
+# Slider 1–4 → Windows (Reihenfolge = ESP-Index 0..3)
+# invert_sliders: true — falls Hardware „hoch = leiser“
+invert_sliders: false
+
+slider_mapping:
+  - master
+  - communication
+  - media
+  - games
+
+# Pro Gruppe: Suchstrings im Session-Namen (DisplayName / Prozess)
+session_groups:
+  communication:
+    - Discord
+    - Teams
+    - Teamspeak
+  media:
+    - Chrome
+    - Brave
+    - Spotify
+    - Firefox
+  games:
+    - DayZ
+    - Stardew Valley
+    - Battlefield 6
+    - Icarus
+    - Rocket League
+    - Enshrouded
+    - Terraria
+    - Rust
+    - Diablo III
+    - Steam
+    - Battle.net
+    - SlimeRancher
+
+# Taster-Mapping fest in Program.cs: 0 Previous, 1 Play/Pause, 2 Next, 3 Mute, 4 Deafen
