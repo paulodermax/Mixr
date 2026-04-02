@@ -112,3 +112,355 @@
 2026-04-01 01:16:33.603 OnLaunched BaseDirectory=C:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\x64\Release\net9.0-windows10.0.22621.0\win-x64\
 2026-04-01 01:16:33.603 Zweite Instanz — signalisiere laufende App und beende.
 2026-04-01 01:19:05.729 → ESP: „I Want Things To Be Beautiful **INSTRUMENTAL**“ — Devi McCallion
+2026-04-01 01:19:42.512 → ESP: „American Dad | Disney+“ — —
+2026-04-01 01:19:43.257 → ESP: „Spider-Man vs Paul - Why Are Fans So Mad?“ — alex lennen
+2026-04-01 01:19:43.565 → ESP: „Spider-Man vs Paul - Why Are Fans So Mad?“ — alex lennen
+2026-04-01 10:03:35.568 Main entry (args: )
+2026-04-01 10:03:35.586 InitializeComWrappers …
+2026-04-01 10:03:35.587 InitializeComWrappers OK
+2026-04-01 10:03:35.587 Application.Start …
+2026-04-01 10:03:35.639 Application.Start callback (UI thread)
+2026-04-01 10:03:35.640 DispatcherQueue: ok
+2026-04-01 10:03:35.641 SynchronizationContext gesetzt
+2026-04-01 10:03:35.641 new App() …
+2026-04-01 10:03:35.643 App ctor (vor InitializeComponent)
+2026-04-01 10:03:35.650 new App() zurück
+2026-04-01 10:03:35.796 OnLaunched BaseDirectory=C:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\x64\Release\net9.0-windows10.0.22621.0\win-x64\
+2026-04-01 10:03:35.796 Erste Instanz — Mutex ok.
+2026-04-01 10:03:36.206 Tray: ForceCreate ok.
+2026-04-01 10:03:36.210 MixrHost: Start …
+2026-04-01 10:03:36.373 Mixr → COM6 @ 921600
+2026-04-01 10:03:36.374 Taster: 0 Previous | 1 Play/Pause | 2 Next | 3 Discord Mute | 4 Discord Deafen
+2026-04-01 10:03:36.374 Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele
+2026-04-01 10:03:43.197 Discord-Hotkeys: Strg+Linksshift+Alt — 9 Mute, 0 Deafen, 8 Share Screen.
+2026-04-01 10:03:47.971 → ESP: „—“ — —
+2026-04-01 10:03:48.333 → ESP: „I Want Things To Be Beautiful **INSTRUMENTAL**“ — Devi McCallion
+2026-04-01 10:05:10.623 → ESP: „EUPHORYA“ — TYM
+2026-04-01 10:08:36.743 → ESP: „NOW OR NEVER“ — Tkandz
+2026-04-01 10:10:40.698 → ESP: „SIKADELIX - Instrumental“ — VIZIONZ
+2026-04-01 10:12:02.532 → ESP: „Glückssträhne“ — Eli Preiss
+2026-04-01 10:13:22.195 [ESP] Button: 1
+2026-04-01 10:13:22.195 → SMTC: Play/Pause
+2026-04-01 10:22:23.280 → ESP: „—“ — —
+2026-04-01 10:22:23.629 → ESP: „Spider-Man vs Paul - Why Are Fans So Mad?“ — alex lennen
+2026-04-01 10:22:26.339 → ESP: „Glückssträhne“ — Eli Preiss
+2026-04-01 10:24:04.691 → ESP: „Eine Rückseite zum Fürchten: LEGO® Harry Potter 76461 Wichtel“ — Held der Steine Inh. Thomas Panke
+2026-04-01 10:24:05.008 → ESP: „Eine Rückseite zum Fürchten: LEGO® Harry Potter 76461 Wichtel“ — Held der Steine Inh. Thomas Panke
+2026-04-01 10:25:14.579 [ESP] Button: 1
+2026-04-01 10:25:14.580 → SMTC: Play/Pause
+2026-04-01 10:26:52.774 [ESP] Button: 1
+2026-04-01 10:26:52.775 → SMTC: Play/Pause
+2026-04-01 10:32:11.053 → ESP: „Glückssträhne“ — Eli Preiss
+2026-04-01 10:32:19.780 → ESP: „Keep talking or Sammy explodes“ — Teo
+2026-04-01 10:32:20.091 → ESP: „Keep talking or Sammy explodes“ — Teo
+2026-04-01 10:51:50.720 → ESP: „Stromae, Pomme, Coldplay - “Ma Meilleure Ennemie ft. Coldplay” (from Arcane) [Official Lyric Video]“ — Riot Games Music
+2026-04-01 10:51:51.027 → ESP: „Stromae, Pomme, Coldplay - “Ma Meilleure Ennemie ft. Coldplay” (from Arcane) [Official Lyric Video]“ — Riot Games Music
+2026-04-01 10:59:04.887 [ESP] Button: 1
+2026-04-01 10:59:04.887 → SMTC: Play/Pause
+2026-04-01 11:02:44.616 → ESP: „Keep talking or Sammy explodes“ — Teo
+2026-04-01 11:02:44.930 → ESP: „Joji - Run (Official Video)“ — 88rising
+2026-04-01 11:03:12.573 [ESP] Button: 1
+2026-04-01 11:03:12.573 → SMTC: Play/Pause
+2026-04-01 11:29:11.908 [ESP] Button: 1
+2026-04-01 11:29:11.908 → SMTC: Play/Pause
+2026-04-01 11:31:43.599 [ESP] Button: 1
+2026-04-01 11:31:43.600 → SMTC: Play/Pause
+2026-04-01 11:32:53.857 → ESP: „Spider-Man Stops Holding Back“ — Mullet-Man Comics
+2026-04-01 11:32:54.170 → ESP: „Spider-Man Stops Holding Back“ — Mullet-Man Comics
+2026-04-01 11:33:39.848 → ESP: „Ultimate NINTENDO Cartoon Compilation“ — Cas van de Pol
+2026-04-01 11:33:40.175 → ESP: „Ultimate NINTENDO Cartoon Compilation“ — Cas van de Pol
+2026-04-01 11:33:41.371 → ESP: „Spider-Man Stops Holding Back“ — Mullet-Man Comics
+2026-04-01 11:39:23.932 → ESP: „Ultimate NINTENDO Cartoon Compilation“ — Cas van de Pol
+2026-04-01 11:39:24.260 → ESP: „Ultimate NINTENDO Cartoon Compilation“ — Cas van de Pol
+2026-04-01 11:40:20.070 → ESP: „makko - G.I.N.A. (GELDISTNICHTALLES)“ — makko
+2026-04-01 11:40:20.374 → ESP: „makko - G.I.N.A. (GELDISTNICHTALLES)“ — makko
+2026-04-01 11:43:21.377 → ESP: „Ultimate NINTENDO Cartoon Compilation“ — Cas van de Pol
+2026-04-01 11:43:21.680 → ESP: „makko, lucidbeatz - "IM GLASHAUS MIT SCHEINEN WERFEN"“ — makko
+2026-04-01 11:46:50.326 → ESP: „Ultimate NINTENDO Cartoon Compilation“ — Cas van de Pol
+2026-04-01 11:46:50.634 → ESP: „makko x Miksu/Macloud - "UNDERCOVER"“ — makko
+2026-04-01 11:50:41.806 → ESP: „Ultimate NINTENDO Cartoon Compilation“ — Cas van de Pol
+2026-04-01 11:50:42.114 → ESP: „SOULY - HART GEHEN OHNE GRUND“ — Souly
+2026-04-01 11:52:45.633 → ESP: „Ultimate NINTENDO Cartoon Compilation“ — Cas van de Pol
+2026-04-01 11:52:45.949 → ESP: „Jack Harlow - Just Us feat. Doja Cat“ — Jack Harlow
+2026-04-01 11:54:51.346 [ESP] Button: 1
+2026-04-01 11:54:51.347 → SMTC: Play/Pause
+2026-04-01 11:55:44.665 [ESP] Button: 0
+2026-04-01 11:55:44.666 → SMTC: Previous
+2026-04-01 11:55:45.922 → ESP: „Ultimate NINTENDO Cartoon Compilation“ — Cas van de Pol
+2026-04-01 11:55:46.223 → ESP: „SOULY - HART GEHEN OHNE GRUND“ — Souly
+2026-04-01 11:55:50.315 [ESP] Button: 1
+2026-04-01 11:55:50.316 → SMTC: Play/Pause
+2026-04-01 12:02:00.282 → ESP: „Glückssträhne“ — Eli Preiss
+2026-04-01 12:12:29.312 → ESP: „Fake“ — miiraqt
+2026-04-01 15:57:11.739 → ESP: „SOULY - HART GEHEN OHNE GRUND“ — Souly
+2026-04-01 15:57:12.989 → ESP: „Fake“ — miiraqt
+2026-04-01 15:57:13.317 → ESP: „3 Strikes“ — miiraqt
+2026-04-01 15:57:22.966 → ESP: „CRANK“ — Slayyyter
+2026-04-01 16:08:54.890 → ESP: „—“ — —
+2026-04-01 16:08:55.220 → ESP: „CRANK“ — Slayyyter
+2026-04-01 16:17:38.506 → ESP: „FRAG EINE PORNODARSTELLERIN I Shaiden Rogue über Orgasmen und Frauen in der Pornoindustrie“ — HYPERBOLE
+2026-04-01 16:17:38.813 → ESP: „FRAG EINE PORNODARSTELLERIN I Shaiden Rogue über Orgasmen und Frauen in der Pornoindustrie“ — HYPERBOLE
+2026-04-01 16:35:22.755 → ESP: „Ultimate NINTENDO Cartoon Compilation“ — Cas van de Pol
+2026-04-01 16:35:23.064 → ESP: „Ultimate NINTENDO Cartoon Compilation“ — Cas van de Pol
+2026-04-01 16:35:51.051 → ESP: „Eine einzige Sparmaßnahme: LEGO® Harry Potter 76467 Luna Lovegoods Haus“ — Held der Steine Inh. Thomas Panke
+2026-04-01 16:35:51.363 → ESP: „Eine einzige Sparmaßnahme: LEGO® Harry Potter 76467 Luna Lovegoods Haus“ — Held der Steine Inh. Thomas Panke
+2026-04-01 16:46:50.508 → ESP: „Ultimate NINTENDO Cartoon Compilation“ — Cas van de Pol
+2026-04-01 16:46:50.816 → ESP: „Ultimate NINTENDO Cartoon Compilation“ — Cas van de Pol
+2026-04-01 16:46:58.274 → ESP: „This didn't go as planned - MISH MASH #77“ — Teo
+2026-04-01 16:46:58.598 → ESP: „This didn't go as planned - MISH MASH #77“ — Teo
+2026-04-01 16:47:08.334 → ESP: „Ultimate NINTENDO Cartoon Compilation“ — Cas van de Pol
+2026-04-01 16:47:08.641 → ESP: „The Wall“ — alex lennen
+2026-04-01 16:47:08.951 → ESP: „The Wall“ — alex lennen
+2026-04-01 17:19:48.229 → ESP: „Ultimate NINTENDO Cartoon Compilation“ — Cas van de Pol
+2026-04-01 17:19:48.535 → ESP: „Ultimate NINTENDO Cartoon Compilation“ — Cas van de Pol
+2026-04-01 17:20:06.702 → ESP: „makko - G.I.N.A. (GELDISTNICHTALLES)“ — makko
+2026-04-01 17:20:07.155 → ESP: „makko - G.I.N.A. (GELDISTNICHTALLES)“ — makko
+2026-04-01 17:23:08.007 → ESP: „Ultimate NINTENDO Cartoon Compilation“ — Cas van de Pol
+2026-04-01 17:23:08.314 → ESP: „makko, lucidbeatz - "IM GLASHAUS MIT SCHEINEN WERFEN"“ — makko
+2026-04-01 17:26:36.938 → ESP: „Ultimate NINTENDO Cartoon Compilation“ — Cas van de Pol
+2026-04-01 17:26:37.253 → ESP: „makko x Miksu/Macloud - "UNDERCOVER"“ — makko
+2026-04-01 17:30:28.367 → ESP: „Ultimate NINTENDO Cartoon Compilation“ — Cas van de Pol
+2026-04-01 17:30:28.682 → ESP: „makko - "Erzfeind"“ — makko
+2026-04-01 17:33:07.452 → ESP: „Ultimate NINTENDO Cartoon Compilation“ — Cas van de Pol
+2026-04-01 17:33:07.772 → ESP: „makko - "Ausreden"“ — makko
+2026-04-01 17:35:35.443 → ESP: „Ultimate NINTENDO Cartoon Compilation“ — Cas van de Pol
+2026-04-01 17:35:35.751 → ESP: „makko - "Candlelights"“ — makko
+2026-04-01 17:38:01.718 → ESP: „Ultimate NINTENDO Cartoon Compilation“ — Cas van de Pol
+2026-04-01 17:38:02.029 → ESP: „Reiche Eltern“ — makko - Topic
+2026-04-01 17:40:53.823 → ESP: „Ultimate NINTENDO Cartoon Compilation“ — Cas van de Pol
+2026-04-01 17:40:54.132 → ESP: „makko - "Peoplepleasing"“ — makko
+2026-04-01 17:43:23.460 → ESP: „Ultimate NINTENDO Cartoon Compilation“ — Cas van de Pol
+2026-04-01 17:43:23.772 → ESP: „Ultimate NINTENDO Cartoon Compilation“ — Cas van de Pol
+2026-04-01 17:43:53.287 → ESP: „When Romania Executed Its Dictator on Live TV“ — Penguin History
+2026-04-01 17:43:53.591 → ESP: „When Romania Executed Its Dictator on Live TV“ — Penguin History
+2026-04-01 17:55:30.637 → ESP: „Ultimate NINTENDO Cartoon Compilation“ — Cas van de Pol
+2026-04-01 17:55:30.952 → ESP: „How the Bosnian Genocide Started“ — Penguin History
+2026-04-01 17:55:31.266 → ESP: „Wie der Völkermord in Bosnien begann“ — Penguin History
+2026-04-01 18:06:50.870 → ESP: „Ultimate NINTENDO Cartoon Compilation“ — Cas van de Pol
+2026-04-01 18:06:51.199 → ESP: „Ultimate NINTENDO Cartoon Compilation“ — Cas van de Pol
+2026-04-01 18:07:05.263 → ESP: „Zara Larsson - Midnight Sun (Official Music Video)“ — ZaraLarssonMusicVEVO
+2026-04-01 18:07:05.566 → ESP: „Zara Larsson - Midnight Sun (Official Music Video)“ — ZaraLarssonMusicVEVO
+2026-04-01 18:10:13.052 → ESP: „Ultimate NINTENDO Cartoon Compilation“ — Cas van de Pol
+2026-04-01 18:10:13.362 → ESP: „PinkPantheress - Nice to meet you (feat. Central Cee) [Official Video]“ — Pinkpantheress
+2026-04-01 18:13:07.298 → ESP: „Ultimate NINTENDO Cartoon Compilation“ — Cas van de Pol
+2026-04-01 18:13:07.612 → ESP: „Tate McRae - Just Keep Watching (From F1® The Movie) (Official Video)“ — Tate McRae
+2026-04-01 18:15:34.206 → ESP: „Ultimate NINTENDO Cartoon Compilation“ — Cas van de Pol
+2026-04-01 18:15:34.510 → ESP: „Troye Sivan - Rush (Official Video)“ — TroyeSivanVEVO
+2026-04-01 18:19:16.693 → ESP: „Ultimate NINTENDO Cartoon Compilation“ — Cas van de Pol
+2026-04-01 18:19:17.010 → ESP: „PinkPantheress - Stateside + Zara Larsson (Official Video)“ — Pinkpantheress
+2026-04-01 18:22:30.097 → ESP: „Ultimate NINTENDO Cartoon Compilation“ — Cas van de Pol
+2026-04-01 18:22:30.408 → ESP: „Charli xcx - Guess featuring billie eilish (official video)“ — Charli xcx
+2026-04-01 18:25:11.252 → ESP: „Ultimate NINTENDO Cartoon Compilation“ — Cas van de Pol
+2026-04-01 18:25:11.563 → ESP: „Doja Cat - Gorgeous (Official Video)“ — Doja Cat
+2026-04-01 18:52:12.611 → ESP: „CRANK“ — Slayyyter
+2026-04-01 18:52:13.660 → ESP: „Super Star (feat. Ceke Blanko & Barshaun)“ — Seize
+2026-04-01 18:52:31.302 → ESP: „Superstar (feat. Matthew Santos)“ — Lupe Fiasco
+2026-04-01 18:56:07.401 → ESP: „4x4“ — ARTAN
+2026-04-01 18:56:31.408 → ESP: „CRANK“ — Slayyyter
+2026-04-01 18:56:36.982 → ESP: „Superstar (feat. Matthew Santos)“ — Lupe Fiasco
+2026-04-01 19:01:40.483 → ESP: „—“ — —
+2026-04-01 19:01:40.798 → ESP: „Superstar (feat. Matthew Santos)“ — Lupe Fiasco
+2026-04-01 19:46:24.829 → ESP: „wmd“ — Ocboyblau
+2026-04-01 19:49:19.927 → ESP: „Coupe“ — Coldyaa
+2026-04-01 19:50:58.042 → ESP: „Superstar (feat. Matthew Santos)“ — Lupe Fiasco
+2026-04-01 19:51:22.622 → ESP: „Flow“ — c4rl
+2026-04-01 19:53:14.066 → ESP: „Superhelden“ — YBRE
+2026-04-01 19:54:47.510 → ESP: „Superstar (feat. Matthew Santos)“ — Lupe Fiasco
+2026-04-01 19:59:36.224 → ESP: „4x4“ — ARTAN
+2026-04-01 20:01:15.840 → ESP: „P power (feat. Drake)“ — Gunna
+2026-04-01 20:04:35.503 → ESP: „2 blunts“ — Zackavelli
+2026-04-01 20:04:38.575 → ESP: „Coupe“ — Coldyaa
+2026-04-01 20:20:11.817 → ESP: „—“ — —
+2026-04-01 20:20:12.137 → ESP: „Coupe“ — Coldyaa
+2026-04-01 21:17:10.829 [ESP] Button: 1
+2026-04-01 21:17:10.830 → SMTC: Play/Pause
+2026-04-01 21:18:46.736 → ESP: „Butterfly Remix“ — TCKChris
+2026-04-01 21:18:47.056 → ESP: „Flow“ — c4rl
+2026-04-01 21:20:37.419 → ESP: „paris“ — neji.mp3
+2026-04-01 21:22:47.525 → ESP: „murder jumpstyle.mp3“ — BmProd
+2026-04-01 21:24:07.020 → ESP: „Weg hier raus“ — Apsilon
+2026-04-01 21:27:06.636 → ESP: „zwanzig“ — neji.mp3
+2026-04-01 21:28:59.825 → ESP: „Superhelden“ — YBRE
+2026-04-01 21:30:33.598 → ESP: „Obsession“ — Gesaffelstein
+2026-04-01 21:34:43.501 → ESP: „XTC - The Chemical Brothers Remix“ — Boys Noize
+2026-04-01 21:41:54.808 → ESP: „4 MIND (with josh pan and X&G)“ — Dog Blood
+2026-04-01 21:45:25.725 → ESP: „Overthrow - Club Version“ — Boys Noize
+2026-04-01 21:49:44.217 → ESP: „Overthrow“ — Boys Noize
+2026-04-01 21:54:30.754 → ESP: „She's A 10 But...“ — ARTAN
+2026-04-01 21:57:16.718 → ESP: „BEVLYNOUS - Ultra Slowed“ — ilyhiryu
+2026-04-01 22:00:30.771 → ESP: „asmr“ — GERO
+2026-04-01 22:02:05.701 → ESP: „Blow (Hoodtrap / Mylancore)“ — Kryd
+2026-04-01 22:04:00.705 → ESP: „I LUV IT (feat. Playboi Carti)“ — Camila Cabello
+2026-04-01 22:06:56.101 → ESP: „Victory Lap“ — Fred again..
+2026-04-01 22:09:42.530 → ESP: „Betrayed“ — Lil Xan
+2026-04-01 22:12:50.503 → ESP: „VIP“ — Gola Gianni
+2026-04-01 22:15:27.017 → ESP: „Zu Laut“ — c4rl
+2026-04-01 22:18:05.528 → ESP: „2 mischen“ — kt
+2026-04-01 22:20:02.815 → ESP: „Betäubt“ — Egor
+2026-04-01 22:21:54.789 → ESP: „pursuit - super slowed“ — isq
+2026-04-01 22:23:59.716 → ESP: „Wow“ — Symba
+2026-04-01 22:26:09.373 → ESP: „Butcher“ — Sosa La M
+2026-04-01 22:28:57.773 → ESP: „Trunks (From "Highest 2 Lowest")“ — A$AP Rocky
+2026-04-01 22:32:41.819 → ESP: „Big Juicy“ — Ayesha Erotica
+2026-04-01 22:36:07.552 → ESP: „GIANTS“ — True Damage
+2026-04-01 22:39:19.821 → ESP: „Run It“ — League of Legends
+2026-04-01 22:42:57.680 → ESP: „Vertrau dir nicht“ — Dante YN
+2026-04-01 22:45:43.177 → ESP: „Buch Meines Lebens“ — Piepmarie
+2026-04-01 22:51:52.243 → ESP: „WE ON GO“ — BIA
+2026-04-01 22:54:41.285 → ESP: „Kein Liebeslied“ — Ceren
+2026-04-01 22:56:49.290 → ESP: „Anomalie“ — Charlize
+2026-04-01 22:59:08.457 → ESP: „Sie weint“ — Zengo Zoo
+2026-04-01 23:01:49.480 → ESP: „I KNOW“ — Ufo361
+2026-04-01 23:04:24.012 → ESP: „Silly Watch“ — Lil Uzi Vert
+2026-04-01 23:07:40.255 → ESP: „4EVA“ — KAYTRAMINÉ
+2026-04-01 23:10:51.153 → ESP: „House featuring John Cale“ — Charli xcx
+2026-04-01 23:14:09.265 → ESP: „WHERE IS MY HUSBAND!“ — RAYE
+2026-04-01 23:17:26.921 → ESP: „Bring It“ — Hjorterud Allé
+2026-04-01 23:20:09.291 → ESP: „Are You Sure?“ — ERHA
+2026-04-01 23:24:07.492 → ESP: „HELICOPTER“ — A$AP Rocky
+2026-04-01 23:26:49.035 → ESP: „Doppel H“ — Charlize
+2026-04-01 23:28:34.916 → ESP: „2AM To Málaga“ — Painted Dunes
+2026-04-01 23:31:35.969 → ESP: „Ein Teil“ — CRO
+2026-04-01 23:34:31.997 → ESP: „Ein Teil“ — CRO
+2026-04-01 23:37:30.011 → ESP: „theclubrock“ — Benny Bellson
+2026-04-01 23:39:32.723 → ESP: „Disparate Youth“ — Santigold
+2026-04-01 23:44:17.646 → ESP: „boarded the plane“ — Niko B
+2026-04-01 23:47:28.717 → ESP: „LYLL“ — miiraqt
+2026-04-01 23:49:06.303 [ESP] Button: 1
+2026-04-01 23:49:06.304 → SMTC: Play/Pause
+2026-04-02 00:02:29.682 [ESP] Button: 1
+2026-04-02 00:02:29.683 → SMTC: Play/Pause
+2026-04-02 00:02:32.507 [ESP] Button: 1
+2026-04-02 00:02:32.507 → SMTC: Play/Pause
+2026-04-02 00:07:05.017 → ESP: „NASA's Artemis II Crew Launches To The Moon (Official Broadcast)“ — NASA
+2026-04-02 00:07:05.333 → ESP: „NASA's Artemis II Crew Launches To The Moon (Official Broadcast)“ — NASA
+2026-04-02 00:14:34.945 → ESP: „the new Tung Tung Tung Sahur skin does THIS..!“ — ShuffleGamer
+2026-04-02 00:14:35.255 → ESP: „the new Tung Tung Tung Sahur skin does THIS..!“ — ShuffleGamer
+2026-04-02 00:15:37.723 → ESP: „NASA's Artemis II Crew Launches To The Moon (Official Broadcast)“ — NASA
+2026-04-02 00:15:38.022 → ESP: „NASA's Artemis II Crew Launches To The Moon (Official Broadcast)“ — NASA
+2026-04-02 00:21:51.149 → ESP: „Twitch“ — —
+2026-04-02 00:21:51.461 → ESP: „Meine Mutter wirft mich raus“ — sedat
+2026-04-02 00:21:52.293 → ESP: „NASA's Artemis II Crew Launches To The Moon (Official Broadcast)“ — NASA
+2026-04-02 00:49:49.471 → ESP: „LYLL“ — miiraqt
+2026-04-02 10:01:47.891 Main entry (args: )
+2026-04-02 10:01:47.927 InitializeComWrappers …
+2026-04-02 10:01:47.928 InitializeComWrappers OK
+2026-04-02 10:01:47.929 Application.Start …
+2026-04-02 10:01:47.997 Application.Start callback (UI thread)
+2026-04-02 10:01:47.998 DispatcherQueue: ok
+2026-04-02 10:01:47.998 SynchronizationContext gesetzt
+2026-04-02 10:01:47.998 new App() …
+2026-04-02 10:01:48.000 App ctor (vor InitializeComponent)
+2026-04-02 10:01:48.008 new App() zurück
+2026-04-02 10:01:48.161 OnLaunched BaseDirectory=C:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\x64\Release\net9.0-windows10.0.22621.0\win-x64\
+2026-04-02 10:01:48.161 Erste Instanz — Mutex ok.
+2026-04-02 10:01:48.356 Tray: ForceCreate ok.
+2026-04-02 10:01:48.358 MixrHost: Start …
+2026-04-02 10:01:48.492 Mixr → COM6 @ 921600
+2026-04-02 10:01:48.493 Taster: 0 Previous | 1 Play/Pause | 2 Next | 3 Discord Mute | 4 Discord Deafen
+2026-04-02 10:01:48.493 Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele
+2026-04-02 10:01:51.349 → ESP: „15€ Flieger von Wange® 4005 SR-71 Blackbird“ — Held der Steine Inh. Thomas Panke
+2026-04-02 10:01:59.440 Discord-Hotkeys: Strg+Linksshift+Alt — 9 Mute, 0 Deafen, 8 Share Screen.
+2026-04-02 10:04:45.126 → ESP: „Paula Carolina – IMMATRIKULATIONSBESCHEINIGUNG & ICH WAR HIER (Day & Night Session) | DIFFUS“ — DIFFUS
+2026-04-02 10:04:45.430 → ESP: „Paula Carolina – IMMATRIKULATIONSBESCHEINIGUNG & ICH WAR HIER (Day & Night Session) | DIFFUS“ — DIFFUS
+2026-04-02 10:06:32.295 → ESP: „Can You Beat Doom (2016) With Only A Pistol?“ — Mitten Squad
+2026-04-02 10:06:32.604 → ESP: „Can You Beat Doom (2016) With Only A Pistol?“ — Mitten Squad
+2026-04-02 10:40:34.924 → ESP: „Can You Beat Doom Eternal Without Any Weapon Upgrades?“ — Mitten Squad
+2026-04-02 10:40:35.231 → ESP: „Can You Beat Doom Eternal Without Any Weapon Upgrades?“ — Mitten Squad
+2026-04-02 10:41:47.299 → ESP: „makko - G.I.N.A. (GELDISTNICHTALLES)“ — makko
+2026-04-02 10:41:47.605 → ESP: „makko - G.I.N.A. (GELDISTNICHTALLES)“ — makko
+2026-04-02 10:44:48.574 → ESP: „makko, lucidbeatz - "IM GLASHAUS MIT SCHEINEN WERFEN"“ — makko
+2026-04-02 10:44:48.890 → ESP: „makko, lucidbeatz - "IM GLASHAUS MIT SCHEINEN WERFEN"“ — makko
+2026-04-02 10:48:17.497 → ESP: „makko x Miksu/Macloud - "UNDERCOVER"“ — makko
+2026-04-02 10:48:17.800 → ESP: „makko x Miksu/Macloud - "UNDERCOVER"“ — makko
+2026-04-02 10:52:08.970 → ESP: „makko - "Erzfeind"“ — makko
+2026-04-02 10:52:09.275 → ESP: „makko - "Erzfeind"“ — makko
+2026-04-02 10:54:48.022 → ESP: „makko - "Ausreden"“ — makko
+2026-04-02 10:54:48.332 → ESP: „makko - "Ausreden"“ — makko
+2026-04-02 10:57:15.966 → ESP: „makko - "Candlelights"“ — makko
+2026-04-02 10:57:16.272 → ESP: „makko - "Candlelights"“ — makko
+2026-04-02 10:59:42.262 → ESP: „Reiche Eltern“ — makko - Topic
+2026-04-02 10:59:42.583 → ESP: „Reiche Eltern“ — makko - Topic
+2026-04-02 11:02:34.354 → ESP: „makko & lucidbeatz - "Zickzack"“ — makko
+2026-04-02 11:02:34.659 → ESP: „makko & lucidbeatz - "Zickzack"“ — makko
+2026-04-02 11:09:32.778 → ESP: „I helped break a 142-year-old bell, and that's okay.“ — Tom Scott
+2026-04-02 11:09:33.094 → ESP: „I helped break a 142-year-old bell, and that's okay.“ — Tom Scott
+2026-04-02 11:09:33.804 → ESP: „makko & lucidbeatz - "Zickzack"“ — makko
+2026-04-02 11:09:34.099 → ESP: „makko & lucidbeatz - "Zickzack"“ — makko
+2026-04-02 11:18:09.417 → ESP: „How the US Killed Che Guevara“ — Horses
+2026-04-02 11:18:09.728 → ESP: „How the US Killed Che Guevara“ — Horses
+2026-04-02 12:01:40.473 → ESP: „Can You Beat Red Dead Redemption With Only A Cattleman Revolver?“ — Mitten Squad
+2026-04-02 12:01:40.817 → ESP: „Can You Beat Red Dead Redemption With Only A Cattleman Revolver?“ — Mitten Squad
+2026-04-02 12:02:33.443 → ESP: „Der Falco Fluch“ — Starlit
+2026-04-02 12:02:33.769 → ESP: „Der Falco Fluch“ — Starlit
+2026-04-02 13:45:46.505 → ESP: „—“ — —
+2026-04-02 13:45:46.840 → ESP: „LYLL“ — miiraqt
+2026-04-02 13:45:49.675 → ESP: „Superstar (feat. Matthew Santos)“ — Lupe Fiasco
+2026-04-02 13:46:01.814 → ESP: „—“ — —
+2026-04-02 13:46:02.127 → ESP: „Superstar (feat. Matthew Santos)“ — Lupe Fiasco
+2026-04-02 13:49:48.055 → ESP: „No Church In The Wild“ — JAŸ-Z
+2026-04-02 13:54:20.809 → ESP: „mein cutie <3“ — YUNG SAINT PAUL
+2026-04-02 13:56:32.248 → ESP: „Businessman“ — La Mano 1.9
+2026-04-02 13:56:33.829 → ESP: „mein cutie <3“ — YUNG SAINT PAUL
+2026-04-02 13:56:34.175 → ESP: „No Church In The Wild“ — JAŸ-Z
+2026-04-02 13:56:34.921 → ESP: „Superstar (feat. Matthew Santos)“ — Lupe Fiasco
+2026-04-02 14:01:24.152 → ESP: „No Church In The Wild“ — JAŸ-Z
+2026-04-02 14:04:18.569 [ESP] Button: 1
+2026-04-02 14:04:18.570 → SMTC: Play/Pause
+2026-04-02 14:08:48.795 → ESP: „Superstar (feat. Matthew Santos)“ — Lupe Fiasco
+2026-04-02 14:13:37.927 → ESP: „No Church In The Wild“ — JAŸ-Z
+2026-04-02 14:18:10.967 → ESP: „mein cutie <3“ — YUNG SAINT PAUL
+2026-04-02 14:20:22.417 → ESP: „Businessman“ — La Mano 1.9
+2026-04-02 14:22:07.857 [ESP] Button: 1
+2026-04-02 14:22:07.858 → SMTC: Play/Pause
+2026-04-02 14:46:00.625 [ESP] Button: 1
+2026-04-02 14:46:00.626 → SMTC: Play/Pause
+2026-04-02 14:47:14.871 → ESP: „Südeuropa“ — Sadi
+2026-04-02 14:49:46.987 → ESP: „120BPM“ — Barry237
+2026-04-02 14:52:14.513 → ESP: „unterwegs :)“ — auxcapri
+2026-04-02 14:55:16.597 → ESP: „Kontaminiert“ — Iwan
+2026-04-02 14:57:52.190 → ESP: „wmd“ — Ocboyblau
+2026-04-02 15:00:46.867 → ESP: „Gift“ — Gianni Suave
+2026-04-02 15:02:43.407 → ESP: „Fake“ — miiraqt
+2026-04-02 15:04:28.550 → ESP: „3 Strikes“ — miiraqt
+2026-04-02 15:04:36.876 → ESP: „CRANK“ — Slayyyter
+2026-04-02 15:04:40.138 → ESP: „4x4“ — ARTAN
+2026-04-02 15:05:08.360 [ESP] Button: 1
+2026-04-02 15:05:08.361 → SMTC: Play/Pause
+2026-04-02 15:05:09.456 → ESP: „Der Falco Fluch“ — Starlit
+2026-04-02 15:06:00.066 → ESP: „ByTobi: "Hitler war ein Bastard, aber... : r/Laesterschwestern“ — —
+2026-04-02 15:06:00.370 → ESP: „ByTobi: "Hitler war ein Bastard, aber... : r/Laesterschwestern“ — —
+2026-04-02 15:06:59.621 → ESP: „Der Falco Fluch“ — Starlit
+2026-04-02 15:06:59.939 → ESP: „Der Falco Fluch“ — Starlit
+2026-04-02 15:29:54.492 → ESP: „4x4“ — ARTAN
+2026-04-02 15:30:17.430 → ESP: „Ireland's Unfinished Revolution“ — Horses
+2026-04-02 15:30:17.751 → ESP: „Ireland's Unfinished Revolution“ — Horses
+2026-04-02 15:46:10.512 → ESP: „☄️ GYM STREAM MIT UNC ☄️ GEHEIMER STREAM ☄️“ — Reeze
+2026-04-02 15:46:10.824 → ESP: „☄️ GYM STREAM MIT UNC ☄️ GEHEIMER STREAM ☄️“ — Reeze
+2026-04-02 15:47:20.956 → ESP: „Ireland's Unfinished Revolution“ — Horses
+2026-04-02 15:47:21.266 → ESP: „Ireland's Unfinished Revolution“ — Horses
+2026-04-02 16:40:15.935 → ESP: „4x4“ — ARTAN
+2026-04-03 00:16:14.154 Main entry (args: )
+2026-04-03 00:16:14.174 InitializeComWrappers …
+2026-04-03 00:16:14.175 InitializeComWrappers OK
+2026-04-03 00:16:14.175 Application.Start …
+2026-04-03 00:16:14.250 Application.Start callback (UI thread)
+2026-04-03 00:16:14.251 DispatcherQueue: ok
+2026-04-03 00:16:14.252 SynchronizationContext gesetzt
+2026-04-03 00:16:14.252 new App() …
+2026-04-03 00:16:14.254 App ctor (vor InitializeComponent)
+2026-04-03 00:16:14.262 new App() zurück
+2026-04-03 00:16:14.429 OnLaunched BaseDirectory=C:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\x64\Release\net9.0-windows10.0.22621.0\win-x64\
+2026-04-03 00:16:14.429 Erste Instanz — Mutex ok.
+2026-04-03 00:16:14.640 Tray: ForceCreate ok.
+2026-04-03 00:16:14.642 MixrHost: Start …
+2026-04-03 00:16:14.783 Mixr → COM6 @ 921600
+2026-04-03 00:16:14.784 Taster: 0 Previous | 1 Play/Pause | 2 Next | 3 Discord Mute | 4 Discord Deafen
+2026-04-03 00:16:14.784 Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele
+2026-04-03 00:16:22.519 Discord-Hotkeys: Strg+Linksshift+Alt — 9 Mute, 0 Deafen, 8 Share Screen.
+2026-04-03 00:19:45.526 → ESP: „makko - G.I.N.A. (GELDISTNICHTALLES)“ — makko
+2026-04-03 00:19:45.861 → ESP: „makko - G.I.N.A. (GELDISTNICHTALLES)“ — makko
+2026-04-03 00:19:54.503 → ESP: „Apsilon - Sommermärchen (prod. Arman, Bazzazian, Ralph Heidel, Valentin Hansen - Official Video)“ — Apsilon
+2026-04-03 00:19:54.804 → ESP: „Apsilon - Sommermärchen (prod. Arman, Bazzazian, Ralph Heidel, Valentin Hansen - Official Video)“ — Apsilon
+2026-04-03 00:20:10.096 → ESP: „Can You Beat Call of Duty 4 Without Taking Any Damage?“ — Mitten Squad
+2026-04-03 00:20:10.397 → ESP: „Can You Beat Call of Duty 4 Without Taking Any Damage?“ — Mitten Squad
