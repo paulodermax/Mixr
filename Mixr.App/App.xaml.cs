@@ -11,6 +11,7 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using Mixr;
+using Mixr_App.Services;
 using WinRT.Interop;
 
 namespace Mixr_App;
@@ -155,8 +156,27 @@ public partial class App : Application
 
         _window.Activate();
 
+        _ = Task.Run(async () =>
+        {
+            try
+            {
+                await GameCatalogCoordinator.RunStartupAsync(CancellationToken.None).ConfigureAwait(false);
+            }
+            catch
+            {
+                /* Hintergrund-Katalog — Fehler ignorieren */
+            }
+        });
+
         // Kurz sichtbar lassen, dann in den Tray — sonst wirkt es wie „Absturz“, bevor das Icon da ist.
         _ = DelayHideMainWindowAsync();
+    }
+
+    /// <summary>Beendet Prozess inkl. Host (wie Tray „Beenden“).</summary>
+    public static void ExitCompletely()
+    {
+        if (Current is App app)
+            app.ExitFromTray();
     }
 
     async Task DelayHideMainWindowAsync()
@@ -288,7 +308,7 @@ public partial class App : Application
         _window.Activate();
     }
 
-    void ExitFromTray()
+    internal void ExitFromTray()
     {
         try
         {

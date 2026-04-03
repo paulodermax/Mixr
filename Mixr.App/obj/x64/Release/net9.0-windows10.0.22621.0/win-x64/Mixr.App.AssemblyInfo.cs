@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Mixr")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9cb1b1f64b2a9266733ad09b2684fd25761b78b2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ede9d5341ead129fffbb3c4c62a397ce4256d001")]
 [assembly: System.Reflection.AssemblyProductAttribute("Mixr")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Mixr")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

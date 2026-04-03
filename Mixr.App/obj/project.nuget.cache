@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "7L+8c3mSTqI=",
+  "dgSpecHash": "hE21j+myWjo=",
   "success": true,
   "projectFilePath": "C:\\Users\\paulm\\.mainroot\\Mixr\\Mixr.App\\Mixr.App.csproj",
   "expectedPackageFiles": [
@@ -31,8 +31,10 @@
     "C:\\Users\\paulm\\.nuget\\packages\\runtime.native.system.io.ports\\10.0.3\\runtime.native.system.io.ports.10.0.3.nupkg.sha512",
     "C:\\Users\\paulm\\.nuget\\packages\\runtime.osx-arm64.runtime.native.system.io.ports\\10.0.3\\runtime.osx-arm64.runtime.native.system.io.ports.10.0.3.nupkg.sha512",
     "C:\\Users\\paulm\\.nuget\\packages\\runtime.osx-x64.runtime.native.system.io.ports\\10.0.3\\runtime.osx-x64.runtime.native.system.io.ports.10.0.3.nupkg.sha512",
+    "C:\\Users\\paulm\\.nuget\\packages\\system.codedom\\9.0.0\\system.codedom.9.0.0.nupkg.sha512",
     "C:\\Users\\paulm\\.nuget\\packages\\system.drawing.common\\10.0.3\\system.drawing.common.10.0.3.nupkg.sha512",
     "C:\\Users\\paulm\\.nuget\\packages\\system.io.ports\\10.0.3\\system.io.ports.10.0.3.nupkg.sha512",
+    "C:\\Users\\paulm\\.nuget\\packages\\system.management\\9.0.0\\system.management.9.0.0.nupkg.sha512",
     "C:\\Users\\paulm\\.nuget\\packages\\yamldotnet\\16.3.0\\yamldotnet.16.3.0.nupkg.sha512",
     "C:\\Users\\paulm\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\9.0.5\\microsoft.netcore.app.runtime.win-x64.9.0.5.nupkg.sha512",
     "C:\\Users\\paulm\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\9.0.5\\microsoft.windowsdesktop.app.runtime.win-x64.9.0.5.nupkg.sha512",

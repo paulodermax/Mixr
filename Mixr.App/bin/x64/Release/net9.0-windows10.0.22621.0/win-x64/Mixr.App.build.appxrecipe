@@ -1354,6 +1354,9 @@
     <AppxPackagedFile Include="C:\Users\paulm\.mainroot\Mixr\Mixr.App\obj\x64\Release\net9.0-windows10.0.22621.0\win-x64\R2R\Microsoft.WindowsAppRuntime.Bootstrap.Net.dll">
       <PackagePath>Microsoft.WindowsAppRuntime.Bootstrap.Net.dll</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\paulm\.mainroot\Mixr\Mixr.App\obj\x64\Release\net9.0-windows10.0.22621.0\win-x64\R2R\System.CodeDom.dll">
+      <PackagePath>System.CodeDom.dll</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\paulm\.mainroot\Mixr\Mixr.App\obj\x64\Release\net9.0-windows10.0.22621.0\win-x64\R2R\System.Drawing.Common.dll">
       <PackagePath>System.Drawing.Common.dll</PackagePath>
     </AppxPackagedFile>
@@ -1365,6 +1368,9 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\paulm\.mainroot\Mixr\Mixr.App\obj\x64\Release\net9.0-windows10.0.22621.0\win-x64\R2R\System.IO.Ports.dll">
       <PackagePath>System.IO.Ports.dll</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\paulm\.mainroot\Mixr\Mixr.App\obj\x64\Release\net9.0-windows10.0.22621.0\win-x64\R2R\System.Management.dll">
+      <PackagePath>System.Management.dll</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\paulm\.mainroot\Mixr\Mixr.App\obj\x64\Release\net9.0-windows10.0.22621.0\win-x64\R2R\YamlDotNet.dll">
       <PackagePath>YamlDotNet.dll</PackagePath>

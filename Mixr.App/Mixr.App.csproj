@@ -19,6 +19,8 @@
     <WindowsAppSdkBootstrapInitialize Condition="'$(WindowsAppSDKSelfContained)'=='true'">false</WindowsAppSdkBootstrapInitialize>
     <WindowsAppSdkBootstrapInitialize Condition="'$(WindowsAppSDKSelfContained)'!='true'">true</WindowsAppSdkBootstrapInitialize>
     <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <PublishTrimmed>false</PublishTrimmed>
     <!-- System.Drawing.Common 10.x (NotifyIcon) asks for Metadata/Immutable v10; net9 ref is v9 — harmless, primary wins -->
     <NoWarn>$(NoWarn);MSB3277</NoWarn>

@@ -8,7 +8,7 @@ if (args.Any(a => a is "--help" or "-h" or "/?"))
         """
         Mixr PC — Konsole (Hintergrund-Logik wie Mixr.App).
 
-        Seriell: --port COM6 --baud 921600
+        Seriell: --port COM7 (optional; Standard = automatische USB-Erkennung) --baud 921600
 
         Von der Firmware:
           • Slider, Tasten (0–4): 0 Previous, 1 Play/Pause, 2 Next (SMTC), 3 Discord Mute, 4 Discord Deafen

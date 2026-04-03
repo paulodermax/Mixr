@@ -73,7 +73,7 @@
             Grid.Row="1"
             IsBackButtonVisible="Collapsed"
             IsPaneToggleButtonVisible="False"
-            IsSettingsVisible="True"
+            IsSettingsVisible="False"
             IsTitleBarAutoPaddingEnabled="False"
             PaneDisplayMode="LeftCompact"
                                                        >
@@ -81,9 +81,14 @@
                 <NavigationViewItem
                     Content="Übersicht"
                     IsSelected="True"
-                    Tag="home">
+                    Tag="dashboard">
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE80F;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem Content="Slider Mapping" Tag="slider_mapping">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE8B8;" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
                 <NavigationViewItem Content="Info" Tag="about">
@@ -92,6 +97,18 @@
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
             </NavigationView.MenuItems>
+            <NavigationView.FooterMenuItems>
+                <NavigationViewItem Content="Einstellungen" Tag="settings">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE713;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem Content="Beenden" Tag="quit">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE7E8;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+            </NavigationView.FooterMenuItems>
             <Frame x:ConnectionId='4' x:Name="NavFrame"                                />
         </NavigationView>
     </Grid>

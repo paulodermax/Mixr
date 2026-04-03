@@ -1,5 +1,6 @@
-# Wie workdir: serieller Port zum ESP (Mixr). Überschreibbar mit: --port=COM7  --baud=921600
-com_port: COM6
+# com_port: leer, „auto“ oder weglassen = automatisch (ESP32-S3 USB Serial/JTAG, VID 303A / PID 1001).
+# Festen Port nur bei Bedarf: com_port: COM7  — auch: --port=COM7  --baud=921600
+com_port: auto
 baud_rate: 921600
 
 # Slider 1–4 → Windows (Reihenfolge = ESP-Index 0..3)

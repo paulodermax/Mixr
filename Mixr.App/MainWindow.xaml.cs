@@ -1,9 +1,9 @@
-using System;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 using Mixr_App.Pages;
+using WinRT.Interop;
 
 namespace Mixr_App;
 
@@ -18,45 +18,69 @@ public sealed partial class MainWindow : Window
         AppWindow.TitleBar.PreferredHeightOption = TitleBarHeightOption.Tall;
         AppWindow.SetIcon("Assets/AppIcon.ico");
 
-        NavFrame.Navigate(typeof(HomePage));
+        TrySetDefaultSize();
+
+        NavFrame.Navigate(typeof(DashboardPage));
     }
 
-    private void PaneToggleButton_Click(object sender, RoutedEventArgs e)
+    void TrySetDefaultSize()
+    {
+        try
+        {
+            var hWnd = WindowNative.GetWindowHandle(this);
+            var windowId = Microsoft.UI.Win32Interop.GetWindowIdFromWindow(hWnd);
+            var appWindow = AppWindow.GetFromWindowId(windowId);
+            appWindow.Resize(new Windows.Graphics.SizeInt32 { Width = 1280, Height = 820 });
+        }
+        catch
+        {
+            /* */
+        }
+    }
+
+    void PaneToggleButton_Click(object sender, RoutedEventArgs e)
     {
         NavView.IsPaneOpen = !NavView.IsPaneOpen;
     }
 
-    private void BackButton_Click(object sender, RoutedEventArgs e)
+    void BackButton_Click(object sender, RoutedEventArgs e)
     {
         if (NavFrame.CanGoBack)
-        {
             NavFrame.GoBack();
-        }
     }
 
-    private void NavFrame_Navigated(object sender, NavigationEventArgs e)
+    void NavFrame_Navigated(object sender, NavigationEventArgs e)
     {
         BackButton.Visibility = NavFrame.CanGoBack ? Visibility.Visible : Visibility.Collapsed;
     }
 
-    private void NavView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
+    void NavView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
     {
-        if (args.IsSettingsSelected)
+        if (args.SelectedItem is NavigationViewItem item && item.Tag is string tag)
         {
-            NavFrame.Navigate(typeof(SettingsPage));
-        }
-        else if (args.SelectedItem is NavigationViewItem item)
-        {
-            switch (item.Tag)
+            if (tag == "quit")
             {
-                case "home":
-                    NavFrame.Navigate(typeof(HomePage));
+                App.ExitCompletely();
+                return;
+            }
+
+            if (tag == "settings")
+            {
+                NavFrame.Navigate(typeof(SettingsPage));
+                return;
+            }
+
+            switch (tag)
+            {
+                case "dashboard":
+                    NavFrame.Navigate(typeof(DashboardPage));
+                    break;
+                case "slider_mapping":
+                    NavFrame.Navigate(typeof(SliderMappingPage));
                     break;
                 case "about":
                     NavFrame.Navigate(typeof(AboutPage));
                     break;
-                default:
-                    throw new InvalidOperationException($"Unknown navigation item tag: {item.Tag}");
             }
         }
     }

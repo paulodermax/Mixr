@@ -26,14 +26,24 @@ public static class MixrHost
     public static async Task RunAsync(string[] args, CancellationToken cancellationToken, Options? options = null)
     {
         var cfg = MixrConfigLoader.Load(args);
-        LogLine(options, $"Mixr → {cfg.ComPort} @ {cfg.BaudRate}");
+        if (cfg.IsComPortAuto)
+        {
+            LogLine(
+                options,
+                $"Mixr → COM automatisch (ESP32-S3 USB {MixrDevicePortResolver.EspressifVid:X4}:{MixrDevicePortResolver.Esp32S3UsbSerialJtagPid:X4}) @ {cfg.BaudRate}");
+        }
+        else
+        {
+            LogLine(options, $"Mixr → {cfg.ComPort} @ {cfg.BaudRate}");
+        }
+
+        LogLine(options, "Wiederverbindung bei USB.");
         LogLine(
             options,
             "Taster: 0 Previous | 1 Play/Pause | 2 Next | 3 Discord Mute | 4 Discord Deafen");
         LogLine(options, "Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele");
 
-        using var serial = new MixrSerialTransport(cfg.ComPort, cfg.BaudRate);
-        serial.Open();
+        MixrSerialTransport? serial = null;
 
         using var media = new WindowsNowPlayingService();
         var dedup = new SessionDedup();
@@ -41,6 +51,8 @@ public static class MixrHost
         {
             try
             {
+                if (serial is null)
+                    return;
                 if (!dedup.ShouldSend(title, artist, cover))
                     return;
 
@@ -94,7 +106,7 @@ public static class MixrHost
             {
                 DiscordHotkeySimulator.TriggerToggleMute();
                 LogLine(options, $"→ Discord: Toggle-Mute ({quelle})");
-                serial.SendVoipMuteOverlayToggle();
+                serial?.SendVoipMuteOverlayToggle();
             }
             catch (Exception ex)
             {
@@ -108,7 +120,7 @@ public static class MixrHost
             {
                 DiscordHotkeySimulator.TriggerToggleDeafen();
                 LogLine(options, $"→ Discord: Toggle-Deafen ({quelle})");
-                serial.SendVoipDeafenOverlayToggle();
+                serial?.SendVoipDeafenOverlayToggle();
             }
             catch (Exception ex)
             {
@@ -161,8 +173,6 @@ public static class MixrHost
 
         void OnEspPacket(int type, byte[] payload) => espIncoming.Dispatch(type, payload);
 
-        serial.StartDrainRxThread(OnEspPacket);
-
         _ = Task.Run(async () =>
         {
             try
@@ -183,7 +193,7 @@ public static class MixrHost
             {
                 try
                 {
-                    serial.SendVoipMuteOverlayToggle();
+                    serial?.SendVoipMuteOverlayToggle();
                 }
                 catch (IOException)
                 {
@@ -193,7 +203,7 @@ public static class MixrHost
             {
                 try
                 {
-                    serial.SendVoipDeafenOverlayToggle();
+                    serial?.SendVoipDeafenOverlayToggle();
                 }
                 catch (IOException)
                 {
@@ -204,12 +214,82 @@ public static class MixrHost
             options,
             "Discord-Hotkeys: Strg+Linksshift+Alt — 9 Mute, 0 Deafen, 8 Share Screen.");
 
-        try
+        const int reconnectDelayMs = 2000;
+
+        string? ResolveComPort()
         {
-            await Task.Delay(Timeout.Infinite, cancellationToken);
+            if (!cfg.IsComPortAuto)
+                return cfg.ComPort.Trim();
+
+            var port = MixrDevicePortResolver.TryFindComPort(out var candidates);
+            if (port != null && candidates.Count > 1)
+            {
+                LogLine(
+                    options,
+                    $"Hinweis: mehrere ESP32-S3 USB-Geräte ({string.Join(", ", candidates)}) — verwende {port}.");
+            }
+
+            return port;
         }
-        catch (OperationCanceledException)
+
+        while (!cancellationToken.IsCancellationRequested)
         {
+            var portName = ResolveComPort();
+            if (string.IsNullOrEmpty(portName))
+            {
+                LogLine(options, "Kein Mixr-USB-Gerät gefunden — Kabel prüfen, nächster Versuch in 2 s …");
+                try
+                {
+                    await Task.Delay(reconnectDelayMs, cancellationToken);
+                }
+                catch (OperationCanceledException)
+                {
+                    break;
+                }
+
+                continue;
+            }
+
+            MixrSerialTransport? conn = null;
+            var disconnectTcs = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+
+            try
+            {
+                conn = new MixrSerialTransport(portName, cfg.BaudRate);
+                conn.Open();
+                serial = conn;
+                LogLine(options, $"Seriell verbunden ({portName}).");
+
+                conn.StartDrainRxThread(OnEspPacket, () => disconnectTcs.TrySetResult());
+
+                await disconnectTcs.Task.WaitAsync(cancellationToken);
+            }
+            catch (OperationCanceledException)
+            {
+                break;
+            }
+            catch (Exception ex)
+            {
+                LogErr(options, $"Seriell: {ex.Message}");
+            }
+            finally
+            {
+                serial = null;
+                conn?.Dispose();
+            }
+
+            if (cancellationToken.IsCancellationRequested)
+                break;
+
+            LogLine(options, $"USB/Seriell getrennt — nächster Versuch in {reconnectDelayMs / 1000} s …");
+            try
+            {
+                await Task.Delay(reconnectDelayMs, cancellationToken);
+            }
+            catch (OperationCanceledException)
+            {
+                break;
+            }
         }
     }
 }

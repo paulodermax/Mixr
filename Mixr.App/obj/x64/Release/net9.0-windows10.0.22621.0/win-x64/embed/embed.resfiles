@@ -1,5 +1,7 @@
 App.xbf
 MainWindow.xbf
 Pages\AboutPage.xbf
-Pages\HomePage.xbf
+Pages\DashboardPage.xbf
 Pages\SettingsPage.xbf
+Pages\SliderMappingPage.xbf
+Theme\MixrTheme.xbf

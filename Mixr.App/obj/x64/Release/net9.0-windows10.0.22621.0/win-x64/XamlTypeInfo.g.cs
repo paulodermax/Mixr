@@ -226,7 +226,7 @@ namespace Mixr_App.Mixr_App_XamlTypeInfo
         
         private void InitTypeTables()
         {
-            _typeNameTable = new string[43];
+            _typeNameTable = new string[44];
             _typeNameTable[0] = "Microsoft.UI.Xaml.Controls.XamlControlsResources";
             _typeNameTable[1] = "Microsoft.UI.Xaml.ResourceDictionary";
             _typeNameTable[2] = "Object";
@@ -265,13 +265,14 @@ namespace Mixr_App.Mixr_App_XamlTypeInfo
             _typeNameTable[35] = "Mixr_App.Pages.AboutPage";
             _typeNameTable[36] = "Microsoft.UI.Xaml.Controls.Page";
             _typeNameTable[37] = "Microsoft.UI.Xaml.Controls.UserControl";
-            _typeNameTable[38] = "Mixr_App.Pages.HomePage";
+            _typeNameTable[38] = "Mixr_App.Pages.DashboardPage";
             _typeNameTable[39] = "Mixr_App.Pages.SettingsPage";
-            _typeNameTable[40] = "Microsoft.UI.Xaml.Controls.TreeViewNode";
-            _typeNameTable[41] = "System.Collections.Generic.IList`1<Microsoft.UI.Xaml.Controls.TreeViewNode>";
-            _typeNameTable[42] = "Int32";
+            _typeNameTable[40] = "Mixr_App.Pages.SliderMappingPage";
+            _typeNameTable[41] = "Microsoft.UI.Xaml.Controls.TreeViewNode";
+            _typeNameTable[42] = "System.Collections.Generic.IList`1<Microsoft.UI.Xaml.Controls.TreeViewNode>";
+            _typeNameTable[43] = "Int32";
 
-            _typeTable = new global::System.Type[43];
+            _typeTable = new global::System.Type[44];
             _typeTable[0] = typeof(global::Microsoft.UI.Xaml.Controls.XamlControlsResources);
             _typeTable[1] = typeof(global::Microsoft.UI.Xaml.ResourceDictionary);
             _typeTable[2] = typeof(global::System.Object);
@@ -310,11 +311,12 @@ namespace Mixr_App.Mixr_App_XamlTypeInfo
             _typeTable[35] = typeof(global::Mixr_App.Pages.AboutPage);
             _typeTable[36] = typeof(global::Microsoft.UI.Xaml.Controls.Page);
             _typeTable[37] = typeof(global::Microsoft.UI.Xaml.Controls.UserControl);
-            _typeTable[38] = typeof(global::Mixr_App.Pages.HomePage);
+            _typeTable[38] = typeof(global::Mixr_App.Pages.DashboardPage);
             _typeTable[39] = typeof(global::Mixr_App.Pages.SettingsPage);
-            _typeTable[40] = typeof(global::Microsoft.UI.Xaml.Controls.TreeViewNode);
-            _typeTable[41] = typeof(global::System.Collections.Generic.IList<global::Microsoft.UI.Xaml.Controls.TreeViewNode>);
-            _typeTable[42] = typeof(global::System.Int32);
+            _typeTable[40] = typeof(global::Mixr_App.Pages.SliderMappingPage);
+            _typeTable[41] = typeof(global::Microsoft.UI.Xaml.Controls.TreeViewNode);
+            _typeTable[42] = typeof(global::System.Collections.Generic.IList<global::Microsoft.UI.Xaml.Controls.TreeViewNode>);
+            _typeTable[43] = typeof(global::System.Int32);
         }
 
         private int LookupTypeIndexByName(string typeName)
@@ -357,9 +359,10 @@ namespace Mixr_App.Mixr_App_XamlTypeInfo
         private object Activate_31_InfoBadge() { return new global::Microsoft.UI.Xaml.Controls.InfoBadge(); }
         private object Activate_33_MainWindow() { return new global::Mixr_App.MainWindow(); }
         private object Activate_35_AboutPage() { return new global::Mixr_App.Pages.AboutPage(); }
-        private object Activate_38_HomePage() { return new global::Mixr_App.Pages.HomePage(); }
+        private object Activate_38_DashboardPage() { return new global::Mixr_App.Pages.DashboardPage(); }
         private object Activate_39_SettingsPage() { return new global::Mixr_App.Pages.SettingsPage(); }
-        private object Activate_40_TreeViewNode() { return new global::Microsoft.UI.Xaml.Controls.TreeViewNode(); }
+        private object Activate_40_SliderMappingPage() { return new global::Mixr_App.Pages.SliderMappingPage(); }
+        private object Activate_41_TreeViewNode() { return new global::Microsoft.UI.Xaml.Controls.TreeViewNode(); }
         private void StaticInitializer_0_XamlControlsResources() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Controls.XamlControlsResources).TypeHandle);
         private void StaticInitializer_4_MicaBackdrop() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Media.MicaBackdrop).TypeHandle);
         private void StaticInitializer_6_MicaKind() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Composition.SystemBackdrops.MicaKind).TypeHandle);
@@ -379,10 +382,11 @@ namespace Mixr_App.Mixr_App_XamlTypeInfo
         private void StaticInitializer_31_InfoBadge() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Controls.InfoBadge).TypeHandle);
         private void StaticInitializer_33_MainWindow() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Mixr_App.MainWindow).TypeHandle);
         private void StaticInitializer_35_AboutPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Mixr_App.Pages.AboutPage).TypeHandle);
-        private void StaticInitializer_38_HomePage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Mixr_App.Pages.HomePage).TypeHandle);
+        private void StaticInitializer_38_DashboardPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Mixr_App.Pages.DashboardPage).TypeHandle);
         private void StaticInitializer_39_SettingsPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Mixr_App.Pages.SettingsPage).TypeHandle);
-        private void StaticInitializer_40_TreeViewNode() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Controls.TreeViewNode).TypeHandle);
-        private void StaticInitializer_41_IList() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.Collections.Generic.IList<global::Microsoft.UI.Xaml.Controls.TreeViewNode>).TypeHandle);
+        private void StaticInitializer_40_SliderMappingPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Mixr_App.Pages.SliderMappingPage).TypeHandle);
+        private void StaticInitializer_41_TreeViewNode() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Controls.TreeViewNode).TypeHandle);
+        private void StaticInitializer_42_IList() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.Collections.Generic.IList<global::Microsoft.UI.Xaml.Controls.TreeViewNode>).TypeHandle);
         private void MapAdd_0_XamlControlsResources(object instance, object key, object item)
         {
             var collection = (global::System.Collections.Generic.IDictionary<global::System.Object, global::System.Object>)instance;
@@ -396,7 +400,7 @@ namespace Mixr_App.Mixr_App_XamlTypeInfo
             var newItem = (global::System.Object)item;
             collection.Add(newItem);
         }
-        private void VectorAdd_41_IList(object instance, object item)
+        private void VectorAdd_42_IList(object instance, object item)
         {
             var collection = (global::System.Collections.Generic.ICollection<global::Microsoft.UI.Xaml.Controls.TreeViewNode>)instance;
             var newItem = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)item;
@@ -476,6 +480,7 @@ namespace Mixr_App.Mixr_App_XamlTypeInfo
                 userType.AddMemberName("IsTitleBarAutoPaddingEnabled");
                 userType.AddMemberName("PaneDisplayMode");
                 userType.AddMemberName("MenuItems");
+                userType.AddMemberName("FooterMenuItems");
                 userType.AddMemberName("AlwaysShowHeader");
                 userType.AddMemberName("AutoSuggestBox");
                 userType.AddMemberName("CompactModeThresholdWidth");
@@ -483,7 +488,6 @@ namespace Mixr_App.Mixr_App_XamlTypeInfo
                 userType.AddMemberName("ContentOverlay");
                 userType.AddMemberName("DisplayMode");
                 userType.AddMemberName("ExpandedModeThresholdWidth");
-                userType.AddMemberName("FooterMenuItems");
                 userType.AddMemberName("FooterMenuItemsSource");
                 userType.AddMemberName("Header");
                 userType.AddMemberName("HeaderTemplate");
@@ -685,10 +689,10 @@ namespace Mixr_App.Mixr_App_XamlTypeInfo
                 xamlType = new global::Mixr_App.Mixr_App_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
 
-            case 38:   //  Mixr_App.Pages.HomePage
+            case 38:   //  Mixr_App.Pages.DashboardPage
                 userType = new global::Mixr_App.Mixr_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_38_HomePage;
-                userType.StaticInitializer = StaticInitializer_38_HomePage;
+                userType.Activator = Activate_38_DashboardPage;
+                userType.StaticInitializer = StaticInitializer_38_DashboardPage;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
@@ -701,10 +705,18 @@ namespace Mixr_App.Mixr_App_XamlTypeInfo
                 xamlType = userType;
                 break;
 
-            case 40:   //  Microsoft.UI.Xaml.Controls.TreeViewNode
+            case 40:   //  Mixr_App.Pages.SliderMappingPage
+                userType = new global::Mixr_App.Mixr_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.Page"));
+                userType.Activator = Activate_40_SliderMappingPage;
+                userType.StaticInitializer = StaticInitializer_40_SliderMappingPage;
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 41:   //  Microsoft.UI.Xaml.Controls.TreeViewNode
                 userType = new global::Mixr_App.Mixr_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.DependencyObject"));
-                userType.Activator = Activate_40_TreeViewNode;
-                userType.StaticInitializer = StaticInitializer_40_TreeViewNode;
+                userType.Activator = Activate_41_TreeViewNode;
+                userType.StaticInitializer = StaticInitializer_41_TreeViewNode;
                 userType.AddMemberName("Children");
                 userType.AddMemberName("Content");
                 userType.AddMemberName("Depth");
@@ -716,15 +728,15 @@ namespace Mixr_App.Mixr_App_XamlTypeInfo
                 xamlType = userType;
                 break;
 
-            case 41:   //  System.Collections.Generic.IList`1<Microsoft.UI.Xaml.Controls.TreeViewNode>
+            case 42:   //  System.Collections.Generic.IList`1<Microsoft.UI.Xaml.Controls.TreeViewNode>
                 userType = new global::Mixr_App.Mixr_App_XamlTypeInfo.XamlUserType(this, typeName, type, null);
-                userType.StaticInitializer = StaticInitializer_41_IList;
-                userType.CollectionAdd = VectorAdd_41_IList;
+                userType.StaticInitializer = StaticInitializer_42_IList;
+                userType.CollectionAdd = VectorAdd_42_IList;
                 userType.SetIsReturnTypeStub();
                 xamlType = userType;
                 break;
 
-            case 42:   //  Int32
+            case 43:   //  Int32
                 xamlType = new global::Mixr_App.Mixr_App_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
             }
@@ -861,75 +873,75 @@ namespace Mixr_App.Mixr_App_XamlTypeInfo
             var that = (global::Microsoft.UI.Xaml.Controls.NavigationView)instance;
             return that.MenuItems;
         }
-        private object get_8_NavigationView_AlwaysShowHeader(object instance)
+        private object get_8_NavigationView_FooterMenuItems(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.NavigationView)instance;
+            return that.FooterMenuItems;
+        }
+        private object get_9_NavigationView_AlwaysShowHeader(object instance)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.NavigationView)instance;
             return that.AlwaysShowHeader;
         }
-        private void set_8_NavigationView_AlwaysShowHeader(object instance, object Value)
+        private void set_9_NavigationView_AlwaysShowHeader(object instance, object Value)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.NavigationView)instance;
             that.AlwaysShowHeader = (global::System.Boolean)Value;
         }
-        private object get_9_NavigationView_AutoSuggestBox(object instance)
+        private object get_10_NavigationView_AutoSuggestBox(object instance)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.NavigationView)instance;
             return that.AutoSuggestBox;
         }
-        private void set_9_NavigationView_AutoSuggestBox(object instance, object Value)
+        private void set_10_NavigationView_AutoSuggestBox(object instance, object Value)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.NavigationView)instance;
             that.AutoSuggestBox = (global::Microsoft.UI.Xaml.Controls.AutoSuggestBox)Value;
         }
-        private object get_10_NavigationView_CompactModeThresholdWidth(object instance)
+        private object get_11_NavigationView_CompactModeThresholdWidth(object instance)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.NavigationView)instance;
             return that.CompactModeThresholdWidth;
         }
-        private void set_10_NavigationView_CompactModeThresholdWidth(object instance, object Value)
+        private void set_11_NavigationView_CompactModeThresholdWidth(object instance, object Value)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.NavigationView)instance;
             that.CompactModeThresholdWidth = (global::System.Double)Value;
         }
-        private object get_11_NavigationView_CompactPaneLength(object instance)
+        private object get_12_NavigationView_CompactPaneLength(object instance)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.NavigationView)instance;
             return that.CompactPaneLength;
         }
-        private void set_11_NavigationView_CompactPaneLength(object instance, object Value)
+        private void set_12_NavigationView_CompactPaneLength(object instance, object Value)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.NavigationView)instance;
             that.CompactPaneLength = (global::System.Double)Value;
         }
-        private object get_12_NavigationView_ContentOverlay(object instance)
+        private object get_13_NavigationView_ContentOverlay(object instance)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.NavigationView)instance;
             return that.ContentOverlay;
         }
-        private void set_12_NavigationView_ContentOverlay(object instance, object Value)
+        private void set_13_NavigationView_ContentOverlay(object instance, object Value)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.NavigationView)instance;
             that.ContentOverlay = (global::Microsoft.UI.Xaml.UIElement)Value;
         }
-        private object get_13_NavigationView_DisplayMode(object instance)
+        private object get_14_NavigationView_DisplayMode(object instance)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.NavigationView)instance;
             return that.DisplayMode;
         }
-        private object get_14_NavigationView_ExpandedModeThresholdWidth(object instance)
+        private object get_15_NavigationView_ExpandedModeThresholdWidth(object instance)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.NavigationView)instance;
             return that.ExpandedModeThresholdWidth;
         }
-        private void set_14_NavigationView_ExpandedModeThresholdWidth(object instance, object Value)
+        private void set_15_NavigationView_ExpandedModeThresholdWidth(object instance, object Value)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.NavigationView)instance;
             that.ExpandedModeThresholdWidth = (global::System.Double)Value;
-        }
-        private object get_15_NavigationView_FooterMenuItems(object instance)
-        {
-            var that = (global::Microsoft.UI.Xaml.Controls.NavigationView)instance;
-            return that.FooterMenuItems;
         }
         private object get_16_NavigationView_FooterMenuItemsSource(object instance)
         {
@@ -1355,61 +1367,61 @@ namespace Mixr_App.Mixr_App_XamlTypeInfo
                 xamlMember.Getter = get_7_NavigationView_MenuItems;
                 xamlMember.SetIsReadOnly();
                 break;
+            case "Microsoft.UI.Xaml.Controls.NavigationView.FooterMenuItems":
+                userType = (global::Mixr_App.Mixr_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.NavigationView");
+                xamlMember = new global::Mixr_App.Mixr_App_XamlTypeInfo.XamlMember(this, "FooterMenuItems", "System.Collections.Generic.IList`1<Object>");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_8_NavigationView_FooterMenuItems;
+                xamlMember.SetIsReadOnly();
+                break;
             case "Microsoft.UI.Xaml.Controls.NavigationView.AlwaysShowHeader":
                 userType = (global::Mixr_App.Mixr_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.NavigationView");
                 xamlMember = new global::Mixr_App.Mixr_App_XamlTypeInfo.XamlMember(this, "AlwaysShowHeader", "Boolean");
                 xamlMember.SetIsDependencyProperty();
-                xamlMember.Getter = get_8_NavigationView_AlwaysShowHeader;
-                xamlMember.Setter = set_8_NavigationView_AlwaysShowHeader;
+                xamlMember.Getter = get_9_NavigationView_AlwaysShowHeader;
+                xamlMember.Setter = set_9_NavigationView_AlwaysShowHeader;
                 break;
             case "Microsoft.UI.Xaml.Controls.NavigationView.AutoSuggestBox":
                 userType = (global::Mixr_App.Mixr_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.NavigationView");
                 xamlMember = new global::Mixr_App.Mixr_App_XamlTypeInfo.XamlMember(this, "AutoSuggestBox", "Microsoft.UI.Xaml.Controls.AutoSuggestBox");
                 xamlMember.SetIsDependencyProperty();
-                xamlMember.Getter = get_9_NavigationView_AutoSuggestBox;
-                xamlMember.Setter = set_9_NavigationView_AutoSuggestBox;
+                xamlMember.Getter = get_10_NavigationView_AutoSuggestBox;
+                xamlMember.Setter = set_10_NavigationView_AutoSuggestBox;
                 break;
             case "Microsoft.UI.Xaml.Controls.NavigationView.CompactModeThresholdWidth":
                 userType = (global::Mixr_App.Mixr_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.NavigationView");
                 xamlMember = new global::Mixr_App.Mixr_App_XamlTypeInfo.XamlMember(this, "CompactModeThresholdWidth", "Double");
                 xamlMember.SetIsDependencyProperty();
-                xamlMember.Getter = get_10_NavigationView_CompactModeThresholdWidth;
-                xamlMember.Setter = set_10_NavigationView_CompactModeThresholdWidth;
+                xamlMember.Getter = get_11_NavigationView_CompactModeThresholdWidth;
+                xamlMember.Setter = set_11_NavigationView_CompactModeThresholdWidth;
                 break;
             case "Microsoft.UI.Xaml.Controls.NavigationView.CompactPaneLength":
                 userType = (global::Mixr_App.Mixr_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.NavigationView");
                 xamlMember = new global::Mixr_App.Mixr_App_XamlTypeInfo.XamlMember(this, "CompactPaneLength", "Double");
                 xamlMember.SetIsDependencyProperty();
-                xamlMember.Getter = get_11_NavigationView_CompactPaneLength;
-                xamlMember.Setter = set_11_NavigationView_CompactPaneLength;
+                xamlMember.Getter = get_12_NavigationView_CompactPaneLength;
+                xamlMember.Setter = set_12_NavigationView_CompactPaneLength;
                 break;
             case "Microsoft.UI.Xaml.Controls.NavigationView.ContentOverlay":
                 userType = (global::Mixr_App.Mixr_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.NavigationView");
                 xamlMember = new global::Mixr_App.Mixr_App_XamlTypeInfo.XamlMember(this, "ContentOverlay", "Microsoft.UI.Xaml.UIElement");
                 xamlMember.SetIsDependencyProperty();
-                xamlMember.Getter = get_12_NavigationView_ContentOverlay;
-                xamlMember.Setter = set_12_NavigationView_ContentOverlay;
+                xamlMember.Getter = get_13_NavigationView_ContentOverlay;
+                xamlMember.Setter = set_13_NavigationView_ContentOverlay;
                 break;
             case "Microsoft.UI.Xaml.Controls.NavigationView.DisplayMode":
                 userType = (global::Mixr_App.Mixr_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.NavigationView");
                 xamlMember = new global::Mixr_App.Mixr_App_XamlTypeInfo.XamlMember(this, "DisplayMode", "Microsoft.UI.Xaml.Controls.NavigationViewDisplayMode");
                 xamlMember.SetIsDependencyProperty();
-                xamlMember.Getter = get_13_NavigationView_DisplayMode;
+                xamlMember.Getter = get_14_NavigationView_DisplayMode;
                 xamlMember.SetIsReadOnly();
                 break;
             case "Microsoft.UI.Xaml.Controls.NavigationView.ExpandedModeThresholdWidth":
                 userType = (global::Mixr_App.Mixr_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.NavigationView");
                 xamlMember = new global::Mixr_App.Mixr_App_XamlTypeInfo.XamlMember(this, "ExpandedModeThresholdWidth", "Double");
                 xamlMember.SetIsDependencyProperty();
-                xamlMember.Getter = get_14_NavigationView_ExpandedModeThresholdWidth;
-                xamlMember.Setter = set_14_NavigationView_ExpandedModeThresholdWidth;
-                break;
-            case "Microsoft.UI.Xaml.Controls.NavigationView.FooterMenuItems":
-                userType = (global::Mixr_App.Mixr_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.NavigationView");
-                xamlMember = new global::Mixr_App.Mixr_App_XamlTypeInfo.XamlMember(this, "FooterMenuItems", "System.Collections.Generic.IList`1<Object>");
-                xamlMember.SetIsDependencyProperty();
-                xamlMember.Getter = get_15_NavigationView_FooterMenuItems;
-                xamlMember.SetIsReadOnly();
+                xamlMember.Getter = get_15_NavigationView_ExpandedModeThresholdWidth;
+                xamlMember.Setter = set_15_NavigationView_ExpandedModeThresholdWidth;
                 break;
             case "Microsoft.UI.Xaml.Controls.NavigationView.FooterMenuItemsSource":
                 userType = (global::Mixr_App.Mixr_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.NavigationView");

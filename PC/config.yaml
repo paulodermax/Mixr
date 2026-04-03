@@ -1,5 +1,5 @@
 # Wie workdir: serieller Port zum ESP (Mixr). Überschreibbar mit: --port=COM7  --baud=921600
-com_port: COM6
+com_port: auto
 baud_rate: 921600
 
 # Slider 1–4 → Windows (Reihenfolge = ESP-Index 0..3)

@@ -148,10 +148,12 @@ public sealed class MixrSerialTransport : IDisposable
         return r;
     }
 
-    public void StartDrainRxThread(Action<int, byte[]>? onIncoming = null)
+    /// <param name="onIncoming">Empfangenes Paket (Typ + Nutzlast).</param>
+    /// <param name="onRxEnded">Wird aufgerufen, wenn der Lesethread endet (USB weg, Fehler, Port zu).</param>
+    public void StartDrainRxThread(Action<int, byte[]>? onIncoming = null, Action? onRxEnded = null)
     {
         var p = _port;
-        var t = new Thread(() => ReadLoop(p, onIncoming))
+        var t = new Thread(() => ReadLoop(p, onIncoming, onRxEnded))
         {
             IsBackground = true,
             Name = "MixrSerialRx",
@@ -159,32 +161,39 @@ public sealed class MixrSerialTransport : IDisposable
         t.Start();
     }
 
-    static void ReadLoop(SerialPort port, Action<int, byte[]>? onIncoming)
+    static void ReadLoop(SerialPort port, Action<int, byte[]>? onIncoming, Action? onRxEnded)
     {
-        while (port.IsOpen)
+        try
         {
-            try
+            while (port.IsOpen)
             {
-                /* ReadByte blockiert bis Timeout (s. ReadTimeout), verhindert Busy-Spin bei leerem RX */
-                if (port.ReadByte() != PktStartByte)
-                    continue;
+                try
+                {
+                    /* ReadByte blockiert bis Timeout (s. ReadTimeout), verhindert Busy-Spin bei leerem RX */
+                    if (port.ReadByte() != PktStartByte)
+                        continue;
 
-                int len = port.ReadByte();
-                int type = port.ReadByte();
-                var payload = new byte[len];
-                int read = 0;
-                while (read < len)
-                    read += port.Read(payload, read, len - read);
-                int crc = port.ReadByte();
-                int calc = len ^ type;
-                foreach (byte b in payload)
-                    calc ^= b;
-                if (crc == calc)
-                    onIncoming?.Invoke(type, payload);
+                    int len = port.ReadByte();
+                    int type = port.ReadByte();
+                    var payload = new byte[len];
+                    int read = 0;
+                    while (read < len)
+                        read += port.Read(payload, read, len - read);
+                    int crc = port.ReadByte();
+                    int calc = len ^ type;
+                    foreach (byte b in payload)
+                        calc ^= b;
+                    if (crc == calc)
+                        onIncoming?.Invoke(type, payload);
+                }
+                catch (TimeoutException) { }
+                catch (IOException) { break; }
+                catch (Exception) { break; }
             }
-            catch (TimeoutException) { }
-            catch (IOException) { break; }
-            catch (Exception) { break; }
+        }
+        finally
+        {
+            onRxEnded?.Invoke();
         }
     }
 
