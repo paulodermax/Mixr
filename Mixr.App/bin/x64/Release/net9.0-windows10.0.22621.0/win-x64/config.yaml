@@ -26,3 +26,10 @@ session_groups:
   - Terraria
   - DayZ
   - Fallout 76
+  - Bloons TD 6
+  media:
+  - Chrome
+  - Brave
+  - Spotify
+  communication:
+  - Discord
