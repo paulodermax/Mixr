@@ -37,6 +37,7 @@
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\AppIcon.ico" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+    <Content Include="Assets\Mixr-Modell.svg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -67,6 +68,14 @@
     <None Include="..\Mixr.Core\config.yaml" Link="config.yaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <!-- Cover-Assets: Repository Mixr/covers (..\covers) → Ausgabe covers\; Start → %LocalAppData%\Mixr\covers -->
+  <ItemGroup Condition="Exists('$(MSBuildProjectDirectory)\..\covers')">
+    <Content Include="$(MSBuildProjectDirectory)\..\covers\**\*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>covers\%(RecursiveDir)%(Filename)%(Extension)</Link>
+    </Content>
   </ItemGroup>
 
   <!--

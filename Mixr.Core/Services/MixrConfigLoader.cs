@@ -75,6 +75,7 @@ public static class MixrConfigLoader
         public int? Baud_rate { get; set; }
         public bool? Invert_sliders { get; set; }
         public List<string>? Slider_mapping { get; set; }
+        public List<string>? Button_mapping { get; set; }
         public Dictionary<string, List<string>>? Session_groups { get; set; }
 
         public MixrConfig ToConfig()
@@ -88,6 +89,12 @@ public static class MixrConfigLoader
                 c.InvertSliders = Invert_sliders.Value;
             if (Slider_mapping is { Count: > 0 })
                 c.SliderMapping = new List<string>(Slider_mapping);
+            if (Button_mapping is { Count: > 0 })
+            {
+                c.ButtonMapping = new List<string>(Button_mapping);
+                MixrButtonActions.EnsureFiveEntries(c.ButtonMapping);
+            }
+
             if (Session_groups is { Count: > 0 })
                 c.SessionGroups = new Dictionary<string, List<string>>(Session_groups, StringComparer.OrdinalIgnoreCase);
             return c;

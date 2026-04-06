@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "hE21j+myWjo=",
+  "dgSpecHash": "Be26HXBEoJs=",
   "success": true,
   "projectFilePath": "C:\\Users\\paulm\\.mainroot\\Mixr\\Mixr.App\\Mixr.App.csproj",
   "expectedPackageFiles": [
@@ -36,10 +36,14 @@
     "C:\\Users\\paulm\\.nuget\\packages\\system.io.ports\\10.0.3\\system.io.ports.10.0.3.nupkg.sha512",
     "C:\\Users\\paulm\\.nuget\\packages\\system.management\\9.0.0\\system.management.9.0.0.nupkg.sha512",
     "C:\\Users\\paulm\\.nuget\\packages\\yamldotnet\\16.3.0\\yamldotnet.16.3.0.nupkg.sha512",
-    "C:\\Users\\paulm\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\9.0.5\\microsoft.netcore.app.runtime.win-x64.9.0.5.nupkg.sha512",
-    "C:\\Users\\paulm\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\9.0.5\\microsoft.windowsdesktop.app.runtime.win-x64.9.0.5.nupkg.sha512",
-    "C:\\Users\\paulm\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\9.0.5\\microsoft.aspnetcore.app.runtime.win-x64.9.0.5.nupkg.sha512",
-    "C:\\Users\\paulm\\.nuget\\packages\\microsoft.netcore.app.crossgen2.win-x64\\9.0.5\\microsoft.netcore.app.crossgen2.win-x64.9.0.5.nupkg.sha512",
+    "C:\\Users\\paulm\\.nuget\\packages\\microsoft.netcore.app.ref\\9.0.14\\microsoft.netcore.app.ref.9.0.14.nupkg.sha512",
+    "C:\\Users\\paulm\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\9.0.14\\microsoft.netcore.app.runtime.win-x64.9.0.14.nupkg.sha512",
+    "C:\\Users\\paulm\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\9.0.14\\microsoft.windowsdesktop.app.ref.9.0.14.nupkg.sha512",
+    "C:\\Users\\paulm\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\9.0.14\\microsoft.windowsdesktop.app.runtime.win-x64.9.0.14.nupkg.sha512",
+    "C:\\Users\\paulm\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\9.0.14\\microsoft.aspnetcore.app.ref.9.0.14.nupkg.sha512",
+    "C:\\Users\\paulm\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\9.0.14\\microsoft.aspnetcore.app.runtime.win-x64.9.0.14.nupkg.sha512",
+    "C:\\Users\\paulm\\.nuget\\packages\\microsoft.netcore.app.crossgen2.win-x64\\9.0.14\\microsoft.netcore.app.crossgen2.win-x64.9.0.14.nupkg.sha512",
+    "C:\\Users\\paulm\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\9.0.14\\microsoft.netcore.app.host.win-x64.9.0.14.nupkg.sha512",
     "C:\\Users\\paulm\\.nuget\\packages\\microsoft.windows.sdk.net.ref\\10.0.22621.38\\microsoft.windows.sdk.net.ref.10.0.22621.38.nupkg.sha512"
   ],
   "logs": []

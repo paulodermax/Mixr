@@ -25,23 +25,29 @@ public static class MixrHost
 
     public static async Task RunAsync(string[] args, CancellationToken cancellationToken, Options? options = null)
     {
-        var cfg = MixrConfigLoader.Load(args);
-        if (cfg.IsComPortAuto)
+        var initial = MixrConfigLoader.Load(args);
+        MixrRuntimeState.Config.Replace(initial);
+
+        void LogCfgHeader()
         {
-            LogLine(
-                options,
-                $"Mixr → COM automatisch (ESP32-S3 USB {MixrDevicePortResolver.EspressifVid:X4}:{MixrDevicePortResolver.Esp32S3UsbSerialJtagPid:X4}) @ {cfg.BaudRate}");
-        }
-        else
-        {
-            LogLine(options, $"Mixr → {cfg.ComPort} @ {cfg.BaudRate}");
+            var cfg = MixrRuntimeState.Config.Current;
+            if (cfg.IsComPortAuto)
+            {
+                LogLine(
+                    options,
+                    $"Mixr → COM automatisch (ESP32-S3 USB {MixrDevicePortResolver.EspressifVid:X4}:{MixrDevicePortResolver.Esp32S3UsbSerialJtagPid:X4}) @ {cfg.BaudRate}");
+            }
+            else
+            {
+                LogLine(options, $"Mixr → {cfg.ComPort} @ {cfg.BaudRate}");
+            }
+
+            LogLine(options, "Wiederverbindung bei USB; config.yaml wird überwacht.");
+            LogLine(options, "Taster: siehe button_mapping in config.yaml (Standard: Prev / Play / Next / Mute / Deafen).");
+            LogLine(options, "Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele");
         }
 
-        LogLine(options, "Wiederverbindung bei USB.");
-        LogLine(
-            options,
-            "Taster: 0 Previous | 1 Play/Pause | 2 Next | 3 Discord Mute | 4 Discord Deafen");
-        LogLine(options, "Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele");
+        LogCfgHeader();
 
         MixrSerialTransport? serial = null;
 
@@ -70,13 +76,73 @@ public static class MixrHost
         await media.InitializeAsync();
 
         var audio = new AudioService();
+        MixrRuntimeState.Audio = audio;
+
+        void RebuildAudioFromRuntime()
+        {
+            var c = MixrRuntimeState.Config.Current;
+            try
+            {
+                audio.RebuildSessionMap(c.SliderMapping, c.SessionGroups);
+            }
+            catch (Exception ex)
+            {
+                LogErr(options, $"Audio neu: {ex.Message}");
+            }
+        }
+
+        RebuildAudioFromRuntime();
+        MixrRuntimeState.Config.Changed += OnConfigChangedFromRuntime;
+
+        var reloadGate = new object();
+        CancellationTokenSource? debounceCts = null;
+
+        FileSystemWatcher? watcher = null;
         try
         {
-            audio.RebuildSessionMap(cfg.SliderMapping, cfg.SessionGroups);
+            var dir = Path.GetDirectoryName(MixrConfigPaths.ConfigYamlPath);
+            var file = Path.GetFileName(MixrConfigPaths.ConfigYamlPath);
+            if (!string.IsNullOrEmpty(dir) && Directory.Exists(dir))
+            {
+                watcher = new FileSystemWatcher(dir, file) { NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.Size };
+                watcher.Changed += (_, _) => DebouncedConfigReload();
+                watcher.EnableRaisingEvents = true;
+            }
         }
-        catch (Exception ex)
+        catch
         {
-            LogErr(options, $"Audio-Init: {ex.Message}");
+            /* optional */
+        }
+
+        void DebouncedConfigReload()
+        {
+            lock (reloadGate)
+            {
+                debounceCts?.Cancel();
+                debounceCts = new CancellationTokenSource();
+                var cts = debounceCts;
+                _ = Task.Run(async () =>
+                {
+                    try
+                    {
+                        await Task.Delay(400, cts.Token);
+                        MixrRuntimeState.ReloadConfigFromDisk(args);
+                        LogLine(options, "Konfiguration neu geladen (config.yaml).");
+                    }
+                    catch (OperationCanceledException)
+                    {
+                    }
+                    catch (Exception ex)
+                    {
+                        LogErr(options, $"Config-Reload: {ex.Message}");
+                    }
+                }, cts.Token);
+            }
+        }
+
+        void OnConfigChangedFromRuntime()
+        {
+            RebuildAudioFromRuntime();
         }
 
         var lastSlider = new float[] { -1, -1, -1, -1 };
@@ -87,6 +153,7 @@ public static class MixrHost
             var s = mem.Span;
             if (s.Length < 4)
                 return;
+            var cfg = MixrRuntimeState.Config.Current;
             for (var i = 0; i < 4 && i < cfg.SliderMapping.Count; i++)
             {
                 var level = s[i] / 255f;
@@ -144,25 +211,33 @@ public static class MixrHost
         espIncoming.ButtonPressed += id =>
         {
             LogLine(options, $"[ESP] Button: {id}");
-            switch (id)
+            var cfgBtn = MixrRuntimeState.Config.Current;
+            var action = MixrButtonActions.Resolve(id, cfgBtn.ButtonMapping);
+            switch (action)
             {
-                case 0:
+                case MixrButtonActions.SmtcPrevious:
                     _ = Task.Run(() => media.ExecuteMediaCommandAsync(2));
                     LogLine(options, "→ SMTC: Previous");
                     break;
-                case 1:
+                case MixrButtonActions.SmtcPlayPause:
                     _ = Task.Run(() => media.ExecuteMediaCommandAsync(1));
                     LogLine(options, "→ SMTC: Play/Pause");
                     break;
-                case 2:
+                case MixrButtonActions.SmtcNext:
                     _ = Task.Run(() => media.ExecuteMediaCommandAsync(0));
                     LogLine(options, "→ SMTC: Next");
                     break;
-                case 3:
-                    TriggerDiscordMute("Taster 3 / SW4");
+                case MixrButtonActions.DiscordMute:
+                    TriggerDiscordMute($"Taster {id} ({action})");
                     break;
-                case 4:
-                    TriggerDiscordDeafen("Taster 4 / SW5");
+                case MixrButtonActions.DiscordDeafen:
+                    TriggerDiscordDeafen($"Taster {id} ({action})");
+                    break;
+                case MixrButtonActions.None:
+                    LogLine(options, $"→ Button {id}: keine Aktion");
+                    break;
+                default:
+                    LogErr(options, $"Unbekannte button_mapping-Aktion: {action}");
                     break;
             }
         };
@@ -180,7 +255,7 @@ public static class MixrHost
                 while (!cancellationToken.IsCancellationRequested)
                 {
                     await Task.Delay(2000, cancellationToken);
-                    audio.RebuildSessionMap(cfg.SliderMapping, cfg.SessionGroups, silent: true);
+                    RebuildAudioFromRuntime();
                 }
             }
             catch (OperationCanceledException)
@@ -218,6 +293,7 @@ public static class MixrHost
 
         string? ResolveComPort()
         {
+            var cfg = MixrRuntimeState.Config.Current;
             if (!cfg.IsComPortAuto)
                 return cfg.ComPort.Trim();
 
@@ -232,12 +308,59 @@ public static class MixrHost
             return port;
         }
 
-        while (!cancellationToken.IsCancellationRequested)
+        try
         {
-            var portName = ResolveComPort();
-            if (string.IsNullOrEmpty(portName))
+            while (!cancellationToken.IsCancellationRequested)
             {
-                LogLine(options, "Kein Mixr-USB-Gerät gefunden — Kabel prüfen, nächster Versuch in 2 s …");
+                var portName = ResolveComPort();
+                if (string.IsNullOrEmpty(portName))
+                {
+                    LogLine(options, "Kein Mixr-USB-Gerät gefunden — Kabel prüfen, nächster Versuch in 2 s …");
+                    try
+                    {
+                        await Task.Delay(reconnectDelayMs, cancellationToken);
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        break;
+                    }
+
+                    continue;
+                }
+
+                var cfg = MixrRuntimeState.Config.Current;
+                MixrSerialTransport? conn = null;
+                var disconnectTcs = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+
+                try
+                {
+                    conn = new MixrSerialTransport(portName, cfg.BaudRate);
+                    conn.Open();
+                    serial = conn;
+                    LogLine(options, $"Seriell verbunden ({portName}).");
+
+                    conn.StartDrainRxThread(OnEspPacket, () => disconnectTcs.TrySetResult());
+
+                    await disconnectTcs.Task.WaitAsync(cancellationToken);
+                }
+                catch (OperationCanceledException)
+                {
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    LogErr(options, $"Seriell: {ex.Message}");
+                }
+                finally
+                {
+                    serial = null;
+                    conn?.Dispose();
+                }
+
+                if (cancellationToken.IsCancellationRequested)
+                    break;
+
+                LogLine(options, $"USB/Seriell getrennt — nächster Versuch in {reconnectDelayMs / 1000} s …");
                 try
                 {
                     await Task.Delay(reconnectDelayMs, cancellationToken);
@@ -246,50 +369,18 @@ public static class MixrHost
                 {
                     break;
                 }
-
-                continue;
             }
-
-            MixrSerialTransport? conn = null;
-            var disconnectTcs = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
-
-            try
+        }
+        finally
+        {
+            MixrRuntimeState.Config.Changed -= OnConfigChangedFromRuntime;
+            if (watcher != null)
             {
-                conn = new MixrSerialTransport(portName, cfg.BaudRate);
-                conn.Open();
-                serial = conn;
-                LogLine(options, $"Seriell verbunden ({portName}).");
-
-                conn.StartDrainRxThread(OnEspPacket, () => disconnectTcs.TrySetResult());
-
-                await disconnectTcs.Task.WaitAsync(cancellationToken);
-            }
-            catch (OperationCanceledException)
-            {
-                break;
-            }
-            catch (Exception ex)
-            {
-                LogErr(options, $"Seriell: {ex.Message}");
-            }
-            finally
-            {
-                serial = null;
-                conn?.Dispose();
+                watcher.EnableRaisingEvents = false;
+                watcher.Dispose();
             }
 
-            if (cancellationToken.IsCancellationRequested)
-                break;
-
-            LogLine(options, $"USB/Seriell getrennt — nächster Versuch in {reconnectDelayMs / 1000} s …");
-            try
-            {
-                await Task.Delay(reconnectDelayMs, cancellationToken);
-            }
-            catch (OperationCanceledException)
-            {
-                break;
-            }
+            MixrRuntimeState.Audio = null;
         }
     }
 }

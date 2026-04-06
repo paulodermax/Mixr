@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "EoY+9MZq7UI=",
+  "dgSpecHash": "tDUIQ9NcUYQ=",
   "success": true,
   "projectFilePath": "C:\\Users\\paulm\\.mainroot\\Mixr\\Mixr.Core\\Mixr.Core.csproj",
   "expectedPackageFiles": [
@@ -30,6 +30,9 @@
     "C:\\Users\\paulm\\.nuget\\packages\\system.io.ports\\10.0.3\\system.io.ports.10.0.3.nupkg.sha512",
     "C:\\Users\\paulm\\.nuget\\packages\\system.management\\9.0.0\\system.management.9.0.0.nupkg.sha512",
     "C:\\Users\\paulm\\.nuget\\packages\\yamldotnet\\16.3.0\\yamldotnet.16.3.0.nupkg.sha512",
+    "C:\\Users\\paulm\\.nuget\\packages\\microsoft.netcore.app.ref\\9.0.14\\microsoft.netcore.app.ref.9.0.14.nupkg.sha512",
+    "C:\\Users\\paulm\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\9.0.14\\microsoft.windowsdesktop.app.ref.9.0.14.nupkg.sha512",
+    "C:\\Users\\paulm\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\9.0.14\\microsoft.aspnetcore.app.ref.9.0.14.nupkg.sha512",
     "C:\\Users\\paulm\\.nuget\\packages\\microsoft.windows.sdk.net.ref\\10.0.22621.38\\microsoft.windows.sdk.net.ref.10.0.22621.38.nupkg.sha512"
   ],
   "logs": []

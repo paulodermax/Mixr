@@ -55,9 +55,12 @@ public sealed class CatalogGameEntry
 
     public string Name { get; set; } = "";
 
+    /// <summary>Wenn gesetzt: Suchstring für Audio-Sessions / Fader-Zuordnung (z. B. „Chrome“); Anzeige ist <see cref="Name"/>.</summary>
+    public string? AssignmentToken { get; set; }
+
     public string? Summary { get; set; }
 
-    /// <summary>Relativ zu <see cref="GameCatalogPaths.AppDataRoot"/> (z. B. covers/steam_730.jpg).</summary>
+    /// <summary>Relativ zu <see cref="GameCatalogPaths.AppDataRoot"/> (z. B. covers/steam_730.jpg oder covers/cat_manual_MyGame.jpg).</summary>
     public string? CoverRelativePath { get; set; }
 
     public DateTime? LastApiFetchUtc { get; set; }

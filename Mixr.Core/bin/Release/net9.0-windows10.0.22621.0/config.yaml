@@ -13,29 +13,13 @@ slider_mapping:
   - media
   - games
 
-# Pro Gruppe: Suchstrings im Session-Namen (DisplayName / Prozess)
-session_groups:
-  communication:
-    - Discord
-    - Teams
-    - Teamspeak
-  media:
-    - Chrome
-    - Brave
-    - Spotify
-    - Firefox
-  games:
-    - DayZ
-    - Stardew Valley
-    - Battlefield 6
-    - Icarus
-    - Rocket League
-    - Enshrouded
-    - Terraria
-    - Rust
-    - Diablo III
-    - Steam
-    - Battle.net
-    - SlimeRancher
+# Taster 0–4: smtc_previous | smtc_play_pause | smtc_next | discord_mute | discord_deafen | none
+button_mapping:
+  - smtc_previous
+  - smtc_play_pause
+  - smtc_next
+  - discord_mute
+  - discord_deafen
 
-# Taster-Mapping fest in Program.cs: 0 Previous, 1 Play/Pause, 2 Next, 3 Mute, 4 Deafen
+# Pro Gruppe: Suchstrings im Session-Namen (DisplayName / Prozess). Standard: leer — alles in der Programmbibliothek.
+session_groups: {}

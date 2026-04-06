@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+using Mixr.Services;
 
 namespace Mixr_App.Services;
 
@@ -36,6 +37,8 @@ public static class SteamLibraryScanner
         }
 
         return acc
+            .Where(g => !SteamLibraryFilter.IsIgnoredSteamGame(g.AppId, g.Name))
+            .Where(g => !CatalogIgnoreList.ShouldIgnore(g.Name))
             .GroupBy(g => g.AppId)
             .Select(g => g.First())
             .OrderBy(g => g.Name, StringComparer.OrdinalIgnoreCase)

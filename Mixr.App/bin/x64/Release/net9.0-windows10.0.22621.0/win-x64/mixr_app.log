@@ -1,45 +1,674 @@
-2026-04-03 21:07:08.229 Main entry (args: )
-2026-04-03 21:07:08.246 InitializeComWrappers …
-2026-04-03 21:07:08.247 InitializeComWrappers OK
-2026-04-03 21:07:08.247 Application.Start …
-2026-04-03 21:07:08.430 Application.Start callback (UI thread)
-2026-04-03 21:07:08.432 DispatcherQueue: ok
-2026-04-03 21:07:08.432 SynchronizationContext gesetzt
-2026-04-03 21:07:08.432 new App() …
-2026-04-03 21:07:08.434 App ctor (vor InitializeComponent)
-2026-04-03 21:07:08.442 new App() zurück
-2026-04-03 21:07:08.644 OnLaunched BaseDirectory=C:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\x64\Release\net9.0-windows10.0.22621.0\win-x64\
-2026-04-03 21:07:08.644 Erste Instanz — Mutex ok.
-2026-04-03 21:07:08.883 Tray: ForceCreate ok.
-2026-04-03 21:07:08.884 MixrHost: Start …
-2026-04-03 21:07:09.036 Mixr → COM automatisch (ESP32-S3 USB 303A:1001) @ 921600
-2026-04-03 21:07:09.036 Wiederverbindung bei USB.
-2026-04-03 21:07:09.037 Taster: 0 Previous | 1 Play/Pause | 2 Next | 3 Discord Mute | 4 Discord Deafen
-2026-04-03 21:07:09.037 Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele
-2026-04-03 21:07:10.605 Discord-Hotkeys: Strg+Linksshift+Alt — 9 Mute, 0 Deafen, 8 Share Screen.
-2026-04-03 21:07:11.126 Seriell verbunden (COM6).
-2026-04-03 21:08:18.668 USB/Seriell getrennt — nächster Versuch in 2 s …
-2026-04-03 21:08:20.768 Kein Mixr-USB-Gerät gefunden — Kabel prüfen, nächster Versuch in 2 s …
-2026-04-03 21:08:23.291 Kein Mixr-USB-Gerät gefunden — Kabel prüfen, nächster Versuch in 2 s …
-2026-04-03 21:08:25.422 Seriell verbunden (COM6).
-2026-04-03 21:08:43.438 USB/Seriell getrennt — nächster Versuch in 2 s …
-2026-04-03 21:08:45.593 Kein Mixr-USB-Gerät gefunden — Kabel prüfen, nächster Versuch in 2 s …
-2026-04-03 21:08:47.874 Seriell verbunden (COM6).
-2026-04-03 21:09:04.835 USB/Seriell getrennt — nächster Versuch in 2 s …
-2026-04-03 21:09:06.933 Kein Mixr-USB-Gerät gefunden — Kabel prüfen, nächster Versuch in 2 s …
-2026-04-03 21:09:09.049 Kein Mixr-USB-Gerät gefunden — Kabel prüfen, nächster Versuch in 2 s …
-2026-04-03 21:09:11.502 Kein Mixr-USB-Gerät gefunden — Kabel prüfen, nächster Versuch in 2 s …
-2026-04-03 21:09:13.949 Kein Mixr-USB-Gerät gefunden — Kabel prüfen, nächster Versuch in 2 s …
-2026-04-03 21:09:16.361 Kein Mixr-USB-Gerät gefunden — Kabel prüfen, nächster Versuch in 2 s …
-2026-04-03 21:09:18.767 Kein Mixr-USB-Gerät gefunden — Kabel prüfen, nächster Versuch in 2 s …
-2026-04-03 21:09:21.192 Kein Mixr-USB-Gerät gefunden — Kabel prüfen, nächster Versuch in 2 s …
-2026-04-03 21:09:23.295 Seriell verbunden (COM6).
-2026-04-03 21:09:36.234 USB/Seriell getrennt — nächster Versuch in 2 s …
-2026-04-03 21:09:38.336 Kein Mixr-USB-Gerät gefunden — Kabel prüfen, nächster Versuch in 2 s …
-2026-04-03 21:09:40.493 Kein Mixr-USB-Gerät gefunden — Kabel prüfen, nächster Versuch in 2 s …
-2026-04-03 21:09:43.079 Seriell verbunden (COM6).
-2026-04-03 21:12:05.568 → ESP: „The Death of an Innocent“ — Horses
-2026-04-03 21:13:17.096 → ESP: „This Senior Cat Was Completely Matted...But Wait Until You Hear Her Reactions 😹“ — Girl With The Dogs 2
-2026-04-03 21:13:17.408 → ESP: „This Senior Cat Was Completely Matted...But Wait Until You Hear Her Reactions 😹“ — Girl With The Dogs 2
-2026-04-03 21:13:31.969 → ESP: „Can I Survive in Bully Without Breaking School Rules?“ — ambiguousamphibian
-2026-04-03 21:13:32.281 → ESP: „Can I Survive in Bully Without Breaking School Rules?“ — ambiguousamphibian
+2026-04-05 02:14:17.345 Main entry (args: )
+2026-04-05 02:14:17.366 InitializeComWrappers …
+2026-04-05 02:14:17.366 InitializeComWrappers OK
+2026-04-05 02:14:17.366 Application.Start …
+2026-04-05 02:14:17.516 Application.Start callback (UI thread)
+2026-04-05 02:14:17.517 DispatcherQueue: ok
+2026-04-05 02:14:17.518 SynchronizationContext gesetzt
+2026-04-05 02:14:17.518 new App() …
+2026-04-05 02:14:17.520 App ctor (vor InitializeComponent)
+2026-04-05 02:14:17.529 new App() zurück
+2026-04-05 02:14:17.732 OnLaunched BaseDirectory=C:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\x64\Release\net9.0-windows10.0.22621.0\win-x64\
+2026-04-05 02:14:17.733 Erste Instanz — Mutex ok.
+2026-04-05 02:14:17.996 Tray: ForceCreate ok.
+2026-04-05 02:14:17.998 MixrHost: Start …
+2026-04-05 02:14:18.150 Mixr → COM automatisch (ESP32-S3 USB 303A:1001) @ 921600
+2026-04-05 02:14:18.150 Wiederverbindung bei USB; config.yaml wird überwacht.
+2026-04-05 02:14:18.151 Taster: siehe button_mapping in config.yaml (Standard: Prev / Play / Next / Mute / Deafen).
+2026-04-05 02:14:18.151 Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele
+2026-04-05 02:14:19.729 Discord-Hotkeys: Strg+Linksshift+Alt — 9 Mute, 0 Deafen, 8 Share Screen.
+2026-04-05 02:14:19.862 Auto-Erkennung: installierte Programme zu session_groups hinzugefügt (siehe config.yaml).
+2026-04-05 02:14:20.268 Konfiguration neu geladen (config.yaml).
+2026-04-05 02:14:20.487 Seriell verbunden (COM6).
+2026-04-05 02:15:43.892 Fader-Zuordnung gespeichert (config.yaml).
+2026-04-05 02:15:44.290 Konfiguration neu geladen (config.yaml).
+2026-04-05 02:16:05.182 Fader-Zuordnung gespeichert (config.yaml).
+2026-04-05 02:16:05.596 Konfiguration neu geladen (config.yaml).
+2026-04-05 02:16:21.005 MixrHost: beendet (normal).
+2026-04-05 03:30:43.276 Main entry (args: )
+2026-04-05 03:30:43.294 InitializeComWrappers …
+2026-04-05 03:30:43.295 InitializeComWrappers OK
+2026-04-05 03:30:43.295 Application.Start …
+2026-04-05 03:30:43.348 Application.Start callback (UI thread)
+2026-04-05 03:30:43.349 DispatcherQueue: ok
+2026-04-05 03:30:43.349 SynchronizationContext gesetzt
+2026-04-05 03:30:43.349 new App() …
+2026-04-05 03:30:43.351 App ctor (vor InitializeComponent)
+2026-04-05 03:30:43.359 new App() zurück
+2026-04-05 03:30:43.402 OnLaunched BaseDirectory=C:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\x64\Release\net9.0-windows10.0.22621.0\win-x64\
+2026-04-05 03:30:43.402 Erste Instanz — Mutex ok.
+2026-04-05 03:30:43.592 Tray: ForceCreate ok.
+2026-04-05 03:30:43.593 MixrHost: Start …
+2026-04-05 03:30:43.660 Mixr → COM automatisch (ESP32-S3 USB 303A:1001) @ 921600
+2026-04-05 03:30:43.661 Wiederverbindung bei USB; config.yaml wird überwacht.
+2026-04-05 03:30:43.661 Taster: siehe button_mapping in config.yaml (Standard: Prev / Play / Next / Mute / Deafen).
+2026-04-05 03:30:43.661 Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele
+2026-04-05 03:30:44.967 Discord-Hotkeys: Strg+Linksshift+Alt — 9 Mute, 0 Deafen, 8 Share Screen.
+2026-04-05 03:30:45.515 Seriell verbunden (COM6).
+2026-04-05 03:33:10.092 Fader-Zuordnung gespeichert (config.yaml).
+2026-04-05 03:33:10.493 Konfiguration neu geladen (config.yaml).
+2026-04-05 03:33:22.487 Fader-Zuordnung gespeichert (config.yaml).
+2026-04-05 03:33:22.889 Konfiguration neu geladen (config.yaml).
+2026-04-05 03:34:26.267 MixrHost: beendet (normal).
+2026-04-05 15:04:35.545 Main entry (args: )
+2026-04-05 15:04:35.586 InitializeComWrappers …
+2026-04-05 15:04:35.587 InitializeComWrappers OK
+2026-04-05 15:04:35.587 Application.Start …
+2026-04-05 15:04:35.670 Application.Start callback (UI thread)
+2026-04-05 15:04:35.672 DispatcherQueue: ok
+2026-04-05 15:04:35.672 SynchronizationContext gesetzt
+2026-04-05 15:04:35.673 new App() …
+2026-04-05 15:04:35.675 App ctor (vor InitializeComponent)
+2026-04-05 15:04:35.686 new App() zurück
+2026-04-05 15:04:35.888 OnLaunched BaseDirectory=C:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\x64\Release\net9.0-windows10.0.22621.0\win-x64\
+2026-04-05 15:04:35.888 Erste Instanz — Mutex ok.
+2026-04-05 15:04:36.236 Tray: ForceCreate ok.
+2026-04-05 15:04:36.238 MixrHost: Start …
+2026-04-05 15:04:36.431 Mixr → COM automatisch (ESP32-S3 USB 303A:1001) @ 921600
+2026-04-05 15:04:36.431 Wiederverbindung bei USB; config.yaml wird überwacht.
+2026-04-05 15:04:36.431 Taster: siehe button_mapping in config.yaml (Standard: Prev / Play / Next / Mute / Deafen).
+2026-04-05 15:04:36.432 Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele
+2026-04-05 15:04:42.554 Discord-Hotkeys: Strg+Linksshift+Alt — 9 Mute, 0 Deafen, 8 Share Screen.
+2026-04-05 15:04:43.414 Seriell verbunden (COM6).
+2026-04-05 23:07:10.797 [ESP] Button: 3
+2026-04-05 23:07:10.885 → Discord: Toggle-Mute (Taster 3 (discord_mute))
+2026-04-05 23:07:11.571 [ESP] Button: 3
+2026-04-05 23:07:11.574 → Discord: Toggle-Mute (Taster 3 (discord_mute))
+2026-04-05 23:07:12.396 [ESP] Button: 3
+2026-04-05 23:07:12.401 → Discord: Toggle-Mute (Taster 3 (discord_mute))
+2026-04-05 23:07:14.871 [ESP] Button: 3
+2026-04-05 23:07:14.877 → Discord: Toggle-Mute (Taster 3 (discord_mute))
+2026-04-05 23:07:18.696 [ESP] Button: 3
+2026-04-05 23:07:18.700 → Discord: Toggle-Mute (Taster 3 (discord_mute))
+2026-04-05 23:07:19.297 [ESP] Button: 3
+2026-04-05 23:07:19.302 → Discord: Toggle-Mute (Taster 3 (discord_mute))
+2026-04-05 23:08:10.604 → ESP: „The Entire History of Batman“ — alex lennen
+2026-04-05 23:08:10.949 → ESP: „The Entire History of Batman“ — alex lennen
+2026-04-05 23:12:34.939 → ESP: „makko - G.I.N.A. (GELDISTNICHTALLES)“ — makko
+2026-04-05 23:12:35.242 → ESP: „makko - G.I.N.A. (GELDISTNICHTALLES)“ — makko
+2026-04-05 23:15:36.223 → ESP: „UNDERCOVER“ — makko - Topic
+2026-04-05 23:15:36.533 → ESP: „UNDERCOVER“ — makko - Topic
+2026-04-05 23:18:11.036 → ESP: „IM GLASHAUS MIT SCHEINEN WERFEN“ — makko - Topic
+2026-04-05 23:18:11.342 → ESP: „IM GLASHAUS MIT SCHEINEN WERFEN“ — makko - Topic
+2026-04-05 23:21:39.984 → ESP: „Ausreden“ — makko - Topic
+2026-04-05 23:21:40.314 → ESP: „Ausreden“ — makko - Topic
+2026-04-05 23:22:16.316 → ESP: „END OF THE WORLD PARTYS VOL.4“ — ¢ 🜃 i
+2026-04-05 23:22:16.623 → ESP: „END OF THE WORLD PARTYS VOL.4“ — ¢ 🜃 i
+2026-04-05 23:22:27.533 → ESP: „I'm living on the moon“ — ¢ 🜃 i
+2026-04-05 23:22:27.837 → ESP: „I'm living on the moon“ — ¢ 🜃 i
+2026-04-05 23:22:52.411 → ESP: „"Cool Kids" Twin Cabins“ — ¢ 🜃 i
+2026-04-05 23:22:52.730 → ESP: „"Cool Kids" Twin Cabins“ — ¢ 🜃 i
+2026-04-05 23:24:28.716 MixrHost: beendet (normal).
+2026-04-05 23:26:36.418 Main entry (args: )
+2026-04-05 23:26:36.435 InitializeComWrappers …
+2026-04-05 23:26:36.436 InitializeComWrappers OK
+2026-04-05 23:26:36.436 Application.Start …
+2026-04-05 23:26:36.490 Application.Start callback (UI thread)
+2026-04-05 23:26:36.491 DispatcherQueue: ok
+2026-04-05 23:26:36.492 SynchronizationContext gesetzt
+2026-04-05 23:26:36.492 new App() …
+2026-04-05 23:26:36.493 App ctor (vor InitializeComponent)
+2026-04-05 23:26:36.501 new App() zurück
+2026-04-05 23:26:36.619 OnLaunched BaseDirectory=C:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\x64\Release\net9.0-windows10.0.22621.0\win-x64\
+2026-04-05 23:26:36.619 Erste Instanz — Mutex ok.
+2026-04-05 23:26:36.786 Tray: ForceCreate ok.
+2026-04-05 23:26:36.787 MixrHost: Start …
+2026-04-05 23:26:36.853 Mixr → COM automatisch (ESP32-S3 USB 303A:1001) @ 921600
+2026-04-05 23:26:36.854 Wiederverbindung bei USB; config.yaml wird überwacht.
+2026-04-05 23:26:36.854 Taster: siehe button_mapping in config.yaml (Standard: Prev / Play / Next / Mute / Deafen).
+2026-04-05 23:26:36.854 Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele
+2026-04-05 23:26:36.904 Tray: ContextFlyout.XamlRoot gesetzt.
+2026-04-05 23:26:38.255 Discord-Hotkeys: Strg+Linksshift+Alt — 9 Mute, 0 Deafen, 8 Share Screen.
+2026-04-05 23:26:38.646 Auto-Erkennung: installierte Programme zu session_groups hinzugefügt (siehe config.yaml).
+2026-04-05 23:26:39.035 Seriell verbunden (COM6).
+2026-04-05 23:26:39.051 Konfiguration neu geladen (config.yaml).
+2026-04-05 23:27:20.609 → ESP: „Netflix“ — —
+2026-04-05 23:28:12.121 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-05 23:28:12.520 Konfiguration neu geladen (config.yaml).
+2026-04-05 23:28:21.841 MixrHost: beendet (normal).
+2026-04-05 23:31:23.110 Main entry (args: )
+2026-04-05 23:31:23.128 InitializeComWrappers …
+2026-04-05 23:31:23.129 InitializeComWrappers OK
+2026-04-05 23:31:23.129 Application.Start …
+2026-04-05 23:31:23.180 Application.Start callback (UI thread)
+2026-04-05 23:31:23.181 DispatcherQueue: ok
+2026-04-05 23:31:23.182 SynchronizationContext gesetzt
+2026-04-05 23:31:23.182 new App() …
+2026-04-05 23:31:23.184 App ctor (vor InitializeComponent)
+2026-04-05 23:31:23.191 new App() zurück
+2026-04-05 23:31:23.230 OnLaunched BaseDirectory=C:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\x64\Release\net9.0-windows10.0.22621.0\win-x64\
+2026-04-05 23:31:23.230 Erste Instanz — Mutex ok.
+2026-04-05 23:31:23.418 Tray: ForceCreate ok.
+2026-04-05 23:31:23.419 MixrHost: Start …
+2026-04-05 23:31:23.490 Mixr → COM automatisch (ESP32-S3 USB 303A:1001) @ 921600
+2026-04-05 23:31:23.490 Wiederverbindung bei USB; config.yaml wird überwacht.
+2026-04-05 23:31:23.490 Taster: siehe button_mapping in config.yaml (Standard: Prev / Play / Next / Mute / Deafen).
+2026-04-05 23:31:23.490 Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele
+2026-04-05 23:31:23.526 Tray: ContextFlyout.XamlRoot gesetzt.
+2026-04-05 23:31:24.858 Discord-Hotkeys: Strg+Linksshift+Alt — 9 Mute, 0 Deafen, 8 Share Screen.
+2026-04-05 23:31:25.301 Auto-Erkennung: installierte Programme zu session_groups hinzugefügt (siehe config.yaml).
+2026-04-05 23:31:25.541 Seriell verbunden (COM6).
+2026-04-05 23:31:25.709 Konfiguration neu geladen (config.yaml).
+2026-04-05 23:31:32.849 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-05 23:31:33.250 Konfiguration neu geladen (config.yaml).
+2026-04-05 23:31:34.725 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-05 23:31:35.126 Konfiguration neu geladen (config.yaml).
+2026-04-05 23:31:37.372 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-05 23:31:37.769 Konfiguration neu geladen (config.yaml).
+2026-04-05 23:31:41.302 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-05 23:31:41.451 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-05 23:31:41.590 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-05 23:31:41.726 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-05 23:31:41.870 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-05 23:31:42.009 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-05 23:31:42.160 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-05 23:31:42.311 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-05 23:31:42.447 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-05 23:31:42.588 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-05 23:31:42.735 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-05 23:31:43.146 Konfiguration neu geladen (config.yaml).
+2026-04-05 23:31:45.018 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-05 23:31:45.162 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-05 23:31:45.305 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-05 23:31:45.447 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-05 23:31:45.601 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-05 23:31:46.008 Konfiguration neu geladen (config.yaml).
+2026-04-05 23:31:46.827 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-05 23:31:46.971 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-05 23:31:47.105 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-05 23:31:47.509 Konfiguration neu geladen (config.yaml).
+2026-04-05 23:32:34.753 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-05 23:32:35.153 Konfiguration neu geladen (config.yaml).
+2026-04-05 23:32:36.097 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-05 23:32:36.497 Konfiguration neu geladen (config.yaml).
+2026-04-05 23:32:37.214 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-05 23:32:37.616 Konfiguration neu geladen (config.yaml).
+2026-04-05 23:32:39.307 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-05 23:32:39.706 Konfiguration neu geladen (config.yaml).
+2026-04-05 23:32:40.206 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-05 23:32:40.606 Konfiguration neu geladen (config.yaml).
+2026-04-05 23:32:41.576 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-05 23:32:41.972 Konfiguration neu geladen (config.yaml).
+2026-04-05 23:32:42.333 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-05 23:32:42.731 Konfiguration neu geladen (config.yaml).
+2026-04-05 23:32:43.038 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-05 23:32:43.431 Konfiguration neu geladen (config.yaml).
+2026-04-05 23:32:43.817 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-05 23:32:44.221 Konfiguration neu geladen (config.yaml).
+2026-04-05 23:32:44.643 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-05 23:32:45.044 Konfiguration neu geladen (config.yaml).
+2026-04-05 23:32:45.551 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-05 23:32:45.959 Konfiguration neu geladen (config.yaml).
+2026-04-05 23:32:48.023 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-05 23:32:48.421 Konfiguration neu geladen (config.yaml).
+2026-04-05 23:38:24.701 MixrHost: beendet (normal).
+2026-04-05 23:39:02.110 Main entry (args: )
+2026-04-05 23:39:02.128 InitializeComWrappers …
+2026-04-05 23:39:02.129 InitializeComWrappers OK
+2026-04-05 23:39:02.129 Application.Start …
+2026-04-05 23:39:02.181 Application.Start callback (UI thread)
+2026-04-05 23:39:02.182 DispatcherQueue: ok
+2026-04-05 23:39:02.183 SynchronizationContext gesetzt
+2026-04-05 23:39:02.183 new App() …
+2026-04-05 23:39:02.184 App ctor (vor InitializeComponent)
+2026-04-05 23:39:02.192 new App() zurück
+2026-04-05 23:39:02.229 OnLaunched BaseDirectory=C:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\x64\Release\net9.0-windows10.0.22621.0\win-x64\
+2026-04-05 23:39:02.229 Erste Instanz — Mutex ok.
+2026-04-05 23:39:02.424 Tray: ForceCreate ok.
+2026-04-05 23:39:02.426 MixrHost: Start …
+2026-04-05 23:39:02.495 Mixr → COM automatisch (ESP32-S3 USB 303A:1001) @ 921600
+2026-04-05 23:39:02.495 Wiederverbindung bei USB; config.yaml wird überwacht.
+2026-04-05 23:39:02.495 Taster: siehe button_mapping in config.yaml (Standard: Prev / Play / Next / Mute / Deafen).
+2026-04-05 23:39:02.495 Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele
+2026-04-05 23:39:02.540 Tray: ContextFlyout.XamlRoot gesetzt.
+2026-04-05 23:39:03.808 Discord-Hotkeys: Strg+Linksshift+Alt — 9 Mute, 0 Deafen, 8 Share Screen.
+2026-04-05 23:39:04.439 Seriell verbunden (COM6).
+2026-04-05 23:42:08.738 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-05 23:42:09.143 Konfiguration neu geladen (config.yaml).
+2026-04-05 23:42:21.610 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-05 23:42:22.010 Konfiguration neu geladen (config.yaml).
+2026-04-05 23:42:22.433 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-05 23:42:22.833 Konfiguration neu geladen (config.yaml).
+2026-04-06 00:17:15.466 → ESP: „Netflix“ — —
+2026-04-06 00:32:00.180 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 00:32:00.577 Konfiguration neu geladen (config.yaml).
+2026-04-06 00:32:03.729 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 00:32:04.130 Konfiguration neu geladen (config.yaml).
+2026-04-06 01:38:32.243 MixrHost: beendet (normal).
+2026-04-06 01:40:14.032 Main entry (args: )
+2026-04-06 01:40:14.051 InitializeComWrappers …
+2026-04-06 01:40:14.052 InitializeComWrappers OK
+2026-04-06 01:40:14.052 Application.Start …
+2026-04-06 01:40:14.105 Application.Start callback (UI thread)
+2026-04-06 01:40:14.106 DispatcherQueue: ok
+2026-04-06 01:40:14.106 SynchronizationContext gesetzt
+2026-04-06 01:40:14.106 new App() …
+2026-04-06 01:40:14.108 App ctor (vor InitializeComponent)
+2026-04-06 01:40:14.116 new App() zurück
+2026-04-06 01:40:14.241 OnLaunched BaseDirectory=C:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\x64\Release\net9.0-windows10.0.22621.0\win-x64\
+2026-04-06 01:40:14.241 Erste Instanz — Mutex ok.
+2026-04-06 01:40:14.418 Tray: ForceCreate ok.
+2026-04-06 01:40:14.420 MixrHost: Start …
+2026-04-06 01:40:14.487 Mixr → COM automatisch (ESP32-S3 USB 303A:1001) @ 921600
+2026-04-06 01:40:14.487 Wiederverbindung bei USB; config.yaml wird überwacht.
+2026-04-06 01:40:14.487 Taster: siehe button_mapping in config.yaml (Standard: Prev / Play / Next / Mute / Deafen).
+2026-04-06 01:40:14.487 Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele
+2026-04-06 01:40:14.538 Tray: ContextFlyout.XamlRoot gesetzt.
+2026-04-06 01:40:14.556 Auto-Erkennung: session_groups ergänzt (master · Kommunikation · Medien · Spiele, siehe config.yaml).
+2026-04-06 01:40:15.899 Discord-Hotkeys: Strg+Linksshift+Alt — 9 Mute, 0 Deafen, 8 Share Screen.
+2026-04-06 01:40:16.482 Seriell verbunden (COM6).
+2026-04-06 01:42:30.706 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 01:42:31.114 Konfiguration neu geladen (config.yaml).
+2026-04-06 01:42:32.375 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 01:42:32.771 Konfiguration neu geladen (config.yaml).
+2026-04-06 01:42:33.337 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 01:42:33.734 Konfiguration neu geladen (config.yaml).
+2026-04-06 01:42:34.679 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 01:42:35.083 Konfiguration neu geladen (config.yaml).
+2026-04-06 01:42:35.633 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 01:42:36.033 Konfiguration neu geladen (config.yaml).
+2026-04-06 01:42:37.609 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 01:42:38.015 Konfiguration neu geladen (config.yaml).
+2026-04-06 01:42:38.339 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 01:42:38.745 Konfiguration neu geladen (config.yaml).
+2026-04-06 01:42:39.446 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 01:42:39.848 Konfiguration neu geladen (config.yaml).
+2026-04-06 01:42:40.019 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 01:42:40.420 Konfiguration neu geladen (config.yaml).
+2026-04-06 01:42:40.635 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 01:42:41.040 Konfiguration neu geladen (config.yaml).
+2026-04-06 01:42:42.174 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 01:42:42.581 Konfiguration neu geladen (config.yaml).
+2026-04-06 01:42:43.244 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 01:42:43.635 Konfiguration neu geladen (config.yaml).
+2026-04-06 01:42:43.774 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 01:42:44.178 Konfiguration neu geladen (config.yaml).
+2026-04-06 01:42:52.662 MixrHost: beendet (normal).
+2026-04-06 01:45:31.655 Main entry (args: )
+2026-04-06 01:45:31.673 InitializeComWrappers …
+2026-04-06 01:45:31.673 InitializeComWrappers OK
+2026-04-06 01:45:31.674 Application.Start …
+2026-04-06 01:45:31.729 Application.Start callback (UI thread)
+2026-04-06 01:45:31.730 DispatcherQueue: ok
+2026-04-06 01:45:31.730 SynchronizationContext gesetzt
+2026-04-06 01:45:31.730 new App() …
+2026-04-06 01:45:31.732 App ctor (vor InitializeComponent)
+2026-04-06 01:45:31.740 new App() zurück
+2026-04-06 01:45:31.866 OnLaunched BaseDirectory=C:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\x64\Release\net9.0-windows10.0.22621.0\win-x64\
+2026-04-06 01:45:31.866 Erste Instanz — Mutex ok.
+2026-04-06 01:45:32.050 Tray: ForceCreate ok.
+2026-04-06 01:45:32.052 MixrHost: Start …
+2026-04-06 01:45:32.122 Mixr → COM automatisch (ESP32-S3 USB 303A:1001) @ 921600
+2026-04-06 01:45:32.123 Wiederverbindung bei USB; config.yaml wird überwacht.
+2026-04-06 01:45:32.123 Taster: siehe button_mapping in config.yaml (Standard: Prev / Play / Next / Mute / Deafen).
+2026-04-06 01:45:32.123 Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele
+2026-04-06 01:45:32.165 Auto-Erkennung: session_groups ergänzt (master · Kommunikation · Medien · Spiele, siehe config.yaml).
+2026-04-06 01:45:32.167 Tray: ContextFlyout.XamlRoot gesetzt.
+2026-04-06 01:45:33.508 Discord-Hotkeys: Strg+Linksshift+Alt — 9 Mute, 0 Deafen, 8 Share Screen.
+2026-04-06 01:45:34.101 Seriell verbunden (COM6).
+2026-04-06 01:49:01.346 MixrHost: beendet (normal).
+2026-04-06 01:49:49.141 Main entry (args: )
+2026-04-06 01:49:49.158 InitializeComWrappers …
+2026-04-06 01:49:49.159 InitializeComWrappers OK
+2026-04-06 01:49:49.159 Application.Start …
+2026-04-06 01:49:49.213 Application.Start callback (UI thread)
+2026-04-06 01:49:49.214 DispatcherQueue: ok
+2026-04-06 01:49:49.214 SynchronizationContext gesetzt
+2026-04-06 01:49:49.214 new App() …
+2026-04-06 01:49:49.216 App ctor (vor InitializeComponent)
+2026-04-06 01:49:49.223 new App() zurück
+2026-04-06 01:49:49.263 OnLaunched BaseDirectory=C:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\x64\Release\net9.0-windows10.0.22621.0\win-x64\
+2026-04-06 01:49:49.263 Erste Instanz — Mutex ok.
+2026-04-06 01:49:49.470 Tray: ForceCreate ok.
+2026-04-06 01:49:49.472 MixrHost: Start …
+2026-04-06 01:49:49.546 Mixr → COM automatisch (ESP32-S3 USB 303A:1001) @ 921600
+2026-04-06 01:49:49.547 Wiederverbindung bei USB; config.yaml wird überwacht.
+2026-04-06 01:49:49.547 Taster: siehe button_mapping in config.yaml (Standard: Prev / Play / Next / Mute / Deafen).
+2026-04-06 01:49:49.547 Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele
+2026-04-06 01:49:49.583 Tray: ContextFlyout.XamlRoot gesetzt.
+2026-04-06 01:49:50.994 Discord-Hotkeys: Strg+Linksshift+Alt — 9 Mute, 0 Deafen, 8 Share Screen.
+2026-04-06 01:49:51.663 Seriell verbunden (COM6).
+2026-04-06 01:50:11.719 MixrHost: beendet (normal).
+2026-04-06 01:50:49.877 Main entry (args: )
+2026-04-06 01:50:49.895 InitializeComWrappers …
+2026-04-06 01:50:49.895 InitializeComWrappers OK
+2026-04-06 01:50:49.895 Application.Start …
+2026-04-06 01:50:49.946 Application.Start callback (UI thread)
+2026-04-06 01:50:49.948 DispatcherQueue: ok
+2026-04-06 01:50:49.948 SynchronizationContext gesetzt
+2026-04-06 01:50:49.948 new App() …
+2026-04-06 01:50:49.950 App ctor (vor InitializeComponent)
+2026-04-06 01:50:49.958 new App() zurück
+2026-04-06 01:50:49.994 OnLaunched BaseDirectory=C:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\x64\Release\net9.0-windows10.0.22621.0\win-x64\
+2026-04-06 01:50:49.995 Erste Instanz — Mutex ok.
+2026-04-06 01:50:50.193 Tray: ForceCreate ok.
+2026-04-06 01:50:50.195 MixrHost: Start …
+2026-04-06 01:50:50.265 Mixr → COM automatisch (ESP32-S3 USB 303A:1001) @ 921600
+2026-04-06 01:50:50.266 Wiederverbindung bei USB; config.yaml wird überwacht.
+2026-04-06 01:50:50.266 Taster: siehe button_mapping in config.yaml (Standard: Prev / Play / Next / Mute / Deafen).
+2026-04-06 01:50:50.266 Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele
+2026-04-06 01:50:50.316 Tray: ContextFlyout.XamlRoot gesetzt.
+2026-04-06 01:50:51.619 Discord-Hotkeys: Strg+Linksshift+Alt — 9 Mute, 0 Deafen, 8 Share Screen.
+2026-04-06 01:50:52.300 Seriell verbunden (COM6).
+2026-04-06 01:50:58.636 MixrHost: beendet (normal).
+2026-04-06 01:56:15.843 Main entry (args: )
+2026-04-06 01:56:15.861 InitializeComWrappers …
+2026-04-06 01:56:15.862 InitializeComWrappers OK
+2026-04-06 01:56:15.862 Application.Start …
+2026-04-06 01:56:15.914 Application.Start callback (UI thread)
+2026-04-06 01:56:15.915 DispatcherQueue: ok
+2026-04-06 01:56:15.915 SynchronizationContext gesetzt
+2026-04-06 01:56:15.915 new App() …
+2026-04-06 01:56:15.917 App ctor (vor InitializeComponent)
+2026-04-06 01:56:15.925 new App() zurück
+2026-04-06 01:56:15.969 OnLaunched BaseDirectory=C:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\x64\Release\net9.0-windows10.0.22621.0\win-x64\
+2026-04-06 01:56:15.969 Erste Instanz — Mutex ok.
+2026-04-06 01:56:16.162 Tray: ForceCreate ok.
+2026-04-06 01:56:16.164 MixrHost: Start …
+2026-04-06 01:56:16.233 Mixr → COM automatisch (ESP32-S3 USB 303A:1001) @ 921600
+2026-04-06 01:56:16.233 Wiederverbindung bei USB; config.yaml wird überwacht.
+2026-04-06 01:56:16.233 Taster: siehe button_mapping in config.yaml (Standard: Prev / Play / Next / Mute / Deafen).
+2026-04-06 01:56:16.234 Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele
+2026-04-06 01:56:16.280 Tray: ContextFlyout.XamlRoot gesetzt.
+2026-04-06 01:56:17.607 Discord-Hotkeys: Strg+Linksshift+Alt — 9 Mute, 0 Deafen, 8 Share Screen.
+2026-04-06 01:56:18.087 Seriell verbunden (COM6).
+2026-04-06 01:56:47.790 → ESP: „Childish Gambino - Feels Like Summer (Official Video)“ — ChildishGambinoVEVO
+2026-04-06 01:56:48.098 → ESP: „Childish Gambino - Feels Like Summer (Official Video)“ — ChildishGambinoVEVO
+2026-04-06 01:56:50.227 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 01:56:50.625 Konfiguration neu geladen (config.yaml).
+2026-04-06 01:57:30.079 → ESP: „Travis Scott - Type Shit Extended (TRAVIS VERSE ONLY)“ — ema
+2026-04-06 01:57:30.391 → ESP: „Travis Scott - Type Shit Extended (TRAVIS VERSE ONLY)“ — ema
+2026-04-06 01:57:37.316 → ESP: „Troye Sivan - Rush (Official Video)“ — TroyeSivanVEVO
+2026-04-06 01:57:37.624 → ESP: „Troye Sivan - Rush (Official Video)“ — TroyeSivanVEVO
+2026-04-06 01:58:31.354 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 01:58:31.748 Konfiguration neu geladen (config.yaml).
+2026-04-06 01:58:32.207 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 01:58:32.613 Konfiguration neu geladen (config.yaml).
+2026-04-06 01:58:34.852 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 01:58:35.037 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 01:58:35.190 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 01:58:35.344 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 01:58:35.738 Konfiguration neu geladen (config.yaml).
+2026-04-06 01:58:37.046 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 01:58:37.216 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 01:58:37.359 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 01:58:37.501 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 01:58:37.643 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 01:58:37.798 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 01:58:37.936 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 01:58:38.171 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 01:58:38.320 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 01:58:38.466 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 01:58:38.621 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 01:58:38.778 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 01:58:38.922 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 01:58:39.068 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 01:58:39.229 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 01:58:39.633 Konfiguration neu geladen (config.yaml).
+2026-04-06 01:58:41.506 MixrHost: beendet (normal).
+2026-04-06 01:59:33.216 Main entry (args: )
+2026-04-06 01:59:33.234 InitializeComWrappers …
+2026-04-06 01:59:33.235 InitializeComWrappers OK
+2026-04-06 01:59:33.235 Application.Start …
+2026-04-06 01:59:33.288 Application.Start callback (UI thread)
+2026-04-06 01:59:33.289 DispatcherQueue: ok
+2026-04-06 01:59:33.289 SynchronizationContext gesetzt
+2026-04-06 01:59:33.289 new App() …
+2026-04-06 01:59:33.291 App ctor (vor InitializeComponent)
+2026-04-06 01:59:33.298 new App() zurück
+2026-04-06 01:59:33.340 OnLaunched BaseDirectory=C:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\x64\Release\net9.0-windows10.0.22621.0\win-x64\
+2026-04-06 01:59:33.340 Erste Instanz — Mutex ok.
+2026-04-06 01:59:33.535 Tray: ForceCreate ok.
+2026-04-06 01:59:33.537 MixrHost: Start …
+2026-04-06 01:59:33.608 Mixr → COM automatisch (ESP32-S3 USB 303A:1001) @ 921600
+2026-04-06 01:59:33.609 Wiederverbindung bei USB; config.yaml wird überwacht.
+2026-04-06 01:59:33.609 Taster: siehe button_mapping in config.yaml (Standard: Prev / Play / Next / Mute / Deafen).
+2026-04-06 01:59:33.609 Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele
+2026-04-06 01:59:33.651 Auto-Erkennung: session_groups ergänzt (master · Kommunikation · Medien · Spiele, siehe config.yaml).
+2026-04-06 01:59:33.652 Tray: ContextFlyout.XamlRoot gesetzt.
+2026-04-06 01:59:34.965 Discord-Hotkeys: Strg+Linksshift+Alt — 9 Mute, 0 Deafen, 8 Share Screen.
+2026-04-06 01:59:35.573 Seriell verbunden (COM6).
+2026-04-06 01:59:41.392 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 01:59:41.788 Konfiguration neu geladen (config.yaml).
+2026-04-06 02:00:50.429 → ESP: „Charli XCX - Break The Rules (Zyzz Hardstyle Bootleg)“ — Chilled Air
+2026-04-06 02:00:50.732 → ESP: „Charli XCX - Break The Rules (Zyzz Hardstyle Bootleg)“ — Chilled Air
+2026-04-06 02:02:26.989 MixrHost: beendet (normal).
+2026-04-06 02:02:42.412 Main entry (args: )
+2026-04-06 02:02:42.430 InitializeComWrappers …
+2026-04-06 02:02:42.431 InitializeComWrappers OK
+2026-04-06 02:02:42.431 Application.Start …
+2026-04-06 02:02:42.483 Application.Start callback (UI thread)
+2026-04-06 02:02:42.484 DispatcherQueue: ok
+2026-04-06 02:02:42.484 SynchronizationContext gesetzt
+2026-04-06 02:02:42.484 new App() …
+2026-04-06 02:02:42.486 App ctor (vor InitializeComponent)
+2026-04-06 02:02:42.493 new App() zurück
+2026-04-06 02:02:42.619 OnLaunched BaseDirectory=C:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\x64\Release\net9.0-windows10.0.22621.0\win-x64\
+2026-04-06 02:02:42.619 Erste Instanz — Mutex ok.
+2026-04-06 02:02:42.793 Tray: ForceCreate ok.
+2026-04-06 02:02:42.794 MixrHost: Start …
+2026-04-06 02:02:42.862 Mixr → COM automatisch (ESP32-S3 USB 303A:1001) @ 921600
+2026-04-06 02:02:42.862 Wiederverbindung bei USB; config.yaml wird überwacht.
+2026-04-06 02:02:42.862 Taster: siehe button_mapping in config.yaml (Standard: Prev / Play / Next / Mute / Deafen).
+2026-04-06 02:02:42.862 Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele
+2026-04-06 02:02:42.904 Auto-Erkennung: session_groups ergänzt (master · Kommunikation · Medien · Spiele, siehe config.yaml).
+2026-04-06 02:02:42.906 Tray: ContextFlyout.XamlRoot gesetzt.
+2026-04-06 02:02:44.214 Discord-Hotkeys: Strg+Linksshift+Alt — 9 Mute, 0 Deafen, 8 Share Screen.
+2026-04-06 02:02:44.721 Seriell verbunden (COM6).
+2026-04-06 02:03:55.144 → ESP: „GYM HARDSTYLE - Middle of the Night Dom Livez Hardstyle Remix (4K)“ — Lyck
+2026-04-06 02:03:55.454 → ESP: „GYM HARDSTYLE - Middle of the Night Dom Livez Hardstyle Remix (4K)“ — Lyck
+2026-04-06 02:04:58.464 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:04:58.859 Konfiguration neu geladen (config.yaml).
+2026-04-06 02:05:00.996 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:05:01.398 Konfiguration neu geladen (config.yaml).
+2026-04-06 02:05:01.775 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:05:02.173 Konfiguration neu geladen (config.yaml).
+2026-04-06 02:05:02.282 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:05:02.685 Konfiguration neu geladen (config.yaml).
+2026-04-06 02:05:55.928 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:05:56.325 Konfiguration neu geladen (config.yaml).
+2026-04-06 02:06:01.038 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:06:01.444 Konfiguration neu geladen (config.yaml).
+2026-04-06 02:06:04.409 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:06:04.803 Konfiguration neu geladen (config.yaml).
+2026-04-06 02:06:07.224 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:06:07.630 Konfiguration neu geladen (config.yaml).
+2026-04-06 02:06:08.063 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:06:08.467 Konfiguration neu geladen (config.yaml).
+2026-04-06 02:06:24.953 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:06:25.350 Konfiguration neu geladen (config.yaml).
+2026-04-06 02:06:27.077 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:06:27.490 Konfiguration neu geladen (config.yaml).
+2026-04-06 02:06:29.779 → ESP: „SICK CVNT - HEADS WILL ROLL HARDSTYLE“ — SICK LEGEND
+2026-04-06 02:06:30.087 → ESP: „SICK CVNT - HEADS WILL ROLL HARDSTYLE“ — SICK LEGEND
+2026-04-06 02:06:39.133 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:06:39.536 Konfiguration neu geladen (config.yaml).
+2026-04-06 02:07:23.428 → ESP: „Arrow.“ — Implicitly Pretentious
+2026-04-06 02:07:23.790 → ESP: „Arrow.“ — Implicitly Pretentious
+2026-04-06 02:07:32.389 → ESP: „Doom Patrol.“ — Implicitly Pretentious
+2026-04-06 02:07:32.711 → ESP: „Doom Patrol.“ — Implicitly Pretentious
+2026-04-06 02:08:34.833 MixrHost: beendet (normal).
+2026-04-06 02:11:50.346 Main entry (args: )
+2026-04-06 02:11:50.364 InitializeComWrappers …
+2026-04-06 02:11:50.365 InitializeComWrappers OK
+2026-04-06 02:11:50.365 Application.Start …
+2026-04-06 02:11:50.417 Application.Start callback (UI thread)
+2026-04-06 02:11:50.418 DispatcherQueue: ok
+2026-04-06 02:11:50.418 SynchronizationContext gesetzt
+2026-04-06 02:11:50.418 new App() …
+2026-04-06 02:11:50.420 App ctor (vor InitializeComponent)
+2026-04-06 02:11:50.428 new App() zurück
+2026-04-06 02:11:50.555 OnLaunched BaseDirectory=C:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\x64\Release\net9.0-windows10.0.22621.0\win-x64\
+2026-04-06 02:11:50.555 Erste Instanz — Mutex ok.
+2026-04-06 02:11:50.741 Tray: ForceCreate ok.
+2026-04-06 02:11:50.743 MixrHost: Start …
+2026-04-06 02:11:50.815 Mixr → COM automatisch (ESP32-S3 USB 303A:1001) @ 921600
+2026-04-06 02:11:50.815 Wiederverbindung bei USB; config.yaml wird überwacht.
+2026-04-06 02:11:50.815 Taster: siehe button_mapping in config.yaml (Standard: Prev / Play / Next / Mute / Deafen).
+2026-04-06 02:11:50.815 Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele
+2026-04-06 02:11:50.858 Auto-Erkennung: session_groups ergänzt (master · Kommunikation · Medien · Spiele, siehe config.yaml).
+2026-04-06 02:11:50.863 Tray: ContextFlyout.XamlRoot gesetzt.
+2026-04-06 02:11:52.253 Discord-Hotkeys: Strg+Linksshift+Alt — 9 Mute, 0 Deafen, 8 Share Screen.
+2026-04-06 02:11:52.926 Seriell verbunden (COM6).
+2026-04-06 02:12:10.947 → ESP: „Doom Patrol.“ — Implicitly Pretentious
+2026-04-06 02:12:22.133 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:12:22.535 Konfiguration neu geladen (config.yaml).
+2026-04-06 02:12:23.053 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:12:23.446 Konfiguration neu geladen (config.yaml).
+2026-04-06 02:12:23.564 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:12:23.972 Konfiguration neu geladen (config.yaml).
+2026-04-06 02:12:24.610 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:12:25.008 Konfiguration neu geladen (config.yaml).
+2026-04-06 02:12:25.638 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:12:26.049 Konfiguration neu geladen (config.yaml).
+2026-04-06 02:12:26.274 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:12:26.680 Konfiguration neu geladen (config.yaml).
+2026-04-06 02:12:29.783 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:12:30.181 Konfiguration neu geladen (config.yaml).
+2026-04-06 02:12:30.473 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:12:30.647 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:12:30.953 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:12:31.298 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:12:31.619 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:12:31.798 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:12:31.973 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:12:32.378 Konfiguration neu geladen (config.yaml).
+2026-04-06 02:12:33.400 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:12:33.559 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:12:33.728 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:12:34.124 Konfiguration neu geladen (config.yaml).
+2026-04-06 02:12:34.532 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:12:34.927 Konfiguration neu geladen (config.yaml).
+2026-04-06 02:12:39.571 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:12:39.972 Konfiguration neu geladen (config.yaml).
+2026-04-06 02:12:44.079 MixrHost: beendet (normal).
+2026-04-06 02:22:07.089 Main entry (args: )
+2026-04-06 02:22:07.107 InitializeComWrappers …
+2026-04-06 02:22:07.108 InitializeComWrappers OK
+2026-04-06 02:22:07.108 Application.Start …
+2026-04-06 02:22:07.160 Application.Start callback (UI thread)
+2026-04-06 02:22:07.161 DispatcherQueue: ok
+2026-04-06 02:22:07.162 SynchronizationContext gesetzt
+2026-04-06 02:22:07.162 new App() …
+2026-04-06 02:22:07.164 App ctor (vor InitializeComponent)
+2026-04-06 02:22:07.171 new App() zurück
+2026-04-06 02:22:07.214 OnLaunched BaseDirectory=C:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\x64\Release\net9.0-windows10.0.22621.0\win-x64\
+2026-04-06 02:22:07.215 Erste Instanz — Mutex ok.
+2026-04-06 02:22:07.408 Tray: ForceCreate ok.
+2026-04-06 02:22:07.410 MixrHost: Start …
+2026-04-06 02:22:07.480 Mixr → COM automatisch (ESP32-S3 USB 303A:1001) @ 921600
+2026-04-06 02:22:07.480 Wiederverbindung bei USB; config.yaml wird überwacht.
+2026-04-06 02:22:07.480 Taster: siehe button_mapping in config.yaml (Standard: Prev / Play / Next / Mute / Deafen).
+2026-04-06 02:22:07.480 Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele
+2026-04-06 02:22:07.518 Tray: ContextFlyout.XamlRoot gesetzt.
+2026-04-06 02:22:07.525 Auto-Erkennung: session_groups ergänzt (master · Kommunikation · Medien · Spiele, siehe config.yaml).
+2026-04-06 02:22:08.937 Discord-Hotkeys: Strg+Linksshift+Alt — 9 Mute, 0 Deafen, 8 Share Screen.
+2026-04-06 02:22:09.519 Seriell verbunden (COM6).
+2026-04-06 02:22:26.261 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:22:26.668 Konfiguration neu geladen (config.yaml).
+2026-04-06 02:22:36.265 MixrHost: beendet (normal).
+2026-04-06 02:23:37.861 Main entry (args: )
+2026-04-06 02:23:37.878 InitializeComWrappers …
+2026-04-06 02:23:37.879 InitializeComWrappers OK
+2026-04-06 02:23:37.879 Application.Start …
+2026-04-06 02:23:37.933 Application.Start callback (UI thread)
+2026-04-06 02:23:37.934 DispatcherQueue: ok
+2026-04-06 02:23:37.934 SynchronizationContext gesetzt
+2026-04-06 02:23:37.934 new App() …
+2026-04-06 02:23:37.936 App ctor (vor InitializeComponent)
+2026-04-06 02:23:37.944 new App() zurück
+2026-04-06 02:23:37.980 OnLaunched BaseDirectory=C:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\x64\Release\net9.0-windows10.0.22621.0\win-x64\
+2026-04-06 02:23:37.980 Erste Instanz — Mutex ok.
+2026-04-06 02:23:38.178 Tray: ForceCreate ok.
+2026-04-06 02:23:38.179 MixrHost: Start …
+2026-04-06 02:23:38.253 Mixr → COM automatisch (ESP32-S3 USB 303A:1001) @ 921600
+2026-04-06 02:23:38.254 Wiederverbindung bei USB; config.yaml wird überwacht.
+2026-04-06 02:23:38.254 Taster: siehe button_mapping in config.yaml (Standard: Prev / Play / Next / Mute / Deafen).
+2026-04-06 02:23:38.254 Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele
+2026-04-06 02:23:38.289 Auto-Erkennung: session_groups ergänzt (master · Kommunikation · Medien · Spiele, siehe config.yaml).
+2026-04-06 02:23:38.307 Tray: ContextFlyout.XamlRoot gesetzt.
+2026-04-06 02:23:39.663 Discord-Hotkeys: Strg+Linksshift+Alt — 9 Mute, 0 Deafen, 8 Share Screen.
+2026-04-06 02:23:40.234 Seriell verbunden (COM6).
+2026-04-06 02:23:45.557 MixrHost: beendet (normal).
+2026-04-06 02:29:28.101 Main entry (args: )
+2026-04-06 02:29:28.119 InitializeComWrappers …
+2026-04-06 02:29:28.120 InitializeComWrappers OK
+2026-04-06 02:29:28.120 Application.Start …
+2026-04-06 02:29:28.172 Application.Start callback (UI thread)
+2026-04-06 02:29:28.173 DispatcherQueue: ok
+2026-04-06 02:29:28.173 SynchronizationContext gesetzt
+2026-04-06 02:29:28.173 new App() …
+2026-04-06 02:29:28.175 App ctor (vor InitializeComponent)
+2026-04-06 02:29:28.182 new App() zurück
+2026-04-06 02:29:28.227 OnLaunched BaseDirectory=C:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\x64\Release\net9.0-windows10.0.22621.0\win-x64\
+2026-04-06 02:29:28.227 Erste Instanz — Mutex ok.
+2026-04-06 02:29:28.436 Tray: ForceCreate ok.
+2026-04-06 02:29:28.438 MixrHost: Start …
+2026-04-06 02:29:28.504 Mixr → COM automatisch (ESP32-S3 USB 303A:1001) @ 921600
+2026-04-06 02:29:28.505 Wiederverbindung bei USB; config.yaml wird überwacht.
+2026-04-06 02:29:28.505 Taster: siehe button_mapping in config.yaml (Standard: Prev / Play / Next / Mute / Deafen).
+2026-04-06 02:29:28.505 Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele
+2026-04-06 02:29:28.551 Tray: ContextFlyout.XamlRoot gesetzt.
+2026-04-06 02:29:29.908 Discord-Hotkeys: Strg+Linksshift+Alt — 9 Mute, 0 Deafen, 8 Share Screen.
+2026-04-06 02:29:30.469 Seriell verbunden (COM6).
+2026-04-06 02:29:37.696 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:29:38.091 Konfiguration neu geladen (config.yaml).
+2026-04-06 02:29:40.002 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:29:40.402 Konfiguration neu geladen (config.yaml).
+2026-04-06 02:29:42.181 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:29:42.583 Konfiguration neu geladen (config.yaml).
+2026-04-06 02:29:42.695 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:29:43.092 Konfiguration neu geladen (config.yaml).
+2026-04-06 02:29:55.108 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:29:55.506 Konfiguration neu geladen (config.yaml).
+2026-04-06 02:29:59.067 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:29:59.464 Konfiguration neu geladen (config.yaml).
+2026-04-06 02:36:56.116 → ESP: „Shakewell -  Leglock [Official Video]“ — ALL BUT 6
+2026-04-06 02:36:56.427 → ESP: „Shakewell -  Leglock [Official Video]“ — ALL BUT 6
+2026-04-06 02:39:02.397 → ESP: „Baby Keem - hooligan (Official Video)“ — BabyKeemVEVO
+2026-04-06 02:39:02.705 → ESP: „Baby Keem - hooligan (Official Video)“ — BabyKeemVEVO
+2026-04-06 02:41:41.208 → ESP: „take off everything (kendrick x radiohead)“ — DWELLS
+2026-04-06 02:41:41.516 → ESP: „take off everything (kendrick x radiohead)“ — DWELLS
+2026-04-06 02:41:53.674 MixrHost: beendet (normal).
+2026-04-06 02:45:59.784 Main entry (args: )
+2026-04-06 02:45:59.802 InitializeComWrappers …
+2026-04-06 02:45:59.803 InitializeComWrappers OK
+2026-04-06 02:45:59.803 Application.Start …
+2026-04-06 02:45:59.856 Application.Start callback (UI thread)
+2026-04-06 02:45:59.857 DispatcherQueue: ok
+2026-04-06 02:45:59.858 SynchronizationContext gesetzt
+2026-04-06 02:45:59.858 new App() …
+2026-04-06 02:45:59.859 App ctor (vor InitializeComponent)
+2026-04-06 02:45:59.867 new App() zurück
+2026-04-06 02:45:59.990 OnLaunched BaseDirectory=C:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\x64\Release\net9.0-windows10.0.22621.0\win-x64\
+2026-04-06 02:45:59.990 Erste Instanz — Mutex ok.
+2026-04-06 02:46:00.167 Tray: ForceCreate ok.
+2026-04-06 02:46:00.169 MixrHost: Start …
+2026-04-06 02:46:00.239 Mixr → COM automatisch (ESP32-S3 USB 303A:1001) @ 921600
+2026-04-06 02:46:00.240 Wiederverbindung bei USB; config.yaml wird überwacht.
+2026-04-06 02:46:00.240 Taster: siehe button_mapping in config.yaml (Standard: Prev / Play / Next / Mute / Deafen).
+2026-04-06 02:46:00.240 Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele
+2026-04-06 02:46:00.277 Auto-Erkennung: session_groups ergänzt (master · Kommunikation · Medien · Spiele, siehe config.yaml).
+2026-04-06 02:46:00.296 Tray: ContextFlyout.XamlRoot gesetzt.
+2026-04-06 02:46:01.575 Discord-Hotkeys: Strg+Linksshift+Alt — 9 Mute, 0 Deafen, 8 Share Screen.
+2026-04-06 02:46:02.034 Seriell verbunden (COM6).
+2026-04-06 02:46:07.741 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:46:08.137 Konfiguration neu geladen (config.yaml).
+2026-04-06 02:46:08.809 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:46:09.209 Konfiguration neu geladen (config.yaml).
+2026-04-06 02:46:09.828 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:46:10.229 Konfiguration neu geladen (config.yaml).
+2026-04-06 02:46:10.989 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:46:11.393 Konfiguration neu geladen (config.yaml).
+2026-04-06 02:46:23.648 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:46:24.057 Konfiguration neu geladen (config.yaml).
+2026-04-06 02:46:29.629 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:46:30.037 Konfiguration neu geladen (config.yaml).
+2026-04-06 02:46:30.758 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:46:31.154 Konfiguration neu geladen (config.yaml).
+2026-04-06 02:46:38.199 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:46:38.605 Konfiguration neu geladen (config.yaml).
+2026-04-06 02:46:40.769 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
+2026-04-06 02:46:41.173 Konfiguration neu geladen (config.yaml).
+2026-04-06 02:47:33.888 → ESP: „Young Nudy feat. 21 Savage - "EA" OFFICIAL VERSION“ — StrictlyHits
+2026-04-06 02:47:34.307 → ESP: „Young Nudy feat. 21 Savage - "EA" OFFICIAL VERSION“ — StrictlyHits

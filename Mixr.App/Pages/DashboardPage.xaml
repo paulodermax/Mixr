@@ -7,115 +7,146 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <ScrollViewer Padding="28,20" HorizontalScrollMode="Disabled" VerticalScrollBarVisibility="Auto">
-        <Grid Padding="0,0,8,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
+    <Grid Padding="28,24,28,28">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-            <StackPanel Grid.Row="0" Spacing="8">
-                <TextBlock FontSize="32" FontWeight="SemiBold" Text="Übersicht" />
-                <TextBlock
-                    MaxWidth="900"
-                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                    Text="Schneller Status und Konfiguration. Der Spiele-Katalog wird im Hintergrund verwaltet (wöchentlich/täglich) — ohne Audio-Session-Abfragen."
-                    TextWrapping="WrapWholeWords" />
-            </StackPanel>
+        <!-- Kopf -->
+        <StackPanel Grid.Row="0" Spacing="6">
+            <TextBlock
+                FontSize="26"
+                FontWeight="SemiBold"
+                Text="Übersicht" />
+            <TextBlock
+                FontSize="13"
+                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                Text="Fader, Windows-Audio und Konfiguration auf einen Blick."
+                TextWrapping="WrapWholeWords" />
+        </StackPanel>
 
-            <Grid Grid.Row="1" Margin="0,22,0,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" MinWidth="280" />
-                    <ColumnDefinition Width="*" MinWidth="280" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
+        <!-- Widget-Zeile -->
+        <Grid
+            Grid.Row="1"
+            Margin="0,28,0,0"
+            VerticalAlignment="Top"
+            ColumnSpacing="16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" MinWidth="200" />
+                <ColumnDefinition Width="*" MinWidth="200" />
+                <ColumnDefinition Width="*" MinWidth="200" />
+            </Grid.ColumnDefinitions>
 
-                <Border
-                    Grid.Row="0"
-                    Grid.Column="0"
-                    Padding="22"
-                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                    BorderThickness="1"
-                    CornerRadius="14">
-                    <StackPanel Spacing="10">
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <Border
-                                Width="4"
-                                Height="22"
-                                VerticalAlignment="Center"
-                                Background="{ThemeResource MixrAccentBrush}"
-                                CornerRadius="2" />
-                            <TextBlock FontSize="16" FontWeight="SemiBold" Text="Status" />
-                        </StackPanel>
-                        <TextBlock
-                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                            Text="Mixr läuft im Hintergrund (Serial, Host). Diese Seite fragt keine Geräte- oder Session-Daten ab."
-                            TextWrapping="WrapWholeWords" />
-                    </StackPanel>
-                </Border>
-
-                <Border
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    Padding="22"
-                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                    BorderThickness="1"
-                    CornerRadius="14">
-                    <StackPanel Spacing="10">
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <Border
-                                Width="4"
-                                Height="22"
-                                VerticalAlignment="Center"
-                                Background="{ThemeResource MixrAccentBrush}"
-                                CornerRadius="2" />
-                            <TextBlock FontSize="16" FontWeight="SemiBold" Text="Konfiguration" />
-                        </StackPanel>
-                        <TextBlock
-                            x:Name="ConfigPathText"
-                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                            IsTextSelectionEnabled="True"
-                            TextWrapping="WrapWholeWords" />
-                    </StackPanel>
-                </Border>
-
-                <Border
-                    Grid.Row="1"
-                    Grid.Column="0"
-                    Grid.ColumnSpan="2"
-                    Padding="22"
-                    Background="{ThemeResource MixrGameStripBrush}"
-                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                    BorderThickness="1"
-                    CornerRadius="14">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <StackPanel Grid.Column="0" Spacing="10">
-                            <TextBlock FontSize="16" FontWeight="SemiBold" Text="Slider &amp; Spiele" />
-                            <TextBlock
-                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                Text="Spiele aus dem Katalog auf die Fader-Karten ziehen — Zuordnung in config.yaml (Host lädt neu)."
-                                TextWrapping="WrapWholeWords" />
-                        </StackPanel>
-                        <Button
-                            Grid.Column="1"
-                            MinWidth="200"
-                            Padding="18,12"
+            <!-- Status -->
+            <Border
+                Padding="20,18"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="12">
+                <StackPanel Spacing="14">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <Border
+                            Width="3"
+                            Height="18"
                             VerticalAlignment="Center"
-                            Click="OpenSliderMapping_Click"
-                            Content="Slider Mapping öffnen"
-                            Style="{StaticResource AccentButtonStyle}" />
-                    </Grid>
-                </Border>
-            </Grid>
+                            Background="{ThemeResource MixrAccentBrush}"
+                            CornerRadius="2" />
+                        <TextBlock
+                            FontSize="13"
+                            FontWeight="SemiBold"
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            Text="STATUS" />
+                    </StackPanel>
+                    <TextBlock
+                        FontSize="20"
+                        FontWeight="SemiBold"
+                        Text="Bereit" />
+                    <TextBlock
+                        FontSize="12"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Text="H/S active"
+                        TextWrapping="WrapWholeWords" />
+                </StackPanel>
+            </Border>
+
+            <!-- Konfiguration -->
+            <Border
+                Grid.Column="1"
+                Padding="20,18"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="12">
+                <StackPanel Spacing="14">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <Border
+                            Width="3"
+                            Height="18"
+                            VerticalAlignment="Center"
+                            Background="{ThemeResource MixrAccentBrush}"
+                            CornerRadius="2" />
+                        <TextBlock
+                            FontSize="13"
+                            FontWeight="SemiBold"
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            Text="KONFIGURATION" />
+                    </StackPanel>
+                    <TextBlock
+                        x:Name="ConfigFileNameText"
+                        FontSize="16"
+                        FontWeight="SemiBold"
+                        Text="config.yaml"
+                        TextTrimming="CharacterEllipsis" />
+                    <TextBlock
+                        x:Name="ConfigPathText"
+                        FontSize="12"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        IsTextSelectionEnabled="True"
+                        MaxLines="3"
+                        TextTrimming="CharacterEllipsis"
+                        TextWrapping="Wrap" />
+                </StackPanel>
+            </Border>
+
+            <!-- Fader -->
+            <Border
+                Grid.Column="2"
+                Padding="20,18"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="12">
+                <StackPanel Spacing="16">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <Border
+                            Width="3"
+                            Height="18"
+                            VerticalAlignment="Center"
+                            Background="{ThemeResource MixrAccentBrush}"
+                            CornerRadius="2" />
+                        <TextBlock
+                            FontSize="13"
+                            FontWeight="SemiBold"
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            Text="FADER" />
+                    </StackPanel>
+                    <TextBlock
+                        FontSize="12"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Text="Programme den vier Fadern zuordnen und speichern."
+                        TextWrapping="WrapWholeWords" />
+                    <Button
+                        MinHeight="40"
+                        Padding="16,10"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Bottom"
+                        Click="OpenSliderMapping_Click"
+                        Content="Fader-Zuordnung"
+                        Style="{StaticResource AccentButtonStyle}" />
+                </StackPanel>
+            </Border>
         </Grid>
-    </ScrollViewer>
+    </Grid>
 </Page>

@@ -26,4 +26,14 @@ public sealed class MixrConfig
 
     /// <summary>Gruppenname → Suchstrings für Fenster-/Prozessnamen (Audio-Sessions).</summary>
     public Dictionary<string, List<string>> SessionGroups { get; set; } = new(StringComparer.OrdinalIgnoreCase);
+
+    /// <summary>Taster 0–4: Aktion (smtc_previous, smtc_play_pause, …). Immer 5 Einträge nach Normalisierung.</summary>
+    public List<string> ButtonMapping { get; set; } =
+    [
+        "smtc_previous",
+        "smtc_play_pause",
+        "smtc_next",
+        "discord_mute",
+        "discord_deafen",
+    ];
 }

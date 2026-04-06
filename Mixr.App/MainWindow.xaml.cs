@@ -20,7 +20,14 @@ public sealed partial class MainWindow : Window
 
         TrySetDefaultSize();
 
+        AppWindow.Closing += AppWindow_Closing;
+
         NavFrame.Navigate(typeof(DashboardPage));
+    }
+
+    void AppWindow_Closing(Microsoft.UI.Windowing.AppWindow sender, AppWindowClosingEventArgs args)
+    {
+        SliderMappingPage.TryPersistOnWindowClose();
     }
 
     void TrySetDefaultSize()
@@ -30,7 +37,13 @@ public sealed partial class MainWindow : Window
             var hWnd = WindowNative.GetWindowHandle(this);
             var windowId = Microsoft.UI.Win32Interop.GetWindowIdFromWindow(hWnd);
             var appWindow = AppWindow.GetFromWindowId(windowId);
-            appWindow.Resize(new Windows.Graphics.SizeInt32 { Width = 1280, Height = 820 });
+            // Feste Fenstergröße (Hardware-Schematic nutzt den gesamten Inhaltsbereich)
+            appWindow.Resize(new Windows.Graphics.SizeInt32 { Width = 1280, Height = 800 });
+            if (appWindow.Presenter is OverlappedPresenter op)
+            {
+                op.IsResizable = false;
+                op.IsMaximizable = false;
+            }
         }
         catch
         {
@@ -77,6 +90,9 @@ public sealed partial class MainWindow : Window
                     break;
                 case "slider_mapping":
                     NavFrame.Navigate(typeof(SliderMappingPage));
+                    break;
+                case "hardware_map":
+                    NavFrame.Navigate(typeof(HardwareMapPage));
                     break;
                 case "about":
                     NavFrame.Navigate(typeof(AboutPage));

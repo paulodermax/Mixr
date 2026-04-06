@@ -69,6 +69,8 @@ public partial class App : Application
 
         AppLog.WriteLine("Erste Instanz — Mutex ok.");
 
+        GameCatalogPaths.SyncBundledCoversToAppData();
+
         _cts = new CancellationTokenSource();
         _dispatcherQueue = DispatcherQueue.GetForCurrentThread();
 
@@ -104,11 +106,11 @@ public partial class App : Application
 
         var flyout = new MenuFlyout();
         var openItem = new MenuFlyoutItem { Text = "Mixr öffnen" };
-        openItem.Click += (_, _) => ShowMainWindow();
+        openItem.Click += (_, _) => _dispatcherQueue?.TryEnqueue(ShowMainWindowCore);
         var exitItem = new MenuFlyoutItem { Text = "Beenden" };
-        exitItem.Click += (_, _) => ExitFromTray();
+        exitItem.Click += (_, _) => _dispatcherQueue?.TryEnqueue(ExitFromTray);
         var logItem = new MenuFlyoutItem { Text = "Log öffnen (EXE-Ordner oder %LocalAppData%\\Mixr)" };
-        logItem.Click += OpenLogFile_Click;
+        logItem.Click += (_, _) => _dispatcherQueue?.TryEnqueue(OpenLogFileCore);
         flyout.Items.Add(openItem);
         flyout.Items.Add(logItem);
         flyout.Items.Add(exitItem);
@@ -156,16 +158,33 @@ public partial class App : Application
 
         _window.Activate();
 
+        _ = TryAttachTrayFlyoutXamlRootAsync(flyout);
+
         _ = Task.Run(async () =>
         {
             try
             {
                 await GameCatalogCoordinator.RunStartupAsync(CancellationToken.None).ConfigureAwait(false);
+                CatalogManualCoverSync.ApplyManualFilesToStore();
+                SessionGroupsBootstrap.RunMergeIfNeeded();
             }
             catch
             {
                 /* Hintergrund-Katalog — Fehler ignorieren */
             }
+
+            _dispatcherQueue?.TryEnqueue(async () =>
+            {
+                try
+                {
+                    await CoverWarmup.PreloadAllAsync();
+                    GameCatalogCoordinator.NotifyCatalogChanged();
+                }
+                catch (Exception ex)
+                {
+                    AppLog.WriteLine("CoverWarmup: " + ex.Message);
+                }
+            });
         });
 
         // Kurz sichtbar lassen, dann in den Tray — sonst wirkt es wie „Absturz“, bevor das Icon da ist.
@@ -229,7 +248,23 @@ public partial class App : Application
         }
     }
 
-    void OpenLogFile_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    async Task TryAttachTrayFlyoutXamlRootAsync(MenuFlyout flyout)
+    {
+        for (var i = 0; i < 30; i++)
+        {
+            await Task.Delay(80);
+            if (_window?.Content is FrameworkElement fe && fe.XamlRoot != null)
+            {
+                flyout.XamlRoot = fe.XamlRoot;
+                AppLog.WriteLine("Tray: ContextFlyout.XamlRoot gesetzt.");
+                return;
+            }
+        }
+
+        AppLog.WriteLine("Tray: XamlRoot für ContextFlyout nicht gesetzt (Menü ggf. eingeschränkt).");
+    }
+
+    void OpenLogFileCore()
     {
         try
         {

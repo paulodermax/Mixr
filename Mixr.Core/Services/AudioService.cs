@@ -10,6 +10,9 @@ public sealed class AudioService
     private readonly CoreAudioController _controller = new();
     private Dictionary<string, List<IAudioSession>> _sessionMap = new(StringComparer.OrdinalIgnoreCase);
 
+    readonly object _snapshotLock = new();
+    Dictionary<string, List<string>> _liveNamesByGroup = new(StringComparer.OrdinalIgnoreCase);
+
     public void RebuildSessionMap(
         IReadOnlyList<string> mappings,
         IReadOnlyDictionary<string, List<string>> groups,
@@ -28,7 +31,11 @@ public sealed class AudioService
 
         var device = _controller.DefaultPlaybackDevice as CoreAudioDevice;
         if (device?.SessionController == null)
+        {
+            lock (_snapshotLock)
+                _liveNamesByGroup = new Dictionary<string, List<string>>(StringComparer.OrdinalIgnoreCase);
             return;
+        }
 
         var sessionsEnum = await device.SessionController.ActiveSessionsAsync();
         var sessions = sessionsEnum.ToList();
@@ -76,6 +83,53 @@ public sealed class AudioService
                 _sessionMap[matched] = new List<IAudioSession>();
 
             _sessionMap[matched].Add(session);
+        }
+
+        BuildLiveSnapshot();
+    }
+
+    void BuildLiveSnapshot()
+    {
+        var snap = new Dictionary<string, List<string>>(StringComparer.OrdinalIgnoreCase);
+        foreach (var kv in _sessionMap)
+        {
+            var set = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            foreach (var session in kv.Value)
+            {
+                var label = session.DisplayName;
+                if (string.IsNullOrEmpty(label))
+                {
+                    try
+                    {
+                        label = Process.GetProcessById(session.ProcessId).ProcessName;
+                    }
+                    catch
+                    {
+                        continue;
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(label))
+                    set.Add(label);
+            }
+
+            if (set.Count > 0)
+                snap[kv.Key] = set.OrderBy(s => s, StringComparer.OrdinalIgnoreCase).ToList();
+        }
+
+        lock (_snapshotLock)
+            _liveNamesByGroup = snap;
+    }
+
+    /// <summary>Aktive Audio-Sessions pro Gruppen-Key (master, communication, …) nach letztem Scan.</summary>
+    public IReadOnlyDictionary<string, IReadOnlyList<string>> GetLiveSnapshot()
+    {
+        lock (_snapshotLock)
+        {
+            return _liveNamesByGroup.ToDictionary(
+                kv => kv.Key,
+                kv => (IReadOnlyList<string>)kv.Value.ToList(),
+                StringComparer.OrdinalIgnoreCase);
         }
     }
 

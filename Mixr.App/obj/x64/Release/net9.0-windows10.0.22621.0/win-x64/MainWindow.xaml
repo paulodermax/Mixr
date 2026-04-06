@@ -86,9 +86,14 @@
                         <FontIcon Glyph="&#xE80F;" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem Content="Slider Mapping" Tag="slider_mapping">
+                <NavigationViewItem Content="Fader-Zuordnung" Tag="slider_mapping">
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE8B8;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem Content="Hardware" Tag="hardware_map">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE81D;" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
                 <NavigationViewItem Content="Info" Tag="about">
@@ -109,7 +114,7 @@
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
             </NavigationView.FooterMenuItems>
-            <Frame x:ConnectionId='4' x:Name="NavFrame"                                />
+            <Frame x:ConnectionId='4' x:Name="NavFrame" Padding="0"                                />
         </NavigationView>
     </Grid>
 </Window>

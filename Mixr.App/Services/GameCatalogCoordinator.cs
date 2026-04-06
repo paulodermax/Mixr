@@ -1,7 +1,9 @@
+using Mixr.Services;
+
 namespace Mixr_App.Services;
 
 /// <summary>
-/// Wöchentlicher Vollabgleich (Steam + Metadaten), täglich nur neue Installationen.
+/// Wöchentlicher Vollabgleich (Steam + erkannte installierte Apps + Metadaten), täglich nur neue Installationen.
 /// Keine Audio-Sessions.
 /// </summary>
 public static class GameCatalogCoordinator
@@ -71,6 +73,9 @@ public static class GameCatalogCoordinator
 
         foreach (var g in installed)
         {
+            if (CatalogIgnoreList.ShouldIgnore(g.Name))
+                continue;
+
             var key = FormattableString.Invariant($"steam:{g.AppId}");
             if (!byKey.TryGetValue(key, out var entry))
             {
@@ -87,6 +92,18 @@ public static class GameCatalogCoordinator
             entry.MetadataValidUntilUtc = validUntil;
         }
 
+        await MergeDetectedInstalledAppsAsync(byKey, validUntil, ct).ConfigureAwait(false);
+
+        RemoveIgnoredEntries(byKey);
+
+        foreach (var e in byKey.Values)
+        {
+            if (e.SteamAppId > 0 || string.IsNullOrWhiteSpace(e.Name))
+                continue;
+            await GameMetadataEnricher.TryEnrichAsync(e, force: true, ct).ConfigureAwait(false);
+            e.MetadataValidUntilUtc = validUntil;
+        }
+
         store.Games = byKey.Values.OrderBy(x => x.Name, StringComparer.OrdinalIgnoreCase).ToList();
     }
 
@@ -100,6 +117,9 @@ public static class GameCatalogCoordinator
 
         foreach (var g in installed)
         {
+            if (CatalogIgnoreList.ShouldIgnore(g.Name))
+                continue;
+
             var key = FormattableString.Invariant($"steam:{g.AppId}");
             if (byKey.TryGetValue(key, out var existing))
             {
@@ -114,8 +134,59 @@ public static class GameCatalogCoordinator
             byKey[key] = entry;
         }
 
+        await MergeDetectedInstalledAppsAsync(byKey, weekEnd, ct).ConfigureAwait(false);
+
+        RemoveIgnoredEntries(byKey);
+
         store.Games = byKey.Values.OrderBy(x => x.Name, StringComparer.OrdinalIgnoreCase).ToList();
     }
 
+    static void RemoveIgnoredEntries(Dictionary<string, CatalogGameEntry> byKey)
+    {
+        foreach (var key in byKey.Keys.ToList())
+        {
+            if (byKey.TryGetValue(key, out var e) && CatalogIgnoreList.ShouldIgnore(e.Name))
+                byKey.Remove(key);
+        }
+    }
+
+    /// <summary>Discord, Browser, Spotify u. ä. aus der Uninstall-Registry — ergänzt die Bibliothek neben Steam.</summary>
+    static async Task MergeDetectedInstalledAppsAsync(
+        Dictionary<string, CatalogGameEntry> byKey,
+        DateTime metadataValidUntilUtc,
+        CancellationToken ct)
+    {
+        foreach (var s in InstalledAppDetector.DetectSuggestions())
+        {
+            ct.ThrowIfCancellationRequested();
+            if (CatalogIgnoreList.ShouldIgnore(s.MatchedDisplayName))
+                continue;
+
+            var key = FormattableString.Invariant($"app:{s.GroupKey}:{s.SearchToken}");
+            if (!byKey.TryGetValue(key, out var entry))
+            {
+                entry = new CatalogGameEntry
+                {
+                    Key = key,
+                    Name = s.MatchedDisplayName,
+                    AssignmentToken = s.SearchToken,
+                    SteamAppId = 0,
+                };
+                byKey[key] = entry;
+            }
+            else
+            {
+                entry.Name = s.MatchedDisplayName;
+                entry.AssignmentToken = s.SearchToken;
+            }
+
+            await GameMetadataEnricher.TryEnrichAsync(entry, force: true, ct).ConfigureAwait(false);
+            entry.MetadataValidUntilUtc = metadataValidUntilUtc;
+        }
+    }
+
     static void RaiseCatalogChanged() => CatalogChanged?.Invoke(null, EventArgs.Empty);
+
+    /// <summary>Wenn <c>game_catalog.json</c> außerhalb des Koordinators geändert wurde (z. B. manuelle Covers).</summary>
+    public static void NotifyCatalogChanged() => RaiseCatalogChanged();
 }

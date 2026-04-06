@@ -226,7 +226,7 @@ namespace Mixr_App.Mixr_App_XamlTypeInfo
         
         private void InitTypeTables()
         {
-            _typeNameTable = new string[44];
+            _typeNameTable = new string[46];
             _typeNameTable[0] = "Microsoft.UI.Xaml.Controls.XamlControlsResources";
             _typeNameTable[1] = "Microsoft.UI.Xaml.ResourceDictionary";
             _typeNameTable[2] = "Object";
@@ -266,13 +266,15 @@ namespace Mixr_App.Mixr_App_XamlTypeInfo
             _typeNameTable[36] = "Microsoft.UI.Xaml.Controls.Page";
             _typeNameTable[37] = "Microsoft.UI.Xaml.Controls.UserControl";
             _typeNameTable[38] = "Mixr_App.Pages.DashboardPage";
-            _typeNameTable[39] = "Mixr_App.Pages.SettingsPage";
-            _typeNameTable[40] = "Mixr_App.Pages.SliderMappingPage";
-            _typeNameTable[41] = "Microsoft.UI.Xaml.Controls.TreeViewNode";
-            _typeNameTable[42] = "System.Collections.Generic.IList`1<Microsoft.UI.Xaml.Controls.TreeViewNode>";
-            _typeNameTable[43] = "Int32";
+            _typeNameTable[39] = "Mixr_App.Pages.HardwareMapPage";
+            _typeNameTable[40] = "Mixr_App.Pages.SettingsPage";
+            _typeNameTable[41] = "Mixr_App.Converters.BoolToVisibilityConverter";
+            _typeNameTable[42] = "Mixr_App.Pages.SliderMappingPage";
+            _typeNameTable[43] = "Microsoft.UI.Xaml.Controls.TreeViewNode";
+            _typeNameTable[44] = "System.Collections.Generic.IList`1<Microsoft.UI.Xaml.Controls.TreeViewNode>";
+            _typeNameTable[45] = "Int32";
 
-            _typeTable = new global::System.Type[44];
+            _typeTable = new global::System.Type[46];
             _typeTable[0] = typeof(global::Microsoft.UI.Xaml.Controls.XamlControlsResources);
             _typeTable[1] = typeof(global::Microsoft.UI.Xaml.ResourceDictionary);
             _typeTable[2] = typeof(global::System.Object);
@@ -312,11 +314,13 @@ namespace Mixr_App.Mixr_App_XamlTypeInfo
             _typeTable[36] = typeof(global::Microsoft.UI.Xaml.Controls.Page);
             _typeTable[37] = typeof(global::Microsoft.UI.Xaml.Controls.UserControl);
             _typeTable[38] = typeof(global::Mixr_App.Pages.DashboardPage);
-            _typeTable[39] = typeof(global::Mixr_App.Pages.SettingsPage);
-            _typeTable[40] = typeof(global::Mixr_App.Pages.SliderMappingPage);
-            _typeTable[41] = typeof(global::Microsoft.UI.Xaml.Controls.TreeViewNode);
-            _typeTable[42] = typeof(global::System.Collections.Generic.IList<global::Microsoft.UI.Xaml.Controls.TreeViewNode>);
-            _typeTable[43] = typeof(global::System.Int32);
+            _typeTable[39] = typeof(global::Mixr_App.Pages.HardwareMapPage);
+            _typeTable[40] = typeof(global::Mixr_App.Pages.SettingsPage);
+            _typeTable[41] = typeof(global::Mixr_App.Converters.BoolToVisibilityConverter);
+            _typeTable[42] = typeof(global::Mixr_App.Pages.SliderMappingPage);
+            _typeTable[43] = typeof(global::Microsoft.UI.Xaml.Controls.TreeViewNode);
+            _typeTable[44] = typeof(global::System.Collections.Generic.IList<global::Microsoft.UI.Xaml.Controls.TreeViewNode>);
+            _typeTable[45] = typeof(global::System.Int32);
         }
 
         private int LookupTypeIndexByName(string typeName)
@@ -360,9 +364,11 @@ namespace Mixr_App.Mixr_App_XamlTypeInfo
         private object Activate_33_MainWindow() { return new global::Mixr_App.MainWindow(); }
         private object Activate_35_AboutPage() { return new global::Mixr_App.Pages.AboutPage(); }
         private object Activate_38_DashboardPage() { return new global::Mixr_App.Pages.DashboardPage(); }
-        private object Activate_39_SettingsPage() { return new global::Mixr_App.Pages.SettingsPage(); }
-        private object Activate_40_SliderMappingPage() { return new global::Mixr_App.Pages.SliderMappingPage(); }
-        private object Activate_41_TreeViewNode() { return new global::Microsoft.UI.Xaml.Controls.TreeViewNode(); }
+        private object Activate_39_HardwareMapPage() { return new global::Mixr_App.Pages.HardwareMapPage(); }
+        private object Activate_40_SettingsPage() { return new global::Mixr_App.Pages.SettingsPage(); }
+        private object Activate_41_BoolToVisibilityConverter() { return new global::Mixr_App.Converters.BoolToVisibilityConverter(); }
+        private object Activate_42_SliderMappingPage() { return new global::Mixr_App.Pages.SliderMappingPage(); }
+        private object Activate_43_TreeViewNode() { return new global::Microsoft.UI.Xaml.Controls.TreeViewNode(); }
         private void StaticInitializer_0_XamlControlsResources() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Controls.XamlControlsResources).TypeHandle);
         private void StaticInitializer_4_MicaBackdrop() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Media.MicaBackdrop).TypeHandle);
         private void StaticInitializer_6_MicaKind() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Composition.SystemBackdrops.MicaKind).TypeHandle);
@@ -383,10 +389,12 @@ namespace Mixr_App.Mixr_App_XamlTypeInfo
         private void StaticInitializer_33_MainWindow() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Mixr_App.MainWindow).TypeHandle);
         private void StaticInitializer_35_AboutPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Mixr_App.Pages.AboutPage).TypeHandle);
         private void StaticInitializer_38_DashboardPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Mixr_App.Pages.DashboardPage).TypeHandle);
-        private void StaticInitializer_39_SettingsPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Mixr_App.Pages.SettingsPage).TypeHandle);
-        private void StaticInitializer_40_SliderMappingPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Mixr_App.Pages.SliderMappingPage).TypeHandle);
-        private void StaticInitializer_41_TreeViewNode() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Controls.TreeViewNode).TypeHandle);
-        private void StaticInitializer_42_IList() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.Collections.Generic.IList<global::Microsoft.UI.Xaml.Controls.TreeViewNode>).TypeHandle);
+        private void StaticInitializer_39_HardwareMapPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Mixr_App.Pages.HardwareMapPage).TypeHandle);
+        private void StaticInitializer_40_SettingsPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Mixr_App.Pages.SettingsPage).TypeHandle);
+        private void StaticInitializer_41_BoolToVisibilityConverter() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Mixr_App.Converters.BoolToVisibilityConverter).TypeHandle);
+        private void StaticInitializer_42_SliderMappingPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Mixr_App.Pages.SliderMappingPage).TypeHandle);
+        private void StaticInitializer_43_TreeViewNode() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Controls.TreeViewNode).TypeHandle);
+        private void StaticInitializer_44_IList() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.Collections.Generic.IList<global::Microsoft.UI.Xaml.Controls.TreeViewNode>).TypeHandle);
         private void MapAdd_0_XamlControlsResources(object instance, object key, object item)
         {
             var collection = (global::System.Collections.Generic.IDictionary<global::System.Object, global::System.Object>)instance;
@@ -400,7 +408,7 @@ namespace Mixr_App.Mixr_App_XamlTypeInfo
             var newItem = (global::System.Object)item;
             collection.Add(newItem);
         }
-        private void VectorAdd_42_IList(object instance, object item)
+        private void VectorAdd_44_IList(object instance, object item)
         {
             var collection = (global::System.Collections.Generic.ICollection<global::Microsoft.UI.Xaml.Controls.TreeViewNode>)instance;
             var newItem = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)item;
@@ -697,26 +705,42 @@ namespace Mixr_App.Mixr_App_XamlTypeInfo
                 xamlType = userType;
                 break;
 
-            case 39:   //  Mixr_App.Pages.SettingsPage
+            case 39:   //  Mixr_App.Pages.HardwareMapPage
                 userType = new global::Mixr_App.Mixr_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_39_SettingsPage;
-                userType.StaticInitializer = StaticInitializer_39_SettingsPage;
+                userType.Activator = Activate_39_HardwareMapPage;
+                userType.StaticInitializer = StaticInitializer_39_HardwareMapPage;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 40:   //  Mixr_App.Pages.SliderMappingPage
+            case 40:   //  Mixr_App.Pages.SettingsPage
                 userType = new global::Mixr_App.Mixr_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_40_SliderMappingPage;
-                userType.StaticInitializer = StaticInitializer_40_SliderMappingPage;
+                userType.Activator = Activate_40_SettingsPage;
+                userType.StaticInitializer = StaticInitializer_40_SettingsPage;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 41:   //  Microsoft.UI.Xaml.Controls.TreeViewNode
+            case 41:   //  Mixr_App.Converters.BoolToVisibilityConverter
+                userType = new global::Mixr_App.Mixr_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
+                userType.Activator = Activate_41_BoolToVisibilityConverter;
+                userType.StaticInitializer = StaticInitializer_41_BoolToVisibilityConverter;
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 42:   //  Mixr_App.Pages.SliderMappingPage
+                userType = new global::Mixr_App.Mixr_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.Page"));
+                userType.Activator = Activate_42_SliderMappingPage;
+                userType.StaticInitializer = StaticInitializer_42_SliderMappingPage;
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 43:   //  Microsoft.UI.Xaml.Controls.TreeViewNode
                 userType = new global::Mixr_App.Mixr_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.DependencyObject"));
-                userType.Activator = Activate_41_TreeViewNode;
-                userType.StaticInitializer = StaticInitializer_41_TreeViewNode;
+                userType.Activator = Activate_43_TreeViewNode;
+                userType.StaticInitializer = StaticInitializer_43_TreeViewNode;
                 userType.AddMemberName("Children");
                 userType.AddMemberName("Content");
                 userType.AddMemberName("Depth");
@@ -728,15 +752,15 @@ namespace Mixr_App.Mixr_App_XamlTypeInfo
                 xamlType = userType;
                 break;
 
-            case 42:   //  System.Collections.Generic.IList`1<Microsoft.UI.Xaml.Controls.TreeViewNode>
+            case 44:   //  System.Collections.Generic.IList`1<Microsoft.UI.Xaml.Controls.TreeViewNode>
                 userType = new global::Mixr_App.Mixr_App_XamlTypeInfo.XamlUserType(this, typeName, type, null);
-                userType.StaticInitializer = StaticInitializer_42_IList;
-                userType.CollectionAdd = VectorAdd_42_IList;
+                userType.StaticInitializer = StaticInitializer_44_IList;
+                userType.CollectionAdd = VectorAdd_44_IList;
                 userType.SetIsReturnTypeStub();
                 xamlType = userType;
                 break;
 
-            case 43:   //  Int32
+            case 45:   //  Int32
                 xamlType = new global::Mixr_App.Mixr_App_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
             }
