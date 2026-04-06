@@ -38,7 +38,7 @@ public static class SessionGroupsBootstrap
 
             MixrConfigWriter.Save(cfg, MixrConfigPaths.ConfigYamlPath);
             MixrRuntimeState.ReloadConfigFromDisk(Array.Empty<string>());
-            AppLog.WriteLine("Auto-Erkennung: session_groups ergänzt (master · Kommunikation · Medien · Spiele, siehe config.yaml).");
+            AppLog.WriteLine("Auto-detect: session_groups updated (master · communication · media · games — see config.yaml).");
         }
         catch (Exception ex)
         {

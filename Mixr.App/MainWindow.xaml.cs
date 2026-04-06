@@ -37,7 +37,7 @@ public sealed partial class MainWindow : Window
             var hWnd = WindowNative.GetWindowHandle(this);
             var windowId = Microsoft.UI.Win32Interop.GetWindowIdFromWindow(hWnd);
             var appWindow = AppWindow.GetFromWindowId(windowId);
-            // Feste Fenstergröße (Hardware-Schematic nutzt den gesamten Inhaltsbereich)
+            // Fixed window size (hardware schematic uses the full content area)
             appWindow.Resize(new Windows.Graphics.SizeInt32 { Width = 1280, Height = 800 });
             if (appWindow.Presenter is OverlappedPresenter op)
             {

@@ -682,3 +682,274 @@
 2026-04-06 02:47:59.852 Konfiguration neu geladen (config.yaml).
 2026-04-06 02:48:02.808 Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.
 2026-04-06 02:48:03.204 Konfiguration neu geladen (config.yaml).
+2026-04-06 02:51:26.394 → ESP: „Playboi Carti - Magnolia“ — PlayboiCartiVEVO
+2026-04-06 02:51:26.723 → ESP: „Playboi Carti - Magnolia“ — PlayboiCartiVEVO
+2026-04-06 02:54:52.096 → ESP: „Jay Samuelz - fine with it (Official Music Video)“ — Jay Samuelz
+2026-04-06 02:54:52.652 → ESP: „Jay Samuelz - fine with it (Official Music Video)“ — Jay Samuelz
+2026-04-06 02:57:10.091 → ESP: „EsDeeKid - Century“ — EsDeeKid
+2026-04-06 02:57:10.399 → ESP: „EsDeeKid - Century“ — EsDeeKid
+2026-04-06 02:57:25.791 → ESP: „Never cleave an orc in two, or this may happen #shorts - Shadow of War“ — Luga the Obsessed
+2026-04-06 02:57:26.122 → ESP: „Never cleave an orc in two, or this may happen #shorts - Shadow of War“ — Luga the Obsessed
+2026-04-06 02:59:01.656 → ESP: „Ski Aggu – Z0RNIG [2O24] (prod. Dauner & Berky)“ — aggu31
+2026-04-06 02:59:02.166 → ESP: „Ski Aggu – Z0RNIG [2O24] (prod. Dauner & Berky)“ — aggu31
+2026-04-06 02:59:47.147 → ESP: „Never cleave an orc in two, or this may happen #shorts - Shadow of War“ — Luga the Obsessed
+2026-04-06 02:59:47.464 → ESP: „Never cleave an orc in two, or this may happen #shorts - Shadow of War“ — Luga the Obsessed
+2026-04-06 03:00:41.373 → ESP: „Ski Aggu – Z0RNIG [2O24] (prod. Dauner & Berky)“ — aggu31
+2026-04-06 03:00:41.695 → ESP: „Valve Let Players Bring GLaDOS Back to Life“ — Gurifun
+2026-04-06 03:00:42.004 → ESP: „Valve Let Players Bring GLaDOS Back to Life“ — Gurifun
+2026-04-06 03:01:01.551 → ESP: „Ski Aggu – Z0RNIG [2O24] (prod. Dauner & Berky)“ — aggu31
+2026-04-06 03:01:01.870 → ESP: „The Last of Us S2's Most Shocking Opening: FEDRA Sergeant Blows Up His Own Squad to Join WLF“ — sdasd
+2026-04-06 03:01:02.179 → ESP: „Valve Let Players Bring GLaDOS Back to Life“ — Gurifun
+2026-04-06 03:01:04.438 → ESP: „Ski Aggu – Z0RNIG [2O24] (prod. Dauner & Berky)“ — aggu31
+2026-04-06 03:01:04.745 → ESP: „The Last of Us S2's Most Shocking Opening: FEDRA Sergeant Blows Up His Own Squad to Join WLF“ — sdasd
+2026-04-06 03:01:35.605 → ESP: „Ski Aggu – Z0RNIG [2O24] (prod. Dauner & Berky)“ — aggu31
+2026-04-06 03:01:35.915 → ESP: „You play the opponent, not the cards!#shorts“ — Ang Clabby
+2026-04-06 03:03:23.711 MixrHost: beendet (normal).
+2026-04-06 03:05:01.854 Main entry (args: )
+2026-04-06 03:05:01.872 InitializeComWrappers …
+2026-04-06 03:05:01.873 InitializeComWrappers OK
+2026-04-06 03:05:01.873 Application.Start …
+2026-04-06 03:05:01.925 Application.Start callback (UI thread)
+2026-04-06 03:05:01.926 DispatcherQueue: ok
+2026-04-06 03:05:01.927 SynchronizationContext gesetzt
+2026-04-06 03:05:01.927 new App() …
+2026-04-06 03:05:01.929 App ctor (vor InitializeComponent)
+2026-04-06 03:05:01.936 new App() zurück
+2026-04-06 03:05:02.067 OnLaunched BaseDirectory=C:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\x64\Release\net9.0-windows10.0.22621.0\win-x64\
+2026-04-06 03:05:02.067 Erste Instanz — Mutex ok.
+2026-04-06 03:05:02.261 Tray: ForceCreate ok.
+2026-04-06 03:05:02.263 MixrHost: Start …
+2026-04-06 03:05:02.330 Mixr → COM automatisch (ESP32-S3 USB 303A:1001) @ 921600
+2026-04-06 03:05:02.331 Wiederverbindung bei USB; config.yaml wird überwacht.
+2026-04-06 03:05:02.331 Taster: siehe button_mapping in config.yaml (Standard: Prev / Play / Next / Mute / Deafen).
+2026-04-06 03:05:02.331 Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele
+2026-04-06 03:05:02.378 Tray: ContextFlyout.XamlRoot gesetzt.
+2026-04-06 03:05:02.390 Auto-detect: session_groups updated (master · communication · media · games — see config.yaml).
+2026-04-06 03:05:04.498 Discord-Hotkeys: Strg+Linksshift+Alt — 9 Mute, 0 Deafen, 8 Share Screen.
+2026-04-06 03:05:05.358 Seriell verbunden (COM6).
+2026-04-06 03:05:40.892 → ESP: „The Greatest Game of RPS“ — Ludwig
+2026-04-06 03:05:41.214 → ESP: „This is insane 💀 #shorts #rickandmorty“ — Resonator
+2026-04-06 03:05:52.961 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:05:53.364 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:05:55.997 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:05:56.398 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:05:58.082 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:05:58.495 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:06:00.871 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:06:01.277 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:06:02.100 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:06:02.505 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:06:06.561 → ESP: „Ski Aggu – Z0RNIG [2O24] (prod. Dauner & Berky)“ — aggu31
+2026-04-06 03:06:06.873 → ESP: „Spider-Man Loves Physics #shorts #gaming“ — Venom Aesthetics
+2026-04-06 03:06:07.194 → ESP: „Ski Aggu – Z0RNIG [2O24] (prod. Dauner & Berky)“ — aggu31
+2026-04-06 03:06:07.502 → ESP: „😂 Nicest Fighters In The MCU“ — DFT.
+2026-04-06 03:06:14.654 → ESP: „Ski Aggu – Z0RNIG [2O24] (prod. Dauner & Berky)“ — aggu31
+2026-04-06 03:06:14.954 → ESP: „Ludwig is a professional negotiator“ — Ludwig
+2026-04-06 03:06:18.906 → ESP: „Ski Aggu – Z0RNIG [2O24] (prod. Dauner & Berky)“ — aggu31
+2026-04-06 03:06:31.326 → ESP: „Charli XCX - Break The Rules (Zyzz Hardstyle Bootleg)“ — Chilled Air
+2026-04-06 03:06:31.666 → ESP: „Charli XCX - Break The Rules (Zyzz Hardstyle Bootleg)“ — Chilled Air
+2026-04-06 03:06:55.757 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:06:56.158 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:06:56.857 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:06:57.262 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:07:03.973 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:07:04.384 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:09:35.846 → ESP: „Ski Aggu – Z0RNIG [2O24] (prod. Dauner & Berky)“ — aggu31
+2026-04-06 03:09:36.153 → ESP: „GYM HARDSTYLE - Middle of the Night Dom Livez Hardstyle Remix (4K)“ — Lyck
+2026-04-06 03:13:37.402 MixrHost: beendet (normal).
+2026-04-06 03:15:42.608 Main entry (args: )
+2026-04-06 03:15:42.626 InitializeComWrappers …
+2026-04-06 03:15:42.627 InitializeComWrappers OK
+2026-04-06 03:15:42.627 Application.Start …
+2026-04-06 03:15:42.696 Application.Start callback (UI thread)
+2026-04-06 03:15:42.697 DispatcherQueue: ok
+2026-04-06 03:15:42.697 SynchronizationContext gesetzt
+2026-04-06 03:15:42.697 new App() …
+2026-04-06 03:15:42.699 App ctor (vor InitializeComponent)
+2026-04-06 03:15:42.707 new App() zurück
+2026-04-06 03:15:42.750 OnLaunched BaseDirectory=C:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\x64\Release\net9.0-windows10.0.22621.0\win-x64\
+2026-04-06 03:15:42.750 Erste Instanz — Mutex ok.
+2026-04-06 03:15:42.945 Tray: ForceCreate ok.
+2026-04-06 03:15:42.946 MixrHost: Start …
+2026-04-06 03:15:43.017 Mixr → COM automatisch (ESP32-S3 USB 303A:1001) @ 921600
+2026-04-06 03:15:43.017 Wiederverbindung bei USB; config.yaml wird überwacht.
+2026-04-06 03:15:43.017 Taster: siehe button_mapping in config.yaml (Standard: Prev / Play / Next / Mute / Deafen).
+2026-04-06 03:15:43.017 Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele
+2026-04-06 03:15:43.058 Auto-detect: session_groups updated (master · communication · media · games — see config.yaml).
+2026-04-06 03:15:43.085 Tray: ContextFlyout.XamlRoot gesetzt.
+2026-04-06 03:15:45.068 Discord-Hotkeys: Strg+Linksshift+Alt — 9 Mute, 0 Deafen, 8 Share Screen.
+2026-04-06 03:15:45.624 Seriell verbunden (COM6).
+2026-04-06 03:16:52.499 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:16:52.913 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:16:59.788 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:17:00.181 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:17:00.805 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:17:01.204 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:17:04.095 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:17:04.504 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:17:05.533 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:17:05.930 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:17:39.002 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:17:39.406 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:17:53.314 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:17:53.711 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:17:54.185 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:17:54.595 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:17:56.060 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:17:56.469 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:17:56.991 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:17:57.399 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:19:51.160 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:19:51.569 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:19:54.586 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:19:54.994 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:19:55.616 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:19:56.016 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:24:23.944 MixrHost: beendet (normal).
+2026-04-06 03:25:02.008 Main entry (args: )
+2026-04-06 03:25:02.030 InitializeComWrappers …
+2026-04-06 03:25:02.030 InitializeComWrappers OK
+2026-04-06 03:25:02.030 Application.Start …
+2026-04-06 03:25:02.082 Application.Start callback (UI thread)
+2026-04-06 03:25:02.083 DispatcherQueue: ok
+2026-04-06 03:25:02.083 SynchronizationContext gesetzt
+2026-04-06 03:25:02.083 new App() …
+2026-04-06 03:25:02.085 App ctor (vor InitializeComponent)
+2026-04-06 03:25:02.092 new App() zurück
+2026-04-06 03:25:02.216 OnLaunched BaseDirectory=C:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\x64\Release\net9.0-windows10.0.22621.0\win-x64\
+2026-04-06 03:25:02.216 Erste Instanz — Mutex ok.
+2026-04-06 03:25:02.400 Tray: ForceCreate ok.
+2026-04-06 03:25:02.401 MixrHost: Start …
+2026-04-06 03:25:02.472 Mixr → COM automatisch (ESP32-S3 USB 303A:1001) @ 921600
+2026-04-06 03:25:02.472 Wiederverbindung bei USB; config.yaml wird überwacht.
+2026-04-06 03:25:02.472 Taster: siehe button_mapping in config.yaml (Standard: Prev / Play / Next / Mute / Deafen).
+2026-04-06 03:25:02.473 Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele
+2026-04-06 03:25:02.517 Auto-detect: session_groups updated (master · communication · media · games — see config.yaml).
+2026-04-06 03:25:02.523 Tray: ContextFlyout.XamlRoot gesetzt.
+2026-04-06 03:25:03.904 Discord-Hotkeys: Strg+Linksshift+Alt — 9 Mute, 0 Deafen, 8 Share Screen.
+2026-04-06 03:25:04.584 Seriell verbunden (COM6).
+2026-04-06 03:25:15.424 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:25:15.826 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:25:17.448 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:25:17.855 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:25:18.943 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:25:19.344 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:25:19.938 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:25:20.336 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:25:21.320 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:25:21.716 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:25:22.614 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:25:23.017 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:25:23.541 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:25:23.947 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:25:24.427 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:25:24.831 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:25:25.307 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:25:25.715 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:25:26.660 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:25:27.062 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:25:31.230 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:25:31.634 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:25:32.434 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:25:32.843 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:25:33.535 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:25:33.878 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:25:34.282 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:25:41.709 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:25:42.109 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:25:43.730 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:25:44.123 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:25:44.630 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:25:45.038 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:25:45.666 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:25:46.076 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:25:46.242 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:25:46.652 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:25:46.754 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:25:47.160 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:25:48.304 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:25:48.711 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:25:49.090 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:25:49.486 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:25:49.590 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:25:49.998 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:25:50.343 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:25:50.741 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:25:51.027 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:25:51.423 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:25:52.521 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:25:52.926 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:25:54.021 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:25:54.415 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:25:54.796 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:25:55.189 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:25:55.736 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:25:56.134 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:25:57.308 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:25:57.714 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:25:58.745 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:25:59.140 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:26:59.148 MixrHost: beendet (normal).
+2026-04-06 03:29:46.838 Main entry (args: )
+2026-04-06 03:29:46.857 InitializeComWrappers …
+2026-04-06 03:29:46.858 InitializeComWrappers OK
+2026-04-06 03:29:46.858 Application.Start …
+2026-04-06 03:29:46.912 Application.Start callback (UI thread)
+2026-04-06 03:29:46.913 DispatcherQueue: ok
+2026-04-06 03:29:46.913 SynchronizationContext gesetzt
+2026-04-06 03:29:46.913 new App() …
+2026-04-06 03:29:46.915 App ctor (vor InitializeComponent)
+2026-04-06 03:29:46.924 new App() zurück
+2026-04-06 03:29:47.054 OnLaunched BaseDirectory=C:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\x64\Release\net9.0-windows10.0.22621.0\win-x64\
+2026-04-06 03:29:47.055 Erste Instanz — Mutex ok.
+2026-04-06 03:29:47.253 Tray: ForceCreate ok.
+2026-04-06 03:29:47.254 MixrHost: Start …
+2026-04-06 03:29:47.327 Mixr → COM automatisch (ESP32-S3 USB 303A:1001) @ 921600
+2026-04-06 03:29:47.327 Wiederverbindung bei USB; config.yaml wird überwacht.
+2026-04-06 03:29:47.327 Taster: siehe button_mapping in config.yaml (Standard: Prev / Play / Next / Mute / Deafen).
+2026-04-06 03:29:47.327 Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele
+2026-04-06 03:29:47.381 Auto-detect: session_groups updated (master · communication · media · games — see config.yaml).
+2026-04-06 03:29:47.416 Tray: ContextFlyout.XamlRoot gesetzt.
+2026-04-06 03:29:49.036 Discord-Hotkeys: Strg+Linksshift+Alt — 9 Mute, 0 Deafen, 8 Share Screen.
+2026-04-06 03:29:49.741 Seriell verbunden (COM6).
+2026-04-06 03:29:59.820 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:30:00.217 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:30:00.837 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:30:01.240 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:30:04.404 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:30:04.805 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:30:07.354 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:30:07.748 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:30:08.010 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:30:08.415 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:30:08.864 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:30:09.268 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:30:11.953 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:30:12.366 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:30:12.881 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:30:13.280 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:30:14.161 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:30:14.566 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:30:16.234 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:30:16.643 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:30:16.758 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:30:17.154 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:30:17.199 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:30:17.603 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:30:18.024 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:30:18.424 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:30:19.059 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:30:19.463 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:30:19.674 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:30:20.082 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:30:20.277 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:30:20.671 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:30:22.244 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:30:22.639 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:30:23.234 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:30:23.631 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:30:24.614 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:30:25.010 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:30:29.933 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 03:30:30.342 Konfiguration neu geladen (config.yaml).
+2026-04-06 03:30:37.396 MixrHost: beendet (normal).

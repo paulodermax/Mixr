@@ -1,16 +1,19 @@
 using System.Collections.ObjectModel;
+using System.Globalization;
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Animation;
+using Microsoft.UI.Xaml.Media.Imaging;
 using Microsoft.UI.Xaml.Navigation;
 using Mixr.Models;
 using Mixr.Services;
 using Mixr_App.Services;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
+using Windows.Graphics.Imaging;
 using Border = Microsoft.UI.Xaml.Controls.Border;
 
 namespace Mixr_App.Pages;
@@ -22,9 +25,9 @@ public sealed partial class SliderMappingPage : Page
     readonly ObservableCollection<CatalogGameVm> _catalogGames = new();
 
     MixrConfig _draft = new();
-    bool _dirty;
     List<SliderCardVm>? _sliderCards;
     Microsoft.UI.Xaml.DispatcherTimer? _liveTimer;
+    bool _suppressNextRuntimeConfigReload;
 
     static SliderMappingPage? _activeInstance;
 
@@ -40,14 +43,9 @@ public sealed partial class SliderMappingPage : Page
         Unloaded += OnUnloaded;
     }
 
-    /// <summary>Vor dem Ausblenden des Fensters (Tray): offene ungespeicherte Zuordnung sichern.</summary>
-    public static void TryPersistOnWindowClose() => _activeInstance?.PersistIfDirtyOnWindowClose();
-
-    void PersistIfDirtyOnWindowClose()
+    /// <summary>Slider mapping is auto-saved on each change; nothing to flush on window hide.</summary>
+    public static void TryPersistOnWindowClose()
     {
-        if (!_dirty)
-            return;
-        PersistMappingAndSync();
     }
 
     void OnLoaded(object sender, RoutedEventArgs e)
@@ -87,8 +85,13 @@ public sealed partial class SliderMappingPage : Page
     {
         _dq.TryEnqueue(() =>
         {
-            if (!_dirty)
-                LoadDraftFromDisk();
+            if (_suppressNextRuntimeConfigReload)
+            {
+                _suppressNextRuntimeConfigReload = false;
+                return;
+            }
+
+            LoadDraftFromDisk();
         });
     }
 
@@ -114,52 +117,45 @@ public sealed partial class SliderMappingPage : Page
         }
     }
 
-    void SaveDraft_Click(object sender, RoutedEventArgs e) => PersistMappingAndSync();
-
     void ResetDraft_Click(object sender, RoutedEventArgs e)
     {
-        LoadDraftFromDisk();
+        _draft = MixrConfigClone.DeepClone(MixrConfigLoader.Load(Array.Empty<string>()));
+        var defaults = new MixrConfig();
+        _draft.SliderMapping = new List<string>(defaults.SliderMapping);
+        _draft.SessionGroups = new Dictionary<string, List<string>>(StringComparer.OrdinalIgnoreCase);
+
+        // Wie beim App-Start (SessionGroupsBootstrap): erkannte Apps + Steam-Katalog in die Gruppen legen.
+        CatalogIgnoreList.EnsureLauncherIgnoreLines();
+        SessionGroupsLauncherPrune.RemoveLauncherTokensFromAllGroups(_draft);
+        if (!_draft.SessionGroups.ContainsKey("master"))
+            _draft.SessionGroups["master"] = [];
+        SessionGroupsAutoMerge.MergeDetectedInto(_draft);
+        SessionGroupsCatalogMerge.MergeSteamGamesInto(_draft);
+
+        PersistMappingAndSync();
     }
 
     void LoadDraftFromDisk()
     {
         _draft = MixrConfigClone.DeepClone(MixrConfigLoader.Load(Array.Empty<string>()));
-        _dirty = false;
         RebuildSliderCardsFromDraft();
         LoadCatalog();
-        UpdateSaveUi();
     }
 
-    void UpdateSaveUi()
-    {
-        if (SaveDraftButton != null)
-            SaveDraftButton.IsEnabled = _dirty;
-        if (UnsavedHintText != null)
-            UnsavedHintText.Visibility = _dirty ? Visibility.Visible : Visibility.Collapsed;
-    }
-
-    void MarkDirty()
-    {
-        _dirty = true;
-        UpdateSaveUi();
-    }
-
-    /// <summary>config.yaml schreiben, Host neu laden (Fader → Session-Matching), Bibliothek + Karten aktualisieren.</summary>
+    /// <summary>Write config.yaml, reload host (sliders → session matching), refresh library and cards.</summary>
     void PersistMappingAndSync()
     {
         try
         {
             MixrConfigWriter.Save(_draft, MixrConfigPaths.ConfigYamlPath);
+            _suppressNextRuntimeConfigReload = true;
             MixrRuntimeState.ReloadConfigFromDisk(Array.Empty<string>());
-            _dirty = false;
-            UpdateSaveUi();
-            AppLog.WriteLine("Fader-Zuordnung gespeichert (config.yaml), Laufzeitkonfiguration neu geladen.");
+            AppLog.WriteLine("Slider-Editing: saved config.yaml, runtime config reloaded.");
         }
         catch (Exception ex)
         {
-            AppLog.WriteLine("Speichern: " + ex.Message);
-            _dirty = true;
-            UpdateSaveUi();
+            AppLog.WriteLine("Save failed: " + ex.Message);
+            _suppressNextRuntimeConfigReload = false;
             return;
         }
 
@@ -184,35 +180,88 @@ public sealed partial class SliderMappingPage : Page
 
     void RebuildSliderCardsFromDraft()
     {
-        var cards = new List<SliderCardVm>();
         var store = GameCatalogStore.LoadOrCreate();
+        if (_sliderCards == null || _sliderCards.Count != _draft.SliderMapping.Count)
+        {
+            var cards = new List<SliderCardVm>();
+            for (var i = 0; i < _draft.SliderMapping.Count; i++)
+            {
+                var key = _draft.SliderMapping[i];
+                var card = new SliderCardVm
+                {
+                    SliderIndex = i,
+                    SliderKey = key,
+                    Title = $"{i + 1}. {HumanizeKey(key)}",
+                };
+
+                if (_draft.SessionGroups.TryGetValue(key, out var list))
+                {
+                    foreach (var s in list.OrderBy(x => x, StringComparer.OrdinalIgnoreCase))
+                    {
+                        var row = new AssignedProgramRow { SliderIndex = i, Token = s };
+                        card.AssignedPrograms.Add(row);
+                        TryLoadAssignedCover(row, store);
+                    }
+                }
+
+                card.ShowEmptyHint = card.AssignedPrograms.Count == 0;
+                cards.Add(card);
+            }
+
+            _sliderCards = cards;
+            SetFaderZoneDataContexts(cards);
+            RefreshLiveActivity();
+            return;
+        }
+
         for (var i = 0; i < _draft.SliderMapping.Count; i++)
         {
             var key = _draft.SliderMapping[i];
-            var card = new SliderCardVm
-            {
-                SliderIndex = i,
-                SliderKey = key,
-                Title = $"{i + 1}. {HumanizeKey(key)}",
-            };
-
-            if (_draft.SessionGroups.TryGetValue(key, out var list))
-            {
-                foreach (var s in list.OrderBy(x => x, StringComparer.OrdinalIgnoreCase))
-                {
-                    var row = new AssignedProgramRow { SliderIndex = i, Token = s };
-                    card.AssignedPrograms.Add(row);
-                    TryLoadAssignedCover(row, store);
-                }
-            }
-
+            var card = _sliderCards[i];
+            card.SliderIndex = i;
+            card.SliderKey = key;
+            card.Title = $"{i + 1}. {HumanizeKey(key)}";
+            SyncCardAssignedPrograms(card, i, key, store);
             card.ShowEmptyHint = card.AssignedPrograms.Count == 0;
-            cards.Add(card);
         }
 
-        _sliderCards = cards;
-        SetFaderZoneDataContexts(cards);
         RefreshLiveActivity();
+    }
+
+    void SyncCardAssignedPrograms(SliderCardVm card, int sliderIndex, string sliderKey, GameCatalogStore store)
+    {
+        var sorted = (_draft.SessionGroups.TryGetValue(sliderKey, out var list)
+                ? list.OrderBy(x => x, StringComparer.OrdinalIgnoreCase).ToList()
+                : new List<string>())
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .OrderBy(x => x, StringComparer.OrdinalIgnoreCase)
+            .ToList();
+
+        var cur = card.AssignedPrograms.Select(r => r.Token).ToList();
+        if (sorted.Count == cur.Count &&
+            sorted.Zip(cur, (a, b) => a.Equals(b, StringComparison.OrdinalIgnoreCase)).All(x => x))
+            return;
+
+        for (var i = card.AssignedPrograms.Count - 1; i >= 0; i--)
+        {
+            var t = card.AssignedPrograms[i].Token;
+            if (!sorted.Any(s => s.Equals(t, StringComparison.OrdinalIgnoreCase)))
+                card.AssignedPrograms.RemoveAt(i);
+        }
+
+        foreach (var t in sorted)
+        {
+            if (card.AssignedPrograms.Any(r => r.Token.Equals(t, StringComparison.OrdinalIgnoreCase)))
+                continue;
+
+            var row = new AssignedProgramRow { SliderIndex = sliderIndex, Token = t };
+            var pos = 0;
+            while (pos < card.AssignedPrograms.Count &&
+                   string.Compare(card.AssignedPrograms[pos].Token, t, StringComparison.OrdinalIgnoreCase) < 0)
+                pos++;
+            card.AssignedPrograms.Insert(pos, row);
+            TryLoadAssignedCover(row, store);
+        }
     }
 
     void SetFaderZoneDataContexts(IReadOnlyList<SliderCardVm> cards)
@@ -232,7 +281,6 @@ public sealed partial class SliderMappingPage : Page
 
     void TryLoadAssignedCover(AssignedProgramRow row, GameCatalogStore store)
     {
-        row.Cover = null;
         var entry = CatalogGameEntryLookup.FindEntry(store, row.Token);
         string? rel = entry != null
             ? CatalogCoverResolver.ResolveRelativePath(entry)
@@ -275,11 +323,11 @@ public sealed partial class SliderMappingPage : Page
 
             if (card.SliderKey.Equals("master", StringComparison.OrdinalIgnoreCase))
             {
-                card.LiveActivity = "Standard-Wiedergabegerät (Gesamt)";
+                card.LiveActivity = "Default playback device (mix)";
                 continue;
             }
 
-            card.LiveActivity = "Keine passende Session";
+            card.LiveActivity = "No matching session";
         }
     }
 
@@ -291,13 +339,177 @@ public sealed partial class SliderMappingPage : Page
             _ => char.ToUpperInvariant(key[0]) + key[1..],
         };
 
-    void CatalogItem_DragStarting(object sender, DragStartingEventArgs args)
+    async void CatalogItem_DragStarting(object sender, DragStartingEventArgs args)
     {
-        if (sender is FrameworkElement fe && fe.DataContext is CatalogGameVm g)
+        if (sender is Border b)
+            StartDragWobble(b);
+        var deferral = args.GetDeferral();
+        try
         {
-            args.Data.SetText(g.Token);
-            args.Data.RequestedOperation = DataPackageOperation.Copy;
+            if (sender is FrameworkElement fe && fe.DataContext is CatalogGameVm g)
+            {
+                args.Data.SetText(g.Token);
+                args.Data.RequestedOperation = DataPackageOperation.Copy;
+                await SetDragPreviewFromElementAsync(args, fe).ConfigureAwait(true);
+            }
         }
+        finally
+        {
+            deferral.Complete();
+        }
+    }
+
+    async void AssignedItem_DragStarting(object sender, DragStartingEventArgs args)
+    {
+        if (sender is Border b)
+            StartDragWobble(b);
+        var deferral = args.GetDeferral();
+        try
+        {
+            if (sender is FrameworkElement fe && fe.DataContext is AssignedProgramRow row)
+            {
+                args.Data.SetText(row.Token);
+                args.Data.RequestedOperation = DataPackageOperation.Copy;
+                await SetDragPreviewFromElementAsync(args, fe).ConfigureAwait(true);
+            }
+        }
+        finally
+        {
+            deferral.Complete();
+        }
+    }
+
+    static async System.Threading.Tasks.Task SetDragPreviewFromElementAsync(DragStartingEventArgs args, UIElement element)
+    {
+        try
+        {
+            if (args.DragUI == null)
+                return;
+            if (element is not FrameworkElement fe)
+                return;
+            var w = Math.Max(1, (int)Math.Ceiling(fe.ActualWidth));
+            var h = Math.Max(1, (int)Math.Ceiling(fe.ActualHeight));
+            if (w < 2 || h < 2)
+                return;
+            var rtb = new RenderTargetBitmap();
+            await rtb.RenderAsync(fe, w, h);
+            var pixels = await rtb.GetPixelsAsync();
+            var sb = SoftwareBitmap.CreateCopyFromBuffer(
+                pixels,
+                BitmapPixelFormat.Bgra8,
+                (int)rtb.PixelWidth,
+                (int)rtb.PixelHeight,
+                BitmapAlphaMode.Premultiplied);
+            args.DragUI.SetContentFromSoftwareBitmap(sb);
+        }
+        catch
+        {
+            /* keep default ghost */
+        }
+    }
+
+    void LibraryDropZone_DragOver(object sender, DragEventArgs e)
+    {
+        if (!e.DataView.Contains(StandardDataFormats.Text))
+            return;
+        e.AcceptedOperation = DataPackageOperation.Copy;
+        e.Handled = true;
+        if (e.DragUIOverride != null)
+        {
+            e.DragUIOverride.IsCaptionVisible = false;
+            e.DragUIOverride.IsGlyphVisible = false;
+        }
+
+        HighlightLibraryDrop(true);
+    }
+
+    void LibraryDropZone_DragEnter(object sender, DragEventArgs e)
+    {
+        if (!e.DataView.Contains(StandardDataFormats.Text))
+            return;
+        e.AcceptedOperation = DataPackageOperation.Copy;
+        e.Handled = true;
+        if (e.DragUIOverride != null)
+        {
+            e.DragUIOverride.IsCaptionVisible = false;
+            e.DragUIOverride.IsGlyphVisible = false;
+        }
+
+        HighlightLibraryDrop(true);
+    }
+
+    void LibraryDropZone_DragLeave(object sender, DragEventArgs e)
+    {
+        e.Handled = true;
+        HighlightLibraryDrop(false);
+    }
+
+    async void LibraryDropZone_Drop(object sender, DragEventArgs e)
+    {
+        e.Handled = true;
+        HighlightLibraryDrop(false);
+        try
+        {
+            if (!e.DataView.Contains(StandardDataFormats.Text))
+                return;
+            var token = (await e.DataView.GetTextAsync()).Trim();
+            if (string.IsNullOrEmpty(token))
+                return;
+            RemoveTokenFromAllMappings(_draft, token);
+            PersistMappingAndSync();
+        }
+        catch
+        {
+            /* */
+        }
+    }
+
+    void HighlightLibraryDrop(bool on)
+    {
+        if (LibraryPanel == null)
+            return;
+        if (on)
+        {
+            LibraryPanel.BorderBrush = AccentBrush;
+            LibraryPanel.BorderThickness = new Thickness(2);
+        }
+        else
+        {
+            LibraryPanel.BorderBrush = DefaultDropBorderBrush;
+            LibraryPanel.BorderThickness = new Thickness(1);
+        }
+    }
+
+    void AssignedScroller_SizeChanged(object sender, SizeChangedEventArgs e)
+    {
+        if (sender is not ScrollViewer sv)
+            return;
+        var ic = FindFirstDescendant<ItemsControl>(sv);
+        if (ic?.ItemsPanelRoot is not ItemsWrapGrid grid || e.NewSize.Width <= 0)
+            return;
+        const double gutter = 6;
+        var w = e.NewSize.Width;
+        // Three columns; two gutters between tiles (same 6px margins as with 2 columns).
+        var colW = (w - gutter * 2) / 3.0;
+        grid.ItemWidth = Math.Max(36, colW);
+        // 2:3 portrait — full cover visible with Stretch Uniform in the cell.
+        grid.ItemHeight = Math.Max(54, colW * 1.5);
+    }
+
+    static T? FindFirstDescendant<T>(DependencyObject root) where T : DependencyObject
+    {
+        var n = VisualTreeHelper.GetChildrenCount(root);
+        for (var i = 0; i < n; i++)
+        {
+            var c = VisualTreeHelper.GetChild(root, i);
+            if (c is T match)
+                return match;
+            var found = FindFirstDescendant<T>(c);
+            if (found != null)
+                return found;
+        }
+
+        return null;
     }
 
     void DropZone_DragOver(object sender, DragEventArgs e)
@@ -391,22 +603,90 @@ public sealed partial class SliderMappingPage : Page
 
     void AssignedCover_Loaded(object sender, RoutedEventArgs e)
     {
-        if (sender is not Border b)
-            return;
+        if (sender is Border b)
+            SetupCoverTileTransforms(b);
+    }
+
+    void CatalogCoverItem_Loaded(object sender, RoutedEventArgs e)
+    {
+        if (sender is Border b)
+            SetupCoverTileTransforms(b);
+    }
+
+    static void SetupCoverTileTransforms(Border b)
+    {
         b.RenderTransformOrigin = new Point(0.5, 0.5);
-        if (b.RenderTransform is not ScaleTransform)
-            b.RenderTransform = new ScaleTransform { ScaleX = 1, ScaleY = 1 };
+        var scale = new ScaleTransform { ScaleX = 1, ScaleY = 1 };
+        var rotate = new RotateTransform { Angle = 0 };
+        var tg = new TransformGroup();
+        tg.Children.Add(scale);
+        tg.Children.Add(rotate);
+        b.RenderTransform = tg;
+    }
+
+    static ScaleTransform? GetCoverScaleTransform(Border? b) =>
+        b?.RenderTransform is TransformGroup tg && tg.Children.Count >= 1 && tg.Children[0] is ScaleTransform st
+            ? st
+            : null;
+
+    static RotateTransform? GetCoverRotateTransform(Border? b) =>
+        b?.RenderTransform is TransformGroup tg && tg.Children.Count >= 2 && tg.Children[1] is RotateTransform rt
+            ? rt
+            : null;
+
+    void CoverTile_DropCompleted(object sender, DropCompletedEventArgs e)
+    {
+        if (sender is Border b)
+            StopCoverWobble(b);
+    }
+
+    void StartDragWobble(Border b)
+    {
+        StopCoverWobble(b);
+        var rt = GetCoverRotateTransform(b);
+        if (rt == null)
+            return;
+        rt.Angle = 0;
+        var anim = new DoubleAnimation
+        {
+            From = -2.2,
+            To = 2.2,
+            Duration = TimeSpan.FromMilliseconds(340),
+            AutoReverse = true,
+            RepeatBehavior = RepeatBehavior.Forever,
+            EasingFunction = new SineEase { EasingMode = EasingMode.EaseInOut },
+        };
+        Storyboard.SetTarget(anim, rt);
+        Storyboard.SetTargetProperty(anim, "Angle");
+        var sb = new Storyboard();
+        sb.Children.Add(anim);
+        b.Tag = sb;
+        sb.Begin();
+    }
+
+    void StopCoverWobble(Border? b)
+    {
+        if (b == null)
+            return;
+        if (b.Tag is Storyboard sb)
+        {
+            sb.Stop();
+            b.Tag = null;
+        }
+
+        if (GetCoverRotateTransform(b) is { } rt)
+            rt.Angle = 0;
     }
 
     void AssignedCover_PointerEntered(object sender, PointerRoutedEventArgs e)
     {
-        if (sender is Border b && b.RenderTransform is ScaleTransform st)
+        if (sender is Border b && GetCoverScaleTransform(b) is ScaleTransform st)
             AnimateCoverScale(st, 1.08);
     }
 
     void AssignedCover_PointerExited(object sender, PointerRoutedEventArgs e)
     {
-        if (sender is Border b && b.RenderTransform is ScaleTransform st)
+        if (sender is Border b && GetCoverScaleTransform(b) is ScaleTransform st)
             AnimateCoverScale(st, 1.0);
     }
 
@@ -426,22 +706,6 @@ public sealed partial class SliderMappingPage : Page
         sb.Begin();
     }
 
-    void RemoveAssigned_Click(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            if ((sender as FrameworkElement)?.DataContext is not AssignedProgramRow row)
-                return;
-
-            RemoveTokenFromSlider(_draft, row.SliderIndex, row.Token);
-            PersistMappingAndSync();
-        }
-        catch
-        {
-            /* */
-        }
-    }
-
     void LoadCatalog()
     {
         CatalogManualCoverSync.ApplyManualFilesToStore();
@@ -452,16 +716,70 @@ public sealed partial class SliderMappingPage : Page
             .OrderBy(x => x.Name, StringComparer.OrdinalIgnoreCase)
             .ToList();
 
-        CatalogHintText.Text =
-            $"{visible.Count} in der Bibliothek · {assigned.Count} einem Fader zugeordnet · {store.Games.Count} im Katalog · {FormatUtc(store.LastWeeklyCatalogUtc)}";
+        LibraryMetaText.Text = BuildLibraryMetaLine(store);
 
-        _catalogGames.Clear();
+        var empty = visible.Count == 0;
+        LibraryEmptyText.Visibility = empty ? Visibility.Visible : Visibility.Collapsed;
+        CatalogScrollViewer.Visibility = empty ? Visibility.Collapsed : Visibility.Visible;
+
+        var desired = new List<(CatalogGameEntry Entry, string Token)>(visible.Count);
         foreach (var g in visible)
         {
             var token = string.IsNullOrEmpty(g.AssignmentToken) ? g.Name : g.AssignmentToken;
-            var vm = new CatalogGameVm(g.Name, token);
-            _catalogGames.Add(vm);
-            TryLoadCover(vm, g);
+            desired.Add((g, token));
+        }
+
+        var desireTokens = desired.Select(d => d.Token).ToList();
+        var curTokens = _catalogGames.Select(vm => vm.Token).ToList();
+        if (curTokens.Count == desireTokens.Count &&
+            curTokens.Zip(desireTokens, (a, b) => a.Equals(b, StringComparison.OrdinalIgnoreCase)).All(x => x))
+            return;
+
+        var desiredSet = new HashSet<string>(desireTokens, StringComparer.OrdinalIgnoreCase);
+        for (var i = _catalogGames.Count - 1; i >= 0; i--)
+        {
+            if (!desiredSet.Contains(_catalogGames[i].Token))
+                _catalogGames.RemoveAt(i);
+        }
+
+        var byToken = _catalogGames.ToDictionary(vm => vm.Token, StringComparer.OrdinalIgnoreCase);
+        foreach (var (entry, token) in desired)
+        {
+            if (byToken.ContainsKey(token))
+                continue;
+
+            var vm = new CatalogGameVm(entry.Name, token);
+            var insert = 0;
+            while (insert < _catalogGames.Count &&
+                   string.Compare(_catalogGames[insert].Name, vm.Name, StringComparison.OrdinalIgnoreCase) < 0)
+                insert++;
+            _catalogGames.Insert(insert, vm);
+            byToken[token] = vm;
+            TryLoadCover(vm, entry);
+        }
+
+        var orderOk = _catalogGames.Count == desireTokens.Count;
+        if (orderOk)
+        {
+            for (var i = 0; i < _catalogGames.Count; i++)
+            {
+                if (!_catalogGames[i].Token.Equals(desireTokens[i], StringComparison.OrdinalIgnoreCase))
+                {
+                    orderOk = false;
+                    break;
+                }
+            }
+        }
+
+        if (!orderOk)
+        {
+            var vmDict = _catalogGames.ToDictionary(vm => vm.Token, StringComparer.OrdinalIgnoreCase);
+            _catalogGames.Clear();
+            foreach (var t in desireTokens)
+            {
+                if (vmDict.TryGetValue(t, out var vm))
+                    _catalogGames.Add(vm);
+            }
         }
     }
 
@@ -474,8 +792,28 @@ public sealed partial class SliderMappingPage : Page
         return false;
     }
 
-    static string FormatUtc(DateTime utc) =>
-        utc == default ? "—" : utc.ToLocalTime().ToString("g");
+    static string BuildLibraryMetaLine(GameCatalogStore store)
+    {
+        var timePart = store.LastWeeklyCatalogUtc == default
+            ? "—"
+            : store.LastWeeklyCatalogUtc.ToLocalTime().ToString("t", CultureInfo.CurrentCulture);
+        return $"Last update: {timePart} - {store.Games.Count} found";
+    }
+
+    static void RemoveTokenFromAllMappings(MixrConfig cfg, string token)
+    {
+        if (string.IsNullOrWhiteSpace(token))
+            return;
+        token = token.Trim();
+        foreach (var k in cfg.SessionGroups.Keys.ToList())
+        {
+            if (!cfg.SessionGroups.TryGetValue(k, out var list))
+                continue;
+            list.RemoveAll(s => s.Equals(token, StringComparison.OrdinalIgnoreCase));
+            if (list.Count == 0)
+                cfg.SessionGroups.Remove(k);
+        }
+    }
 
     void TryLoadCover(CatalogGameVm vm, CatalogGameEntry entry)
     {
@@ -528,15 +866,4 @@ public sealed partial class SliderMappingPage : Page
             target.Add(gameToken);
     }
 
-    static void RemoveTokenFromSlider(MixrConfig cfg, int sliderIndex, string token)
-    {
-        if (sliderIndex < 0 || sliderIndex >= cfg.SliderMapping.Count)
-            return;
-        var key = cfg.SliderMapping[sliderIndex];
-        if (!cfg.SessionGroups.TryGetValue(key, out var list))
-            return;
-        list.RemoveAll(s => s.Equals(token, StringComparison.OrdinalIgnoreCase));
-        if (list.Count == 0)
-            cfg.SessionGroups.Remove(key);
-    }
 }

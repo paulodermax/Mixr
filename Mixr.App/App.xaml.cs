@@ -97,7 +97,7 @@ public partial class App : Application
         var icoPath = Path.Combine(AppContext.BaseDirectory, "Assets", "AppIcon.ico");
         _trayIcon = new TaskbarIcon
         {
-            ToolTipText = "Mixr — läuft im Hintergrund",
+            ToolTipText = "Mixr — running in the background",
             Icon = File.Exists(icoPath) ? new Icon(icoPath) : SystemIcons.Application,
         };
         var openOnDbl = new XamlUICommand();
@@ -105,11 +105,11 @@ public partial class App : Application
         _trayIcon.DoubleClickCommand = openOnDbl;
 
         var flyout = new MenuFlyout();
-        var openItem = new MenuFlyoutItem { Text = "Mixr öffnen" };
+        var openItem = new MenuFlyoutItem { Text = "Open Mixr" };
         openItem.Click += (_, _) => _dispatcherQueue?.TryEnqueue(ShowMainWindowCore);
-        var exitItem = new MenuFlyoutItem { Text = "Beenden" };
+        var exitItem = new MenuFlyoutItem { Text = "Exit" };
         exitItem.Click += (_, _) => _dispatcherQueue?.TryEnqueue(ExitFromTray);
-        var logItem = new MenuFlyoutItem { Text = "Log öffnen (EXE-Ordner oder %LocalAppData%\\Mixr)" };
+        var logItem = new MenuFlyoutItem { Text = "Open log (next to EXE or %LocalAppData%\\Mixr)" };
         logItem.Click += (_, _) => _dispatcherQueue?.TryEnqueue(OpenLogFileCore);
         flyout.Items.Add(openItem);
         flyout.Items.Add(logItem);
@@ -226,11 +226,11 @@ public partial class App : Application
             {
                 var dlg = new ContentDialog
                 {
-                    Title = "Mixr — Hintergrunddienst",
+                    Title = "Mixr — background service",
                     Content =
-                        "Serial oder Medien-Dienst konnte nicht starten:\n\n"
+                        "Serial or media service failed to start:\n\n"
                         + message
-                        + "\n\nDetails stehen in mixr_app.log neben der EXE.",
+                        + "\n\nSee mixr_app.log next to the EXE for details.",
                     CloseButtonText = "OK",
                     XamlRoot = fe.XamlRoot,
                 };
@@ -238,7 +238,7 @@ public partial class App : Application
             }
             else
             {
-                AppLog.WriteLine("UI: Kein XamlRoot — Fehlerdialog übersprungen. Siehe mixr_app.log.");
+                AppLog.WriteLine("UI: No XamlRoot — error dialog skipped. See mixr_app.log.");
             }
         }
         catch (Exception ex)
@@ -261,14 +261,14 @@ public partial class App : Application
             }
         }
 
-        AppLog.WriteLine("Tray: XamlRoot für ContextFlyout nicht gesetzt (Menü ggf. eingeschränkt).");
+        AppLog.WriteLine("Tray: ContextFlyout.XamlRoot not set (menu may be limited).");
     }
 
     void OpenLogFileCore()
     {
         try
         {
-            AppLog.WriteLine("(Tray) Log öffnen angefordert.");
+            AppLog.WriteLine("(Tray) Open log requested.");
             var path = AppLog.LogFilePath;
             if (!File.Exists(path))
                 File.WriteAllText(path, "");

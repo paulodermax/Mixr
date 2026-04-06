@@ -148,7 +148,7 @@ public sealed partial class HardwareMapPage : Page
             ? string.Join(Environment.NewLine, list.OrderBy(s => s, StringComparer.OrdinalIgnoreCase))
             : "";
         DetailSliderPrograms.Text = lines;
-        DetailTitleText.Text = $"Fader {idx + 1}";
+        DetailTitleText.Text = $"Slider {idx + 1}";
         SliderDetailPanel.Visibility = Visibility.Visible;
         ButtonDetailPanel.Visibility = Visibility.Collapsed;
         if (!_detailOpen)
@@ -166,28 +166,28 @@ public sealed partial class HardwareMapPage : Page
         DetailButtonCombo.Items.Clear();
         foreach (var a in MixrButtonActions.All)
         {
-            var item = new ComboBoxItem { Content = ActionTitleGerman(a), Tag = a };
+            var item = new ComboBoxItem { Content = ActionTitleEnglish(a), Tag = a };
             DetailButtonCombo.Items.Add(item);
             if (a.Equals(current, StringComparison.OrdinalIgnoreCase))
                 DetailButtonCombo.SelectedItem = item;
         }
 
-        DetailTitleText.Text = $"Taster {idx}";
+        DetailTitleText.Text = $"Button {idx}";
         ButtonDetailPanel.Visibility = Visibility.Visible;
         SliderDetailPanel.Visibility = Visibility.Collapsed;
         if (!_detailOpen)
             OpenDetailDrawer();
     }
 
-    static string ActionTitleGerman(string id) =>
+    static string ActionTitleEnglish(string id) =>
         id switch
         {
-            MixrButtonActions.SmtcPrevious => "Medien: Zurück (SMTC)",
-            MixrButtonActions.SmtcPlayPause => "Medien: Play/Pause (SMTC)",
-            MixrButtonActions.SmtcNext => "Medien: Weiter (SMTC)",
-            MixrButtonActions.DiscordMute => "Discord: Stummschalten",
-            MixrButtonActions.DiscordDeafen => "Discord: Taub",
-            MixrButtonActions.None => "Keine Aktion",
+            MixrButtonActions.SmtcPrevious => "Media: Previous (SMTC)",
+            MixrButtonActions.SmtcPlayPause => "Media: Play/Pause (SMTC)",
+            MixrButtonActions.SmtcNext => "Media: Next (SMTC)",
+            MixrButtonActions.DiscordMute => "Discord: Mute",
+            MixrButtonActions.DiscordDeafen => "Discord: Deafen",
+            MixrButtonActions.None => "No action",
             _ => id,
         };
 
@@ -331,11 +331,11 @@ public sealed partial class HardwareMapPage : Page
             MixrButtonActions.EnsureFiveEntries(_draft.ButtonMapping);
             MixrConfigWriter.Save(_draft, MixrConfigPaths.ConfigYamlPath);
             MixrRuntimeState.ReloadConfigFromDisk(Array.Empty<string>());
-            AppLog.WriteLine("Hardware-Karte: config.yaml gespeichert.");
+            AppLog.WriteLine("Hardware map: config.yaml saved.");
         }
         catch (Exception ex)
         {
-            AppLog.WriteLine("Hardware-Karte Speichern: " + ex.Message);
+            AppLog.WriteLine("Hardware map save failed: " + ex.Message);
         }
     }
 }

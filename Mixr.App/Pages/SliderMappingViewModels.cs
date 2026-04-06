@@ -74,9 +74,45 @@ public sealed class AssignedProgramRow : INotifyPropertyChanged
 /// <summary>VM für eine Fader-Karte (Slider 1–4).</summary>
 public sealed class SliderCardVm : INotifyPropertyChanged
 {
-    public int SliderIndex { get; init; }
-    public string SliderKey { get; init; } = "";
-    public string Title { get; init; } = "";
+    int _sliderIndex;
+    string _sliderKey = "";
+    string _title = "";
+
+    public int SliderIndex
+    {
+        get => _sliderIndex;
+        set
+        {
+            if (_sliderIndex == value)
+                return;
+            _sliderIndex = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public string SliderKey
+    {
+        get => _sliderKey;
+        set
+        {
+            if (_sliderKey == value)
+                return;
+            _sliderKey = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public string Title
+    {
+        get => _title;
+        set
+        {
+            if (_title == value)
+                return;
+            _title = value;
+            OnPropertyChanged();
+        }
+    }
     public string Subtitle { get; init; } = "";
     public bool ShowEmptyHint { get; set; }
     public ObservableCollection<AssignedProgramRow> AssignedPrograms { get; } = new();

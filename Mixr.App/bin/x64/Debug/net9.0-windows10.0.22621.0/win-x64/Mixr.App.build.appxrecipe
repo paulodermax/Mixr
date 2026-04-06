@@ -40,6 +40,24 @@
     <AppxPackagedFile Include="c:\Users\paulm\.mainroot\Mixr\Mixr.Core\config.yaml">
       <PackagePath>config.yaml</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="c:\Users\paulm\.mainroot\Mixr\covers\apple.png">
+      <PackagePath>covers\apple.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="c:\Users\paulm\.mainroot\Mixr\covers\brave.png">
+      <PackagePath>covers\brave.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="c:\Users\paulm\.mainroot\Mixr\covers\chrome.png">
+      <PackagePath>covers\chrome.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="c:\Users\paulm\.mainroot\Mixr\covers\discord.png">
+      <PackagePath>covers\discord.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="c:\Users\paulm\.mainroot\Mixr\covers\firefox.png">
+      <PackagePath>covers\firefox.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="c:\Users\paulm\.mainroot\Mixr\covers\spotify.png">
+      <PackagePath>covers\spotify.png</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\paulm\.nuget\packages\microsoft.web.webview2\1.0.2651.64\runtimes\win-x64\native\WebView2Loader.dll">
       <PackagePath>runtimes\win-x64\native\WebView2Loader.dll</PackagePath>
     </AppxPackagedFile>
