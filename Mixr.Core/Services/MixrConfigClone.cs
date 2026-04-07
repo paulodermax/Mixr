@@ -17,6 +17,8 @@ public static class MixrConfigClone
                 kv => kv.Key,
                 kv => new List<string>(kv.Value),
                 StringComparer.OrdinalIgnoreCase),
+            IgdbClientId = c.IgdbClientId,
+            IgdbClientSecret = c.IgdbClientSecret,
         };
     }
 }

@@ -1,11 +1,13 @@
+using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 using Mixr.Services;
+using Mixr_App;
 
 namespace Mixr_App.Services;
 
 /// <summary>
-/// Cover: zuerst IGDB (t_cover_big), wenn <c>IGDB_CLIENT_ID</c>/<c>IGDB_CLIENT_SECRET</c> gesetzt sind.
+/// Cover: zuerst IGDB (t_cover_big), wenn Credentials gesetzt sind (Umgebung und/oder <c>config.yaml</c> / <c>config.secrets.yaml</c>).
 /// Mit Steam-App-ID zusätzlich Steam-CDN-Fallback; ohne Steam-ID nur IGDB (Titelsuche).
 /// </summary>
 public static class GameMetadataEnricher
@@ -73,9 +75,9 @@ public static class GameMetadataEnricher
             if (File.Exists(full))
                 entry.CoverRelativePath = rel.Replace('\\', '/');
         }
-        catch
+        catch (Exception ex)
         {
-            /* IGDB/CDN können ausfallen — ignorieren */
+            AppLog.WriteLine($"[Cover] Steam enrich error '{entry.Name}' (appId={entry.SteamAppId}): {ex.Message}");
         }
 
         entry.Summary = $"Steam · {entry.Name}";
@@ -93,29 +95,97 @@ public static class GameMetadataEnricher
                 if (File.Exists(manualFull))
                 {
                     entry.CoverRelativePath = manualRel;
+                    entry.Summary = $"Manuell · {entry.Name}";
+                    entry.LastApiFetchUtc = DateTime.UtcNow;
+                    return;
+                }
+            }
+
+            if (!string.IsNullOrEmpty(entry.CoverRelativePath))
+            {
+                var existingFull = GameCatalogPaths.ResolvePath(entry.CoverRelativePath);
+                if (File.Exists(existingFull))
+                {
                     entry.Summary ??= entry.Name;
                     entry.LastApiFetchUtc = DateTime.UtcNow;
                     return;
                 }
+
+                entry.CoverRelativePath = null;
             }
 
             var baseName = NonSteamCoverBaseName(entry);
             var rel = $"covers/{baseName}.jpg";
             var full = GameCatalogPaths.ResolvePath(rel);
 
-            var ok = await IgdbCoverService.TryDownloadCoverByNameAsync(entry.Name, full, ct).ConfigureAwait(false);
-            if (ok && File.Exists(full))
-                entry.CoverRelativePath = rel.Replace('\\', '/');
+            foreach (var candidate in EnumerateIgdbNameCandidates(entry.Name))
+            {
+                var ok = await IgdbCoverService.TryDownloadCoverByNameAsync(candidate, full, ct).ConfigureAwait(false);
+                if (ok && File.Exists(full))
+                {
+                    entry.CoverRelativePath = rel.Replace('\\', '/');
+                    break;
+                }
+            }
         }
-        catch
+        catch (Exception ex)
         {
-            /* IGDB kann ausfallen — ignorieren */
+            AppLog.WriteLine($"[Cover] Non-Steam enrich error '{entry.Name}': {ex.Message}");
         }
 
         entry.Summary ??= entry.Name;
         if (entry.CoverRelativePath is not null)
             entry.Summary = $"IGDB · {entry.Name}";
         entry.LastApiFetchUtc = DateTime.UtcNow;
+    }
+
+    /// <summary>Mehrere Suchstrings für IGDB, falls der exakte Listename keinen Treffer hat.</summary>
+    static IEnumerable<string> EnumerateIgdbNameCandidates(string name)
+    {
+        var n = name.Trim();
+        if (n.Length == 0)
+            yield break;
+
+        yield return n;
+
+        var titleCased = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(n.ToLowerInvariant());
+        if (!string.Equals(titleCased, n, StringComparison.Ordinal))
+            yield return titleCased;
+
+        var stripped = n.Replace("™", "", StringComparison.Ordinal).Replace("®", "", StringComparison.Ordinal).Trim();
+        if (stripped.Length > 0 && !string.Equals(stripped, n, StringComparison.Ordinal))
+            yield return stripped;
+
+        var paren = n.IndexOf('(', StringComparison.Ordinal);
+        if (paren > 2)
+        {
+            var q = n[..paren].TrimEnd();
+            if (q.Length >= 2)
+                yield return q;
+        }
+
+        var dash = n.IndexOf(" - ", StringComparison.Ordinal);
+        if (dash >= 2)
+        {
+            var q = n[..dash].TrimEnd();
+            if (q.Length >= 2)
+                yield return q;
+        }
+
+        var colon = n.IndexOf(':', StringComparison.Ordinal);
+        if (colon >= 2 && colon < n.Length - 1)
+        {
+            var q = n[(colon + 1)..].TrimStart();
+            if (q.Length >= 2)
+                yield return q;
+        }
+
+        if (n.EndsWith(" Live", StringComparison.OrdinalIgnoreCase) && n.Length > 5)
+        {
+            var q = n[..^5].TrimEnd();
+            if (q.Length >= 2)
+                yield return q;
+        }
     }
 
     static string NonSteamCoverBaseName(CatalogGameEntry entry)

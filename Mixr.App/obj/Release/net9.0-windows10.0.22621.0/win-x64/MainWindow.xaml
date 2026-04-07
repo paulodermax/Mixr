@@ -39,7 +39,7 @@
                 Background="Transparent"
                 BorderThickness="0"
                                               
-                ToolTipService.ToolTip="Menü">
+                ToolTipService.ToolTip="Menu">
                 <FontIcon FontSize="16" Glyph="&#xE700;" />
             </Button>
 
@@ -54,7 +54,7 @@
                 Background="Transparent"
                 BorderThickness="0"
                                         
-                ToolTipService.ToolTip="Zurück"
+                ToolTipService.ToolTip="Back"
                 Visibility="Collapsed">
                 <FontIcon FontSize="16" Glyph="&#xE72B;" />
             </Button>
@@ -79,14 +79,14 @@
                                                        >
             <NavigationView.MenuItems>
                 <NavigationViewItem
-                    Content="Übersicht"
+                    Content="Overview"
                     IsSelected="True"
                     Tag="dashboard">
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE80F;" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem Content="Fader-Zuordnung" Tag="slider_mapping">
+                <NavigationViewItem Content="Slider-Editing" Tag="slider_mapping">
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE8B8;" />
                     </NavigationViewItem.Icon>
@@ -103,12 +103,12 @@
                 </NavigationViewItem>
             </NavigationView.MenuItems>
             <NavigationView.FooterMenuItems>
-                <NavigationViewItem Content="Einstellungen" Tag="settings">
+                <NavigationViewItem Content="Settings" Tag="settings">
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE713;" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem Content="Beenden" Tag="quit">
+                <NavigationViewItem Content="Exit" Tag="quit">
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE7E8;" />
                     </NavigationViewItem.Icon>

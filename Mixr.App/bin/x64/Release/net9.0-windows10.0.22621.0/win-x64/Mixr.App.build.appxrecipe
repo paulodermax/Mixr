@@ -58,6 +58,9 @@
     <AppxPackagedFile Include="C:\Users\paulm\.nuget\packages\microsoft.web.webview2\1.0.2651.64\runtimes\win-x64\native\WebView2Loader.dll">
       <PackagePath>runtimes\win-x64\native\WebView2Loader.dll</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\paulm\.mainroot\Mixr\Mixr.App\config.secrets.example.yaml">
+      <PackagePath>config.secrets.example.yaml</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\paulm\.mainroot\Mixr\Mixr.App\obj\x64\Release\net9.0-windows10.0.22621.0\win-x64\MsixContent\CoreMessagingXP.dll">
       <PackagePath>CoreMessagingXP.dll</PackagePath>
     </AppxPackagedFile>

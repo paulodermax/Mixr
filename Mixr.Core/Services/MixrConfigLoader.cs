@@ -38,7 +38,7 @@ public static class MixrConfigLoader
             cfg = new MixrConfig();
         }
 
-        for (int i = 0; i < args.Length; i++)
+        for (var i = 0; i < args.Length; i++)
         {
             var a = args[i];
             if (a.Equals("--port", StringComparison.OrdinalIgnoreCase) && i + 1 < args.Length)
@@ -66,6 +66,7 @@ public static class MixrConfigLoader
                 cfg.BaudRate = baud;
         }
 
+        IgdbCredentialResolver.LoadFromDisk(cfg, baseDir);
         return cfg;
     }
 
@@ -77,6 +78,7 @@ public static class MixrConfigLoader
         public List<string>? Slider_mapping { get; set; }
         public List<string>? Button_mapping { get; set; }
         public Dictionary<string, List<string>>? Session_groups { get; set; }
+        public IgdbYaml? Igdb { get; set; }
 
         public MixrConfig ToConfig()
         {
@@ -97,7 +99,22 @@ public static class MixrConfigLoader
 
             if (Session_groups is { Count: > 0 })
                 c.SessionGroups = new Dictionary<string, List<string>>(Session_groups, StringComparer.OrdinalIgnoreCase);
+
+            if (Igdb != null)
+            {
+                if (!string.IsNullOrWhiteSpace(Igdb.Client_id))
+                    c.IgdbClientId = Igdb.Client_id.Trim();
+                if (!string.IsNullOrWhiteSpace(Igdb.Client_secret))
+                    c.IgdbClientSecret = Igdb.Client_secret.Trim();
+            }
+
             return c;
         }
+    }
+
+    sealed class IgdbYaml
+    {
+        public string? Client_id { get; set; }
+        public string? Client_secret { get; set; }
     }
 }

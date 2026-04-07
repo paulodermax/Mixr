@@ -7,5 +7,9 @@
 /ESP/tools/node_raster/node_modules
 Mixr.App/bin/x64/Release/net9.0-windows10.0.22621.0/win-x64/mixr_app.log
 
+# Lokale Twitch/IGDB-Credentials (neben config.yaml)
+config.secrets.yaml
+**/config.secrets.yaml
+
 /searchengine/bin
 /searchengine/obj

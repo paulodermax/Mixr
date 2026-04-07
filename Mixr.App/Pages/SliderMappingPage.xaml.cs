@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.Threading;
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -10,6 +11,7 @@ using Microsoft.UI.Xaml.Media.Imaging;
 using Microsoft.UI.Xaml.Navigation;
 using Mixr.Models;
 using Mixr.Services;
+using Mixr_App;
 using Mixr_App.Services;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
@@ -20,6 +22,8 @@ namespace Mixr_App.Pages;
 
 public sealed partial class SliderMappingPage : Page
 {
+    static int s_coverUiMissingPathLogged;
+
     readonly DispatcherQueue _dq = DispatcherQueue.GetForCurrentThread();
 
     readonly ObservableCollection<CatalogGameVm> _catalogGames = new();
@@ -79,7 +83,12 @@ public sealed partial class SliderMappingPage : Page
         _liveTimer = null;
     }
 
-    void OnCatalogChanged(object? s, EventArgs e) => _dq.TryEnqueue(LoadCatalog);
+    void OnCatalogChanged(object? s, EventArgs e) =>
+        _dq.TryEnqueue(() =>
+        {
+            LoadCatalog();
+            RefreshAllAssignedCovers();
+        });
 
     void OnRuntimeConfigChanged()
     {
@@ -110,6 +119,7 @@ public sealed partial class SliderMappingPage : Page
             CatalogManualCoverSync.ApplyManualFilesToStore();
             await CoverWarmup.PreloadAllAsync();
             LoadCatalog();
+            RefreshAllAssignedCovers();
         }
         finally
         {
@@ -200,7 +210,6 @@ public sealed partial class SliderMappingPage : Page
                     {
                         var row = new AssignedProgramRow { SliderIndex = i, Token = s };
                         card.AssignedPrograms.Add(row);
-                        TryLoadAssignedCover(row, store);
                     }
                 }
 
@@ -210,6 +219,7 @@ public sealed partial class SliderMappingPage : Page
 
             _sliderCards = cards;
             SetFaderZoneDataContexts(cards);
+            RefreshAllAssignedCovers();
             RefreshLiveActivity();
             return;
         }
@@ -225,6 +235,7 @@ public sealed partial class SliderMappingPage : Page
             card.ShowEmptyHint = card.AssignedPrograms.Count == 0;
         }
 
+        RefreshAllAssignedCovers();
         RefreshLiveActivity();
     }
 
@@ -260,7 +271,6 @@ public sealed partial class SliderMappingPage : Page
                    string.Compare(card.AssignedPrograms[pos].Token, t, StringComparison.OrdinalIgnoreCase) < 0)
                 pos++;
             card.AssignedPrograms.Insert(pos, row);
-            TryLoadAssignedCover(row, store);
         }
     }
 
@@ -277,6 +287,19 @@ public sealed partial class SliderMappingPage : Page
         Set(FaderZone1, 1);
         Set(FaderZone2, 2);
         Set(FaderZone3, 3);
+    }
+
+    /// <summary>Nach Katalog-Refresh: Cover erneut binden (Dateien können neu geschrieben worden sein).</summary>
+    void RefreshAllAssignedCovers()
+    {
+        var store = GameCatalogStore.LoadOrCreate();
+        if (_sliderCards is not { Count: > 0 })
+            return;
+        foreach (var card in _sliderCards)
+        {
+            foreach (var row in card.AssignedPrograms)
+                TryLoadAssignedCover(row, store);
+        }
     }
 
     void TryLoadAssignedCover(AssignedProgramRow row, GameCatalogStore store)
@@ -733,7 +756,16 @@ public sealed partial class SliderMappingPage : Page
         var curTokens = _catalogGames.Select(vm => vm.Token).ToList();
         if (curTokens.Count == desireTokens.Count &&
             curTokens.Zip(desireTokens, (a, b) => a.Equals(b, StringComparison.OrdinalIgnoreCase)).All(x => x))
+        {
+            var byTok = _catalogGames.ToDictionary(vm => vm.Token, StringComparer.OrdinalIgnoreCase);
+            foreach (var (entry, token) in desired)
+            {
+                if (byTok.TryGetValue(token, out var vm))
+                    TryLoadCover(vm, entry);
+            }
+
             return;
+        }
 
         var desiredSet = new HashSet<string>(desireTokens, StringComparer.OrdinalIgnoreCase);
         for (var i = _catalogGames.Count - 1; i >= 0; i--)
@@ -781,6 +813,15 @@ public sealed partial class SliderMappingPage : Page
                     _catalogGames.Add(vm);
             }
         }
+
+        {
+            var byTok = _catalogGames.ToDictionary(vm => vm.Token, StringComparer.OrdinalIgnoreCase);
+            foreach (var (entry, token) in desired)
+            {
+                if (byTok.TryGetValue(token, out var vm))
+                    TryLoadCover(vm, entry);
+            }
+        }
     }
 
     static bool IsCatalogEntryAssigned(CatalogGameEntry g, HashSet<string> assigned)
@@ -819,11 +860,24 @@ public sealed partial class SliderMappingPage : Page
     {
         var rel = CatalogCoverResolver.ResolveRelativePath(entry);
         if (string.IsNullOrEmpty(rel))
+        {
+            if (!string.IsNullOrEmpty(entry.CoverRelativePath) && Interlocked.Increment(ref s_coverUiMissingPathLogged) <= 40)
+            {
+                var attempted = GameCatalogPaths.ResolvePath(entry.CoverRelativePath);
+                AppLog.WriteLine(
+                    $"[Cover UI] Katalog hat CoverRelativePath='{entry.CoverRelativePath}' aber Datei fehlt: {attempted} (Spiel: {entry.Name})");
+            }
+
             return;
+        }
 
         var full = GameCatalogPaths.ResolvePath(rel);
         if (!File.Exists(full))
+        {
+            if (Interlocked.Increment(ref s_coverUiMissingPathLogged) <= 40)
+                AppLog.WriteLine($"[Cover UI] Aufgelöster Pfad '{rel}' fehlt auf Disk: {full} (Spiel: {entry.Name})");
             return;
+        }
 
         _dq.TryEnqueue(() => { _ = LoadCatalogCoverAsync(vm, full); });
     }
@@ -832,7 +886,12 @@ public sealed partial class SliderMappingPage : Page
     {
         var src = await CoverImageLoader.LoadCoverImageSourceAsync(full).ConfigureAwait(true);
         if (src == null)
+        {
+            if (Interlocked.Increment(ref s_coverUiMissingPathLogged) <= 40)
+                AppLog.WriteLine($"[Cover UI] LoadCoverImageSourceAsync liefert null für: {full}");
             return;
+        }
+
         _dq.TryEnqueue(() => vm.Icon = src);
     }
 

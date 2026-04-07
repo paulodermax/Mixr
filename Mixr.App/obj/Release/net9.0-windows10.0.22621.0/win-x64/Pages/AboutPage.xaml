@@ -18,9 +18,9 @@
             <TextBlock
                 Margin="0,0,0,8"
                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                Text="Desktop-Bridge zwischen ESP-Mixr und Windows: Medieninfo, Lautstärke-Gruppen, serielles Protokoll."
+                Text="Desktop bridge between the ESP Mixr hardware and Windows: media info, volume groups, and the serial protocol."
                 TextWrapping="Wrap" />
-            <TextBlock Text="WinUI 3 · Infobereich · optional sichtbar" />
+            <TextBlock Text="WinUI 3 · notification area · optional visibility" />
         </StackPanel>
     </ScrollViewer>
 </Page>

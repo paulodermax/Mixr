@@ -8,7 +8,7 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <!-- Schematic: volle Fläche unter der Navigation -->
+        <!-- Schematic: full area below navigation -->
         <Grid x:ConnectionId='2' x:Name="SchematicRoot" Padding="8">
             <Grid.RenderTransform>
                 <TranslateTransform x:ConnectionId='14' x:Name="SchematicSlideTransform" />
@@ -225,7 +225,7 @@
                         Grid.Column="1"
                         Padding="10,6"
                                                  
-                        Content="Schließen"
+                        Content="Close"
                         Style="{StaticResource DefaultButtonStyle}" />
                 </Grid>
                 <ScrollViewer Grid.Row="1" Margin="0,12,0,0">
@@ -234,36 +234,36 @@
                             <TextBlock
                                 FontWeight="SemiBold"
                                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                Text="Audio-Gruppe (Key)" />
+                                Text="Audio group (key)" />
                             <TextBox x:ConnectionId='9'
                                 x:Name="DetailSliderGroup"
-                                PlaceholderText="z. B. communication" />
+                                PlaceholderText="e.g. communication" />
                             <TextBlock
                                 FontWeight="SemiBold"
                                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                Text="Suchstrings (eine Zeile pro Eintrag)" />
+                                Text="Search strings (one line per entry)" />
                             <TextBox x:ConnectionId='10'
                                 x:Name="DetailSliderPrograms"
                                 MinHeight="180"
                                 AcceptsReturn="True"
-                                PlaceholderText="App- oder Fenstitel"
+                                PlaceholderText="App or window title"
                                 TextWrapping="Wrap" />
                             <Button x:ConnectionId='11'
                                 HorizontalAlignment="Stretch"
                                                               
-                                Content="Speichern"
+                                Content="Save"
                                 Style="{StaticResource AccentButtonStyle}" />
                         </StackPanel>
                         <StackPanel x:ConnectionId='6' x:Name="ButtonDetailPanel" Spacing="12" Visibility="Collapsed">
                             <TextBlock
-                                Text="Aktion beim Drücken (button_mapping in config.yaml)"
+                                Text="Action on press (button_mapping in config.yaml)"
                                 TextWrapping="WrapWholeWords"
                                 Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
                             <ComboBox x:ConnectionId='7' x:Name="DetailButtonCombo" HorizontalAlignment="Stretch" />
                             <Button x:ConnectionId='8'
                                 HorizontalAlignment="Stretch"
                                                               
-                                Content="Speichern"
+                                Content="Save"
                                 Style="{StaticResource AccentButtonStyle}" />
                         </StackPanel>
                     </Grid>

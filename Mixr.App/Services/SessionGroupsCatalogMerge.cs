@@ -4,8 +4,8 @@ using Mixr.Services;
 namespace Mixr_App.Services;
 
 /// <summary>
-/// Fügt installierte Steam-Spiele aus <see cref="GameCatalogStore"/> in <c>session_groups.games</c> ein.
-/// Nicht-Steam-Apps (<c>app:…</c>) bleiben außen vor — die steuern Kommunikation/Media.
+/// Fügt installierte Spiele aus <see cref="GameCatalogStore"/> (Steam, Epic, GOG, …) in <c>session_groups.games</c> ein.
+/// Nur <c>app:…</c> (Kommunikation/Media aus der Erkennung) bleiben außen vor.
 /// </summary>
 public static class SessionGroupsCatalogMerge
 {
@@ -17,13 +17,13 @@ public static class SessionGroupsCatalogMerge
         GameCatalogPaths.EnsureLayout();
         var store = GameCatalogStore.LoadOrCreate();
 
-        var steamGames = store.Games
-            .Where(e => e.Key.StartsWith("steam:", StringComparison.OrdinalIgnoreCase))
+        var gameEntries = store.Games
+            .Where(e => !e.Key.StartsWith("app:", StringComparison.OrdinalIgnoreCase))
             .Where(e => !string.IsNullOrWhiteSpace(e.Name) && !CatalogIgnoreList.ShouldIgnore(e.Name))
             .OrderBy(e => e.Name, StringComparer.OrdinalIgnoreCase)
             .ToList();
 
-        if (steamGames.Count == 0)
+        if (gameEntries.Count == 0)
             return false;
 
         if (!cfg.SessionGroups.TryGetValue("games", out var list))
@@ -35,7 +35,7 @@ public static class SessionGroupsCatalogMerge
         var existing = new HashSet<string>(list, StringComparer.OrdinalIgnoreCase);
         var changed = false;
 
-        foreach (var g in steamGames)
+        foreach (var g in gameEntries)
         {
             var token = g.Name.Trim();
             if (existing.Count >= MaxGames)

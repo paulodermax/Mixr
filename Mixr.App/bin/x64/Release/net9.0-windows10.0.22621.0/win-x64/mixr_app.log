@@ -953,3 +953,1481 @@
 2026-04-06 03:30:29.933 Slider-Editing: saved config.yaml, runtime config reloaded.
 2026-04-06 03:30:30.342 Konfiguration neu geladen (config.yaml).
 2026-04-06 03:30:37.396 MixrHost: beendet (normal).
+2026-04-06 13:01:18.231 Main entry (args: )
+2026-04-06 13:01:18.267 InitializeComWrappers …
+2026-04-06 13:01:18.268 InitializeComWrappers OK
+2026-04-06 13:01:18.268 Application.Start …
+2026-04-06 13:01:18.322 Application.Start callback (UI thread)
+2026-04-06 13:01:18.323 DispatcherQueue: ok
+2026-04-06 13:01:18.323 SynchronizationContext gesetzt
+2026-04-06 13:01:18.323 new App() …
+2026-04-06 13:01:18.325 App ctor (vor InitializeComponent)
+2026-04-06 13:01:18.332 new App() zurück
+2026-04-06 13:01:18.490 OnLaunched BaseDirectory=C:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\x64\Release\net9.0-windows10.0.22621.0\win-x64\
+2026-04-06 13:01:18.490 Erste Instanz — Mutex ok.
+2026-04-06 13:01:18.705 Tray: ForceCreate ok.
+2026-04-06 13:01:18.706 MixrHost: Start …
+2026-04-06 13:01:18.810 Tray: ContextFlyout.XamlRoot gesetzt.
+2026-04-06 13:01:18.841 Mixr → COM automatisch (ESP32-S3 USB 303A:1001) @ 921600
+2026-04-06 13:01:18.841 Wiederverbindung bei USB; config.yaml wird überwacht.
+2026-04-06 13:01:18.841 Taster: siehe button_mapping in config.yaml (Standard: Prev / Play / Next / Mute / Deafen).
+2026-04-06 13:01:18.842 Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele
+2026-04-06 13:01:25.686 Discord-Hotkeys: Strg+Linksshift+Alt — 9 Mute, 0 Deafen, 8 Share Screen.
+2026-04-06 13:01:26.222 Seriell verbunden (COM6).
+2026-04-06 13:01:42.282 → ESP: „Komm, bau' sie Dir! Live Bauen mit dem Helden & Stef - Pokémon Bisaflor, Glurak und Turtok“ — Held der Steine Inh. Thomas Panke
+2026-04-06 13:01:42.620 → ESP: „Komm, bau' sie Dir! Live Bauen mit dem Helden & Stef - Pokémon Bisaflor, Glurak und Turtok“ — Held der Steine Inh. Thomas Panke
+2026-04-06 13:04:46.539 → ESP: „ARRRmong us, matey!“ — Teo
+2026-04-06 13:04:46.855 → ESP: „ARRRmong us, matey!“ — Teo
+2026-04-06 13:04:47.961 → ESP: „Komm, bau' sie Dir! Live Bauen mit dem Helden & Stef - Pokémon Bisaflor, Glurak und Turtok“ — Held der Steine Inh. Thomas Panke
+2026-04-06 13:04:48.270 → ESP: „Komm, bau' sie Dir! Live Bauen mit dem Helden & Stef - Pokémon Bisaflor, Glurak und Turtok“ — Held der Steine Inh. Thomas Panke
+2026-04-06 13:07:22.628 → ESP: „ARRRmong us, matey!“ — Teo
+2026-04-06 13:07:22.942 → ESP: „ARRRmong us, matey!“ — Teo
+2026-04-06 13:11:01.214 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 13:11:01.612 Konfiguration neu geladen (config.yaml).
+2026-04-06 13:11:04.505 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 13:11:04.915 Konfiguration neu geladen (config.yaml).
+2026-04-06 13:11:14.221 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 13:11:14.628 Konfiguration neu geladen (config.yaml).
+2026-04-06 13:34:37.333 → ESP: „Julesboringlife | celebforum | leak stars nackt leaks download leaked“ — —
+2026-04-06 13:34:37.660 → ESP: „Julesboringlife | celebforum | leak stars nackt leaks download leaked“ — —
+2026-04-06 13:35:11.518 → ESP: „ARRRmong us, matey!“ — Teo
+2026-04-06 13:35:11.844 → ESP: „ARRRmong us, matey!“ — Teo
+2026-04-06 13:37:16.491 → ESP: „Done & Dusted - MISH MASH #49“ — Teo
+2026-04-06 13:37:16.804 → ESP: „Done & Dusted - MISH MASH #49“ — Teo
+2026-04-06 13:54:55.165 → ESP: „We failed The Outlast Trials“ — Teo
+2026-04-06 13:54:55.477 → ESP: „We failed The Outlast Trials“ — Teo
+2026-04-06 14:07:26.088 → ESP: „Ghostbusters from Wish“ — Teo
+2026-04-06 14:07:26.413 → ESP: „Ghostbusters from Wish“ — Teo
+2026-04-06 14:19:44.442 → ESP: „My biggest scare yet“ — Teo
+2026-04-06 14:19:44.753 → ESP: „My biggest scare yet“ — Teo
+2026-04-06 14:31:59.968 → ESP: „makko - G.I.N.A. (GELDISTNICHTALLES)“ — makko
+2026-04-06 14:32:00.290 → ESP: „makko - G.I.N.A. (GELDISTNICHTALLES)“ — makko
+2026-04-06 14:35:01.248 → ESP: „makko - "Candlelights"“ — makko
+2026-04-06 14:35:01.561 → ESP: „makko - "Candlelights"“ — makko
+2026-04-06 14:39:13.143 → ESP: „makko - "Erzfeind"“ — makko
+2026-04-06 14:39:13.452 → ESP: „makko - "Erzfeind"“ — makko
+2026-04-06 14:41:52.206 → ESP: „makkohatjedenliebaussersichselbst“ — makko - Topic
+2026-04-06 14:41:52.524 → ESP: „makkohatjedenliebaussersichselbst“ — makko - Topic
+2026-04-06 14:44:39.855 → ESP: „Reiche Eltern“ — makko - Topic
+2026-04-06 14:44:40.175 → ESP: „Reiche Eltern“ — makko - Topic
+2026-04-06 14:47:31.920 → ESP: „makko, lucidbeatz - "IM GLASHAUS MIT SCHEINEN WERFEN"“ — makko
+2026-04-06 14:47:32.241 → ESP: „makko, lucidbeatz - "IM GLASHAUS MIT SCHEINEN WERFEN"“ — makko
+2026-04-06 14:51:00.891 → ESP: „SOULY - POP (D.P)“ — Souly
+2026-04-06 14:51:01.232 → ESP: „SOULY - POP (D.P)“ — Souly
+2026-04-06 14:52:23.424 → ESP: „Flash has peaked | Pogostuck #16“ — Teo
+2026-04-06 14:52:23.746 → ESP: „Flash has peaked | Pogostuck #16“ — Teo
+2026-04-06 14:54:05.796 → ESP: „Baby Keem - hooligan (Official Video)“ — BabyKeemVEVO
+2026-04-06 14:54:06.103 → ESP: „Baby Keem - hooligan (Official Video)“ — BabyKeemVEVO
+2026-04-06 14:56:44.452 → ESP: „Flash has peaked | Pogostuck #16“ — Teo
+2026-04-06 14:56:46.396 → ESP: „Jack Harlow - Tranquility“ — Jack Harlow
+2026-04-06 14:56:46.716 → ESP: „Jack Harlow - Tranquility“ — Jack Harlow
+2026-04-06 14:59:18.135 → ESP: „Flash has peaked | Pogostuck #16“ — Teo
+2026-04-06 14:59:18.447 → ESP: „Cal Scruby - MONEY BUY DRUGS (Official Music Video)“ — Cal Scruby
+2026-04-06 15:01:29.895 → ESP: „Flash has peaked | Pogostuck #16“ — Teo
+2026-04-06 15:01:30.201 → ESP: „Jack Harlow - Hello Miss Johnson“ — Jack Harlow
+2026-04-06 15:04:21.586 → ESP: „Flash has peaked | Pogostuck #16“ — Teo
+2026-04-06 15:04:21.901 → ESP: „Cigarettes out the Window“ — TV Girl - Topic
+2026-04-06 15:07:40.836 → ESP: „Flash has peaked | Pogostuck #16“ — Teo
+2026-04-06 15:07:41.152 → ESP: „makko, GDA - "POWER"“ — makko
+2026-04-06 15:10:21.076 → ESP: „Flash has peaked | Pogostuck #16“ — Teo
+2026-04-06 15:10:21.384 → ESP: „KOMPLIMENT“ — makko - Topic
+2026-04-06 15:13:00.187 → ESP: „Flash has peaked | Pogostuck #16“ — Teo
+2026-04-06 15:13:00.497 → ESP: „Jay Samuelz - fine with it (Official Music Video)“ — Jay Samuelz
+2026-04-06 15:15:17.203 → ESP: „Flash has peaked | Pogostuck #16“ — Teo
+2026-04-06 15:15:17.781 → ESP: „OG Keemo & Levin Liam - Bee Gees | A COLORS ENCORE“ — COLORS
+2026-04-06 15:16:20.177 [ESP] Button: 1
+2026-04-06 15:16:20.196 → SMTC: Play/Pause
+2026-04-06 15:16:20.523 [ESP] Button: 3
+2026-04-06 15:16:20.778 → Discord: Toggle-Mute (Taster 3 (discord_mute))
+2026-04-06 16:54:14.968 → ESP: „Flash has peaked | Pogostuck #16“ — Teo
+2026-04-06 16:54:15.280 → ESP: „makko x Lugatti x Toobrokeforfiji - "GX1000"“ — makko
+2026-04-06 16:54:15.585 → ESP: „makko x Lugatti x Toobrokeforfiji - "GX1000"“ — makko
+2026-04-06 16:55:13.608 [ESP] Button: 3
+2026-04-06 16:55:13.613 → Discord: Toggle-Mute (Taster 3 (discord_mute))
+2026-04-06 16:56:45.053 [ESP] Button: 1
+2026-04-06 16:56:45.053 → SMTC: Play/Pause
+2026-04-06 17:18:01.903 [ESP] Button: 3
+2026-04-06 17:18:01.909 → Discord: Toggle-Mute (Taster 3 (discord_mute))
+2026-04-06 17:18:09.203 [ESP] Button: 3
+2026-04-06 17:18:09.209 → Discord: Toggle-Mute (Taster 3 (discord_mute))
+2026-04-06 17:21:29.591 [ESP] Button: 3
+2026-04-06 17:21:29.594 → Discord: Toggle-Mute (Taster 3 (discord_mute))
+2026-04-06 17:21:30.966 [ESP] Button: 3
+2026-04-06 17:21:30.969 → Discord: Toggle-Mute (Taster 3 (discord_mute))
+2026-04-06 17:21:32.016 [ESP] Button: 3
+2026-04-06 17:21:32.020 → Discord: Toggle-Mute (Taster 3 (discord_mute))
+2026-04-06 17:21:52.664 [ESP] Button: 3
+2026-04-06 17:21:52.668 → Discord: Toggle-Mute (Taster 3 (discord_mute))
+2026-04-06 17:21:55.814 [ESP] Button: 3
+2026-04-06 17:21:55.818 → Discord: Toggle-Mute (Taster 3 (discord_mute))
+2026-04-06 17:22:39.237 [ESP] Button: 3
+2026-04-06 17:22:39.240 → Discord: Toggle-Mute (Taster 3 (discord_mute))
+2026-04-06 17:22:42.986 [ESP] Button: 3
+2026-04-06 17:22:42.990 → Discord: Toggle-Mute (Taster 3 (discord_mute))
+2026-04-06 17:23:41.624 → ESP: „oddworld x souly - wzf / maybach“ — oddworld
+2026-04-06 17:23:41.945 → ESP: „oddworld x souly - wzf / maybach“ — oddworld
+2026-04-06 17:23:52.132 [ESP] Button: 1
+2026-04-06 17:23:52.133 → SMTC: Play/Pause
+2026-04-06 17:23:52.507 [ESP] Button: 1
+2026-04-06 17:23:52.507 → SMTC: Play/Pause
+2026-04-06 17:23:52.857 [ESP] Button: 1
+2026-04-06 17:23:52.857 → SMTC: Play/Pause
+2026-04-06 17:23:53.032 [ESP] Button: 1
+2026-04-06 17:23:53.033 → SMTC: Play/Pause
+2026-04-06 17:25:10.654 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 17:25:11.054 Konfiguration neu geladen (config.yaml).
+2026-04-06 17:25:11.969 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 17:25:12.372 Konfiguration neu geladen (config.yaml).
+2026-04-06 17:25:12.998 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 17:25:13.395 Konfiguration neu geladen (config.yaml).
+2026-04-06 17:25:14.028 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 17:25:14.432 Konfiguration neu geladen (config.yaml).
+2026-04-06 17:25:14.650 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 17:25:15.049 Konfiguration neu geladen (config.yaml).
+2026-04-06 17:25:27.226 [ESP] Button: 4
+2026-04-06 17:25:27.231 → Discord: Toggle-Deafen (Taster 4 (discord_deafen))
+2026-04-06 17:26:42.847 [ESP] Button: 1
+2026-04-06 17:26:42.847 → SMTC: Play/Pause
+2026-04-06 17:26:44.222 [ESP] Button: 1
+2026-04-06 17:26:44.222 → SMTC: Play/Pause
+2026-04-06 17:26:44.647 [ESP] Button: 1
+2026-04-06 17:26:44.647 → SMTC: Play/Pause
+2026-04-06 17:26:45.747 [ESP] Button: 2
+2026-04-06 17:26:45.747 → SMTC: Next
+2026-04-06 17:26:47.584 → ESP: „STREIT“ — makko - Topic
+2026-04-06 17:26:47.944 → ESP: „STREIT“ — makko - Topic
+2026-04-06 17:26:49.771 [ESP] Button: 2
+2026-04-06 17:26:49.772 → SMTC: Next
+2026-04-06 17:26:51.021 [ESP] Button: 2
+2026-04-06 17:26:51.022 → SMTC: Next
+2026-04-06 17:26:51.617 → ESP: „makko & lucidbeatz - "Jänner"“ — makko
+2026-04-06 17:26:51.995 → ESP: „makko & lucidbeatz - "Jänner"“ — makko
+2026-04-06 17:26:54.046 [ESP] Button: 0
+2026-04-06 17:26:54.047 → SMTC: Previous
+2026-04-06 17:26:54.946 [ESP] Button: 0
+2026-04-06 17:26:54.946 → SMTC: Previous
+2026-04-06 17:26:55.776 → ESP: „STREIT“ — makko - Topic
+2026-04-06 17:26:56.083 → ESP: „STREIT“ — makko - Topic
+2026-04-06 17:28:20.541 [ESP] Button: 4
+2026-04-06 17:28:20.545 → Discord: Toggle-Deafen (Taster 4 (discord_deafen))
+2026-04-06 17:28:26.441 [ESP] Button: 3
+2026-04-06 17:28:26.446 → Discord: Toggle-Mute (Taster 3 (discord_mute))
+2026-04-06 17:28:43.890 [ESP] Button: 1
+2026-04-06 17:28:43.890 → SMTC: Play/Pause
+2026-04-06 19:21:44.729 [ESP] Button: 0
+2026-04-06 19:21:44.730 → SMTC: Previous
+2026-04-06 19:21:46.442 → ESP: „oddworld x souly - wzf / maybach“ — oddworld
+2026-04-06 19:21:46.760 → ESP: „oddworld x souly - wzf / maybach“ — oddworld
+2026-04-06 19:21:57.428 [ESP] Button: 1
+2026-04-06 19:21:57.429 → SMTC: Play/Pause
+2026-04-06 20:07:07.660 → ESP: „Sabrina Carpenter - House Tour (Official Video)“ — SabrinaCarpenterVEVO
+2026-04-06 20:07:08.939 → ESP: „Sabrina Carpenter - House Tour (Official Video)“ — SabrinaCarpenterVEVO
+2026-04-06 20:39:37.370 [ESP] Button: 3
+2026-04-06 20:39:37.375 → Discord: Toggle-Mute (Taster 3 (discord_mute))
+2026-04-06 20:39:40.970 [ESP] Button: 3
+2026-04-06 20:39:40.974 → Discord: Toggle-Mute (Taster 3 (discord_mute))
+2026-04-06 21:01:24.256 → ESP: „makko - G.I.N.A. (GELDISTNICHTALLES)“ — makko
+2026-04-06 21:01:25.678 → ESP: „makko - G.I.N.A. (GELDISTNICHTALLES)“ — makko
+2026-04-06 21:04:25.567 → ESP: „makko x Lugatti x Toobrokeforfiji - "GX1000"“ — makko
+2026-04-06 21:04:25.876 → ESP: „makko x Lugatti x Toobrokeforfiji - "GX1000"“ — makko
+2026-04-06 21:05:02.858 → ESP: „makko, lucidbeatz - "IM GLASHAUS MIT SCHEINEN WERFEN"“ — makko
+2026-04-06 21:05:03.171 → ESP: „makko, lucidbeatz - "IM GLASHAUS MIT SCHEINEN WERFEN"“ — makko
+2026-04-06 21:08:31.805 → ESP: „makko - "Erzfeind"“ — makko
+2026-04-06 21:08:32.116 → ESP: „makko - "Erzfeind"“ — makko
+2026-04-06 21:11:10.842 → ESP: „makko - Halb 1“ — makko
+2026-04-06 21:11:11.163 → ESP: „makko - Halb 1“ — makko
+2026-04-06 21:14:24.096 → ESP: „makko - "Bequem"“ — makko
+2026-04-06 21:14:24.412 → ESP: „makko - "Bequem"“ — makko
+2026-04-06 21:39:46.326 [ESP] Button: 4
+2026-04-06 21:39:46.331 → Discord: Toggle-Deafen (Taster 4 (discord_deafen))
+2026-04-06 21:39:50.080 → ESP: „My impersonator is back  - MISH MASH #62“ — Teo
+2026-04-06 21:39:50.404 → ESP: „My impersonator is back  - MISH MASH #62“ — Teo
+2026-04-06 21:53:01.203 [ESP] Button: 4
+2026-04-06 21:53:01.207 → Discord: Toggle-Deafen (Taster 4 (discord_deafen))
+2026-04-06 21:56:34.229 → ESP: „Cal Scruby - MONEY BUY DRUGS (Official Music Video)“ — Cal Scruby
+2026-04-06 21:56:34.629 → ESP: „Cal Scruby - MONEY BUY DRUGS (Official Music Video)“ — Cal Scruby
+2026-04-06 21:58:46.031 → ESP: „Shakewell -  Leglock [Official Video]“ — ALL BUT 6
+2026-04-06 21:58:46.347 → ESP: „Shakewell -  Leglock [Official Video]“ — ALL BUT 6
+2026-04-06 22:00:52.127 → ESP: „A$AP Rocky - L$D (Explicit - Official Video)“ — LIVELOVEASAPVEVO
+2026-04-06 22:00:52.458 → ESP: „A$AP Rocky - L$D (Explicit - Official Video)“ — LIVELOVEASAPVEVO
+2026-04-06 22:02:31.763 → ESP: „Jack Harlow - Already Best Friends feat. Chris Brown [Official Video]“ — Jack Harlow
+2026-04-06 22:02:32.085 → ESP: „Jack Harlow - Already Best Friends feat. Chris Brown [Official Video]“ — Jack Harlow
+2026-04-06 22:05:49.821 → ESP: „Passionfruit“ — Drake - Topic
+2026-04-06 22:05:50.133 → ESP: „Passionfruit“ — Drake - Topic
+2026-04-06 22:10:49.010 → ESP: „LAKIM - A Pimp Named Slickback“ — lakimisalive
+2026-04-06 22:10:49.324 → ESP: „LAKIM - A Pimp Named Slickback“ — lakimisalive
+2026-04-06 22:15:00.052 → ESP: „Everyone You Know - The Drive (Official Video)“ — EveryoneYouKnowVEVO
+2026-04-06 22:15:00.368 → ESP: „Everyone You Know - The Drive (Official Video)“ — EveryoneYouKnowVEVO
+2026-04-06 22:18:47.123 → ESP: „Young Nudy feat. 21 Savage - "EA" OFFICIAL VERSION“ — StrictlyHits
+2026-04-06 22:18:47.436 → ESP: „Young Nudy feat. 21 Savage - "EA" OFFICIAL VERSION“ — StrictlyHits
+2026-04-06 22:22:38.516 → ESP: „21 Savage - a lot (Official Video) ft. J. Cole“ — 21SavageVEVO
+2026-04-06 22:22:38.828 → ESP: „21 Savage - a lot (Official Video) ft. J. Cole“ — 21SavageVEVO
+2026-04-06 22:24:10.542 → ESP: „Denzel Curry - Walkin (Official Music Video)“ — DenzelCurryVEVO
+2026-04-06 22:24:10.854 → ESP: „Denzel Curry - Walkin (Official Music Video)“ — DenzelCurryVEVO
+2026-04-06 22:24:12.495 → ESP: „Mac Miller - Jet Fuel“ — Mac Miller
+2026-04-06 22:24:12.811 → ESP: „Mac Miller - Jet Fuel“ — Mac Miller
+2026-04-06 22:24:30.008 → ESP: „J. Cole - G.O.M.D“ — JColeVEVO
+2026-04-06 22:24:30.320 → ESP: „J. Cole - G.O.M.D“ — JColeVEVO
+2026-04-06 22:26:07.188 → ESP: „Charli XCX - Break The Rules (Zyzz Hardstyle Bootleg)“ — Chilled Air
+2026-04-06 22:26:07.600 → ESP: „Charli XCX - Break The Rules (Zyzz Hardstyle Bootleg)“ — Chilled Air
+2026-04-06 22:27:08.996 → ESP: „party 4 u“ — Charli xcx - Topic
+2026-04-06 22:27:09.315 → ESP: „party 4 u“ — Charli xcx - Topic
+2026-04-06 22:27:11.072 → ESP: „Addison Rae - Diet Pepsi (Official Video)“ — AddisonRaeVEVO
+2026-04-06 22:27:11.388 → ESP: „Addison Rae - Diet Pepsi (Official Video)“ — AddisonRaeVEVO
+2026-04-06 22:27:12.847 → ESP: „party 4 u“ — Charli xcx - Topic
+2026-04-06 22:27:13.154 → ESP: „party 4 u“ — Charli xcx - Topic
+2026-04-06 22:32:09.734 → ESP: „Addison Rae - Diet Pepsi (Official Video)“ — AddisonRaeVEVO
+2026-04-06 22:32:10.047 → ESP: „Addison Rae - Diet Pepsi (Official Video)“ — AddisonRaeVEVO
+2026-04-06 22:35:10.174 → ESP: „All Eyes On Me -- Bo Burnham (from "Inside" - album out now)“ — boburnham
+2026-04-06 22:35:10.492 → ESP: „All Eyes On Me -- Bo Burnham (from "Inside" - album out now)“ — boburnham
+2026-04-06 22:36:34.897 → ESP: „Katy Perry - E.T (Kiss Me) [Zyzz Hardstyle Bootleg]“ — Chilled Air
+2026-04-06 22:36:35.225 → ESP: „Katy Perry - E.T (Kiss Me) [Zyzz Hardstyle Bootleg]“ — Chilled Air
+2026-04-06 22:39:34.815 → ESP: „Firework  (HARDSTYLE)“ — LearnHub
+2026-04-06 22:39:35.144 → ESP: „Firework  (HARDSTYLE)“ — LearnHub
+2026-04-06 22:42:45.323 → ESP: „GYM HARDSTYLE - Middle of the Night Dom Livez Hardstyle Remix (4K)“ — Lyck
+2026-04-06 22:42:45.635 → ESP: „GYM HARDSTYLE - Middle of the Night Dom Livez Hardstyle Remix (4K)“ — Lyck
+2026-04-06 22:51:09.707 → ESP: „makko - G.I.N.A. (GELDISTNICHTALLES)“ — makko
+2026-04-06 22:51:10.078 → ESP: „makko - G.I.N.A. (GELDISTNICHTALLES)“ — makko
+2026-04-06 22:51:12.777 → ESP: „IM GLASHAUS MIT SCHEINEN WERFEN“ — makko - Topic
+2026-04-06 22:51:13.116 → ESP: „IM GLASHAUS MIT SCHEINEN WERFEN“ — makko - Topic
+2026-04-06 22:54:41.687 → ESP: „Prio“ — makko - Topic
+2026-04-06 22:54:42.012 → ESP: „Prio“ — makko - Topic
+2026-04-06 22:57:35.908 → ESP: „makko - "Candlelights"“ — makko
+2026-04-06 22:57:36.234 → ESP: „makko - "Candlelights"“ — makko
+2026-04-06 23:00:02.253 → ESP: „SOULY - BOSSBABY INTRO“ — Souly
+2026-04-06 23:00:02.573 → ESP: „SOULY - BOSSBABY INTRO“ — Souly
+2026-04-06 23:02:19.140 → ESP: „quiet times“ — Lugatti & 9ine - Topic
+2026-04-06 23:02:19.460 → ESP: „quiet times“ — Lugatti & 9ine - Topic
+2026-04-06 23:05:27.020 → ESP: „Herz schwer“ — Souly - Topic
+2026-04-06 23:05:27.328 → ESP: „Herz schwer“ — Souly - Topic
+2026-04-06 23:08:24.471 → ESP: „Nie mehr auf Wolke 7“ — makko - Topic
+2026-04-06 23:08:24.799 → ESP: „Nie mehr auf Wolke 7“ — makko - Topic
+2026-04-06 23:11:21.186 → ESP: „SOULY - LOSER ABC“ — Souly
+2026-04-06 23:11:21.501 → ESP: „SOULY - LOSER ABC“ — Souly
+2026-04-06 23:14:38.955 [ESP] Button: 3
+2026-04-06 23:14:38.959 → Discord: Toggle-Mute (Taster 3 (discord_mute))
+2026-04-06 23:15:01.655 → ESP: „SOULY - WOAH“ — Souly
+2026-04-06 23:15:01.967 → ESP: „SOULY - WOAH“ — Souly
+2026-04-06 23:17:17.820 [ESP] Button: 3
+2026-04-06 23:17:17.825 → Discord: Toggle-Mute (Taster 3 (discord_mute))
+2026-04-06 23:17:20.322 → ESP: „SOULY - MASKE WEG“ — Souly
+2026-04-06 23:17:20.634 → ESP: „SOULY - MASKE WEG“ — Souly
+2026-04-06 23:20:22.914 → ESP: „aufwachen“ — Levin Liam - Topic
+2026-04-06 23:20:23.213 → ESP: „aufwachen“ — Levin Liam - Topic
+2026-04-06 23:34:38.202 → ESP: „—“ — —
+2026-04-06 23:34:38.520 → ESP: „Nichts hittet mehr“ — Souly - Topic
+2026-04-06 23:35:10.238 MixrHost: beendet (normal).
+2026-04-06 23:35:32.515 Main entry (args: )
+2026-04-06 23:35:32.531 InitializeComWrappers …
+2026-04-06 23:35:32.532 InitializeComWrappers OK
+2026-04-06 23:35:32.532 Application.Start …
+2026-04-06 23:35:32.581 Application.Start callback (UI thread)
+2026-04-06 23:35:32.582 DispatcherQueue: ok
+2026-04-06 23:35:32.583 SynchronizationContext gesetzt
+2026-04-06 23:35:32.583 new App() …
+2026-04-06 23:35:32.584 App ctor (vor InitializeComponent)
+2026-04-06 23:35:32.592 new App() zurück
+2026-04-06 23:35:32.739 OnLaunched BaseDirectory=C:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\x64\Release\net9.0-windows10.0.22621.0\win-x64\
+2026-04-06 23:35:32.740 Erste Instanz — Mutex ok.
+2026-04-06 23:35:32.957 Tray: ForceCreate ok.
+2026-04-06 23:35:32.959 MixrHost: Start …
+2026-04-06 23:35:33.029 Mixr → COM automatisch (ESP32-S3 USB 303A:1001) @ 921600
+2026-04-06 23:35:33.030 Wiederverbindung bei USB; config.yaml wird überwacht.
+2026-04-06 23:35:33.030 Taster: siehe button_mapping in config.yaml (Standard: Prev / Play / Next / Mute / Deafen).
+2026-04-06 23:35:33.030 Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele
+2026-04-06 23:35:33.084 Auto-detect: session_groups updated (master · communication · media · games — see config.yaml).
+2026-04-06 23:35:33.085 Tray: ContextFlyout.XamlRoot gesetzt.
+2026-04-06 23:35:34.512 Discord-Hotkeys: Strg+Linksshift+Alt — 9 Mute, 0 Deafen, 8 Share Screen.
+2026-04-06 23:35:35.030 Seriell verbunden (COM6).
+2026-04-06 23:35:49.164 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 23:35:49.563 Konfiguration neu geladen (config.yaml).
+2026-04-06 23:38:08.220 → ESP: „makko - "Peoplepleasing"“ — makko
+2026-04-06 23:38:08.520 → ESP: „makko - "Peoplepleasing"“ — makko
+2026-04-06 23:39:14.475 MixrHost: beendet (normal).
+2026-04-06 23:39:37.079 Main entry (args: )
+2026-04-06 23:39:37.097 InitializeComWrappers …
+2026-04-06 23:39:37.098 InitializeComWrappers OK
+2026-04-06 23:39:37.098 Application.Start …
+2026-04-06 23:39:37.150 Application.Start callback (UI thread)
+2026-04-06 23:39:37.151 DispatcherQueue: ok
+2026-04-06 23:39:37.151 SynchronizationContext gesetzt
+2026-04-06 23:39:37.152 new App() …
+2026-04-06 23:39:37.153 App ctor (vor InitializeComponent)
+2026-04-06 23:39:37.161 new App() zurück
+2026-04-06 23:39:37.306 OnLaunched BaseDirectory=C:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\x64\Release\net9.0-windows10.0.22621.0\win-x64\
+2026-04-06 23:39:37.307 Erste Instanz — Mutex ok.
+2026-04-06 23:39:37.509 Tray: ForceCreate ok.
+2026-04-06 23:39:37.511 MixrHost: Start …
+2026-04-06 23:39:37.577 Mixr → COM automatisch (ESP32-S3 USB 303A:1001) @ 921600
+2026-04-06 23:39:37.578 Wiederverbindung bei USB; config.yaml wird überwacht.
+2026-04-06 23:39:37.578 Taster: siehe button_mapping in config.yaml (Standard: Prev / Play / Next / Mute / Deafen).
+2026-04-06 23:39:37.578 Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele
+2026-04-06 23:39:37.634 Tray: ContextFlyout.XamlRoot gesetzt.
+2026-04-06 23:39:39.062 Discord-Hotkeys: Strg+Linksshift+Alt — 9 Mute, 0 Deafen, 8 Share Screen.
+2026-04-06 23:39:39.658 Seriell verbunden (COM6).
+2026-04-06 23:39:49.912 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 23:39:50.316 Konfiguration neu geladen (config.yaml).
+2026-04-06 23:39:52.168 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 23:39:52.564 Konfiguration neu geladen (config.yaml).
+2026-04-06 23:39:53.993 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 23:39:54.396 Konfiguration neu geladen (config.yaml).
+2026-04-06 23:39:55.247 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 23:39:55.638 Konfiguration neu geladen (config.yaml).
+2026-04-06 23:39:57.073 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 23:39:57.470 Konfiguration neu geladen (config.yaml).
+2026-04-06 23:39:58.469 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 23:39:58.868 Konfiguration neu geladen (config.yaml).
+2026-04-06 23:39:59.854 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 23:40:00.252 Konfiguration neu geladen (config.yaml).
+2026-04-06 23:41:03.085 → ESP: „Sterne nehmen“ — Souly - Topic
+2026-04-06 23:41:03.377 → ESP: „Sterne nehmen“ — Souly - Topic
+2026-04-06 23:42:31.885 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 23:42:32.292 Konfiguration neu geladen (config.yaml).
+2026-04-06 23:42:35.989 MixrHost: beendet (normal).
+2026-04-06 23:44:45.358 Main entry (args: )
+2026-04-06 23:44:45.376 InitializeComWrappers …
+2026-04-06 23:44:45.377 InitializeComWrappers OK
+2026-04-06 23:44:45.377 Application.Start …
+2026-04-06 23:44:45.581 Application.Start callback (UI thread)
+2026-04-06 23:44:45.582 DispatcherQueue: ok
+2026-04-06 23:44:45.583 SynchronizationContext gesetzt
+2026-04-06 23:44:45.583 new App() …
+2026-04-06 23:44:45.585 App ctor (vor InitializeComponent)
+2026-04-06 23:44:45.592 new App() zurück
+2026-04-06 23:44:45.820 OnLaunched BaseDirectory=C:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\x64\Release\net9.0-windows10.0.22621.0\win-x64\
+2026-04-06 23:44:45.821 Erste Instanz — Mutex ok.
+2026-04-06 23:44:46.095 Tray: ForceCreate ok.
+2026-04-06 23:44:46.097 MixrHost: Start …
+2026-04-06 23:44:46.215 Tray: ContextFlyout.XamlRoot gesetzt.
+2026-04-06 23:44:46.256 Mixr → COM automatisch (ESP32-S3 USB 303A:1001) @ 921600
+2026-04-06 23:44:46.257 Wiederverbindung bei USB; config.yaml wird überwacht.
+2026-04-06 23:44:46.257 Taster: siehe button_mapping in config.yaml (Standard: Prev / Play / Next / Mute / Deafen).
+2026-04-06 23:44:46.257 Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele
+2026-04-06 23:44:46.288 Auto-detect: session_groups updated (master · communication · media · games — see config.yaml).
+2026-04-06 23:44:47.808 Discord-Hotkeys: Strg+Linksshift+Alt — 9 Mute, 0 Deafen, 8 Share Screen.
+2026-04-06 23:44:48.336 Seriell verbunden (COM6).
+2026-04-06 23:45:12.388 MixrHost: beendet (normal).
+2026-04-06 23:47:53.464 Main entry (args: )
+2026-04-06 23:47:53.482 InitializeComWrappers …
+2026-04-06 23:47:53.483 InitializeComWrappers OK
+2026-04-06 23:47:53.483 Application.Start …
+2026-04-06 23:47:53.533 Application.Start callback (UI thread)
+2026-04-06 23:47:53.534 DispatcherQueue: ok
+2026-04-06 23:47:53.534 SynchronizationContext gesetzt
+2026-04-06 23:47:53.534 new App() …
+2026-04-06 23:47:53.536 App ctor (vor InitializeComponent)
+2026-04-06 23:47:53.543 new App() zurück
+2026-04-06 23:47:53.687 OnLaunched BaseDirectory=C:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\x64\Release\net9.0-windows10.0.22621.0\win-x64\
+2026-04-06 23:47:53.688 Erste Instanz — Mutex ok.
+2026-04-06 23:47:53.865 Tray: ForceCreate ok.
+2026-04-06 23:47:53.866 MixrHost: Start …
+2026-04-06 23:47:53.939 Mixr → COM automatisch (ESP32-S3 USB 303A:1001) @ 921600
+2026-04-06 23:47:53.939 Wiederverbindung bei USB; config.yaml wird überwacht.
+2026-04-06 23:47:53.939 Taster: siehe button_mapping in config.yaml (Standard: Prev / Play / Next / Mute / Deafen).
+2026-04-06 23:47:53.939 Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele
+2026-04-06 23:47:53.999 Tray: ContextFlyout.XamlRoot gesetzt.
+2026-04-06 23:47:55.330 Discord-Hotkeys: Strg+Linksshift+Alt — 9 Mute, 0 Deafen, 8 Share Screen.
+2026-04-06 23:47:55.822 Seriell verbunden (COM6).
+2026-04-06 23:48:51.035 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-06 23:48:51.436 Konfiguration neu geladen (config.yaml).
+2026-04-06 23:50:22.563 → ESP: „makko & Miksu/Macloud - "LICHTER AUS"“ — makko
+2026-04-06 23:50:22.869 → ESP: „Terraria: Spirit Reforged | Sunscorched Update Trailer“ — Team Spirit
+2026-04-06 23:50:23.666 → ESP: „Theorie und Praxis“ — Souly - Topic
+2026-04-06 23:50:24.102 → ESP: „Theorie und Praxis“ — Souly - Topic
+2026-04-06 23:53:00.233 → ESP: „makko & Miksu / Macloud - "P.S."“ — makko
+2026-04-06 23:53:00.775 → ESP: „makko & Miksu / Macloud - "P.S."“ — makko
+2026-04-06 23:53:59.549 → ESP: „There's a Reason Groomers Don't Trust Chow Chows“ — Girl With The Dogs 2
+2026-04-06 23:53:59.872 → ESP: „There's a Reason Groomers Don't Trust Chow Chows“ — Girl With The Dogs 2
+2026-04-06 23:57:08.461 MixrHost: beendet (normal).
+2026-04-07 00:00:45.512 Main entry (args: )
+2026-04-07 00:00:45.550 [IGDB] Process env snapshot: IGDB_CLIENT_ID len=0 set=False; IGDB_CLIENT_SECRET len=0 set=False
+2026-04-07 00:00:45.550 InitializeComWrappers …
+2026-04-07 00:00:45.551 InitializeComWrappers OK
+2026-04-07 00:00:45.551 Application.Start …
+2026-04-07 00:00:45.594 Application.Start callback (UI thread)
+2026-04-07 00:00:45.595 DispatcherQueue: ok
+2026-04-07 00:00:45.596 SynchronizationContext gesetzt
+2026-04-07 00:00:45.596 new App() …
+2026-04-07 00:00:45.597 App ctor (vor InitializeComponent)
+2026-04-07 00:00:45.604 new App() zurück
+2026-04-07 00:00:45.638 OnLaunched BaseDirectory=C:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\x64\Release\net9.0-windows10.0.22621.0\win-x64\
+2026-04-07 00:00:45.639 Erste Instanz — Mutex ok.
+2026-04-07 00:00:45.848 Tray: ForceCreate ok.
+2026-04-07 00:00:45.850 MixrHost: Start …
+2026-04-07 00:00:45.911 Mixr → COM automatisch (ESP32-S3 USB 303A:1001) @ 921600
+2026-04-07 00:00:45.911 Wiederverbindung bei USB; config.yaml wird überwacht.
+2026-04-07 00:00:45.911 Taster: siehe button_mapping in config.yaml (Standard: Prev / Play / Next / Mute / Deafen).
+2026-04-07 00:00:45.911 Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele
+2026-04-07 00:00:45.935 [IGDB] try cover (#1) name=Rocket League® steamApp=0 dest=cat_epic_9773aa1aa54f4f7b80e44bef04986cea_530145df28a24424923f5828cc9031a1.jpg
+2026-04-07 00:00:45.935 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:00:45.935 [IGDB] try cover (#2) name=Rocket League steamApp=0 dest=cat_epic_9773aa1aa54f4f7b80e44bef04986cea_530145df28a24424923f5828cc9031a1.jpg
+2026-04-07 00:00:45.936 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:00:45.954 [IGDB] try cover (#3) name=Bacon steamApp=0 dest=cat_riot_bacon.jpg
+2026-04-07 00:00:45.955 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:00:45.955 [IGDB] try cover (#4) name=League Of Legends steamApp=0 dest=cat_riot_league_of_legends.jpg
+2026-04-07 00:00:45.955 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:00:45.956 [IGDB] try cover (#5) name=Lion steamApp=0 dest=cat_riot_lion.jpg
+2026-04-07 00:00:45.956 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:00:45.957 [IGDB] try cover (#6) name=Riot Vanguard steamApp=0 dest=cat_riot_Riot_Vanguard.jpg
+2026-04-07 00:00:45.957 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:00:45.957 [IGDB] try cover (#7) name=Valorant steamApp=0 dest=cat_riot_valorant.jpg
+2026-04-07 00:00:45.957 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:00:45.974 Tray: ContextFlyout.XamlRoot gesetzt.
+2026-04-07 00:00:45.975 [IGDB] try cover (#8) name=Diablo III steamApp=0 dest=cat_bnet_Diablo_III.jpg
+2026-04-07 00:00:45.975 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:00:46.002 [IGDB] try cover (#9) name=Bacon steamApp=0 dest=cat_riot_bacon.jpg
+2026-04-07 00:00:46.002 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:00:46.003 [IGDB] try cover (#10) name=Diablo III steamApp=0 dest=cat_bnet_Diablo_III.jpg
+2026-04-07 00:00:46.003 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:00:46.004 [IGDB] try cover (#11) name=League Of Legends steamApp=0 dest=cat_riot_league_of_legends.jpg
+2026-04-07 00:00:46.005 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:00:46.005 [IGDB] try cover (#12) name=Lion steamApp=0 dest=cat_riot_lion.jpg
+2026-04-07 00:00:46.005 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:00:46.006 [IGDB] try cover (#13) name=Riot Vanguard steamApp=0 dest=cat_riot_Riot_Vanguard.jpg
+2026-04-07 00:00:46.006 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:00:46.007 [IGDB] try cover (#14) name=Rocket League® steamApp=0 dest=cat_epic_9773aa1aa54f4f7b80e44bef04986cea_530145df28a24424923f5828cc9031a1.jpg
+2026-04-07 00:00:46.007 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:00:46.007 [IGDB] try cover (#15) name=Rocket League steamApp=0 dest=cat_epic_9773aa1aa54f4f7b80e44bef04986cea_530145df28a24424923f5828cc9031a1.jpg
+2026-04-07 00:00:46.007 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:00:46.008 [IGDB] try cover (#16) name=Valorant steamApp=0 dest=cat_riot_valorant.jpg
+2026-04-07 00:00:46.008 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:00:46.062 Auto-detect: session_groups updated (master · communication · media · games — see config.yaml).
+2026-04-07 00:00:47.270 Discord-Hotkeys: Strg+Linksshift+Alt — 9 Mute, 0 Deafen, 8 Share Screen.
+2026-04-07 00:00:47.779 Seriell verbunden (COM6).
+2026-04-07 00:00:58.675 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 00:00:59.074 Konfiguration neu geladen (config.yaml).
+2026-04-07 00:00:59.607 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 00:01:00.007 Konfiguration neu geladen (config.yaml).
+2026-04-07 00:01:01.119 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 00:01:01.521 Konfiguration neu geladen (config.yaml).
+2026-04-07 00:01:02.287 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 00:01:02.684 Konfiguration neu geladen (config.yaml).
+2026-04-07 00:01:03.625 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 00:01:04.029 Konfiguration neu geladen (config.yaml).
+2026-04-07 00:01:04.505 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 00:01:04.901 Konfiguration neu geladen (config.yaml).
+2026-04-07 00:01:05.659 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 00:01:06.066 Konfiguration neu geladen (config.yaml).
+2026-04-07 00:01:06.791 [IGDB] try cover (#17) name=Rocket League® steamApp=0 dest=cat_epic_9773aa1aa54f4f7b80e44bef04986cea_530145df28a24424923f5828cc9031a1.jpg
+2026-04-07 00:01:06.792 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:01:06.792 [IGDB] try cover (#18) name=Rocket League steamApp=0 dest=cat_epic_9773aa1aa54f4f7b80e44bef04986cea_530145df28a24424923f5828cc9031a1.jpg
+2026-04-07 00:01:06.792 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:01:06.798 [IGDB] try cover (#19) name=Bacon steamApp=0 dest=cat_riot_bacon.jpg
+2026-04-07 00:01:06.799 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:01:06.799 [IGDB] try cover (#20) name=League Of Legends steamApp=0 dest=cat_riot_league_of_legends.jpg
+2026-04-07 00:01:06.799 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:01:06.800 [IGDB] try cover (#21) name=Lion steamApp=0 dest=cat_riot_lion.jpg
+2026-04-07 00:01:06.800 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:01:06.800 [IGDB] try cover (#22) name=Riot Vanguard steamApp=0 dest=cat_riot_Riot_Vanguard.jpg
+2026-04-07 00:01:06.800 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:01:06.801 [IGDB] try cover (#23) name=Valorant steamApp=0 dest=cat_riot_valorant.jpg
+2026-04-07 00:01:06.801 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:01:06.807 [IGDB] try cover (#24) name=Diablo III steamApp=0 dest=cat_bnet_Diablo_III.jpg
+2026-04-07 00:01:06.807 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:01:06.820 [IGDB] try cover (#25) name=Bacon steamApp=0 dest=cat_riot_bacon.jpg
+2026-04-07 00:01:06.821 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:01:06.821 [IGDB] try cover (#26) name=Diablo III steamApp=0 dest=cat_bnet_Diablo_III.jpg
+2026-04-07 00:01:06.821 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:01:06.822 [IGDB] try cover (#27) name=League Of Legends steamApp=0 dest=cat_riot_league_of_legends.jpg
+2026-04-07 00:01:06.822 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:01:06.823 [IGDB] try cover (#28) name=Lion steamApp=0 dest=cat_riot_lion.jpg
+2026-04-07 00:01:06.823 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:01:06.823 [IGDB] try cover (#29) name=Riot Vanguard steamApp=0 dest=cat_riot_Riot_Vanguard.jpg
+2026-04-07 00:01:06.824 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:01:06.824 [IGDB] try cover (#30) name=Rocket League® steamApp=0 dest=cat_epic_9773aa1aa54f4f7b80e44bef04986cea_530145df28a24424923f5828cc9031a1.jpg
+2026-04-07 00:01:06.824 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:01:06.824 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:01:06.825 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:01:08.264 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 00:01:08.658 Konfiguration neu geladen (config.yaml).
+2026-04-07 00:01:08.890 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:01:08.890 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:01:08.896 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:01:08.896 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:01:08.897 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:01:08.897 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:01:08.898 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:01:08.904 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:01:08.915 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:01:08.916 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:01:08.916 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:01:08.917 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:01:08.917 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:01:08.918 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:01:08.918 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:01:08.918 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:01:09.603 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 00:01:10.005 Konfiguration neu geladen (config.yaml).
+2026-04-07 00:02:30.070 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:30.070 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:30.075 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:30.076 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:30.076 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:30.077 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:30.077 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:30.082 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:30.093 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:30.094 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:30.095 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:30.095 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:30.096 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:30.096 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:30.096 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:30.097 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:30.352 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:30.353 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:30.358 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:30.358 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:30.359 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:30.359 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:30.360 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:30.365 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:30.376 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:30.377 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:30.378 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:30.378 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:30.378 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:30.379 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:30.379 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:30.379 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:30.901 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 00:02:31.111 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 00:02:31.269 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 00:02:31.669 Konfiguration neu geladen (config.yaml).
+2026-04-07 00:02:32.697 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 00:02:33.095 Konfiguration neu geladen (config.yaml).
+2026-04-07 00:02:33.330 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 00:02:33.732 Konfiguration neu geladen (config.yaml).
+2026-04-07 00:02:43.138 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:43.138 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:43.144 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:43.144 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:43.145 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:43.145 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:43.146 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:43.151 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:43.162 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:43.163 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:43.163 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:43.163 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:43.164 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:43.164 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:43.164 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:43.165 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:02:44.826 MixrHost: beendet (normal).
+2026-04-07 00:20:15.950 Main entry (args: )
+2026-04-07 00:20:15.989 [IGDB] Process env snapshot: IGDB_CLIENT_ID len=0 set=False; IGDB_CLIENT_SECRET len=0 set=False
+2026-04-07 00:20:15.989 InitializeComWrappers …
+2026-04-07 00:20:15.990 InitializeComWrappers OK
+2026-04-07 00:20:15.990 Application.Start …
+2026-04-07 00:20:16.036 Application.Start callback (UI thread)
+2026-04-07 00:20:16.037 DispatcherQueue: ok
+2026-04-07 00:20:16.037 SynchronizationContext gesetzt
+2026-04-07 00:20:16.037 new App() …
+2026-04-07 00:20:16.039 App ctor (vor InitializeComponent)
+2026-04-07 00:20:16.045 new App() zurück
+2026-04-07 00:20:16.085 OnLaunched BaseDirectory=C:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\x64\Release\net9.0-windows10.0.22621.0\win-x64\
+2026-04-07 00:20:16.086 Erste Instanz — Mutex ok.
+2026-04-07 00:20:16.298 Tray: ForceCreate ok.
+2026-04-07 00:20:16.300 MixrHost: Start …
+2026-04-07 00:20:16.358 Mixr → COM automatisch (ESP32-S3 USB 303A:1001) @ 921600
+2026-04-07 00:20:16.358 Wiederverbindung bei USB; config.yaml wird überwacht.
+2026-04-07 00:20:16.358 Taster: siehe button_mapping in config.yaml (Standard: Prev / Play / Next / Mute / Deafen).
+2026-04-07 00:20:16.358 Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele
+2026-04-07 00:20:16.416 Auto-detect: session_groups updated (master · communication · media · games — see config.yaml).
+2026-04-07 00:20:16.442 Tray: ContextFlyout.XamlRoot gesetzt.
+2026-04-07 00:20:17.796 Discord-Hotkeys: Strg+Linksshift+Alt — 9 Mute, 0 Deafen, 8 Share Screen.
+2026-04-07 00:20:18.337 Seriell verbunden (COM6).
+2026-04-07 00:20:31.331 [IGDB] try cover (#1) name=Rocket League® steamApp=0 dest=cat_epic_9773aa1aa54f4f7b80e44bef04986cea_530145df28a24424923f5828cc9031a1.jpg
+2026-04-07 00:20:31.331 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:20:31.332 [IGDB] try cover (#2) name=Rocket League steamApp=0 dest=cat_epic_9773aa1aa54f4f7b80e44bef04986cea_530145df28a24424923f5828cc9031a1.jpg
+2026-04-07 00:20:31.332 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:20:31.348 [IGDB] try cover (#3) name=Bacon steamApp=0 dest=cat_riot_bacon.jpg
+2026-04-07 00:20:31.348 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:20:31.349 [IGDB] try cover (#4) name=League Of Legends steamApp=0 dest=cat_riot_league_of_legends.jpg
+2026-04-07 00:20:31.349 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:20:31.349 [IGDB] try cover (#5) name=Lion steamApp=0 dest=cat_riot_lion.jpg
+2026-04-07 00:20:31.349 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:20:31.350 [IGDB] try cover (#6) name=Riot Vanguard steamApp=0 dest=cat_riot_Riot_Vanguard.jpg
+2026-04-07 00:20:31.350 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:20:31.350 [IGDB] try cover (#7) name=Valorant steamApp=0 dest=cat_riot_valorant.jpg
+2026-04-07 00:20:31.350 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:20:31.364 [IGDB] try cover (#8) name=Diablo III steamApp=0 dest=cat_bnet_Diablo_III.jpg
+2026-04-07 00:20:31.365 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:20:31.382 [IGDB] try cover (#9) name=Bacon steamApp=0 dest=cat_riot_bacon.jpg
+2026-04-07 00:20:31.382 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:20:31.383 [IGDB] try cover (#10) name=Diablo III steamApp=0 dest=cat_bnet_Diablo_III.jpg
+2026-04-07 00:20:31.383 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:20:31.384 [IGDB] try cover (#11) name=League Of Legends steamApp=0 dest=cat_riot_league_of_legends.jpg
+2026-04-07 00:20:31.384 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:20:31.384 [IGDB] try cover (#12) name=Lion steamApp=0 dest=cat_riot_lion.jpg
+2026-04-07 00:20:31.385 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:20:31.385 [IGDB] try cover (#13) name=Riot Vanguard steamApp=0 dest=cat_riot_Riot_Vanguard.jpg
+2026-04-07 00:20:31.385 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:20:31.386 [IGDB] try cover (#14) name=Rocket League® steamApp=0 dest=cat_epic_9773aa1aa54f4f7b80e44bef04986cea_530145df28a24424923f5828cc9031a1.jpg
+2026-04-07 00:20:31.386 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:20:31.386 [IGDB] try cover (#15) name=Rocket League steamApp=0 dest=cat_epic_9773aa1aa54f4f7b80e44bef04986cea_530145df28a24424923f5828cc9031a1.jpg
+2026-04-07 00:20:31.386 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:20:31.386 [IGDB] try cover (#16) name=Valorant steamApp=0 dest=cat_riot_valorant.jpg
+2026-04-07 00:20:31.386 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:20:33.099 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 00:20:33.500 Konfiguration neu geladen (config.yaml).
+2026-04-07 00:20:34.147 [IGDB] try cover (#17) name=Rocket League® steamApp=0 dest=cat_epic_9773aa1aa54f4f7b80e44bef04986cea_530145df28a24424923f5828cc9031a1.jpg
+2026-04-07 00:20:34.148 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:20:34.148 [IGDB] try cover (#18) name=Rocket League steamApp=0 dest=cat_epic_9773aa1aa54f4f7b80e44bef04986cea_530145df28a24424923f5828cc9031a1.jpg
+2026-04-07 00:20:34.148 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:20:34.158 [IGDB] try cover (#19) name=Bacon steamApp=0 dest=cat_riot_bacon.jpg
+2026-04-07 00:20:34.158 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:20:34.159 [IGDB] try cover (#20) name=League Of Legends steamApp=0 dest=cat_riot_league_of_legends.jpg
+2026-04-07 00:20:34.159 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:20:34.160 [IGDB] try cover (#21) name=Lion steamApp=0 dest=cat_riot_lion.jpg
+2026-04-07 00:20:34.160 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:20:34.161 [IGDB] try cover (#22) name=Riot Vanguard steamApp=0 dest=cat_riot_Riot_Vanguard.jpg
+2026-04-07 00:20:34.161 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:20:34.161 [IGDB] try cover (#23) name=Valorant steamApp=0 dest=cat_riot_valorant.jpg
+2026-04-07 00:20:34.162 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:20:34.169 [IGDB] try cover (#24) name=Diablo III steamApp=0 dest=cat_bnet_Diablo_III.jpg
+2026-04-07 00:20:34.169 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:20:34.185 [IGDB] try cover (#25) name=Bacon steamApp=0 dest=cat_riot_bacon.jpg
+2026-04-07 00:20:34.186 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:20:34.186 [IGDB] try cover (#26) name=Diablo III steamApp=0 dest=cat_bnet_Diablo_III.jpg
+2026-04-07 00:20:34.186 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:20:34.187 [IGDB] try cover (#27) name=League Of Legends steamApp=0 dest=cat_riot_league_of_legends.jpg
+2026-04-07 00:20:34.187 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:20:34.188 [IGDB] try cover (#28) name=Lion steamApp=0 dest=cat_riot_lion.jpg
+2026-04-07 00:20:34.188 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:20:34.188 [IGDB] try cover (#29) name=Riot Vanguard steamApp=0 dest=cat_riot_Riot_Vanguard.jpg
+2026-04-07 00:20:34.189 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:20:34.189 [IGDB] try cover (#30) name=Rocket League® steamApp=0 dest=cat_epic_9773aa1aa54f4f7b80e44bef04986cea_530145df28a24424923f5828cc9031a1.jpg
+2026-04-07 00:20:34.190 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:20:34.190 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:20:34.190 [IGDB] abort: IGDB_CLIENT_ID/IGDB_CLIENT_SECRET fehlen im **Prozess** (Systemumgebung reicht nicht, wenn die EXE sie nicht erbt — z. B. Doppelklick ohne Neustart oder MSIX).
+2026-04-07 00:20:35.898 MixrHost: beendet (normal).
+2026-04-07 00:38:31.191 Main entry (args: )
+2026-04-07 00:38:31.284 [IGDB] Credentials: client_id←none; client_secret←none; effective=incomplete — set both via environment variables or igdb: in YAML.
+2026-04-07 00:38:31.285 InitializeComWrappers …
+2026-04-07 00:38:31.285 InitializeComWrappers OK
+2026-04-07 00:38:31.286 Application.Start …
+2026-04-07 00:38:31.330 Application.Start callback (UI thread)
+2026-04-07 00:38:31.331 DispatcherQueue: ok
+2026-04-07 00:38:31.332 SynchronizationContext gesetzt
+2026-04-07 00:38:31.332 new App() …
+2026-04-07 00:38:31.333 App ctor (vor InitializeComponent)
+2026-04-07 00:38:31.340 new App() zurück
+2026-04-07 00:38:31.373 OnLaunched BaseDirectory=C:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\x64\Release\net9.0-windows10.0.22621.0\win-x64\
+2026-04-07 00:38:31.373 Erste Instanz — Mutex ok.
+2026-04-07 00:38:31.575 Tray: ForceCreate ok.
+2026-04-07 00:38:31.577 MixrHost: Start …
+2026-04-07 00:38:31.592 Mixr → COM automatisch (ESP32-S3 USB 303A:1001) @ 921600
+2026-04-07 00:38:31.592 Wiederverbindung bei USB; config.yaml und optional config.secrets.yaml werden überwacht.
+2026-04-07 00:38:31.592 Taster: siehe button_mapping in config.yaml (Standard: Prev / Play / Next / Mute / Deafen).
+2026-04-07 00:38:31.592 Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele
+2026-04-07 00:38:31.711 Tray: ContextFlyout.XamlRoot gesetzt.
+2026-04-07 00:38:32.997 Discord-Hotkeys: Strg+Linksshift+Alt — 9 Mute, 0 Deafen, 8 Share Screen.
+2026-04-07 00:38:33.681 Seriell verbunden (COM6).
+2026-04-07 00:38:34.212 → ESP: „SSIO - Ich Bin Raus | A COLORS SHOW“ — COLORS
+2026-04-07 00:38:45.405 [IGDB] try cover (#1) name=Rocket League® steamApp=0 dest=cat_epic_9773aa1aa54f4f7b80e44bef04986cea_530145df28a24424923f5828cc9031a1.jpg
+2026-04-07 00:38:45.405 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:45.405 [IGDB] try cover (#2) name=Rocket League steamApp=0 dest=cat_epic_9773aa1aa54f4f7b80e44bef04986cea_530145df28a24424923f5828cc9031a1.jpg
+2026-04-07 00:38:45.406 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:45.421 [IGDB] try cover (#3) name=Bacon steamApp=0 dest=cat_riot_bacon.jpg
+2026-04-07 00:38:45.421 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:45.421 [IGDB] try cover (#4) name=League Of Legends steamApp=0 dest=cat_riot_league_of_legends.jpg
+2026-04-07 00:38:45.421 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:45.422 [IGDB] try cover (#5) name=Lion steamApp=0 dest=cat_riot_lion.jpg
+2026-04-07 00:38:45.422 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:45.423 [IGDB] try cover (#6) name=Riot Vanguard steamApp=0 dest=cat_riot_Riot_Vanguard.jpg
+2026-04-07 00:38:45.423 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:45.423 [IGDB] try cover (#7) name=Valorant steamApp=0 dest=cat_riot_valorant.jpg
+2026-04-07 00:38:45.423 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:45.437 [IGDB] try cover (#8) name=Diablo III steamApp=0 dest=cat_bnet_Diablo_III.jpg
+2026-04-07 00:38:45.437 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:45.455 [IGDB] try cover (#9) name=Bacon steamApp=0 dest=cat_riot_bacon.jpg
+2026-04-07 00:38:45.455 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:45.455 [IGDB] try cover (#10) name=Diablo III steamApp=0 dest=cat_bnet_Diablo_III.jpg
+2026-04-07 00:38:45.456 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:45.456 [IGDB] try cover (#11) name=League Of Legends steamApp=0 dest=cat_riot_league_of_legends.jpg
+2026-04-07 00:38:45.456 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:45.457 [IGDB] try cover (#12) name=Lion steamApp=0 dest=cat_riot_lion.jpg
+2026-04-07 00:38:45.457 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:45.457 [IGDB] try cover (#13) name=Riot Vanguard steamApp=0 dest=cat_riot_Riot_Vanguard.jpg
+2026-04-07 00:38:45.457 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:45.458 [IGDB] try cover (#14) name=Rocket League® steamApp=0 dest=cat_epic_9773aa1aa54f4f7b80e44bef04986cea_530145df28a24424923f5828cc9031a1.jpg
+2026-04-07 00:38:45.458 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:45.458 [IGDB] try cover (#15) name=Rocket League steamApp=0 dest=cat_epic_9773aa1aa54f4f7b80e44bef04986cea_530145df28a24424923f5828cc9031a1.jpg
+2026-04-07 00:38:45.458 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:45.459 [IGDB] try cover (#16) name=Valorant steamApp=0 dest=cat_riot_valorant.jpg
+2026-04-07 00:38:45.459 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:45.809 [IGDB] try cover (#17) name=Rocket League® steamApp=0 dest=cat_epic_9773aa1aa54f4f7b80e44bef04986cea_530145df28a24424923f5828cc9031a1.jpg
+2026-04-07 00:38:45.810 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:45.810 [IGDB] try cover (#18) name=Rocket League steamApp=0 dest=cat_epic_9773aa1aa54f4f7b80e44bef04986cea_530145df28a24424923f5828cc9031a1.jpg
+2026-04-07 00:38:45.810 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:45.817 [IGDB] try cover (#19) name=Bacon steamApp=0 dest=cat_riot_bacon.jpg
+2026-04-07 00:38:45.817 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:45.817 [IGDB] try cover (#20) name=League Of Legends steamApp=0 dest=cat_riot_league_of_legends.jpg
+2026-04-07 00:38:45.818 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:45.818 [IGDB] try cover (#21) name=Lion steamApp=0 dest=cat_riot_lion.jpg
+2026-04-07 00:38:45.818 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:45.819 [IGDB] try cover (#22) name=Riot Vanguard steamApp=0 dest=cat_riot_Riot_Vanguard.jpg
+2026-04-07 00:38:45.819 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:45.819 [IGDB] try cover (#23) name=Valorant steamApp=0 dest=cat_riot_valorant.jpg
+2026-04-07 00:38:45.819 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:45.825 [IGDB] try cover (#24) name=Diablo III steamApp=0 dest=cat_bnet_Diablo_III.jpg
+2026-04-07 00:38:45.826 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:45.838 [IGDB] try cover (#25) name=Bacon steamApp=0 dest=cat_riot_bacon.jpg
+2026-04-07 00:38:45.838 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:45.839 [IGDB] try cover (#26) name=Diablo III steamApp=0 dest=cat_bnet_Diablo_III.jpg
+2026-04-07 00:38:45.839 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:45.840 [IGDB] try cover (#27) name=League Of Legends steamApp=0 dest=cat_riot_league_of_legends.jpg
+2026-04-07 00:38:45.840 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:45.840 [IGDB] try cover (#28) name=Lion steamApp=0 dest=cat_riot_lion.jpg
+2026-04-07 00:38:45.840 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:45.841 [IGDB] try cover (#29) name=Riot Vanguard steamApp=0 dest=cat_riot_Riot_Vanguard.jpg
+2026-04-07 00:38:45.841 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:45.841 [IGDB] try cover (#30) name=Rocket League® steamApp=0 dest=cat_epic_9773aa1aa54f4f7b80e44bef04986cea_530145df28a24424923f5828cc9031a1.jpg
+2026-04-07 00:38:45.842 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:45.842 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:45.842 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:46.145 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:46.145 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:46.151 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:46.152 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:46.152 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:46.153 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:46.154 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:46.160 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:46.173 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:46.173 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:46.174 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:46.174 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:46.175 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:46.175 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:46.175 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:46.176 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:50.113 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 00:38:50.521 Konfiguration neu geladen (config.yaml / config.secrets.yaml).
+2026-04-07 00:38:51.265 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 00:38:51.670 Konfiguration neu geladen (config.yaml / config.secrets.yaml).
+2026-04-07 00:38:51.990 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 00:38:52.397 Konfiguration neu geladen (config.yaml / config.secrets.yaml).
+2026-04-07 00:38:53.136 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 00:38:53.549 Konfiguration neu geladen (config.yaml / config.secrets.yaml).
+2026-04-07 00:38:53.583 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:53.584 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:53.589 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:53.590 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:53.590 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:53.591 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:53.591 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:53.597 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:53.608 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:53.609 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:53.609 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:53.610 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:53.610 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:53.610 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:53.611 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:53.611 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:53.866 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:53.866 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:53.872 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:53.873 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:53.873 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:53.874 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:53.874 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:53.879 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:53.890 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:53.891 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:53.891 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:53.892 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:53.892 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:53.893 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:53.893 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:53.893 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:54.425 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:54.425 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:54.430 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:54.431 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:54.431 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:54.432 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:54.432 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:54.438 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:54.448 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:54.449 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:54.450 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:54.450 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:54.450 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:54.451 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:54.451 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:54.451 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:54.906 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:54.907 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:54.912 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:54.912 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:54.913 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:54.913 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:54.914 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:54.919 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:54.930 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:54.931 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:54.931 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:54.932 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:54.932 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:54.932 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:54.933 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:38:54.933 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:39:09.182 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:39:09.183 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:39:09.190 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:39:09.191 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:39:09.192 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:39:09.193 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:39:09.194 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:39:09.199 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:39:09.212 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:39:09.213 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:39:09.213 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:39:09.214 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:39:09.214 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:39:09.215 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:39:09.215 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:39:09.215 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:39:09.476 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:39:09.477 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:39:09.483 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:39:09.484 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:39:09.485 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:39:09.486 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:39:09.487 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:39:09.494 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:39:09.506 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:39:09.507 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:39:09.508 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:39:09.508 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:39:09.509 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:39:09.509 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:39:09.509 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:39:09.510 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:39:09.766 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 00:39:09.805 → ESP: „3Plusss - Gusto (prod. von WE DO DRUMS) [Official Video]“ — 3Plusss
+2026-04-07 00:39:09.915 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 00:39:10.071 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 00:39:10.109 → ESP: „3Plusss - Gusto (prod. von WE DO DRUMS) [Official Video]“ — 3Plusss
+2026-04-07 00:39:10.209 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 00:39:10.356 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 00:39:10.510 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 00:39:10.657 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 00:39:10.816 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 00:39:11.227 Konfiguration neu geladen (config.yaml / config.secrets.yaml).
+2026-04-07 00:39:13.359 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 00:39:13.757 Konfiguration neu geladen (config.yaml / config.secrets.yaml).
+2026-04-07 00:39:14.719 MixrHost: beendet (normal).
+2026-04-07 00:47:40.614 Main entry (args: )
+2026-04-07 00:47:40.699 [IGDB] Credentials: client_id←none; client_secret←none; effective=incomplete — set both via environment variables or igdb: in YAML.
+2026-04-07 00:47:40.699 InitializeComWrappers …
+2026-04-07 00:47:40.700 InitializeComWrappers OK
+2026-04-07 00:47:40.700 Application.Start …
+2026-04-07 00:47:40.744 Application.Start callback (UI thread)
+2026-04-07 00:47:40.745 DispatcherQueue: ok
+2026-04-07 00:47:40.745 SynchronizationContext gesetzt
+2026-04-07 00:47:40.745 new App() …
+2026-04-07 00:47:40.747 App ctor (vor InitializeComponent)
+2026-04-07 00:47:40.754 new App() zurück
+2026-04-07 00:47:40.787 OnLaunched BaseDirectory=C:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\x64\Release\net9.0-windows10.0.22621.0\win-x64\
+2026-04-07 00:47:40.788 Erste Instanz — Mutex ok.
+2026-04-07 00:47:40.991 Tray: ForceCreate ok.
+2026-04-07 00:47:40.993 MixrHost: Start …
+2026-04-07 00:47:41.009 Mixr → COM automatisch (ESP32-S3 USB 303A:1001) @ 921600
+2026-04-07 00:47:41.009 Wiederverbindung bei USB; config.yaml und optional config.secrets.yaml werden überwacht.
+2026-04-07 00:47:41.009 Taster: siehe button_mapping in config.yaml (Standard: Prev / Play / Next / Mute / Deafen).
+2026-04-07 00:47:41.010 Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele
+2026-04-07 00:47:41.104 Tray: ContextFlyout.XamlRoot gesetzt.
+2026-04-07 00:47:41.115 Auto-detect: session_groups updated (master · communication · media · games — see config.yaml).
+2026-04-07 00:47:42.257 Discord-Hotkeys: Strg+Linksshift+Alt — 9 Mute, 0 Deafen, 8 Share Screen.
+2026-04-07 00:47:42.776 Seriell verbunden (COM6).
+2026-04-07 00:47:49.400 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 00:47:49.803 Konfiguration neu geladen (config.yaml / config.secrets.yaml).
+2026-04-07 00:47:50.020 [IGDB] try cover (#1) name=Rocket League® steamApp=0 dest=cat_epic_9773aa1aa54f4f7b80e44bef04986cea_530145df28a24424923f5828cc9031a1.jpg
+2026-04-07 00:47:50.020 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:47:50.020 [IGDB] try cover (#2) name=Rocket League steamApp=0 dest=cat_epic_9773aa1aa54f4f7b80e44bef04986cea_530145df28a24424923f5828cc9031a1.jpg
+2026-04-07 00:47:50.020 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:47:50.035 [IGDB] try cover (#3) name=Bacon steamApp=0 dest=cat_riot_bacon.jpg
+2026-04-07 00:47:50.035 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:47:50.036 [IGDB] try cover (#4) name=League Of Legends steamApp=0 dest=cat_riot_league_of_legends.jpg
+2026-04-07 00:47:50.036 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:47:50.037 [IGDB] try cover (#5) name=Lion steamApp=0 dest=cat_riot_lion.jpg
+2026-04-07 00:47:50.037 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:47:50.037 [IGDB] try cover (#6) name=Riot Vanguard steamApp=0 dest=cat_riot_Riot_Vanguard.jpg
+2026-04-07 00:47:50.037 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:47:50.038 [IGDB] try cover (#7) name=Valorant steamApp=0 dest=cat_riot_valorant.jpg
+2026-04-07 00:47:50.038 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:47:50.051 [IGDB] try cover (#8) name=Diablo III steamApp=0 dest=cat_bnet_Diablo_III.jpg
+2026-04-07 00:47:50.052 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:47:50.068 [IGDB] try cover (#9) name=Bacon steamApp=0 dest=cat_riot_bacon.jpg
+2026-04-07 00:47:50.068 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:47:50.068 [IGDB] try cover (#10) name=Diablo III steamApp=0 dest=cat_bnet_Diablo_III.jpg
+2026-04-07 00:47:50.069 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:47:50.069 [IGDB] try cover (#11) name=League Of Legends steamApp=0 dest=cat_riot_league_of_legends.jpg
+2026-04-07 00:47:50.069 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:47:50.070 [IGDB] try cover (#12) name=Lion steamApp=0 dest=cat_riot_lion.jpg
+2026-04-07 00:47:50.070 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:47:50.071 [IGDB] try cover (#13) name=Riot Vanguard steamApp=0 dest=cat_riot_Riot_Vanguard.jpg
+2026-04-07 00:47:50.071 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:47:50.071 [IGDB] try cover (#14) name=Rocket League® steamApp=0 dest=cat_epic_9773aa1aa54f4f7b80e44bef04986cea_530145df28a24424923f5828cc9031a1.jpg
+2026-04-07 00:47:50.071 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:47:50.072 [IGDB] try cover (#15) name=Rocket League steamApp=0 dest=cat_epic_9773aa1aa54f4f7b80e44bef04986cea_530145df28a24424923f5828cc9031a1.jpg
+2026-04-07 00:47:50.072 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:47:50.072 [IGDB] try cover (#16) name=Valorant steamApp=0 dest=cat_riot_valorant.jpg
+2026-04-07 00:47:50.073 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:47:50.652 [IGDB] try cover (#17) name=Rocket League® steamApp=0 dest=cat_epic_9773aa1aa54f4f7b80e44bef04986cea_530145df28a24424923f5828cc9031a1.jpg
+2026-04-07 00:47:50.652 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:47:50.652 [IGDB] try cover (#18) name=Rocket League steamApp=0 dest=cat_epic_9773aa1aa54f4f7b80e44bef04986cea_530145df28a24424923f5828cc9031a1.jpg
+2026-04-07 00:47:50.652 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:47:50.658 [IGDB] try cover (#19) name=Bacon steamApp=0 dest=cat_riot_bacon.jpg
+2026-04-07 00:47:50.658 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:47:50.659 [IGDB] try cover (#20) name=League Of Legends steamApp=0 dest=cat_riot_league_of_legends.jpg
+2026-04-07 00:47:50.659 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:47:50.659 [IGDB] try cover (#21) name=Lion steamApp=0 dest=cat_riot_lion.jpg
+2026-04-07 00:47:50.659 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:47:50.660 [IGDB] try cover (#22) name=Riot Vanguard steamApp=0 dest=cat_riot_Riot_Vanguard.jpg
+2026-04-07 00:47:50.660 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:47:50.660 [IGDB] try cover (#23) name=Valorant steamApp=0 dest=cat_riot_valorant.jpg
+2026-04-07 00:47:50.660 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:47:50.666 [IGDB] try cover (#24) name=Diablo III steamApp=0 dest=cat_bnet_Diablo_III.jpg
+2026-04-07 00:47:50.666 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:47:50.678 [IGDB] try cover (#25) name=Bacon steamApp=0 dest=cat_riot_bacon.jpg
+2026-04-07 00:47:50.678 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:47:50.679 [IGDB] try cover (#26) name=Diablo III steamApp=0 dest=cat_bnet_Diablo_III.jpg
+2026-04-07 00:47:50.679 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:47:50.679 [IGDB] try cover (#27) name=League Of Legends steamApp=0 dest=cat_riot_league_of_legends.jpg
+2026-04-07 00:47:50.680 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:47:50.680 [IGDB] try cover (#28) name=Lion steamApp=0 dest=cat_riot_lion.jpg
+2026-04-07 00:47:50.680 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:47:50.680 [IGDB] try cover (#29) name=Riot Vanguard steamApp=0 dest=cat_riot_Riot_Vanguard.jpg
+2026-04-07 00:47:50.680 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:47:50.681 [IGDB] try cover (#30) name=Rocket League® steamApp=0 dest=cat_epic_9773aa1aa54f4f7b80e44bef04986cea_530145df28a24424923f5828cc9031a1.jpg
+2026-04-07 00:47:50.681 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:47:50.681 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:47:50.682 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:47:53.415 MixrHost: beendet (normal).
+2026-04-07 00:47:54.962 Main entry (args: )
+2026-04-07 00:47:55.052 [IGDB] Credentials: client_id←none; client_secret←none; effective=incomplete — set both via environment variables or igdb: in YAML.
+2026-04-07 00:47:55.052 InitializeComWrappers …
+2026-04-07 00:47:55.053 InitializeComWrappers OK
+2026-04-07 00:47:55.053 Application.Start …
+2026-04-07 00:47:55.096 Application.Start callback (UI thread)
+2026-04-07 00:47:55.097 DispatcherQueue: ok
+2026-04-07 00:47:55.097 SynchronizationContext gesetzt
+2026-04-07 00:47:55.097 new App() …
+2026-04-07 00:47:55.099 App ctor (vor InitializeComponent)
+2026-04-07 00:47:55.104 new App() zurück
+2026-04-07 00:47:55.137 OnLaunched BaseDirectory=C:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\x64\Release\net9.0-windows10.0.22621.0\win-x64\
+2026-04-07 00:47:55.137 Erste Instanz — Mutex ok.
+2026-04-07 00:47:55.338 Tray: ForceCreate ok.
+2026-04-07 00:47:55.340 MixrHost: Start …
+2026-04-07 00:47:55.355 Mixr → COM automatisch (ESP32-S3 USB 303A:1001) @ 921600
+2026-04-07 00:47:55.355 Wiederverbindung bei USB; config.yaml und optional config.secrets.yaml werden überwacht.
+2026-04-07 00:47:55.355 Taster: siehe button_mapping in config.yaml (Standard: Prev / Play / Next / Mute / Deafen).
+2026-04-07 00:47:55.355 Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele
+2026-04-07 00:47:55.450 Tray: ContextFlyout.XamlRoot gesetzt.
+2026-04-07 00:47:55.458 Auto-detect: session_groups updated (master · communication · media · games — see config.yaml).
+2026-04-07 00:47:56.658 Discord-Hotkeys: Strg+Linksshift+Alt — 9 Mute, 0 Deafen, 8 Share Screen.
+2026-04-07 00:47:57.129 Seriell verbunden (COM6).
+2026-04-07 00:48:07.618 MixrHost: beendet (normal).
+2026-04-07 00:51:17.941 Main entry (args: )
+2026-04-07 00:51:18.139 [IGDB] Credentials: client_id←none; client_secret←none; effective=incomplete — set both via environment variables or igdb: in YAML.
+2026-04-07 00:51:18.139 InitializeComWrappers …
+2026-04-07 00:51:18.140 InitializeComWrappers OK
+2026-04-07 00:51:18.140 Application.Start …
+2026-04-07 00:51:18.248 Application.Start callback (UI thread)
+2026-04-07 00:51:18.249 DispatcherQueue: ok
+2026-04-07 00:51:18.250 SynchronizationContext gesetzt
+2026-04-07 00:51:18.250 new App() …
+2026-04-07 00:51:18.252 App ctor (vor InitializeComponent)
+2026-04-07 00:51:18.258 new App() zurück
+2026-04-07 00:51:18.367 OnLaunched BaseDirectory=C:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\x64\Release\net9.0-windows10.0.22621.0\win-x64\
+2026-04-07 00:51:18.368 Erste Instanz — Mutex ok.
+2026-04-07 00:51:18.637 Tray: ForceCreate ok.
+2026-04-07 00:51:18.639 MixrHost: Start …
+2026-04-07 00:51:18.663 Mixr → COM automatisch (ESP32-S3 USB 303A:1001) @ 921600
+2026-04-07 00:51:18.664 Wiederverbindung bei USB; config.yaml und optional config.secrets.yaml werden überwacht.
+2026-04-07 00:51:18.664 Taster: siehe button_mapping in config.yaml (Standard: Prev / Play / Next / Mute / Deafen).
+2026-04-07 00:51:18.664 Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele
+2026-04-07 00:51:18.756 Tray: ContextFlyout.XamlRoot gesetzt.
+2026-04-07 00:51:18.881 Auto-detect: session_groups updated (master · communication · media · games — see config.yaml).
+2026-04-07 00:51:20.135 Discord-Hotkeys: Strg+Linksshift+Alt — 9 Mute, 0 Deafen, 8 Share Screen.
+2026-04-07 00:51:20.602 Seriell verbunden (COM6).
+2026-04-07 00:51:28.894 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 00:51:29.304 Konfiguration neu geladen (config.yaml / config.secrets.yaml).
+2026-04-07 00:51:30.812 MixrHost: beendet (normal).
+2026-04-07 00:55:19.503 Main entry (args: )
+2026-04-07 00:55:19.590 [IGDB] Credentials: client_id←none; client_secret←none; effective=incomplete — set both via environment variables or igdb: in YAML.
+2026-04-07 00:55:19.590 InitializeComWrappers …
+2026-04-07 00:55:19.591 InitializeComWrappers OK
+2026-04-07 00:55:19.591 Application.Start …
+2026-04-07 00:55:19.635 Application.Start callback (UI thread)
+2026-04-07 00:55:19.636 DispatcherQueue: ok
+2026-04-07 00:55:19.636 SynchronizationContext gesetzt
+2026-04-07 00:55:19.637 new App() …
+2026-04-07 00:55:19.638 App ctor (vor InitializeComponent)
+2026-04-07 00:55:19.644 new App() zurück
+2026-04-07 00:55:19.678 OnLaunched BaseDirectory=C:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\x64\Release\net9.0-windows10.0.22621.0\win-x64\
+2026-04-07 00:55:19.678 Erste Instanz — Mutex ok.
+2026-04-07 00:55:19.929 Tray: ForceCreate ok.
+2026-04-07 00:55:19.931 MixrHost: Start …
+2026-04-07 00:55:19.945 Mixr → COM automatisch (ESP32-S3 USB 303A:1001) @ 921600
+2026-04-07 00:55:19.945 Wiederverbindung bei USB; config.yaml und optional config.secrets.yaml werden überwacht.
+2026-04-07 00:55:19.946 Taster: siehe button_mapping in config.yaml (Standard: Prev / Play / Next / Mute / Deafen).
+2026-04-07 00:55:19.946 Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele
+2026-04-07 00:55:20.019 [IGDB] try cover (#1) name=Bacon steamApp=0 dest=cat_riot_bacon.jpg
+2026-04-07 00:55:20.020 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:55:20.022 [IGDB] try cover (#2) name=Diablo III steamApp=0 dest=cat_bnet_Diablo_III.jpg
+2026-04-07 00:55:20.022 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:55:20.022 [IGDB] try cover (#3) name=Diablo Iii steamApp=0 dest=cat_bnet_Diablo_III.jpg
+2026-04-07 00:55:20.023 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:55:20.024 [IGDB] try cover (#4) name=League Of Legends steamApp=0 dest=cat_riot_league_of_legends.jpg
+2026-04-07 00:55:20.024 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:55:20.025 [IGDB] try cover (#5) name=Lion steamApp=0 dest=cat_riot_lion.jpg
+2026-04-07 00:55:20.025 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:55:20.026 [IGDB] try cover (#6) name=Riot Vanguard steamApp=0 dest=cat_riot_Riot_Vanguard.jpg
+2026-04-07 00:55:20.026 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:55:20.027 [IGDB] try cover (#7) name=Rocket League® steamApp=0 dest=cat_epic_9773aa1aa54f4f7b80e44bef04986cea_530145df28a24424923f5828cc9031a1.jpg
+2026-04-07 00:55:20.027 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:55:20.027 [IGDB] try cover (#8) name=Rocket League steamApp=0 dest=cat_epic_9773aa1aa54f4f7b80e44bef04986cea_530145df28a24424923f5828cc9031a1.jpg
+2026-04-07 00:55:20.028 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:55:20.028 [IGDB] try cover (#9) name=Valorant steamApp=0 dest=cat_riot_valorant.jpg
+2026-04-07 00:55:20.028 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:55:20.067 [IGDB] try cover (#10) name=Bacon steamApp=0 dest=cat_riot_bacon.jpg
+2026-04-07 00:55:20.067 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:55:20.068 [IGDB] try cover (#11) name=Diablo III steamApp=0 dest=cat_bnet_Diablo_III.jpg
+2026-04-07 00:55:20.068 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:55:20.068 [IGDB] try cover (#12) name=Diablo Iii steamApp=0 dest=cat_bnet_Diablo_III.jpg
+2026-04-07 00:55:20.068 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:55:20.070 [IGDB] try cover (#13) name=League Of Legends steamApp=0 dest=cat_riot_league_of_legends.jpg
+2026-04-07 00:55:20.070 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:55:20.071 [IGDB] try cover (#14) name=Lion steamApp=0 dest=cat_riot_lion.jpg
+2026-04-07 00:55:20.071 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:55:20.072 [IGDB] try cover (#15) name=Riot Vanguard steamApp=0 dest=cat_riot_Riot_Vanguard.jpg
+2026-04-07 00:55:20.072 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:55:20.073 [IGDB] try cover (#16) name=Rocket League® steamApp=0 dest=cat_epic_9773aa1aa54f4f7b80e44bef04986cea_530145df28a24424923f5828cc9031a1.jpg
+2026-04-07 00:55:20.073 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:55:20.073 [IGDB] try cover (#17) name=Rocket League steamApp=0 dest=cat_epic_9773aa1aa54f4f7b80e44bef04986cea_530145df28a24424923f5828cc9031a1.jpg
+2026-04-07 00:55:20.073 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:55:20.073 Tray: ContextFlyout.XamlRoot gesetzt.
+2026-04-07 00:55:20.074 [IGDB] try cover (#18) name=Valorant steamApp=0 dest=cat_riot_valorant.jpg
+2026-04-07 00:55:20.074 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:55:21.305 Discord-Hotkeys: Strg+Linksshift+Alt — 9 Mute, 0 Deafen, 8 Share Screen.
+2026-04-07 00:55:21.715 Seriell verbunden (COM6).
+2026-04-07 00:55:29.270 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 00:55:29.673 Konfiguration neu geladen (config.yaml / config.secrets.yaml).
+2026-04-07 00:55:29.998 [IGDB] try cover (#19) name=Rocket League® steamApp=0 dest=cat_epic_9773aa1aa54f4f7b80e44bef04986cea_530145df28a24424923f5828cc9031a1.jpg
+2026-04-07 00:55:29.998 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:55:29.998 [IGDB] try cover (#20) name=Rocket League steamApp=0 dest=cat_epic_9773aa1aa54f4f7b80e44bef04986cea_530145df28a24424923f5828cc9031a1.jpg
+2026-04-07 00:55:29.999 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:55:30.015 [IGDB] try cover (#21) name=Bacon steamApp=0 dest=cat_riot_bacon.jpg
+2026-04-07 00:55:30.016 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:55:30.016 [IGDB] try cover (#22) name=League Of Legends steamApp=0 dest=cat_riot_league_of_legends.jpg
+2026-04-07 00:55:30.016 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:55:30.017 [IGDB] try cover (#23) name=Lion steamApp=0 dest=cat_riot_lion.jpg
+2026-04-07 00:55:30.017 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:55:30.017 [IGDB] try cover (#24) name=Riot Vanguard steamApp=0 dest=cat_riot_Riot_Vanguard.jpg
+2026-04-07 00:55:30.017 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:55:30.018 [IGDB] try cover (#25) name=Valorant steamApp=0 dest=cat_riot_valorant.jpg
+2026-04-07 00:55:30.018 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:55:30.032 [IGDB] try cover (#26) name=Diablo III steamApp=0 dest=cat_bnet_Diablo_III.jpg
+2026-04-07 00:55:30.032 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:55:30.032 [IGDB] try cover (#27) name=Diablo Iii steamApp=0 dest=cat_bnet_Diablo_III.jpg
+2026-04-07 00:55:30.032 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:55:30.048 [IGDB] try cover (#28) name=Bacon steamApp=0 dest=cat_riot_bacon.jpg
+2026-04-07 00:55:30.048 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:55:30.049 [IGDB] try cover (#29) name=Diablo III steamApp=0 dest=cat_bnet_Diablo_III.jpg
+2026-04-07 00:55:30.049 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:55:30.049 [IGDB] try cover (#30) name=Diablo Iii steamApp=0 dest=cat_bnet_Diablo_III.jpg
+2026-04-07 00:55:30.049 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:55:30.050 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:55:30.050 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:55:30.051 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:55:30.051 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:55:30.051 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:55:30.052 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:55:30.053 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:55:30.053 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:55:30.054 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:55:30.055 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:55:30.055 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:55:30.056 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:55:30.056 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:55:30.057 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:55:32.630 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 00:55:33.031 Konfiguration neu geladen (config.yaml / config.secrets.yaml).
+2026-04-07 00:55:35.771 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 00:55:36.173 Konfiguration neu geladen (config.yaml / config.secrets.yaml).
+2026-04-07 00:55:40.663 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 00:55:41.058 Konfiguration neu geladen (config.yaml / config.secrets.yaml).
+2026-04-07 00:55:41.998 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 00:55:42.406 Konfiguration neu geladen (config.yaml / config.secrets.yaml).
+2026-04-07 00:55:44.358 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 00:55:44.760 Konfiguration neu geladen (config.yaml / config.secrets.yaml).
+2026-04-07 00:55:45.160 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 00:55:45.563 Konfiguration neu geladen (config.yaml / config.secrets.yaml).
+2026-04-07 00:57:56.690 MixrHost: beendet (normal).
+2026-04-07 00:59:53.600 Main entry (args: )
+2026-04-07 00:59:53.690 [IGDB] Credentials: client_id←none; client_secret←none; effective=incomplete — set both via environment variables or igdb: in YAML.
+2026-04-07 00:59:53.690 InitializeComWrappers …
+2026-04-07 00:59:53.691 InitializeComWrappers OK
+2026-04-07 00:59:53.691 Application.Start …
+2026-04-07 00:59:53.733 Application.Start callback (UI thread)
+2026-04-07 00:59:53.734 DispatcherQueue: ok
+2026-04-07 00:59:53.735 SynchronizationContext gesetzt
+2026-04-07 00:59:53.735 new App() …
+2026-04-07 00:59:53.736 App ctor (vor InitializeComponent)
+2026-04-07 00:59:53.742 new App() zurück
+2026-04-07 00:59:53.774 OnLaunched BaseDirectory=C:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\x64\Release\net9.0-windows10.0.22621.0\win-x64\
+2026-04-07 00:59:53.775 Erste Instanz — Mutex ok.
+2026-04-07 00:59:53.977 Tray: ForceCreate ok.
+2026-04-07 00:59:53.978 MixrHost: Start …
+2026-04-07 00:59:53.992 Mixr → COM automatisch (ESP32-S3 USB 303A:1001) @ 921600
+2026-04-07 00:59:53.992 Wiederverbindung bei USB; config.yaml und optional config.secrets.yaml werden überwacht.
+2026-04-07 00:59:53.992 Taster: siehe button_mapping in config.yaml (Standard: Prev / Play / Next / Mute / Deafen).
+2026-04-07 00:59:53.992 Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele
+2026-04-07 00:59:54.087 Tray: ContextFlyout.XamlRoot gesetzt.
+2026-04-07 00:59:54.106 Auto-detect: session_groups updated (master · communication · media · games — see config.yaml).
+2026-04-07 00:59:54.112 [IGDB] try cover (#1) name=Bacon steamApp=0 dest=cat_riot_bacon.jpg
+2026-04-07 00:59:54.112 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:59:54.113 [IGDB] try cover (#2) name=Diablo III steamApp=0 dest=cat_bnet_Diablo_III.jpg
+2026-04-07 00:59:54.113 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:59:54.113 [IGDB] try cover (#3) name=Diablo Iii steamApp=0 dest=cat_bnet_Diablo_III.jpg
+2026-04-07 00:59:54.113 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:59:54.114 [IGDB] try cover (#4) name=League Of Legends steamApp=0 dest=cat_riot_league_of_legends.jpg
+2026-04-07 00:59:54.114 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:59:54.114 [IGDB] try cover (#5) name=Lion steamApp=0 dest=cat_riot_lion.jpg
+2026-04-07 00:59:54.115 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:59:54.115 [IGDB] try cover (#6) name=Riot Vanguard steamApp=0 dest=cat_riot_Riot_Vanguard.jpg
+2026-04-07 00:59:54.115 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:59:54.116 [IGDB] try cover (#7) name=Rocket League® steamApp=0 dest=cat_epic_9773aa1aa54f4f7b80e44bef04986cea_530145df28a24424923f5828cc9031a1.jpg
+2026-04-07 00:59:54.116 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:59:54.116 [IGDB] try cover (#8) name=Rocket League steamApp=0 dest=cat_epic_9773aa1aa54f4f7b80e44bef04986cea_530145df28a24424923f5828cc9031a1.jpg
+2026-04-07 00:59:54.116 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:59:54.117 [IGDB] try cover (#9) name=Valorant steamApp=0 dest=cat_riot_valorant.jpg
+2026-04-07 00:59:54.117 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 00:59:55.212 Discord-Hotkeys: Strg+Linksshift+Alt — 9 Mute, 0 Deafen, 8 Share Screen.
+2026-04-07 00:59:55.667 Seriell verbunden (COM6).
+2026-04-07 01:00:01.535 [IGDB] try cover (#10) name=Rocket League® steamApp=0 dest=cat_epic_9773aa1aa54f4f7b80e44bef04986cea_530145df28a24424923f5828cc9031a1.jpg
+2026-04-07 01:00:01.535 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:01.535 [IGDB] try cover (#11) name=Rocket League steamApp=0 dest=cat_epic_9773aa1aa54f4f7b80e44bef04986cea_530145df28a24424923f5828cc9031a1.jpg
+2026-04-07 01:00:01.535 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:01.550 [IGDB] try cover (#12) name=Bacon steamApp=0 dest=cat_riot_bacon.jpg
+2026-04-07 01:00:01.550 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:01.551 [IGDB] try cover (#13) name=League Of Legends steamApp=0 dest=cat_riot_league_of_legends.jpg
+2026-04-07 01:00:01.551 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:01.552 [IGDB] try cover (#14) name=Lion steamApp=0 dest=cat_riot_lion.jpg
+2026-04-07 01:00:01.552 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:01.552 [IGDB] try cover (#15) name=Riot Vanguard steamApp=0 dest=cat_riot_Riot_Vanguard.jpg
+2026-04-07 01:00:01.552 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:01.553 [IGDB] try cover (#16) name=Valorant steamApp=0 dest=cat_riot_valorant.jpg
+2026-04-07 01:00:01.553 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:01.567 [IGDB] try cover (#17) name=Diablo III steamApp=0 dest=cat_bnet_Diablo_III.jpg
+2026-04-07 01:00:01.567 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:01.568 [IGDB] try cover (#18) name=Diablo Iii steamApp=0 dest=cat_bnet_Diablo_III.jpg
+2026-04-07 01:00:01.568 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:01.585 [IGDB] try cover (#19) name=Bacon steamApp=0 dest=cat_riot_bacon.jpg
+2026-04-07 01:00:01.585 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:01.586 [IGDB] try cover (#20) name=Diablo III steamApp=0 dest=cat_bnet_Diablo_III.jpg
+2026-04-07 01:00:01.586 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:01.586 [IGDB] try cover (#21) name=Diablo Iii steamApp=0 dest=cat_bnet_Diablo_III.jpg
+2026-04-07 01:00:01.586 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:01.587 [IGDB] try cover (#22) name=League Of Legends steamApp=0 dest=cat_riot_league_of_legends.jpg
+2026-04-07 01:00:01.587 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:01.588 [IGDB] try cover (#23) name=Lion steamApp=0 dest=cat_riot_lion.jpg
+2026-04-07 01:00:01.588 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:01.588 [IGDB] try cover (#24) name=Riot Vanguard steamApp=0 dest=cat_riot_Riot_Vanguard.jpg
+2026-04-07 01:00:01.588 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:01.589 [IGDB] try cover (#25) name=Rocket League® steamApp=0 dest=cat_epic_9773aa1aa54f4f7b80e44bef04986cea_530145df28a24424923f5828cc9031a1.jpg
+2026-04-07 01:00:01.589 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:01.589 [IGDB] try cover (#26) name=Rocket League steamApp=0 dest=cat_epic_9773aa1aa54f4f7b80e44bef04986cea_530145df28a24424923f5828cc9031a1.jpg
+2026-04-07 01:00:01.589 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:01.590 [IGDB] try cover (#27) name=Valorant steamApp=0 dest=cat_riot_valorant.jpg
+2026-04-07 01:00:01.590 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:01.594 [IGDB] try cover (#28) name=Bacon steamApp=0 dest=cat_riot_bacon.jpg
+2026-04-07 01:00:01.594 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:01.594 [IGDB] try cover (#29) name=Diablo III steamApp=0 dest=cat_bnet_Diablo_III.jpg
+2026-04-07 01:00:01.595 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:01.595 [IGDB] try cover (#30) name=Diablo Iii steamApp=0 dest=cat_bnet_Diablo_III.jpg
+2026-04-07 01:00:01.595 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:01.596 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:01.596 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:01.596 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:01.597 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:01.597 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:01.597 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:02.590 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:02.591 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:02.596 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:02.597 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:02.598 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:02.598 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:02.599 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:02.605 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:02.605 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:02.618 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:02.619 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:02.619 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:02.620 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:02.620 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:02.620 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:02.621 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:02.621 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:02.621 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:02.624 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:02.625 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:02.625 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:02.625 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:02.626 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:02.626 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:02.627 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:02.627 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:02.627 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:07.977 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 01:00:08.141 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 01:00:08.338 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 01:00:08.740 Konfiguration neu geladen (config.yaml / config.secrets.yaml).
+2026-04-07 01:00:08.854 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:08.855 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:08.860 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:08.860 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:08.861 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:08.861 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:08.862 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:08.867 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:08.868 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:08.879 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:08.880 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:08.880 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:08.880 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:08.881 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:08.881 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:08.882 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:08.882 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:08.882 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:08.884 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:08.884 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:08.884 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:08.886 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:08.886 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:08.887 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:08.887 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:08.887 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:08.888 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:09.155 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:09.155 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:09.161 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:09.161 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:09.162 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:09.162 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:09.163 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:09.168 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:09.168 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:09.179 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:09.180 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:09.180 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:09.181 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:09.181 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:09.181 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:09.182 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:09.182 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:09.182 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:09.184 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:09.184 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:09.184 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:09.185 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:09.186 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:09.186 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:09.187 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:09.187 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:09.188 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:11.072 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 01:00:11.478 Konfiguration neu geladen (config.yaml / config.secrets.yaml).
+2026-04-07 01:00:12.305 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.305 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.310 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.311 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.311 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.312 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.312 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.318 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.318 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.329 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.329 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.330 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.330 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.331 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.331 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.331 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.331 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.332 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.333 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.334 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.334 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.335 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.335 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.336 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.336 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.650 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.651 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.656 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.657 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.657 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.657 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.658 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.663 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.663 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.676 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.676 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.677 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.677 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.678 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.678 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.678 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.678 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.679 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.680 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.681 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.681 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.682 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.683 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.683 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:12.684 [IGDB] abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.
+2026-04-07 01:00:14.961 MixrHost: beendet (normal).
+2026-04-07 01:04:03.387 Main entry (args: )
+2026-04-07 01:04:03.546 [IGDB] Credentials: client_id←config file (config.yaml and/or config.secrets.yaml); client_secret←config file (config.yaml and/or config.secrets.yaml); effective=ready for IGDB API.
+2026-04-07 01:04:03.546 InitializeComWrappers …
+2026-04-07 01:04:03.546 InitializeComWrappers OK
+2026-04-07 01:04:03.547 Application.Start …
+2026-04-07 01:04:03.603 Application.Start callback (UI thread)
+2026-04-07 01:04:03.604 DispatcherQueue: ok
+2026-04-07 01:04:03.605 SynchronizationContext gesetzt
+2026-04-07 01:04:03.605 new App() …
+2026-04-07 01:04:03.606 App ctor (vor InitializeComponent)
+2026-04-07 01:04:03.612 new App() zurück
+2026-04-07 01:04:03.680 OnLaunched BaseDirectory=C:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\x64\Release\net9.0-windows10.0.22621.0\win-x64\
+2026-04-07 01:04:03.681 Erste Instanz — Mutex ok.
+2026-04-07 01:04:03.913 Tray: ForceCreate ok.
+2026-04-07 01:04:03.915 MixrHost: Start …
+2026-04-07 01:04:03.932 Mixr → COM automatisch (ESP32-S3 USB 303A:1001) @ 921600
+2026-04-07 01:04:03.932 Wiederverbindung bei USB; config.yaml und optional config.secrets.yaml werden überwacht.
+2026-04-07 01:04:03.932 Taster: siehe button_mapping in config.yaml (Standard: Prev / Play / Next / Mute / Deafen).
+2026-04-07 01:04:03.932 Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele
+2026-04-07 01:04:04.028 Tray: ContextFlyout.XamlRoot gesetzt.
+2026-04-07 01:04:04.077 [IGDB] try cover (#1) name=Bacon steamApp=0 dest=cat_riot_bacon.jpg
+2026-04-07 01:04:05.237 [IGDB] Twitch OAuth OK (erster Token in dieser Session).
+2026-04-07 01:04:05.300 Discord-Hotkeys: Strg+Linksshift+Alt — 9 Mute, 0 Deafen, 8 Share Screen.
+2026-04-07 01:04:06.560 Seriell verbunden (COM6).
+2026-04-07 01:04:06.989 [IGDB] OK (#1) gameId=88005 image_id=co3luf -> C:\Users\paulm\AppData\Local\Mixr\covers\cat_riot_bacon.jpg
+2026-04-07 01:04:06.993 [IGDB] try cover (#2) name=Diablo III steamApp=0 dest=cat_bnet_Diablo_III.jpg
+2026-04-07 01:04:08.417 [IGDB] OK (#2) gameId=120 image_id=co2l1u -> C:\Users\paulm\AppData\Local\Mixr\covers\cat_bnet_Diablo_III.jpg
+2026-04-07 01:04:08.419 [IGDB] try cover (#3) name=League Of Legends steamApp=0 dest=cat_riot_league_of_legends.jpg
+2026-04-07 01:04:10.434 [IGDB] OK (#3) gameId=115 image_id=cobpn7 -> C:\Users\paulm\AppData\Local\Mixr\covers\cat_riot_league_of_legends.jpg
+2026-04-07 01:04:10.434 [IGDB] try cover (#4) name=Lion steamApp=0 dest=cat_riot_lion.jpg
+2026-04-07 01:04:11.960 [IGDB] OK (#4) gameId=145156 image_id=co3b2x -> C:\Users\paulm\AppData\Local\Mixr\covers\cat_riot_lion.jpg
+2026-04-07 01:04:11.961 [IGDB] try cover (#5) name=Riot Vanguard steamApp=0 dest=cat_riot_Riot_Vanguard.jpg
+2026-04-07 01:04:13.458 [IGDB] search: 0 Treffer für „Riot Vanguard“
+2026-04-07 01:04:13.459 [IGDB] abort: keine IGDB-Spiel-ID für hint=Riot Vanguard steamApp=0
+2026-04-07 01:04:13.460 [IGDB] try cover (#6) name=Valorant steamApp=0 dest=cat_riot_valorant.jpg
+2026-04-07 01:04:14.340 MixrHost: beendet (normal).
+2026-04-07 01:04:38.105 Main entry (args: )
+2026-04-07 01:04:38.200 [IGDB] Credentials: client_id←config file (config.yaml and/or config.secrets.yaml); client_secret←config file (config.yaml and/or config.secrets.yaml); effective=ready for IGDB API.
+2026-04-07 01:04:38.200 InitializeComWrappers …
+2026-04-07 01:04:38.201 InitializeComWrappers OK
+2026-04-07 01:04:38.201 Application.Start …
+2026-04-07 01:04:38.243 Application.Start callback (UI thread)
+2026-04-07 01:04:38.244 DispatcherQueue: ok
+2026-04-07 01:04:38.244 SynchronizationContext gesetzt
+2026-04-07 01:04:38.244 new App() …
+2026-04-07 01:04:38.246 App ctor (vor InitializeComponent)
+2026-04-07 01:04:38.251 new App() zurück
+2026-04-07 01:04:38.284 OnLaunched BaseDirectory=C:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\x64\Release\net9.0-windows10.0.22621.0\win-x64\
+2026-04-07 01:04:38.284 Erste Instanz — Mutex ok.
+2026-04-07 01:04:38.539 Tray: ForceCreate ok.
+2026-04-07 01:04:38.541 MixrHost: Start …
+2026-04-07 01:04:38.554 Mixr → COM automatisch (ESP32-S3 USB 303A:1001) @ 921600
+2026-04-07 01:04:38.554 Wiederverbindung bei USB; config.yaml und optional config.secrets.yaml werden überwacht.
+2026-04-07 01:04:38.555 Taster: siehe button_mapping in config.yaml (Standard: Prev / Play / Next / Mute / Deafen).
+2026-04-07 01:04:38.555 Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele
+2026-04-07 01:04:38.618 [IGDB] try cover (#1) name=Riot Vanguard steamApp=0 dest=cat_riot_Riot_Vanguard.jpg
+2026-04-07 01:04:38.659 Tray: ContextFlyout.XamlRoot gesetzt.
+2026-04-07 01:04:39.608 [IGDB] Twitch OAuth OK (erster Token in dieser Session).
+2026-04-07 01:04:39.834 Discord-Hotkeys: Strg+Linksshift+Alt — 9 Mute, 0 Deafen, 8 Share Screen.
+2026-04-07 01:04:40.281 Seriell verbunden (COM6).
+2026-04-07 01:04:40.407 [IGDB] search: 0 Treffer für „Riot Vanguard“
+2026-04-07 01:04:40.409 [IGDB] abort: keine IGDB-Spiel-ID für hint=Riot Vanguard steamApp=0
+2026-04-07 01:04:40.413 [IGDB] try cover (#2) name=Valorant steamApp=0 dest=cat_riot_valorant.jpg
+2026-04-07 01:04:42.094 [IGDB] OK (#1) gameId=126459 image_id=cobqao -> C:\Users\paulm\AppData\Local\Mixr\covers\cat_riot_valorant.jpg
+2026-04-07 01:04:42.166 Auto-detect: session_groups updated (master · communication · media · games — see config.yaml).
+2026-04-07 01:04:42.172 [IGDB] try cover (#3) name=Riot Vanguard steamApp=0 dest=cat_riot_Riot_Vanguard.jpg
+2026-04-07 01:04:42.562 Konfiguration neu geladen (config.yaml / config.secrets.yaml).
+2026-04-07 01:04:43.185 [IGDB] search: 0 Treffer für „Riot Vanguard“
+2026-04-07 01:04:43.186 [IGDB] abort: keine IGDB-Spiel-ID für hint=Riot Vanguard steamApp=0
+2026-04-07 01:04:43.187 [IGDB] try cover (#4) name=Rocket League® steamApp=0 dest=cat_epic_9773aa1aa54f4f7b80e44bef04986cea_530145df28a24424923f5828cc9031a1.jpg
+2026-04-07 01:04:44.015 [IGDB] search: 0 Treffer für „Rocket League®“
+2026-04-07 01:04:44.016 [IGDB] abort: keine IGDB-Spiel-ID für hint=Rocket League® steamApp=0
+2026-04-07 01:04:44.017 [IGDB] try cover (#5) name=Rocket League steamApp=0 dest=cat_epic_9773aa1aa54f4f7b80e44bef04986cea_530145df28a24424923f5828cc9031a1.jpg
+2026-04-07 01:04:45.513 [IGDB] OK (#2) gameId=11198 image_id=coaiyq -> C:\Users\paulm\AppData\Local\Mixr\covers\cat_epic_9773aa1aa54f4f7b80e44bef04986cea_530145df28a24424923f5828cc9031a1.jpg
+2026-04-07 01:04:48.733 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 01:04:49.135 Konfiguration neu geladen (config.yaml / config.secrets.yaml).
+2026-04-07 01:04:52.503 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 01:04:52.907 Konfiguration neu geladen (config.yaml / config.secrets.yaml).
+2026-04-07 01:05:07.022 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 01:05:07.422 Konfiguration neu geladen (config.yaml / config.secrets.yaml).
+2026-04-07 01:05:08.933 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 01:05:09.344 Konfiguration neu geladen (config.yaml / config.secrets.yaml).
+2026-04-07 01:06:15.527 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 01:06:15.929 Konfiguration neu geladen (config.yaml / config.secrets.yaml).
+2026-04-07 01:10:00.393 MixrHost: beendet (normal).
+2026-04-07 01:10:18.785 Main entry (args: )
+2026-04-07 01:10:18.871 [IGDB] Credentials: client_id←config file (config.yaml and/or config.secrets.yaml); client_secret←config file (config.yaml and/or config.secrets.yaml); effective=ready for IGDB API.
+2026-04-07 01:10:18.871 InitializeComWrappers …
+2026-04-07 01:10:18.872 InitializeComWrappers OK
+2026-04-07 01:10:18.872 Application.Start …
+2026-04-07 01:10:18.915 Application.Start callback (UI thread)
+2026-04-07 01:10:18.916 DispatcherQueue: ok
+2026-04-07 01:10:18.916 SynchronizationContext gesetzt
+2026-04-07 01:10:18.917 new App() …
+2026-04-07 01:10:18.918 App ctor (vor InitializeComponent)
+2026-04-07 01:10:18.924 new App() zurück
+2026-04-07 01:10:18.957 OnLaunched BaseDirectory=C:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\x64\Release\net9.0-windows10.0.22621.0\win-x64\
+2026-04-07 01:10:18.958 Erste Instanz — Mutex ok.
+2026-04-07 01:10:19.158 Tray: ForceCreate ok.
+2026-04-07 01:10:19.160 MixrHost: Start …
+2026-04-07 01:10:19.174 Mixr → COM automatisch (ESP32-S3 USB 303A:1001) @ 921600
+2026-04-07 01:10:19.175 Wiederverbindung bei USB; config.yaml und optional config.secrets.yaml werden überwacht.
+2026-04-07 01:10:19.175 Taster: siehe button_mapping in config.yaml (Standard: Prev / Play / Next / Mute / Deafen).
+2026-04-07 01:10:19.175 Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele
+2026-04-07 01:10:19.275 Tray: ContextFlyout.XamlRoot gesetzt.
+2026-04-07 01:10:19.295 Auto-detect: session_groups updated (master · communication · media · games — see config.yaml).
+2026-04-07 01:10:20.478 Discord-Hotkeys: Strg+Linksshift+Alt — 9 Mute, 0 Deafen, 8 Share Screen.
+2026-04-07 01:10:20.886 Seriell verbunden (COM6).
+2026-04-07 01:10:26.992 Slider-Editing: saved config.yaml, runtime config reloaded.
+2026-04-07 01:10:27.398 Konfiguration neu geladen (config.yaml / config.secrets.yaml).
+2026-04-07 01:11:19.588 MixrHost: beendet (normal).
+2026-04-07 10:17:19.844 Main entry (args: )
+2026-04-07 10:17:20.033 [IGDB] Credentials: client_id←config file (config.yaml and/or config.secrets.yaml); client_secret←config file (config.yaml and/or config.secrets.yaml); effective=ready for IGDB API.
+2026-04-07 10:17:20.033 InitializeComWrappers …
+2026-04-07 10:17:20.034 InitializeComWrappers OK
+2026-04-07 10:17:20.034 Application.Start …
+2026-04-07 10:17:20.092 Application.Start callback (UI thread)
+2026-04-07 10:17:20.093 DispatcherQueue: ok
+2026-04-07 10:17:20.094 SynchronizationContext gesetzt
+2026-04-07 10:17:20.094 new App() …
+2026-04-07 10:17:20.095 App ctor (vor InitializeComponent)
+2026-04-07 10:17:20.103 new App() zurück
+2026-04-07 10:17:20.175 OnLaunched BaseDirectory=C:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\x64\Release\net9.0-windows10.0.22621.0\win-x64\
+2026-04-07 10:17:20.175 Erste Instanz — Mutex ok.
+2026-04-07 10:17:20.394 Tray: ForceCreate ok.
+2026-04-07 10:17:20.395 MixrHost: Start …
+2026-04-07 10:17:20.409 Mixr → COM automatisch (ESP32-S3 USB 303A:1001) @ 921600
+2026-04-07 10:17:20.410 Wiederverbindung bei USB; config.yaml und optional config.secrets.yaml werden überwacht.
+2026-04-07 10:17:20.410 Taster: siehe button_mapping in config.yaml (Standard: Prev / Play / Next / Mute / Deafen).
+2026-04-07 10:17:20.410 Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele
+2026-04-07 10:17:20.503 Tray: ContextFlyout.XamlRoot gesetzt.
+2026-04-07 10:17:28.185 Discord-Hotkeys: Strg+Linksshift+Alt — 9 Mute, 0 Deafen, 8 Share Screen.
+2026-04-07 10:17:28.731 Seriell verbunden (COM6).

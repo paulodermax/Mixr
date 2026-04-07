@@ -68,6 +68,9 @@
     <None Include="..\Mixr.Core\config.yaml" Link="config.yaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="config.secrets.example.yaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <!-- Cover-Assets: Repository Mixr/covers (..\covers) → Ausgabe covers\; Start → %LocalAppData%\Mixr\covers -->

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 using Mixr.Models;
 using Mixr.Services;
@@ -42,7 +43,7 @@ public static class MixrHost
                 LogLine(options, $"Mixr → {cfg.ComPort} @ {cfg.BaudRate}");
             }
 
-            LogLine(options, "Wiederverbindung bei USB; config.yaml wird überwacht.");
+            LogLine(options, "Wiederverbindung bei USB; config.yaml und optional config.secrets.yaml werden überwacht.");
             LogLine(options, "Taster: siehe button_mapping in config.yaml (Standard: Prev / Play / Next / Mute / Deafen).");
             LogLine(options, "Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele");
         }
@@ -96,17 +97,25 @@ public static class MixrHost
 
         var reloadGate = new object();
         CancellationTokenSource? debounceCts = null;
+        List<FileSystemWatcher>? configWatchers = null;
 
-        FileSystemWatcher? watcher = null;
         try
         {
             var dir = Path.GetDirectoryName(MixrConfigPaths.ConfigYamlPath);
-            var file = Path.GetFileName(MixrConfigPaths.ConfigYamlPath);
+            var mainFile = Path.GetFileName(MixrConfigPaths.ConfigYamlPath);
             if (!string.IsNullOrEmpty(dir) && Directory.Exists(dir))
             {
-                watcher = new FileSystemWatcher(dir, file) { NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.Size };
-                watcher.Changed += (_, _) => DebouncedConfigReload();
-                watcher.EnableRaisingEvents = true;
+                configWatchers = [];
+                foreach (var name in new[] { mainFile, "config.secrets.yaml" }.Distinct(StringComparer.OrdinalIgnoreCase))
+                {
+                    var w = new FileSystemWatcher(dir, name)
+                    {
+                        NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.Size,
+                    };
+                    w.Changed += (_, _) => DebouncedConfigReload();
+                    w.EnableRaisingEvents = true;
+                    configWatchers.Add(w);
+                }
             }
         }
         catch
@@ -127,7 +136,7 @@ public static class MixrHost
                     {
                         await Task.Delay(400, cts.Token);
                         MixrRuntimeState.ReloadConfigFromDisk(args);
-                        LogLine(options, "Konfiguration neu geladen (config.yaml).");
+                        LogLine(options, "Konfiguration neu geladen (config.yaml / config.secrets.yaml).");
                     }
                     catch (OperationCanceledException)
                     {
@@ -374,10 +383,20 @@ public static class MixrHost
         finally
         {
             MixrRuntimeState.Config.Changed -= OnConfigChangedFromRuntime;
-            if (watcher != null)
+            if (configWatchers is { Count: > 0 })
             {
-                watcher.EnableRaisingEvents = false;
-                watcher.Dispose();
+                foreach (var w in configWatchers)
+                {
+                    try
+                    {
+                        w.EnableRaisingEvents = false;
+                        w.Dispose();
+                    }
+                    catch
+                    {
+                        /* */
+                    }
+                }
             }
 
             MixrRuntimeState.Audio = null;

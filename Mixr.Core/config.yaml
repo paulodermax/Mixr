@@ -23,3 +23,9 @@ button_mapping:
 
 # Pro Gruppe: Suchstrings im Session-Namen (DisplayName / Prozess). Standard: leer — alles in der Programmbibliothek.
 session_groups: {}
+
+# Game-Cover (IGDB / Twitch API): optional. Umgebungsvariablen IGDB_CLIENT_ID / IGDB_CLIENT_SECRET überschreiben YAML.
+# Empfehlung für Secrets: Datei config.secrets.yaml (gleicher Ordner wie diese Datei) — siehe config.secrets.example.yaml in der App-Ausgabe.
+# igdb:
+#   client_id: ""
+#   client_secret: ""

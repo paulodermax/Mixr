@@ -36,4 +36,10 @@ public sealed class MixrConfig
         "discord_mute",
         "discord_deafen",
     ];
+
+    /// <summary>Optional: Twitch Client-ID für IGDB. Wird von <c>IGDB_CLIENT_ID</c> überschrieben, falls gesetzt.</summary>
+    public string? IgdbClientId { get; set; }
+
+    /// <summary>Optional: Twitch Client Secret. Wird von <c>IGDB_CLIENT_SECRET</c> überschrieben, falls gesetzt.</summary>
+    public string? IgdbClientSecret { get; set; }
 }

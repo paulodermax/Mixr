@@ -1,4 +1,6 @@
+using System.Globalization;
 using System.Net.Http.Headers;
+using System.Threading;
 using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
@@ -12,8 +14,42 @@ public static class IgdbCoverService
     const string IgdbGamesUrl = "https://api.igdb.com/v4/games";
     const string IgdbExternalGamesUrl = "https://api.igdb.com/v4/external_games";
     const string IgdbCoversUrl = "https://api.igdb.com/v4/covers";
+    const string IgdbArtworksUrl = "https://api.igdb.com/v4/artworks";
 
     static readonly HttpClient Http = CreateClient();
+
+    /// <summary>Optional: z. B. <c>AppLog.WriteLine</c> aus der App — niemals Secrets loggen.</summary>
+    public static Action<string>? DiagnosticLog { get; set; }
+
+    static int _igdbHttpErrorSamplesLogged;
+
+    static int _twitchAuthOkLogged;
+
+    static int _coverTryLogged;
+
+    static int _coverOkLogged;
+
+    static int _emptySearchLogged;
+
+    static void Diag(string message)
+    {
+        try
+        {
+            DiagnosticLog?.Invoke("[IGDB] " + message);
+        }
+        catch
+        {
+            /* */
+        }
+    }
+
+    static string Trunc(string? s, int max = 220)
+    {
+        if (string.IsNullOrEmpty(s))
+            return "";
+        var t = s.ReplaceLineEndings(" ");
+        return t.Length <= max ? t : t[..max] + "…";
+    }
 
     static HttpClient CreateClient()
     {
@@ -25,7 +61,7 @@ public static class IgdbCoverService
 
     /// <summary>
     /// Lädt ein Cover für ein Steam-Spiel nach <paramref name="destinationPath"/>.
-    /// Benötigt <c>IGDB_CLIENT_ID</c> und <c>IGDB_CLIENT_SECRET</c>.
+    /// Benötigt Twitch-Credentials (Umgebung und/oder <c>config.yaml</c> / <c>config.secrets.yaml</c> — siehe <see cref="IgdbCredentialResolver"/>).
     /// </summary>
     public static async Task<bool> TryDownloadSteamCoverAsync(
         string gameName,
@@ -33,14 +69,25 @@ public static class IgdbCoverService
         string destinationPath,
         CancellationToken ct)
     {
-        var clientId = Environment.GetEnvironmentVariable("IGDB_CLIENT_ID");
-        var clientSecret = Environment.GetEnvironmentVariable("IGDB_CLIENT_SECRET");
+        var tryN = Interlocked.Increment(ref _coverTryLogged);
+        if (tryN <= 30)
+            Diag(
+                $"try cover (#{tryN}) name={Trunc(gameName)} steamApp={steamAppId} dest={Trunc(Path.GetFileName(destinationPath), 80)}");
+
+        var (clientId, clientSecret) = IgdbCredentialResolver.Resolve();
         if (string.IsNullOrWhiteSpace(clientId) || string.IsNullOrWhiteSpace(clientSecret))
+        {
+            Diag(
+                "abort: keine vollständigen IGDB-Credentials — setze IGDB_CLIENT_ID und IGDB_CLIENT_SECRET (Umgebung) und/oder igdb.client_id / client_secret in config.yaml oder config.secrets.yaml neben der EXE.");
             return false;
+        }
 
         var token = await RequestTokenAsync(clientId, clientSecret, ct).ConfigureAwait(false);
         if (token is null)
+        {
+            Diag("abort: kein Twitch-Access-Token (Details sollten oben geloggt sein).");
             return false;
+        }
 
         long? gameId = null;
         var hint = gameName.Trim();
@@ -52,18 +99,37 @@ public static class IgdbCoverService
             gameId = await SearchBestGameIdByNameAsync(clientId, token, hint, ct).ConfigureAwait(false);
 
         if (gameId is null)
+        {
+            Diag($"abort: keine IGDB-Spiel-ID für hint={Trunc(hint)} steamApp={steamAppId}");
             return false;
+        }
 
         var covers = await FetchCoversAsync(clientId, token, [gameId.Value], ct).ConfigureAwait(false);
-        var row = covers.FirstOrDefault(c => c.Game == gameId.Value);
-        if (string.IsNullOrWhiteSpace(row.ImageId))
+        var imageId = covers.FirstOrDefault(c => c.Game == gameId.Value).ImageId;
+        if (string.IsNullOrWhiteSpace(imageId))
+            imageId = await FetchFirstArtworkImageIdAsync(clientId, token, gameId.Value, ct).ConfigureAwait(false);
+
+        if (string.IsNullOrWhiteSpace(imageId))
+        {
+            Diag($"abort: gameId={gameId.Value} hat weder cover noch artwork image_id");
             return false;
+        }
 
         var dir = Path.GetDirectoryName(destinationPath);
         if (!string.IsNullOrEmpty(dir))
             Directory.CreateDirectory(dir);
 
-        return await TryDownloadCoverWithFallbackAsync(row.ImageId, destinationPath, ct).ConfigureAwait(false);
+        var ok = await TryDownloadCoverWithFallbackAsync(imageId, destinationPath, ct).ConfigureAwait(false);
+        if (ok)
+        {
+            var on = Interlocked.Increment(ref _coverOkLogged);
+            if (on <= 20)
+                Diag($"OK (#{on}) gameId={gameId.Value} image_id={Trunc(imageId, 40)} -> {Trunc(destinationPath, 120)}");
+        }
+        else
+            Diag($"abort: Bild-Download fehlgeschlagen gameId={gameId.Value} image_id={Trunc(imageId, 40)}");
+
+        return ok;
     }
 
     /// <summary>
@@ -85,33 +151,40 @@ public static class IgdbCoverService
     static async Task<bool> TryDownloadCoverWithFallbackAsync(string imageId, string fullPath, CancellationToken ct)
     {
         var primary = BuildCoverImageUrl(imageId);
-        if (await TryDownloadImageToFileAsync(primary, fullPath, ct).ConfigureAwait(false))
+        if (await TryDownloadImageToFileAsync(primary, fullPath, ct, "cover_big").ConfigureAwait(false))
             return true;
 
         var fallback = BuildCoverImageUrlSmall(imageId);
         if (string.Equals(primary, fallback, StringComparison.Ordinal))
             return false;
 
-        return await TryDownloadImageToFileAsync(fallback, fullPath, ct).ConfigureAwait(false);
+        return await TryDownloadImageToFileAsync(fallback, fullPath, ct, "cover_small").ConfigureAwait(false);
     }
 
-    static async Task<bool> TryDownloadImageToFileAsync(string url, string fullPath, CancellationToken ct)
+    static async Task<bool> TryDownloadImageToFileAsync(string url, string fullPath, CancellationToken ct, string label)
     {
         try
         {
             using var resp = await Http.GetAsync(url, HttpCompletionOption.ResponseHeadersRead, ct).ConfigureAwait(false);
             if (!resp.IsSuccessStatusCode)
+            {
+                Diag($"image {label} HTTP {(int)resp.StatusCode} url={Trunc(url, 100)}");
                 return false;
+            }
 
             var bytes = await resp.Content.ReadAsByteArrayAsync(ct).ConfigureAwait(false);
             if (bytes.Length == 0)
+            {
+                Diag($"image {label} empty body url={Trunc(url, 100)}");
                 return false;
+            }
 
             await File.WriteAllBytesAsync(fullPath, bytes, ct).ConfigureAwait(false);
             return true;
         }
-        catch
+        catch (Exception ex)
         {
+            Diag($"image {label} exception: {ex.Message} url={Trunc(url, 80)}");
             return false;
         }
     }
@@ -125,13 +198,34 @@ public static class IgdbCoverService
             using var resp = await Http.PostAsync(uri, null, ct).ConfigureAwait(false);
             var json = await resp.Content.ReadAsStringAsync(ct).ConfigureAwait(false);
             if (!resp.IsSuccessStatusCode)
+            {
+                Diag(
+                    $"Twitch OAuth HTTP {(int)resp.StatusCode} {resp.ReasonPhrase}: {Trunc(json, 450)} (Client-ID-Länge={clientId.Length}, Secret gesetzt={!string.IsNullOrEmpty(clientSecret)})");
                 return null;
+            }
 
             using var doc = JsonDocument.Parse(json);
-            return doc.RootElement.GetProperty("access_token").GetString();
+            if (!doc.RootElement.TryGetProperty("access_token", out var tok))
+            {
+                Diag($"Twitch JSON ohne access_token: {Trunc(json, 350)}");
+                return null;
+            }
+
+            var t = tok.GetString();
+            if (string.IsNullOrEmpty(t))
+            {
+                Diag("Twitch access_token leer.");
+                return null;
+            }
+
+            if (Interlocked.CompareExchange(ref _twitchAuthOkLogged, 1, 0) == 0)
+                Diag("Twitch OAuth OK (erster Token in dieser Session).");
+
+            return t;
         }
-        catch
+        catch (Exception ex)
         {
+            Diag($"Twitch OAuth exception: {ex.Message}");
             return null;
         }
     }
@@ -188,7 +282,7 @@ public static class IgdbCoverService
 
             return string.IsNullOrWhiteSpace(localNameHint)
                 ? gameIds[0]
-                : PickBestGameId(localNameHint, named);
+                : PickBestGameId(NormalizeDisplayNameForIgdb(localNameHint.Trim()), named);
         }
         catch
         {
@@ -212,30 +306,117 @@ public static class IgdbCoverService
 
     static async Task<long?> SearchBestGameIdByNameAsync(string clientId, string token, string name, CancellationToken ct)
     {
-        if (name.Length < 2)
+        var raw = name.Trim();
+        if (raw.Length < 2)
             return null;
 
-        var exact = await TryExactNameGameIdAsync(clientId, token, name, ct).ConfigureAwait(false);
-        if (exact is not null)
-            return exact;
+        var normalized = NormalizeDisplayNameForIgdb(raw);
 
-        var body = name.Length >= 4
+        foreach (var candidate in EnumerateExactNameCandidates(raw, normalized))
+        {
+            var exact = await TryExactNameGameIdAsync(clientId, token, candidate, ct).ConfigureAwait(false);
+            if (exact is not null)
+                return exact;
+        }
+
+        var searchName = normalized.Length >= 2 ? normalized : raw;
+        var body = searchName.Length >= 4
             ? $"""
               fields id, name;
-              search "{EscapeApicalypseString(name)}";
+              search "{EscapeApicalypseString(searchName)}";
               limit 30;
               """
             : $"""
               fields id, name;
-              where name ~ *"{EscapeApicalypseString(name)}"*;
+              where name ~ *"{EscapeApicalypseString(searchName)}"*;
               limit 30;
               """;
 
         var candidates = await PostGamesListAsync(clientId, token, body, ct).ConfigureAwait(false);
         if (candidates.Count == 0)
+        {
+            var zn = Interlocked.Increment(ref _emptySearchLogged);
+            if (zn <= 25)
+                Diag($"search: 0 Treffer für „{Trunc(searchName)}“");
             return null;
+        }
 
-        return PickBestGameId(name, candidates);
+        return PickBestGameId(searchName, candidates);
+    }
+
+    /// <summary>
+    /// Uninstall-Namen wie „VALORANT“ → „Valorant“, damit IGDB-Exakt- und Suchtreffer passen.
+    /// </summary>
+    static string NormalizeDisplayNameForIgdb(string name)
+    {
+        var t = name.Trim();
+        if (t.Length < 2)
+            return t;
+
+        if (!t.Any(char.IsLower))
+            return CultureInfo.InvariantCulture.TextInfo.ToTitleCase(t.ToLowerInvariant());
+
+        return t;
+    }
+
+    static IEnumerable<string> EnumerateExactNameCandidates(string raw, string normalized)
+    {
+        yield return normalized;
+        if (!string.Equals(raw, normalized, StringComparison.Ordinal))
+            yield return raw;
+    }
+
+    static async Task<string?> FetchFirstArtworkImageIdAsync(
+        string clientId,
+        string token,
+        long gameId,
+        CancellationToken ct)
+    {
+        var body =
+            $"""
+            fields image_id, game;
+            where game = {gameId};
+            limit 1;
+            """;
+
+        var req = new HttpRequestMessage(HttpMethod.Post, IgdbArtworksUrl);
+        req.Headers.TryAddWithoutValidation("Client-ID", clientId);
+        req.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+        req.Content = new StringContent(body, Encoding.UTF8, "text/plain");
+
+        try
+        {
+            using var resp = await Http.SendAsync(req, ct).ConfigureAwait(false);
+            var json = await resp.Content.ReadAsStringAsync(ct).ConfigureAwait(false);
+            if (!resp.IsSuccessStatusCode)
+            {
+                var sn = Interlocked.Increment(ref _igdbHttpErrorSamplesLogged);
+                if (sn <= 15)
+                    Diag($"POST artworks HTTP {(int)resp.StatusCode}: {Trunc(json, 400)}");
+                return null;
+            }
+
+            using var doc = JsonDocument.Parse(json);
+            foreach (var el in doc.RootElement.EnumerateArray())
+            {
+                if (!el.TryGetProperty("image_id", out var img))
+                    continue;
+                var imageId = img.ValueKind switch
+                {
+                    JsonValueKind.String => img.GetString() ?? "",
+                    JsonValueKind.Number => img.GetInt64().ToString(),
+                    _ => "",
+                };
+                if (!string.IsNullOrWhiteSpace(imageId))
+                    return imageId;
+            }
+        }
+        catch
+        {
+            /* */
+        }
+
+        return null;
     }
 
     static async Task<long?> PostGamesFirstIdAsync(string clientId, string token, string body, CancellationToken ct)
@@ -260,12 +441,20 @@ public static class IgdbCoverService
             using var resp = await Http.SendAsync(req, ct).ConfigureAwait(false);
             var json = await resp.Content.ReadAsStringAsync(ct).ConfigureAwait(false);
             if (!resp.IsSuccessStatusCode)
+            {
+                var sn = Interlocked.Increment(ref _igdbHttpErrorSamplesLogged);
+                if (sn <= 15)
+                    Diag($"POST games HTTP {(int)resp.StatusCode} {resp.ReasonPhrase}: {Trunc(json, 500)}");
                 return new List<(long, string)>();
+            }
 
             return ParseGamesList(json);
         }
-        catch
+        catch (Exception ex)
         {
+            var sn = Interlocked.Increment(ref _igdbHttpErrorSamplesLogged);
+            if (sn <= 15)
+                Diag($"POST games exception: {ex.Message}");
             return new List<(long, string)>();
         }
     }
@@ -454,7 +643,12 @@ public static class IgdbCoverService
             using var resp = await Http.SendAsync(req, ct).ConfigureAwait(false);
             var json = await resp.Content.ReadAsStringAsync(ct).ConfigureAwait(false);
             if (!resp.IsSuccessStatusCode)
+            {
+                var sn = Interlocked.Increment(ref _igdbHttpErrorSamplesLogged);
+                if (sn <= 15)
+                    Diag($"POST covers HTTP {(int)resp.StatusCode}: {Trunc(json, 400)}");
                 return Array.Empty<CoverRow>();
+            }
 
             var list = new List<CoverRow>();
             using var doc = JsonDocument.Parse(json);
@@ -478,8 +672,11 @@ public static class IgdbCoverService
 
             return list;
         }
-        catch
+        catch (Exception ex)
         {
+            var sn = Interlocked.Increment(ref _igdbHttpErrorSamplesLogged);
+            if (sn <= 15)
+                Diag($"POST covers exception: {ex.Message}");
             return Array.Empty<CoverRow>();
         }
     }

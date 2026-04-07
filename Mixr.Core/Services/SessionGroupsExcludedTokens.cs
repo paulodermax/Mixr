@@ -18,6 +18,9 @@ public static class SessionGroupsExcludedTokens
         "GOG Galaxy",
         "UbisoftConnect",
         "EADesktop",
+        "Bacon",
+        "Lion",
+        "Riot Vanguard",
     };
 
     /// <summary>True = diesen Such-Token nicht aus der Installations-Erkennung übernehmen.</summary>

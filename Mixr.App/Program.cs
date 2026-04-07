@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using Mixr.Services;
 
 namespace Mixr_App;
 
@@ -29,6 +30,10 @@ public static class Program
             }
 
             AppLog.WriteLine($"Main entry (args: {string.Join(" ", args)})");
+
+            IgdbCoverService.DiagnosticLog = AppLog.WriteLine;
+            _ = MixrConfigLoader.Load(args);
+            AppLog.WriteLine("[IGDB] " + IgdbCredentialResolver.FormatDiagnosticSummary());
 
             AppLog.WriteLine("InitializeComWrappers …");
             global::WinRT.ComWrappersSupport.InitializeComWrappers();

@@ -76,6 +76,9 @@ public static class CatalogIgnoreList
                 "=Epic Games Launcher",
                 "=Microsoft Edge",
                 "=Riot Client",
+                "=Bacon",
+                "=Lion",
+                "=Riot Vanguard",
             ];
             var toAdd = required.Where(r => !existing.Contains(r)).ToList();
             if (toAdd.Count == 0)
@@ -144,6 +147,9 @@ public static class CatalogIgnoreList
             =Epic Games Launcher
             =Microsoft Edge
             =Riot Client
+            =Bacon
+            =Lion
+            =Riot Vanguard
 
             """);
     }

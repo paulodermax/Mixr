@@ -167,6 +167,10 @@ public partial class App : Application
                 await GameCatalogCoordinator.RunStartupAsync(CancellationToken.None).ConfigureAwait(false);
                 CatalogManualCoverSync.ApplyManualFilesToStore();
                 SessionGroupsBootstrap.RunMergeIfNeeded();
+                var storeAfterBootstrap = GameCatalogStore.LoadOrCreate();
+                await CoverSessionGroupWarmup.RunAsync(storeAfterBootstrap, CancellationToken.None)
+                    .ConfigureAwait(false);
+                storeAfterBootstrap.Save();
             }
             catch
             {

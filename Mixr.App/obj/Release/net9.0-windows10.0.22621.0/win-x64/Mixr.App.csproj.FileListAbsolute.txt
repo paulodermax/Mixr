@@ -1,5 +1,12 @@
+c:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\Release\net9.0-windows10.0.22621.0\win-x64\covers\apple.png
+c:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\Release\net9.0-windows10.0.22621.0\win-x64\covers\brave.png
+c:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\Release\net9.0-windows10.0.22621.0\win-x64\covers\chrome.png
+c:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\Release\net9.0-windows10.0.22621.0\win-x64\covers\discord.png
+c:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\Release\net9.0-windows10.0.22621.0\win-x64\covers\firefox.png
+c:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\Release\net9.0-windows10.0.22621.0\win-x64\covers\spotify.png
 c:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\Release\net9.0-windows10.0.22621.0\win-x64\runtimes\win-x64\native\WebView2Loader.dll
 c:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\Release\net9.0-windows10.0.22621.0\win-x64\config.yaml
+c:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\Release\net9.0-windows10.0.22621.0\win-x64\config.secrets.example.yaml
 c:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\Release\net9.0-windows10.0.22621.0\win-x64\CoreMessagingXP.dll
 c:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\Release\net9.0-windows10.0.22621.0\win-x64\dcompi.dll
 c:\Users\paulm\.mainroot\Mixr\Mixr.App\bin\Release\net9.0-windows10.0.22621.0\win-x64\dwmcorei.dll

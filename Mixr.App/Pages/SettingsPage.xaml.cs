@@ -17,7 +17,10 @@ public sealed partial class SettingsPage : Page
     void SettingsPage_Loaded(object sender, RoutedEventArgs e)
     {
         StartupToggle.IsOn = StartupRegistration.IsRunAtLoginEnabled();
-        CfgHint.Text = Path.Combine(AppContext.BaseDirectory, "config.yaml");
+        var dir = AppContext.BaseDirectory;
+        CfgHint.Text =
+            "config.yaml — " + Path.Combine(dir, "config.yaml") + Environment.NewLine +
+            "Optional IGDB/Twitch: environment IGDB_CLIENT_ID / IGDB_CLIENT_SECRET (override YAML), or igdb: in YAML, or config.secrets.yaml (template: config.secrets.example.yaml).";
     }
 
     void StartupToggle_Toggled(object sender, RoutedEventArgs e)

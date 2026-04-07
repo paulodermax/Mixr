@@ -18,11 +18,11 @@
             <TextBlock
                 FontSize="26"
                 FontWeight="SemiBold"
-                Text="Übersicht" />
+                Text="Overview" />
             <TextBlock
                 FontSize="13"
                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                Text="Fader, Windows-Audio und Konfiguration auf einen Blick."
+                Text="Faders, Windows audio, and configuration at a glance."
                 TextWrapping="WrapWholeWords" />
         </StackPanel>
 
@@ -62,7 +62,7 @@
                     <TextBlock
                         FontSize="20"
                         FontWeight="SemiBold"
-                        Text="Bereit" />
+                        Text="Ready" />
                     <TextBlock
                         FontSize="12"
                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
@@ -91,7 +91,7 @@
                             FontSize="13"
                             FontWeight="SemiBold"
                             Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                            Text="KONFIGURATION" />
+                            Text="CONFIGURATION" />
                     </StackPanel>
                     <TextBlock x:ConnectionId='3'
                         x:Name="ConfigFileNameText"
@@ -110,7 +110,7 @@
                 </StackPanel>
             </Border>
 
-            <!-- Fader -->
+            <!-- Sliders -->
             <Border
                 Grid.Column="2"
                 Padding="20,18"
@@ -130,12 +130,12 @@
                             FontSize="13"
                             FontWeight="SemiBold"
                             Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                            Text="FADER" />
+                            Text="SLIDERS" />
                     </StackPanel>
                     <TextBlock
                         FontSize="12"
                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                        Text="Programme den vier Fadern zuordnen und speichern."
+                        Text="Assign apps to the four sliders and save."
                         TextWrapping="WrapWholeWords" />
                     <Button x:ConnectionId='2'
                         MinHeight="40"
@@ -143,7 +143,7 @@
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Bottom"
                                                        
-                        Content="Fader-Zuordnung"
+                        Content="Slider-Editing"
                         Style="{StaticResource AccentButtonStyle}" />
                 </StackPanel>
             </Border>

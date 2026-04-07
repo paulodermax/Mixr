@@ -3,7 +3,7 @@ using Mixr.Services;
 namespace Mixr_App.Services;
 
 /// <summary>
-/// Wöchentlicher Vollabgleich (Steam + erkannte installierte Apps + Metadaten), täglich nur neue Installationen.
+/// Wöchentlicher Vollabgleich (Steam, weitere Stores, erkannte Apps + Metadaten), täglich nur neue Installationen.
 /// Keine Audio-Sessions.
 /// </summary>
 public static class GameCatalogCoordinator
@@ -26,16 +26,19 @@ public static class GameCatalogCoordinator
 
             if (weeklyDue)
             {
+                _ = MixrConfigLoader.Load(Array.Empty<string>());
                 await RunWeeklyCatalogAsync(store, ct).ConfigureAwait(false);
                 store.LastWeeklyCatalogUtc = now;
                 store.LastDailyScanUtc = now;
             }
             else if (dailyDue)
             {
+                _ = MixrConfigLoader.Load(Array.Empty<string>());
                 await RunDailyScanAsync(store, ct).ConfigureAwait(false);
                 store.LastDailyScanUtc = now;
             }
 
+            await CoverSessionGroupWarmup.RunAsync(store, ct).ConfigureAwait(false);
             store.Save();
             RaiseCatalogChanged();
         }
@@ -51,8 +54,10 @@ public static class GameCatalogCoordinator
         await Gate.WaitAsync(ct).ConfigureAwait(false);
         try
         {
+            _ = MixrConfigLoader.Load(Array.Empty<string>());
             var store = GameCatalogStore.LoadOrCreate();
             await RunWeeklyCatalogAsync(store, ct).ConfigureAwait(false);
+            await CoverSessionGroupWarmup.RunAsync(store, ct).ConfigureAwait(false);
             var now = DateTime.UtcNow;
             store.LastWeeklyCatalogUtc = now;
             store.LastDailyScanUtc = now;
@@ -91,6 +96,8 @@ public static class GameCatalogCoordinator
             await GameMetadataEnricher.TryEnrichAsync(entry, force: true, ct).ConfigureAwait(false);
             entry.MetadataValidUntilUtc = validUntil;
         }
+
+        await MergeAdditionalGameStoresAsync(byKey, validUntil, ct).ConfigureAwait(false);
 
         await MergeDetectedInstalledAppsAsync(byKey, validUntil, ct).ConfigureAwait(false);
 
@@ -134,9 +141,19 @@ public static class GameCatalogCoordinator
             byKey[key] = entry;
         }
 
+        await MergeAdditionalGameStoresAsync(byKey, weekEnd, ct).ConfigureAwait(false);
+
         await MergeDetectedInstalledAppsAsync(byKey, weekEnd, ct).ConfigureAwait(false);
 
         RemoveIgnoredEntries(byKey);
+
+        foreach (var e in byKey.Values)
+        {
+            if (e.SteamAppId > 0 || string.IsNullOrWhiteSpace(e.Name))
+                continue;
+            await GameMetadataEnricher.TryEnrichAsync(e, force: true, ct).ConfigureAwait(false);
+            e.MetadataValidUntilUtc = weekEnd;
+        }
 
         store.Games = byKey.Values.OrderBy(x => x.Name, StringComparer.OrdinalIgnoreCase).ToList();
     }
@@ -147,6 +164,160 @@ public static class GameCatalogCoordinator
         {
             if (byKey.TryGetValue(key, out var e) && CatalogIgnoreList.ShouldIgnore(e.Name))
                 byKey.Remove(key);
+        }
+    }
+
+    /// <summary>Epic, GOG, Riot, Origin (Legacy), EA Desktop, Battle.net, Ubisoft — jeweils eigener Katalogschlüssel-Präfix.</summary>
+    static async Task MergeAdditionalGameStoresAsync(
+        Dictionary<string, CatalogGameEntry> byKey,
+        DateTime metadataValidUntilUtc,
+        CancellationToken ct)
+    {
+        foreach (var g in EpicGamesLibraryScanner.ScanInstalledGames())
+        {
+            ct.ThrowIfCancellationRequested();
+            if (CatalogIgnoreList.ShouldIgnore(g.DisplayName))
+                continue;
+
+            var key = FormattableString.Invariant($"epic:{g.StableKey}");
+            if (!byKey.TryGetValue(key, out var entry))
+            {
+                entry = new CatalogGameEntry { Key = key, Name = g.DisplayName, SteamAppId = 0 };
+                byKey[key] = entry;
+            }
+            else
+            {
+                entry.Name = g.DisplayName;
+            }
+
+            await GameMetadataEnricher.TryEnrichAsync(entry, force: true, ct).ConfigureAwait(false);
+            entry.MetadataValidUntilUtc = metadataValidUntilUtc;
+        }
+
+        foreach (var g in GogLibraryScanner.ScanInstalledGames())
+        {
+            ct.ThrowIfCancellationRequested();
+            if (CatalogIgnoreList.ShouldIgnore(g.DisplayName))
+                continue;
+
+            var key = FormattableString.Invariant($"gog:{g.ProductId}");
+            if (!byKey.TryGetValue(key, out var entry))
+            {
+                entry = new CatalogGameEntry { Key = key, Name = g.DisplayName, SteamAppId = 0 };
+                byKey[key] = entry;
+            }
+            else
+            {
+                entry.Name = g.DisplayName;
+            }
+
+            await GameMetadataEnricher.TryEnrichAsync(entry, force: true, ct).ConfigureAwait(false);
+            entry.MetadataValidUntilUtc = metadataValidUntilUtc;
+        }
+
+        foreach (var g in RiotGamesLibraryScanner.ScanInstalledGames())
+        {
+            ct.ThrowIfCancellationRequested();
+            if (CatalogIgnoreList.ShouldIgnore(g.DisplayName))
+                continue;
+
+            var key = FormattableString.Invariant($"riot:{g.StableKey}");
+            if (!byKey.TryGetValue(key, out var entry))
+            {
+                entry = new CatalogGameEntry { Key = key, Name = g.DisplayName, SteamAppId = 0 };
+                byKey[key] = entry;
+            }
+            else
+            {
+                entry.Name = g.DisplayName;
+            }
+
+            await GameMetadataEnricher.TryEnrichAsync(entry, force: true, ct).ConfigureAwait(false);
+            entry.MetadataValidUntilUtc = metadataValidUntilUtc;
+        }
+
+        foreach (var g in OriginLegacyLibraryScanner.ScanInstalledGames())
+        {
+            ct.ThrowIfCancellationRequested();
+            if (CatalogIgnoreList.ShouldIgnore(g.DisplayName))
+                continue;
+
+            var key = FormattableString.Invariant($"origin:{g.StableKey}");
+            if (!byKey.TryGetValue(key, out var entry))
+            {
+                entry = new CatalogGameEntry { Key = key, Name = g.DisplayName, SteamAppId = 0 };
+                byKey[key] = entry;
+            }
+            else
+            {
+                entry.Name = g.DisplayName;
+            }
+
+            await GameMetadataEnricher.TryEnrichAsync(entry, force: true, ct).ConfigureAwait(false);
+            entry.MetadataValidUntilUtc = metadataValidUntilUtc;
+        }
+
+        foreach (var g in EaDesktopLibraryScanner.ScanInstalledGames())
+        {
+            ct.ThrowIfCancellationRequested();
+            if (CatalogIgnoreList.ShouldIgnore(g.DisplayName))
+                continue;
+
+            var key = FormattableString.Invariant($"ea:{g.StableKey}");
+            if (!byKey.TryGetValue(key, out var entry))
+            {
+                entry = new CatalogGameEntry { Key = key, Name = g.DisplayName, SteamAppId = 0 };
+                byKey[key] = entry;
+            }
+            else
+            {
+                entry.Name = g.DisplayName;
+            }
+
+            await GameMetadataEnricher.TryEnrichAsync(entry, force: true, ct).ConfigureAwait(false);
+            entry.MetadataValidUntilUtc = metadataValidUntilUtc;
+        }
+
+        foreach (var g in BattleNetLibraryScanner.ScanInstalledGames())
+        {
+            ct.ThrowIfCancellationRequested();
+            if (CatalogIgnoreList.ShouldIgnore(g.DisplayName))
+                continue;
+
+            var key = FormattableString.Invariant($"bnet:{g.StableKey}");
+            if (!byKey.TryGetValue(key, out var entry))
+            {
+                entry = new CatalogGameEntry { Key = key, Name = g.DisplayName, SteamAppId = 0 };
+                byKey[key] = entry;
+            }
+            else
+            {
+                entry.Name = g.DisplayName;
+            }
+
+            await GameMetadataEnricher.TryEnrichAsync(entry, force: true, ct).ConfigureAwait(false);
+            entry.MetadataValidUntilUtc = metadataValidUntilUtc;
+        }
+
+        foreach (var g in UbisoftConnectLibraryScanner.ScanInstalledGames())
+        {
+            ct.ThrowIfCancellationRequested();
+            if (CatalogIgnoreList.ShouldIgnore(g.DisplayName))
+                continue;
+
+            var key = FormattableString.Invariant($"ubisoft:{g.StableKey}");
+            if (!byKey.TryGetValue(key, out var entry))
+            {
+                entry = new CatalogGameEntry { Key = key, Name = g.DisplayName, SteamAppId = 0 };
+                byKey[key] = entry;
+            }
+            else
+            {
+                entry.Name = g.DisplayName;
+            }
+
+            await GameMetadataEnricher.TryEnrichAsync(entry, force: true, ct).ConfigureAwait(false);
+            entry.MetadataValidUntilUtc = metadataValidUntilUtc;
         }
     }
 
