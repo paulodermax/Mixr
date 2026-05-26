@@ -38,6 +38,23 @@
     <Content Include="Assets\AppIcon.ico" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
     <Content Include="Assets\Mixr-Modell.svg" />
+    <Content Include="Assets\general-sound.png" />
+    <Content Include="Assets\no-input.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Assets\Mixr-Modell.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>Assets\Mixr-Modell.svg</Link>
+    </Content>
+    <Content Update="Assets\general-sound.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>Assets\general-sound.png</Link>
+    </Content>
+    <Content Update="Assets\no-input.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>Assets\no-input.png</Link>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -99,6 +116,11 @@
   <!-- Release: .NET-Runtime in den Ausgabeordner (Doppelklick auf Mixr.exe). dotnet run nutzt den SDK-Host und braucht das nicht. -->
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <SelfContained>true</SelfContained>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+  </PropertyGroup>
+
+  <!-- Debug / dotnet watch: ohne win-x64 schlägt WindowsAppSDKSelfContained fehl -->
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
   </PropertyGroup>
 </Project>

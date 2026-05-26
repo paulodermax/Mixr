@@ -48,6 +48,12 @@ public sealed class AssignedProgramRow : INotifyPropertyChanged
     /// <summary>Suchstring in session_groups (wie in config.yaml).</summary>
     public string Token { get; init; } = "";
 
+    /// <summary>Anzeigename für Tooltip (Katalog-Name oder Token).</summary>
+    public string DisplayName { get; set; } = "";
+
+    public string TooltipText =>
+        string.IsNullOrWhiteSpace(DisplayName) ? Token : DisplayName;
+
     ImageSource? _cover;
 
     public ImageSource? Cover

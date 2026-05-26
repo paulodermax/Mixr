@@ -3,10 +3,12 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using H.NotifyIcon;
 using Microsoft.UI.Dispatching;
+using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
@@ -342,10 +344,27 @@ public partial class App : Application
             return;
         var hWnd = WindowNative.GetWindowHandle(_window);
         var wid = Microsoft.UI.Win32Interop.GetWindowIdFromWindow(hWnd);
-        var aw = Microsoft.UI.Windowing.AppWindow.GetFromWindowId(wid);
+        var aw = AppWindow.GetFromWindowId(wid);
         aw.Show();
+
+        if (aw.Presenter is OverlappedPresenter presenter)
+            presenter.Restore(activateWindow: true);
+        else
+            _window.Activate();
+
+        // Tray/second instance: HWND often stays SW_MINIMIZE after Hide() — restore like Explorer.
+        ShowWindow(hWnd, SwRestore);
+        SetForegroundWindow(hWnd);
         _window.Activate();
     }
+
+    const int SwRestore = 9;
+
+    [DllImport("user32.dll")]
+    static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+    [DllImport("user32.dll")]
+    static extern bool SetForegroundWindow(IntPtr hWnd);
 
     internal void ExitFromTray()
     {

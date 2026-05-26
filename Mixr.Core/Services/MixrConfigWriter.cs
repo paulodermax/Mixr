@@ -24,8 +24,10 @@ public static class MixrConfigWriter
             Baud_rate = cfg.BaudRate,
             Invert_sliders = cfg.InvertSliders,
             Slider_mapping = cfg.SliderMapping.Count > 0 ? cfg.SliderMapping : null,
+            Slider_response = cfg.SliderResponse.Count > 0 ? cfg.SliderResponse : null,
             Button_mapping = cfg.ButtonMapping.Count > 0 ? new List<string>(cfg.ButtonMapping) : null,
             Session_groups = cfg.SessionGroups.Count > 0 ? cfg.SessionGroups : null,
+            Limit_system_sounds_to_20_percent = cfg.LimitSystemSoundsTo20Percent,
             Igdb = igdb,
         };
 
@@ -43,8 +45,10 @@ public static class MixrConfigWriter
         public int Baud_rate { get; set; }
         public bool Invert_sliders { get; set; }
         public List<string>? Slider_mapping { get; set; }
+        public List<string>? Slider_response { get; set; }
         public List<string>? Button_mapping { get; set; }
         public Dictionary<string, List<string>>? Session_groups { get; set; }
+        public bool? Limit_system_sounds_to_20_percent { get; set; }
         public IgdbYamlDto? Igdb { get; set; }
     }
 

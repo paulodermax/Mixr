@@ -13,6 +13,13 @@ slider_mapping:
   - media
   - games
 
+# Pro Slider: linear | center_flattened | gamma_low | gamma_high | s_curve
+slider_response:
+  - center_flattened
+  - center_flattened
+  - center_flattened
+  - center_flattened
+
 # Taster 0–4: smtc_previous | smtc_play_pause | smtc_next | discord_mute | discord_deafen | none
 button_mapping:
   - smtc_previous
@@ -23,6 +30,9 @@ button_mapping:
 
 # Pro Gruppe: Suchstrings im Session-Namen (DisplayName / Prozess). Standard: leer — alles in der Programmbibliothek.
 session_groups: {}
+
+# System-Benachrichtigungen (Mixer „System Sounds“): beim Start auf max. 20 % setzen, falls höher
+limit_system_sounds_to_20_percent: true
 
 # Game-Cover (IGDB / Twitch API): optional. Umgebungsvariablen IGDB_CLIENT_ID / IGDB_CLIENT_SECRET überschreiben YAML.
 # Empfehlung für Secrets: Datei config.secrets.yaml (gleicher Ordner wie diese Datei) — siehe config.secrets.example.yaml in der App-Ausgabe.

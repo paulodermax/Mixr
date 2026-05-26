@@ -7,146 +7,387 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Padding="28,24,28,28">
+    <Grid x:Name="RootContentGrid" Padding="28,20,28,28">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+        
 
-        <!-- Kopf -->
-        <StackPanel Grid.Row="0" Spacing="6">
+        <!-- Kopf: Zusammenfassung links, Status rechts -->
+        <Grid x:Name="HeaderGrid" Grid.Row="0" Margin="0,0,0,20">
             <TextBlock
-                FontSize="26"
+                x:Name="HeaderTitle"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                FontSize="14"
                 FontWeight="SemiBold"
-                Text="Overview" />
-            <TextBlock
-                FontSize="13"
-                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                Text="Faders, Windows audio, and configuration at a glance."
-                TextWrapping="WrapWholeWords" />
-        </StackPanel>
+                Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                Text="Zusammenfassung" />
+            <StackPanel
+                x:Name="HeaderStatusPanel"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal"
+                Spacing="12"
+                VerticalAlignment="Center">
+                <Button
+                    x:Name="LayoutDevToggleButton"
+                    Padding="8,2"
+                    VerticalAlignment="Center"
+                    Background="Transparent"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    Click="LayoutDevToggleButton_Click"
+                    Content="Layout"
+                    FontSize="11"
+                    ToolTipService.ToolTip="Layout-Panel (Ctrl+Shift+L)"
+                    Visibility="Collapsed" />
+                <TextBlock
+                    x:Name="StatusLabel"
+                    VerticalAlignment="Center"
+                    FontSize="12"
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                    Text="Status" />
+                <Border
+                    x:Name="StatusDot"
+                    Width="12"
+                    Height="12"
+                    CornerRadius="6"
+                    ToolTipService.ToolTip="Mixr device status" />
+            </StackPanel>
+        </Grid>
 
-        <!-- Widget-Zeile -->
+        <!-- 2×2 links (wie Skizze) -->
         <Grid
+            x:Name="TileGrid"
             Grid.Row="1"
-            Margin="0,28,0,0"
+            Width="312"
+            HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            ColumnSpacing="16">
+            ColumnSpacing="14"
+            RowSpacing="14">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" MinWidth="200" />
-                <ColumnDefinition Width="*" MinWidth="200" />
-                <ColumnDefinition Width="*" MinWidth="200" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <!-- Status -->
             <Border
-                Padding="20,18"
+                x:Name="Tile0"
+                Grid.Row="0"
+                Grid.Column="0"
+                MinHeight="152"
+                Padding="12,10"
                 Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                 BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                 BorderThickness="1"
                 CornerRadius="12">
-                <StackPanel Spacing="14">
-                    <StackPanel Orientation="Horizontal" Spacing="10">
-                        <Border
-                            Width="3"
-                            Height="18"
-                            VerticalAlignment="Center"
-                            Background="{ThemeResource MixrAccentBrush}"
-                            CornerRadius="2" />
+                <Grid x:Name="TileInnerGrid0" ColumnSpacing="10" VerticalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="12" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel
+                        x:Name="TileContentStack0"
+                        Grid.Column="0"
+                        Spacing="8"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center">
+                        <Image
+                            x:Name="TileImage0"
+                            Width="80"
+                            Height="80"
+                            HorizontalAlignment="Left"
+                            Stretch="Uniform" />
                         <TextBlock
-                            FontSize="13"
-                            FontWeight="SemiBold"
+                            x:Name="TileLabel0"
+                            FontSize="12"
                             Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                            Text="STATUS" />
+                            TextTrimming="CharacterEllipsis"
+                            TextWrapping="NoWrap" />
                     </StackPanel>
-                    <TextBlock
-                        FontSize="20"
-                        FontWeight="SemiBold"
-                        Text="Ready" />
-                    <TextBlock
-                        FontSize="12"
-                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                        Text="H/S active"
-                        TextWrapping="WrapWholeWords" />
-                </StackPanel>
+                    <Grid
+                        x:Name="FaderTrack0"
+                        Grid.Column="1"
+                        Width="10"
+                        Height="80"
+                        VerticalAlignment="Center">
+                        <Border
+                            Background="{ThemeResource MixrSubtleFillBrush}"
+                            CornerRadius="5" />
+                        <Border
+                            x:Name="FaderFill0"
+                            VerticalAlignment="Bottom"
+                            Background="{ThemeResource MixrAccentBrush}"
+                            CornerRadius="5"
+                            Height="40" />
+                    </Grid>
+                </Grid>
             </Border>
 
-            <!-- Konfiguration -->
             <Border
+                x:Name="Tile1"
+                Grid.Row="0"
                 Grid.Column="1"
-                Padding="20,18"
+                MinHeight="152"
+                Padding="14,12"
                 Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                 BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                 BorderThickness="1"
                 CornerRadius="12">
-                <StackPanel Spacing="14">
-                    <StackPanel Orientation="Horizontal" Spacing="10">
-                        <Border
-                            Width="3"
-                            Height="18"
-                            VerticalAlignment="Center"
-                            Background="{ThemeResource MixrAccentBrush}"
-                            CornerRadius="2" />
+                <Grid x:Name="TileInnerGrid1" ColumnSpacing="10" VerticalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="12" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel
+                        x:Name="TileContentStack1"
+                        Grid.Column="0"
+                        Spacing="8"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center">
+                        <Image
+                            x:Name="TileImage1"
+                            Width="80"
+                            Height="80"
+                            HorizontalAlignment="Left"
+                            Stretch="Uniform" />
                         <TextBlock
-                            FontSize="13"
-                            FontWeight="SemiBold"
+                            x:Name="TileLabel1"
+                            FontSize="12"
                             Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                            Text="CONFIGURATION" />
+                            TextTrimming="CharacterEllipsis"
+                            TextWrapping="NoWrap" />
                     </StackPanel>
-                    <TextBlock
-                        x:Name="ConfigFileNameText"
-                        FontSize="16"
-                        FontWeight="SemiBold"
-                        Text="config.yaml"
-                        TextTrimming="CharacterEllipsis" />
-                    <TextBlock
-                        x:Name="ConfigPathText"
-                        FontSize="12"
-                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                        IsTextSelectionEnabled="True"
-                        MaxLines="3"
-                        TextTrimming="CharacterEllipsis"
-                        TextWrapping="Wrap" />
-                </StackPanel>
+                    <Grid
+                        x:Name="FaderTrack1"
+                        Grid.Column="1"
+                        Width="10"
+                        Height="80"
+                        VerticalAlignment="Center">
+                        <Border
+                            Background="{ThemeResource MixrSubtleFillBrush}"
+                            CornerRadius="5" />
+                        <Border
+                            x:Name="FaderFill1"
+                            VerticalAlignment="Bottom"
+                            Background="{ThemeResource MixrAccentBrush}"
+                            CornerRadius="5"
+                            Height="40" />
+                    </Grid>
+                </Grid>
             </Border>
 
-            <!-- Sliders -->
             <Border
-                Grid.Column="2"
-                Padding="20,18"
+                x:Name="Tile2"
+                Grid.Row="1"
+                Grid.Column="0"
+                MinHeight="152"
+                Padding="14,12"
                 Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                 BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                 BorderThickness="1"
                 CornerRadius="12">
-                <StackPanel Spacing="16">
-                    <StackPanel Orientation="Horizontal" Spacing="10">
-                        <Border
-                            Width="3"
-                            Height="18"
-                            VerticalAlignment="Center"
-                            Background="{ThemeResource MixrAccentBrush}"
-                            CornerRadius="2" />
+                <Grid x:Name="TileInnerGrid2" ColumnSpacing="10" VerticalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="12" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel
+                        x:Name="TileContentStack2"
+                        Grid.Column="0"
+                        Spacing="8"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center">
+                        <Image
+                            x:Name="TileImage2"
+                            Width="80"
+                            Height="80"
+                            HorizontalAlignment="Left"
+                            Stretch="Uniform" />
                         <TextBlock
-                            FontSize="13"
-                            FontWeight="SemiBold"
+                            x:Name="TileLabel2"
+                            FontSize="12"
                             Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                            Text="SLIDERS" />
+                            TextTrimming="CharacterEllipsis"
+                            TextWrapping="NoWrap" />
                     </StackPanel>
-                    <TextBlock
-                        FontSize="12"
-                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                        Text="Assign apps to the four sliders and save."
-                        TextWrapping="WrapWholeWords" />
-                    <Button
-                        MinHeight="40"
-                        Padding="16,10"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Bottom"
-                        Click="OpenSliderMapping_Click"
-                        Content="Slider-Editing"
-                        Style="{StaticResource AccentButtonStyle}" />
-                </StackPanel>
+                    <Grid
+                        x:Name="FaderTrack2"
+                        Grid.Column="1"
+                        Width="10"
+                        Height="80"
+                        VerticalAlignment="Center">
+                        <Border
+                            Background="{ThemeResource MixrSubtleFillBrush}"
+                            CornerRadius="5" />
+                        <Border
+                            x:Name="FaderFill2"
+                            VerticalAlignment="Bottom"
+                            Background="{ThemeResource MixrAccentBrush}"
+                            CornerRadius="5"
+                            Height="40" />
+                    </Grid>
+                </Grid>
+            </Border>
+
+            <Border
+                x:Name="Tile3"
+                Grid.Row="1"
+                Grid.Column="1"
+                MinHeight="152"
+                Padding="14,12"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="12">
+                <Grid x:Name="TileInnerGrid3" ColumnSpacing="10" VerticalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="12" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel
+                        x:Name="TileContentStack3"
+                        Grid.Column="0"
+                        Spacing="8"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center">
+                        <Image
+                            x:Name="TileImage3"
+                            Width="80"
+                            Height="80"
+                            HorizontalAlignment="Left"
+                            Stretch="Uniform" />
+                        <TextBlock
+                            x:Name="TileLabel3"
+                            FontSize="12"
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            TextTrimming="CharacterEllipsis"
+                            TextWrapping="NoWrap" />
+                    </StackPanel>
+                    <Grid
+                        x:Name="FaderTrack3"
+                        Grid.Column="1"
+                        Width="10"
+                        Height="80"
+                        VerticalAlignment="Center">
+                        <Border
+                            Background="{ThemeResource MixrSubtleFillBrush}"
+                            CornerRadius="5" />
+                        <Border
+                            x:Name="FaderFill3"
+                            VerticalAlignment="Bottom"
+                            Background="{ThemeResource MixrAccentBrush}"
+                            CornerRadius="5"
+                            Height="40" />
+                    </Grid>
+                </Grid>
             </Border>
         </Grid>
+
+        <!-- Nur Debug: Layout live tweaken (Ctrl+Shift+L ein/aus) -->
+        <Border
+            x:Name="LayoutDevPanel"
+            Grid.Row="1"
+            MaxWidth="380"
+            MaxHeight="640"
+            Margin="0,0,0,12"
+            Padding="12,10"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Background="#E6121212"
+            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+            BorderThickness="1"
+            CornerRadius="8"
+            Visibility="Collapsed">
+            <Grid RowSpacing="8">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <StackPanel Spacing="4">
+                    <TextBlock
+                        FontSize="12"
+                        FontWeight="SemiBold"
+                        Text="Layout (Debug)" />
+                    <TextBlock
+                        x:Name="LayoutDevHint"
+                        FontSize="10"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Text="Ctrl+Shift+L — Sektionen anpassen, Werte unten ins XAML übernehmen"
+                        TextWrapping="Wrap" />
+                </StackPanel>
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <StackPanel Spacing="6">
+                        <Expander Header="Seite" IsExpanded="True">
+                            <StackPanel Padding="0,6,0,0" Spacing="2">
+                                <Slider x:Name="DevPagePadLeft" Header="Padding links" Maximum="80" Minimum="0" StepFrequency="2" Value="28" ValueChanged="DevLayout_ValueChanged" />
+                                <Slider x:Name="DevPagePadTop" Header="Padding oben" Maximum="80" Minimum="0" StepFrequency="2" Value="20" ValueChanged="DevLayout_ValueChanged" />
+                                <Slider x:Name="DevPagePadRight" Header="Padding rechts" Maximum="80" Minimum="0" StepFrequency="2" Value="28" ValueChanged="DevLayout_ValueChanged" />
+                                <Slider x:Name="DevPagePadBottom" Header="Padding unten" Maximum="80" Minimum="0" StepFrequency="2" Value="28" ValueChanged="DevLayout_ValueChanged" />
+                            </StackPanel>
+                        </Expander>
+                        <Expander Header="Kopfzeile">
+                            <StackPanel Padding="0,6,0,0" Spacing="2">
+                                <Slider x:Name="DevHeaderMarginBottom" Header="Abstand nach unten" Maximum="60" Minimum="0" StepFrequency="2" Value="20" ValueChanged="DevLayout_ValueChanged" />
+                                <Slider x:Name="DevTitleFontSize" Header="Titel Schriftgröße" Maximum="24" Minimum="10" StepFrequency="1" Value="14" ValueChanged="DevLayout_ValueChanged" />
+                                <Slider x:Name="DevStatusFontSize" Header="Status Schriftgröße" Maximum="20" Minimum="8" StepFrequency="1" Value="12" ValueChanged="DevLayout_ValueChanged" />
+                                <Slider x:Name="DevStatusDotSize" Header="Status-Punkt Größe" Maximum="24" Minimum="6" StepFrequency="1" Value="12" ValueChanged="DevLayout_ValueChanged" />
+                                <Slider x:Name="DevStatusSpacing" Header="Status-Element Abstand" Maximum="32" Minimum="0" StepFrequency="1" Value="12" ValueChanged="DevLayout_ValueChanged" />
+                            </StackPanel>
+                        </Expander>
+                        <Expander Header="Kachel-Grid" IsExpanded="True">
+                            <StackPanel Padding="0,6,0,0" Spacing="2">
+                                <Slider x:Name="DevGridWidth" Header="Grid-Breite" Maximum="1280" Minimum="200" StepFrequency="4" Value="312" ValueChanged="DevLayout_ValueChanged" />
+                                <Slider x:Name="DevGridOffsetX" Header="Grid Offset X" Maximum="400" Minimum="0" StepFrequency="2" Value="0" ValueChanged="DevLayout_ValueChanged" />
+                                <Slider x:Name="DevGridOffsetY" Header="Grid Offset Y" Maximum="200" Minimum="0" StepFrequency="2" Value="0" ValueChanged="DevLayout_ValueChanged" />
+                                <Slider x:Name="DevColumnSpacing" Header="Spaltenabstand" Maximum="48" Minimum="0" StepFrequency="1" Value="14" ValueChanged="DevLayout_ValueChanged" />
+                                <Slider x:Name="DevRowSpacing" Header="Zeilenabstand" Maximum="48" Minimum="0" StepFrequency="1" Value="14" ValueChanged="DevLayout_ValueChanged" />
+                            </StackPanel>
+                        </Expander>
+                        <Expander Header="Kachel-Rahmen">
+                            <StackPanel Padding="0,6,0,0" Spacing="2">
+                                <Slider x:Name="DevTileMinHeight" Header="Min-Höhe" Maximum="280" Minimum="80" StepFrequency="2" Value="152" ValueChanged="DevLayout_ValueChanged" />
+                                <Slider x:Name="DevTilePadLeft" Header="Padding links" Maximum="32" Minimum="0" StepFrequency="1" Value="12" ValueChanged="DevLayout_ValueChanged" />
+                                <Slider x:Name="DevTilePadTop" Header="Padding oben" Maximum="32" Minimum="0" StepFrequency="1" Value="10" ValueChanged="DevLayout_ValueChanged" />
+                                <Slider x:Name="DevTilePadRight" Header="Padding rechts" Maximum="32" Minimum="0" StepFrequency="1" Value="12" ValueChanged="DevLayout_ValueChanged" />
+                                <Slider x:Name="DevTilePadBottom" Header="Padding unten" Maximum="32" Minimum="0" StepFrequency="1" Value="10" ValueChanged="DevLayout_ValueChanged" />
+                                <Slider x:Name="DevTileCornerRadius" Header="Ecken-Radius" Maximum="24" Minimum="0" StepFrequency="1" Value="12" ValueChanged="DevLayout_ValueChanged" />
+                            </StackPanel>
+                        </Expander>
+                        <Expander Header="Icon &amp; Text">
+                            <StackPanel Padding="0,6,0,0" Spacing="2">
+                                <Slider x:Name="DevIconSize" Header="Icon-Größe" Maximum="120" Minimum="24" StepFrequency="2" Value="80" ValueChanged="DevLayout_ValueChanged" />
+                                <Slider x:Name="DevIconLabelSpacing" Header="Icon–Text Abstand" Maximum="32" Minimum="0" StepFrequency="1" Value="8" ValueChanged="DevLayout_ValueChanged" />
+                                <Slider x:Name="DevLabelFontSize" Header="Label Schriftgröße" Maximum="20" Minimum="8" StepFrequency="1" Value="12" ValueChanged="DevLayout_ValueChanged" />
+                                <Slider x:Name="DevContentFaderGap" Header="Inhalt–Regler Abstand" Maximum="40" Minimum="0" StepFrequency="1" Value="10" ValueChanged="DevLayout_ValueChanged" />
+                                <Slider x:Name="DevFaderColumnWidth" Header="Regler-Spalte Breite" Maximum="40" Minimum="8" StepFrequency="1" Value="12" ValueChanged="DevLayout_ValueChanged" />
+                            </StackPanel>
+                        </Expander>
+                        <Expander Header="Regler (Fader)">
+                            <StackPanel Padding="0,6,0,0" Spacing="2">
+                                <Slider x:Name="DevFaderWidth" Header="Regler-Breite" Maximum="24" Minimum="4" StepFrequency="1" Value="10" ValueChanged="DevLayout_ValueChanged" />
+                                <Slider x:Name="DevFaderHeight" Header="Regler-Höhe" Maximum="160" Minimum="32" StepFrequency="2" Value="80" ValueChanged="DevLayout_ValueChanged" />
+                                <Slider x:Name="DevFaderCornerRadius" Header="Regler Ecken-Radius" Maximum="12" Minimum="0" StepFrequency="1" Value="5" ValueChanged="DevLayout_ValueChanged" />
+                            </StackPanel>
+                        </Expander>
+                    </StackPanel>
+                </ScrollViewer>
+                <TextBlock
+                    x:Name="LayoutDevValues"
+                    Grid.Row="2"
+                    MaxHeight="180"
+                    Margin="0,4,0,0"
+                    FontFamily="Consolas"
+                    FontSize="9"
+                    Foreground="{ThemeResource MixrAccentBrush}"
+                    IsTextSelectionEnabled="True"
+                    TextWrapping="Wrap" />
+            </Grid>
+        </Border>
     </Grid>
 </Page>

@@ -1,0 +1,15 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Mixr App (Debug)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "mixr-build-debug",
+      "program": "${workspaceFolder}/Mixr.App/bin/Debug/net9.0-windows10.0.22621.0/win-x64/Mixr.exe",
+      "cwd": "${workspaceFolder}/Mixr.App/bin/Debug/net9.0-windows10.0.22621.0/win-x64",
+      "console": "internalConsole",
+      "stopAtEntry": false
+    }
+  ]
+}

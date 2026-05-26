@@ -12,6 +12,7 @@ public static class MixrConfigClone
             BaudRate = c.BaudRate,
             InvertSliders = c.InvertSliders,
             SliderMapping = new List<string>(c.SliderMapping),
+            SliderResponse = new List<string>(c.SliderResponse),
             ButtonMapping = new List<string>(c.ButtonMapping),
             SessionGroups = c.SessionGroups.ToDictionary(
                 kv => kv.Key,
@@ -19,6 +20,7 @@ public static class MixrConfigClone
                 StringComparer.OrdinalIgnoreCase),
             IgdbClientId = c.IgdbClientId,
             IgdbClientSecret = c.IgdbClientSecret,
+            LimitSystemSoundsTo20Percent = c.LimitSystemSoundsTo20Percent,
         };
     }
 }

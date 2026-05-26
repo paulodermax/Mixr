@@ -4,6 +4,7 @@ using System.Threading;
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Animation;
@@ -12,6 +13,7 @@ using Microsoft.UI.Xaml.Navigation;
 using Mixr.Models;
 using Mixr.Services;
 using Mixr_App;
+using Mixr_App.Controls;
 using Mixr_App.Services;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
@@ -73,7 +75,7 @@ public sealed partial class SliderMappingPage : Page
     {
         StopLiveTimer();
         _liveTimer = new Microsoft.UI.Xaml.DispatcherTimer { Interval = TimeSpan.FromSeconds(1.4) };
-        _liveTimer.Tick += (_, _) => _dq.TryEnqueue(RefreshLiveActivity);
+        _liveTimer.Tick += (_, _) => _ = RefreshLiveActivityAsync();
         _liveTimer.Start();
     }
 
@@ -148,8 +150,57 @@ public sealed partial class SliderMappingPage : Page
     void LoadDraftFromDisk()
     {
         _draft = MixrConfigClone.DeepClone(MixrConfigLoader.Load(Array.Empty<string>()));
+        VolumeCurveMapper.EnsureFourEntries(_draft.SliderResponse);
         RebuildSliderCardsFromDraft();
         LoadCatalog();
+    }
+
+    void SoundCurveMenu_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is not Button button)
+            return;
+
+        var card = FindSliderCardFromElement(button);
+        if (card == null)
+            return;
+
+        var idx = card.SliderIndex;
+        VolumeCurveMapper.EnsureFourEntries(_draft.SliderResponse);
+        var currentKey = _draft.SliderResponse[idx];
+
+        var picker = new SoundCurvePickerControl();
+        picker.Bind(idx, card.Title, currentKey, yamlKey =>
+        {
+            if (_draft.SliderResponse[idx].Equals(yamlKey, StringComparison.OrdinalIgnoreCase))
+                return;
+
+            _draft.SliderResponse[idx] = yamlKey;
+            PersistSoundResponseOnly();
+            AppLog.WriteLine($"Sound-Mapping: Slider {idx + 1} → {yamlKey}");
+        });
+
+        var flyout = new Flyout
+        {
+            Content = picker,
+            Placement = FlyoutPlacementMode.BottomEdgeAlignedRight,
+        };
+
+        if (XamlRoot != null)
+            flyout.XamlRoot = XamlRoot;
+        flyout.ShowAt(button);
+    }
+
+    static SliderCardVm? FindSliderCardFromElement(DependencyObject element)
+    {
+        var current = element;
+        while (current != null)
+        {
+            if (current is FrameworkElement { DataContext: SliderCardVm card })
+                return card;
+            current = VisualTreeHelper.GetParent(current);
+        }
+
+        return null;
     }
 
     /// <summary>Write config.yaml, reload host (sliders → session matching), refresh library and cards.</summary>
@@ -171,6 +222,21 @@ public sealed partial class SliderMappingPage : Page
 
         LoadCatalog();
         RebuildSliderCardsFromDraft();
+    }
+
+    void PersistSoundResponseOnly()
+    {
+        try
+        {
+            MixrConfigWriter.Save(_draft, MixrConfigPaths.ConfigYamlPath);
+            _suppressNextRuntimeConfigReload = true;
+            MixrRuntimeState.ReloadConfigFromDisk(Array.Empty<string>());
+        }
+        catch (Exception ex)
+        {
+            AppLog.WriteLine("Sound-Mapping save failed: " + ex.Message);
+            _suppressNextRuntimeConfigReload = false;
+        }
     }
 
     static HashSet<string> GetAssignedTokens(MixrConfig cfg)
@@ -208,7 +274,12 @@ public sealed partial class SliderMappingPage : Page
                 {
                     foreach (var s in list.OrderBy(x => x, StringComparer.OrdinalIgnoreCase))
                     {
-                        var row = new AssignedProgramRow { SliderIndex = i, Token = s };
+                        var row = new AssignedProgramRow
+                        {
+                            SliderIndex = i,
+                            Token = s,
+                            DisplayName = CatalogGameEntryLookup.FindBest(store, s)?.Name ?? s,
+                        };
                         card.AssignedPrograms.Add(row);
                     }
                 }
@@ -265,7 +336,12 @@ public sealed partial class SliderMappingPage : Page
             if (card.AssignedPrograms.Any(r => r.Token.Equals(t, StringComparison.OrdinalIgnoreCase)))
                 continue;
 
-            var row = new AssignedProgramRow { SliderIndex = sliderIndex, Token = t };
+            var row = new AssignedProgramRow
+            {
+                SliderIndex = sliderIndex,
+                Token = t,
+                DisplayName = CatalogGameEntryLookup.FindBest(store, t)?.Name ?? t,
+            };
             var pos = 0;
             while (pos < card.AssignedPrograms.Count &&
                    string.Compare(card.AssignedPrograms[pos].Token, t, StringComparison.OrdinalIgnoreCase) < 0)
@@ -304,11 +380,12 @@ public sealed partial class SliderMappingPage : Page
 
     void TryLoadAssignedCover(AssignedProgramRow row, GameCatalogStore store)
     {
-        var entry = CatalogGameEntryLookup.FindEntry(store, row.Token);
-        string? rel = entry != null
-            ? CatalogCoverResolver.ResolveRelativePath(entry)
-            : ManualCoverResolver.TryFindRelativePath(
-                new CatalogGameEntry { Name = row.Token, AssignmentToken = row.Token });
+        var entry = CatalogGameEntryLookup.FindBest(store, row.Token);
+        string? rel;
+        if (entry != null)
+            rel = CatalogCoverResolver.ResolveRelativePath(entry, store);
+        else
+            rel = ManualCoverResolver.TryFindRelativePathByLabel(row.Token);
 
         if (string.IsNullOrEmpty(rel))
             return;
@@ -316,6 +393,9 @@ public sealed partial class SliderMappingPage : Page
         var full = GameCatalogPaths.ResolvePath(rel);
         if (!File.Exists(full))
             return;
+
+        if (entry != null)
+            row.DisplayName = entry.Name;
 
         _dq.TryEnqueue(() => { _ = LoadAssignedCoverAsync(row, full); });
     }
@@ -328,12 +408,22 @@ public sealed partial class SliderMappingPage : Page
         _dq.TryEnqueue(() => row.Cover = src);
     }
 
-    void RefreshLiveActivity()
+    void RefreshLiveActivity() => _ = RefreshLiveActivityAsync();
+
+    async Task RefreshLiveActivityAsync()
     {
         if (_sliderCards == null)
             return;
 
-        var snap = MixrRuntimeState.Audio?.GetLiveSnapshot();
+        var cfg = MixrRuntimeState.Config.Current;
+        var audio = MixrRuntimeState.Audio;
+        if (audio != null)
+        {
+            await Task.Run(() =>
+                audio.RebuildSessionMap(cfg.SliderMapping, cfg.SessionGroups, silent: true));
+        }
+
+        var snap = audio?.GetLiveSnapshot();
         foreach (var card in _sliderCards)
         {
             if (snap != null &&
@@ -703,14 +793,23 @@ public sealed partial class SliderMappingPage : Page
 
     void AssignedCover_PointerEntered(object sender, PointerRoutedEventArgs e)
     {
-        if (sender is Border b && GetCoverScaleTransform(b) is ScaleTransform st)
-            AnimateCoverScale(st, 1.08);
+        if (sender is Border b)
+        {
+            if (b.DataContext is AssignedProgramRow row && !string.IsNullOrWhiteSpace(row.TooltipText))
+                ToolTipService.SetToolTip(b, row.TooltipText);
+            if (GetCoverScaleTransform(b) is ScaleTransform st)
+                AnimateCoverScale(st, 1.08);
+        }
     }
 
     void AssignedCover_PointerExited(object sender, PointerRoutedEventArgs e)
     {
-        if (sender is Border b && GetCoverScaleTransform(b) is ScaleTransform st)
-            AnimateCoverScale(st, 1.0);
+        if (sender is Border b)
+        {
+            ToolTipService.SetToolTip(b, null);
+            if (GetCoverScaleTransform(b) is ScaleTransform st)
+                AnimateCoverScale(st, 1.0);
+        }
     }
 
     static void AnimateCoverScale(ScaleTransform st, double to)

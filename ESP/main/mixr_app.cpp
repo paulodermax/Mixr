@@ -534,8 +534,8 @@ void mixr_app_run(void)
     };
     esp_timer_handle_t controls_timer;
     ESP_ERROR_CHECK(esp_timer_create(&controls_timer_args, &controls_timer));
-    /* ~40 Hz: genug für „Echtzeit“ am Host, entlastet main während LVGL-Redraw */
-    ESP_ERROR_CHECK(esp_timer_start_periodic(controls_timer, 25000));
+    /* ~100 Hz: direkteres Slider-Feeling am Host bei weiterhin moderater Last */
+    ESP_ERROR_CHECK(esp_timer_start_periodic(controls_timer, 10000));
 
     ui_queue = xQueueCreate(24, sizeof(UiMessage));
     /* USB kurz stabilisieren (Enumeration), bevor große RX-Strom kommt */

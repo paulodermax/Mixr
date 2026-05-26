@@ -9,7 +9,20 @@ namespace Mixr_App.Services;
 /// </summary>
 public static class ManualCoverResolver
 {
-    static readonly string[] Extensions = [".png", ".jpg", ".jpeg", ".webp"];
+    internal static readonly string[] Extensions = [".png", ".jpg", ".jpeg", ".webp"];
+
+    /// <summary>Cover nur anhand Anzeigename/Token-Stamm (z. B. Session-Label „League of Legends“).</summary>
+    public static string? TryFindRelativePathByLabel(string label)
+    {
+        if (string.IsNullOrWhiteSpace(label))
+            return null;
+
+        return TryFindRelativePath(new CatalogGameEntry
+        {
+            Name = label.Trim(),
+            AssignmentToken = label.Trim(),
+        });
+    }
 
     /// <summary>Relativer Pfad wie <c>covers/spotify.png</c> oder <c>null</c>.</summary>
     public static string? TryFindRelativePath(CatalogGameEntry entry)

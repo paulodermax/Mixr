@@ -11,6 +11,7 @@ public sealed class AudioService
     private Dictionary<string, List<IAudioSession>> _sessionMap = new(StringComparer.OrdinalIgnoreCase);
 
     readonly object _snapshotLock = new();
+    readonly object _rebuildLock = new();
     Dictionary<string, List<string>> _liveNamesByGroup = new(StringComparer.OrdinalIgnoreCase);
 
     public void RebuildSessionMap(
@@ -18,7 +19,8 @@ public sealed class AudioService
         IReadOnlyDictionary<string, List<string>> groups,
         bool silent = false)
     {
-        Task.Run(async () => await RebuildSessionMapAsync(mappings, groups, silent)).Wait();
+        lock (_rebuildLock)
+            Task.Run(async () => await RebuildSessionMapAsync(mappings, groups, silent)).Wait();
     }
 
     private async Task RebuildSessionMapAsync(
@@ -27,7 +29,7 @@ public sealed class AudioService
         bool silent)
     {
         _ = silent;
-        _sessionMap.Clear();
+        var nextMap = new Dictionary<string, List<IAudioSession>>(StringComparer.OrdinalIgnoreCase);
 
         var device = _controller.DefaultPlaybackDevice as CoreAudioDevice;
         if (device?.SessionController == null)
@@ -42,50 +44,51 @@ public sealed class AudioService
 
         foreach (var session in sessions)
         {
-            string name = session.DisplayName;
-
-            if (string.IsNullOrEmpty(name))
-            {
-                try
-                {
-                    name = Process.GetProcessById(session.ProcessId).ProcessName;
-                }
-                catch
-                {
-                    continue;
-                }
-            }
-
-            if (string.IsNullOrEmpty(name))
+            var names = SessionNamesFor(session);
+            if (names.Count == 0)
                 continue;
 
-            string? matched = mappings.FirstOrDefault(m => name.Equals(m, StringComparison.OrdinalIgnoreCase))
-                ?? mappings.FirstOrDefault(m => name.Contains(m, StringComparison.OrdinalIgnoreCase));
-
-            if (matched == null && groups.Count > 0)
+            string? matched = null;
+            foreach (var name in names)
             {
-                var eq = groups.FirstOrDefault(g =>
-                    g.Value.Any(k => name.Equals(k, StringComparison.OrdinalIgnoreCase)));
-                if (eq.Key != null)
-                    matched = eq.Key;
-                else
-                {
-                    var sub = groups.FirstOrDefault(g =>
-                        g.Value.Any(k => name.Contains(k, StringComparison.OrdinalIgnoreCase)));
-                    matched = sub.Key;
-                }
+                matched = SessionTokenMatcher.MatchToMapping(name, mappings)
+                    ?? (groups.Count > 0 ? SessionTokenMatcher.MatchToGroupKey(name, groups) : null);
+                if (matched != null)
+                    break;
             }
 
             if (matched == null)
                 continue;
 
-            if (!_sessionMap.ContainsKey(matched))
-                _sessionMap[matched] = new List<IAudioSession>();
+            if (!nextMap.ContainsKey(matched))
+                nextMap[matched] = new List<IAudioSession>();
 
-            _sessionMap[matched].Add(session);
+            nextMap[matched].Add(session);
         }
 
+        _sessionMap = nextMap;
         BuildLiveSnapshot();
+    }
+
+    static List<string> SessionNamesFor(IAudioSession session)
+    {
+        var names = new List<string>(2);
+        if (!string.IsNullOrWhiteSpace(session.DisplayName))
+            names.Add(session.DisplayName.Trim());
+
+        try
+        {
+            var proc = Process.GetProcessById(session.ProcessId).ProcessName;
+            if (!string.IsNullOrWhiteSpace(proc) &&
+                !names.Any(n => n.Equals(proc, StringComparison.OrdinalIgnoreCase)))
+                names.Add(proc.Trim());
+        }
+        catch
+        {
+            /* Prozess beendet */
+        }
+
+        return names;
     }
 
     void BuildLiveSnapshot()
@@ -121,6 +124,58 @@ public sealed class AudioService
             _liveNamesByGroup = snap;
     }
 
+    /// <summary>Lautstärke 0–1 pro Slider-Key nach letztem Session-Scan (master = Gerät, sonst Sessions).</summary>
+    public float[] GetVolumeLevels(IReadOnlyList<string> mappings)
+    {
+        var levels = new float[mappings.Count];
+        for (var i = 0; i < levels.Length; i++)
+            levels[i] = -1;
+
+        try
+        {
+            var device = _controller.DefaultPlaybackDevice as CoreAudioDevice;
+            if (device == null)
+                return levels;
+
+            for (var i = 0; i < mappings.Count; i++)
+            {
+                var key = mappings[i];
+                if (key.Equals("master", StringComparison.OrdinalIgnoreCase))
+                {
+                    levels[i] = (float)Math.Clamp(device.Volume / 100.0, 0, 1);
+                    continue;
+                }
+
+                if (!_sessionMap.TryGetValue(key, out var sessions) || sessions.Count == 0)
+                    continue;
+
+                double sum = 0;
+                var count = 0;
+                foreach (var session in sessions)
+                {
+                    try
+                    {
+                        sum += session.Volume;
+                        count++;
+                    }
+                    catch
+                    {
+                        /* Session ungültig */
+                    }
+                }
+
+                if (count > 0)
+                    levels[i] = (float)Math.Clamp(sum / count / 100.0, 0, 1);
+            }
+        }
+        catch
+        {
+            /* Gerät/Sessions nicht lesbar */
+        }
+
+        return levels;
+    }
+
     /// <summary>Aktive Audio-Sessions pro Gruppen-Key (master, communication, …) nach letztem Scan.</summary>
     public IReadOnlyDictionary<string, IReadOnlyList<string>> GetLiveSnapshot()
     {
@@ -135,7 +190,7 @@ public sealed class AudioService
 
     public void SetVolume(string target, float level)
     {
-        Task.Run(() => ApplyVolume(target, level));
+        ApplyVolume(target, level);
     }
 
     private void ApplyVolume(string target, float level)

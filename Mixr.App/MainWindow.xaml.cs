@@ -94,9 +94,6 @@ public sealed partial class MainWindow : Window
                 case "hardware_map":
                     NavFrame.Navigate(typeof(HardwareMapPage));
                     break;
-                case "about":
-                    NavFrame.Navigate(typeof(AboutPage));
-                    break;
             }
         }
     }

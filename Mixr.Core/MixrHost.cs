@@ -78,6 +78,7 @@ public static class MixrHost
 
         var audio = new AudioService();
         MixrRuntimeState.Audio = audio;
+        var systemSoundsCapDone = false;
 
         void RebuildAudioFromRuntime()
         {
@@ -92,8 +93,38 @@ public static class MixrHost
             }
         }
 
+        void TryApplySystemSoundsCapOnce()
+        {
+            var c = MixrRuntimeState.Config.Current;
+            if (!c.LimitSystemSoundsTo20Percent)
+            {
+                systemSoundsCapDone = false;
+                return;
+            }
+
+            if (systemSoundsCapDone)
+                return;
+
+            systemSoundsCapDone = true;
+            if (SystemSoundsVolumeService.TryApplyCap())
+                LogLine(options, "System Sounds: auf max. 20 % gesetzt (falls nötig).");
+        }
+
         RebuildAudioFromRuntime();
+        TryApplySystemSoundsCapOnce();
+
+        var sliderLuts = new float[4][];
+        void RebuildSliderLuts()
+        {
+            var c = MixrRuntimeState.Config.Current;
+            for (var i = 0; i < 4; i++)
+                sliderLuts[i] = VolumeCurveMapper.BuildLut(VolumeCurveMapper.GetKindForSlider(c, i));
+        }
+
+        RebuildSliderLuts();
+
         MixrRuntimeState.Config.Changed += OnConfigChangedFromRuntime;
+        MixrRuntimeState.Config.Changed += RebuildSliderLuts;
 
         var reloadGate = new object();
         CancellationTokenSource? debounceCts = null;
@@ -152,6 +183,7 @@ public static class MixrHost
         void OnConfigChangedFromRuntime()
         {
             RebuildAudioFromRuntime();
+            TryApplySystemSoundsCapOnce();
         }
 
         var lastSlider = new float[] { -1, -1, -1, -1 };
@@ -163,17 +195,22 @@ public static class MixrHost
             if (s.Length < 4)
                 return;
             var cfg = MixrRuntimeState.Config.Current;
+            Span<float> uiLevels = stackalloc float[4];
             for (var i = 0; i < 4 && i < cfg.SliderMapping.Count; i++)
             {
-                var level = s[i] / 255f;
+                var raw = s[i];
                 if (cfg.InvertSliders)
-                    level = 1f - level;
-                if (Math.Abs(level - lastSlider[i]) > 0.005f)
+                    raw = (byte)(255 - raw);
+                var level = sliderLuts[i][raw];
+                uiLevels[i] = level;
+                if (Math.Abs(level - lastSlider[i]) > 0.002f)
                 {
                     lastSlider[i] = level;
                     audio.SetVolume(cfg.SliderMapping[i], level);
                 }
             }
+
+            MixrRuntimeState.SetSliderLevels(uiLevels);
         };
 
         void TriggerDiscordMute(string quelle)
@@ -346,6 +383,7 @@ public static class MixrHost
                     conn = new MixrSerialTransport(portName, cfg.BaudRate);
                     conn.Open();
                     serial = conn;
+                    MixrRuntimeState.SetEspConnected(true);
                     LogLine(options, $"Seriell verbunden ({portName}).");
 
                     conn.StartDrainRxThread(OnEspPacket, () => disconnectTcs.TrySetResult());
@@ -363,6 +401,7 @@ public static class MixrHost
                 finally
                 {
                     serial = null;
+                    MixrRuntimeState.SetEspConnected(false);
                     conn?.Dispose();
                 }
 
@@ -400,6 +439,7 @@ public static class MixrHost
             }
 
             MixrRuntimeState.Audio = null;
+            MixrRuntimeState.SetEspConnected(false);
         }
     }
 }

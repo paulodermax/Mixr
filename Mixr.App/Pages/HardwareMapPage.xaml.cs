@@ -9,13 +9,14 @@ using Microsoft.UI.Xaml.Navigation;
 using Mixr.Models;
 using Mixr.Services;
 using Mixr_App.Services;
+using System.IO;
 
 namespace Mixr_App.Pages;
 
 public sealed partial class HardwareMapPage : Page
 {
     const double DetailWidth = 380;
-    const double SchematicShiftWhenOpen = -88;
+    const double SchematicShiftMagnitude = 88;
 
     MixrConfig _draft = new();
 
@@ -25,6 +26,7 @@ public sealed partial class HardwareMapPage : Page
     Border? _activeGlow;
 
     bool _detailOpen;
+    bool _detailOnLeft;
     int _sliderDetailIndex = -1;
     int _buttonDetailIndex = -1;
 
@@ -37,9 +39,39 @@ public sealed partial class HardwareMapPage : Page
 
     void HardwareMapPage_Loaded(object sender, RoutedEventArgs e)
     {
-        SchematicImage.Source = new SvgImageSource(new Uri("ms-appx:///Assets/Mixr-Modell.svg"));
+        TryLoadSchematicImage();
         DetailSlideTransform.X = DetailWidth;
+        DetailDrawer.HorizontalAlignment = HorizontalAlignment.Right;
+        DetailDrawer.BorderThickness = new Thickness(1, 0, 0, 0);
         StopPulse();
+    }
+
+    void TryLoadSchematicImage()
+    {
+        try
+        {
+            SchematicImage.Source = new SvgImageSource(new Uri("ms-appx:///Assets/Mixr-Modell.svg"));
+            return;
+        }
+        catch (Exception ex)
+        {
+            AppLog.WriteLine("Hardware map SVG ms-appx failed: " + ex.Message);
+        }
+
+        try
+        {
+            var full = Path.Combine(AppContext.BaseDirectory, "Assets", "Mixr-Modell.svg");
+            if (File.Exists(full))
+            {
+                SchematicImage.Source = new SvgImageSource(new Uri(full));
+                return;
+            }
+            AppLog.WriteLine("Hardware map SVG missing: " + full);
+        }
+        catch (Exception ex)
+        {
+            AppLog.WriteLine("Hardware map SVG file fallback failed: " + ex.Message);
+        }
     }
 
     protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -130,16 +162,26 @@ public sealed partial class HardwareMapPage : Page
         var kind = tag[0];
         if (!int.TryParse(tag.AsSpan(1), out var idx))
             return;
+        var onLeft = IsHotspotOnLeft(kind, idx);
         if (kind == 'f')
-            OpenSliderDetail(idx);
+            OpenSliderDetail(idx, onLeft);
         else if (kind == 'b')
-            OpenButtonDetail(idx);
+            OpenButtonDetail(idx, onLeft);
     }
 
-    void OpenSliderDetail(int idx)
+    static bool IsHotspotOnLeft(char kind, int idx) =>
+        kind switch
+        {
+            'f' => idx <= 1, // f0,f1 links | f2,f3 rechts
+            'b' => idx <= 2, // b0..b2 links | b3,b4 rechts
+            _ => false,
+        };
+
+    void OpenSliderDetail(int idx, bool onLeft)
     {
         if (idx < 0 || idx >= _draft.SliderMapping.Count)
             return;
+        _detailOnLeft = onLeft;
         _sliderDetailIndex = idx;
         _buttonDetailIndex = -1;
         var key = _draft.SliderMapping[idx];
@@ -155,11 +197,12 @@ public sealed partial class HardwareMapPage : Page
             OpenDetailDrawer();
     }
 
-    void OpenButtonDetail(int idx)
+    void OpenButtonDetail(int idx, bool onLeft)
     {
         if (idx < 0 || idx >= 5)
             return;
         MixrButtonActions.EnsureFiveEntries(_draft.ButtonMapping);
+        _detailOnLeft = onLeft;
         _buttonDetailIndex = idx;
         _sliderDetailIndex = -1;
         var current = MixrButtonActions.Resolve(idx, _draft.ButtonMapping);
@@ -172,7 +215,12 @@ public sealed partial class HardwareMapPage : Page
                 DetailButtonCombo.SelectedItem = item;
         }
 
-        DetailTitleText.Text = $"Button {idx}";
+        // Defensive fallback: should never happen, but keeps Save usable
+        // even if future mappings introduce unknown values.
+        if (DetailButtonCombo.SelectedItem is null && DetailButtonCombo.Items.Count > 0)
+            DetailButtonCombo.SelectedIndex = 0;
+
+        DetailTitleText.Text = $"Button {idx + 1}";
         ButtonDetailPanel.Visibility = Visibility.Visible;
         SliderDetailPanel.Visibility = Visibility.Collapsed;
         if (!_detailOpen)
@@ -194,10 +242,13 @@ public sealed partial class HardwareMapPage : Page
     void OpenDetailDrawer()
     {
         _detailOpen = true;
+        DetailDrawer.HorizontalAlignment = _detailOnLeft ? HorizontalAlignment.Left : HorizontalAlignment.Right;
+        DetailDrawer.BorderThickness = _detailOnLeft ? new Thickness(0, 0, 1, 0) : new Thickness(1, 0, 0, 0);
         DetailDrawer.Visibility = Visibility.Visible;
-        DetailSlideTransform.X = DetailWidth;
+        DetailSlideTransform.X = _detailOnLeft ? -DetailWidth : DetailWidth;
         SchematicSlideTransform.X = 0;
-        RunSlideAnimation(SchematicShiftWhenOpen, 0);
+        var schematicShift = _detailOnLeft ? SchematicShiftMagnitude : -SchematicShiftMagnitude;
+        RunSlideAnimation(schematicShift, 0);
     }
 
     void RunSlideAnimation(double schematicX, double detailX)
@@ -244,7 +295,7 @@ public sealed partial class HardwareMapPage : Page
         Storyboard.SetTargetProperty(a1, "X");
         var a2 = new DoubleAnimation
         {
-            To = DetailWidth,
+            To = _detailOnLeft ? -DetailWidth : DetailWidth,
             Duration = new Duration(TimeSpan.FromMilliseconds(260)),
             EasingFunction = new CubicEase { EasingMode = EasingMode.EaseIn },
         };
@@ -272,7 +323,7 @@ public sealed partial class HardwareMapPage : Page
         _pulseStoryboard?.Stop();
         _pulseStoryboard = null;
         SchematicSlideTransform.X = 0;
-        DetailSlideTransform.X = DetailWidth;
+        DetailSlideTransform.X = _detailOnLeft ? -DetailWidth : DetailWidth;
         DetailDrawer.Visibility = Visibility.Collapsed;
         _detailOpen = false;
         _sliderDetailIndex = -1;

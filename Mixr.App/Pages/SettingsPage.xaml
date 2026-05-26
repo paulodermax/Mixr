@@ -40,6 +40,28 @@
             </Border>
 
             <Border
+                Margin="0,0,0,16"
+                Padding="16"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <StackPanel>
+                    <TextBlock Margin="0,0,0,12" FontWeight="SemiBold" Text="Audio" />
+                    <CheckBox
+                        x:Name="LimitSystemSoundsCheck"
+                        Content="Limit system sounds to 20% (notifications)"
+                        Checked="LimitSystemSoundsCheck_Changed"
+                        Unchecked="LimitSystemSoundsCheck_Changed" />
+                    <TextBlock
+                        Margin="0,8,0,0"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Text="Checked once at app start: if Windows “System Sounds” is louder than 20%, it is reduced."
+                        TextWrapping="Wrap" />
+                </StackPanel>
+            </Border>
+
+            <Border
                 Padding="16"
                 Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                 BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"

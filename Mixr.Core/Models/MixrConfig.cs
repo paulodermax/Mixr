@@ -24,6 +24,15 @@ public sealed class MixrConfig
         "games",
     ];
 
+    /// <summary>Pro Slider: Kurventyp (linear, center_flattened, gamma_low, gamma_high, s_curve).</summary>
+    public List<string> SliderResponse { get; set; } =
+    [
+        "center_flattened",
+        "center_flattened",
+        "center_flattened",
+        "center_flattened",
+    ];
+
     /// <summary>Gruppenname → Suchstrings für Fenster-/Prozessnamen (Audio-Sessions).</summary>
     public Dictionary<string, List<string>> SessionGroups { get; set; } = new(StringComparer.OrdinalIgnoreCase);
 
@@ -42,4 +51,7 @@ public sealed class MixrConfig
 
     /// <summary>Optional: Twitch Client Secret. Wird von <c>IGDB_CLIENT_SECRET</c> überschrieben, falls gesetzt.</summary>
     public string? IgdbClientSecret { get; set; }
+
+    /// <summary>Beim Start System-Sounds (Mixer) auf 20 % begrenzen, falls höher.</summary>
+    public bool LimitSystemSoundsTo20Percent { get; set; } = true;
 }

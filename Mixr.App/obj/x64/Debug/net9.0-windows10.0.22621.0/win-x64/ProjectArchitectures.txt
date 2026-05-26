@@ -1,1 +1,0 @@
-c:\Users\paulm\.mainroot\Mixr\Mixr.App\Mixr.App.csproj;x64

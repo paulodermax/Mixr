@@ -79,7 +79,7 @@
             SelectionChanged="NavView_SelectionChanged">
             <NavigationView.MenuItems>
                 <NavigationViewItem
-                    Content="Overview"
+                    Content="Home"
                     IsSelected="True"
                     Tag="dashboard">
                     <NavigationViewItem.Icon>
@@ -94,11 +94,6 @@
                 <NavigationViewItem Content="Hardware" Tag="hardware_map">
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE81D;" />
-                    </NavigationViewItem.Icon>
-                </NavigationViewItem>
-                <NavigationViewItem Content="Info" Tag="about">
-                    <NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xE946;" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
             </NavigationView.MenuItems>

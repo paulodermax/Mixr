@@ -1,31 +1,50 @@
-# com_port: leer, „auto“ oder weglassen = automatisch (ESP32-S3 USB Serial/JTAG, VID 303A / PID 1001).
-# Festen Port nur bei Bedarf: com_port: COM7  — auch: --port=COM7  --baud=921600
 com_port: auto
 baud_rate: 921600
-
-# Slider 1–4 → Windows (Reihenfolge = ESP-Index 0..3)
-# invert_sliders: true — falls Hardware „hoch = leiser“
 invert_sliders: false
-
 slider_mapping:
-  - master
-  - communication
-  - media
-  - games
-
-# Taster 0–4: smtc_previous | smtc_play_pause | smtc_next | discord_mute | discord_deafen | none
+- master
+- communication
+- media
+- games
+slider_response:
+- center_flattened
+- center_flattened
+- gamma_low
+- linear
 button_mapping:
-  - smtc_previous
-  - smtc_play_pause
-  - smtc_next
-  - discord_mute
-  - discord_deafen
-
-# Pro Gruppe: Suchstrings im Session-Namen (DisplayName / Prozess). Standard: leer — alles in der Programmbibliothek.
-session_groups: {}
-
-# Game-Cover (IGDB / Twitch API): optional. Umgebungsvariablen IGDB_CLIENT_ID / IGDB_CLIENT_SECRET überschreiben YAML.
-# Empfehlung für Secrets: Datei config.secrets.yaml (gleicher Ordner wie diese Datei) — siehe config.secrets.example.yaml in der App-Ausgabe.
-# igdb:
-#   client_id: ""
-#   client_secret: ""
+- smtc_previous
+- smtc_play_pause
+- smtc_next
+- discord_mute
+- discord_deafen
+session_groups:
+  media:
+  - Brave
+  - Chrome
+  - Spotify
+  communication:
+  - Discord
+  games:
+  - 'Batman™: Arkham Knight'
+  - DayZ
+  - Diablo III
+  - ELDEN RING
+  - Factorio
+  - 'FAR: Changing Tides'
+  - Green Hell
+  - Icarus
+  - League Of Legends
+  - PAYDAY 2
+  - Portal 2
+  - Project Zomboid
+  - 'PUBG: BATTLEGROUNDS'
+  - Raft
+  - Rocket League®
+  - Starbound
+  - Terraria
+  - tModLoader
+  - Valorant
+  - TslGame
+  master: []
+limit_system_sounds_to_20_percent: true
+igdb: 
