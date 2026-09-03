@@ -1,0 +1,121 @@
+# Release-Pipeline: Tag `vX.Y.Z` pushen → Firmware bauen → App publishen (mit Firmware im Paket)
+# → Velopack-Installer + Delta-Pakete → GitHub Release. Installierte Apps finden das Update automatisch.
+#
+#   git tag v1.2.0 && git push origin v1.2.0
+#
+# Optional (SmartScreen-Warnung vermeiden): Secrets AZURE_* für Azure Artifact Signing setzen, siehe RELEASING.md.
+name: Release
+
+on:
+  push:
+    tags: ["v[0-9]+.[0-9]+.[0-9]+*"]
+
+permissions:
+  contents: write
+
+jobs:
+  firmware:
+    name: Firmware (ESP-IDF)
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.ver.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - id: ver
+        name: Version aus Tag
+        run: echo "version=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+
+      - name: Firmware-Version setzen (ESP-IDF liest ESP/version.txt als PROJECT_VER)
+        run: echo "${{ steps.ver.outputs.version }}" > ESP/version.txt
+
+      - name: Build with ESP-IDF v5.5
+        uses: espressif/esp-idf-ci-action@v1
+        with:
+          esp_idf_version: v5.5.3
+          target: esp32s3
+          path: ESP
+          command: idf.py build
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: firmware
+          path: |
+            ESP/build/Mixr.bin
+            ESP/build/bootloader/bootloader.bin
+            ESP/build/partition_table/partition-table.bin
+            ESP/build/flasher_args.json
+
+  app:
+    name: Windows-App + Installer
+    needs: firmware
+    runs-on: windows-latest
+    env:
+      VERSION: ${{ needs.firmware.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Velopack braucht das vorherige Release nicht aus Git, aber Release-Notes-Diff ist nützlich
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: firmware
+          path: firmware-artifact
+
+      - name: Firmware in die App legen
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force Mixr.App/firmware | Out-Null
+          Copy-Item firmware-artifact/Mixr.bin Mixr.App/firmware/Mixr.bin -Force
+
+      - name: Test
+        run: dotnet test PC.Tests/PC.Tests.csproj -c Release
+
+      - name: Publish
+        run: dotnet publish Mixr.App/Mixr.App.csproj -c Release -p:PublishProfile=win-x64 -p:Version=${{ env.VERSION }}
+
+      - name: vpk installieren
+        run: dotnet tool install -g vpk --version 1.2.0
+
+      - name: Velopack-Paket bauen
+        shell: pwsh
+        run: |
+          $notes = "Release-Notes.md"
+          "## Mixr ${{ env.VERSION }}`n`nFirmware im Paket: ${{ env.VERSION }} (ESP32-S3).`n`nVollständige Änderungen: https://github.com/${{ github.repository }}/compare/...${{ github.ref_name }}" | Set-Content $notes
+          # Vorherige Releases laden, damit Delta-Pakete entstehen (schlägt beim allerersten Release still fehl).
+          vpk download github --repoUrl https://github.com/${{ github.repository }} --token ${{ secrets.GITHUB_TOKEN }} --outputDir Releases; if ($LASTEXITCODE -ne 0) { Write-Host "Kein vorheriges Release - erstes Paket ohne Delta." }
+          vpk pack `
+            --packId Mixr `
+            --packVersion ${{ env.VERSION }} `
+            --packDir artifacts/publish `
+            --mainExe Mixr.exe `
+            --packTitle "Mixr" `
+            --packAuthors "Mixr" `
+            --icon Mixr.App/Assets/AppIcon.ico `
+            --releaseNotes $notes `
+            --outputDir Releases
+
+      - name: Auf GitHub Releases veröffentlichen
+        run: >
+          vpk upload github
+          --repoUrl https://github.com/${{ github.repository }}
+          --token ${{ secrets.GITHUB_TOKEN }}
+          --publish
+          --merge
+          --releaseName "Mixr ${{ env.VERSION }}"
+          --tag ${{ github.ref_name }}
+          --outputDir Releases
+
+      - name: Firmware-Dateien an das Release hängen
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          files: |
+            firmware-artifact/Mixr.bin
+            firmware-artifact/bootloader/bootloader.bin
+            firmware-artifact/partition_table/partition-table.bin
+            firmware-artifact/flasher_args.json

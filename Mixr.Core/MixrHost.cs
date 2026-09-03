@@ -26,8 +26,14 @@ public static class MixrHost
 
     public static async Task RunAsync(string[] args, CancellationToken cancellationToken, Options? options = null)
     {
+        MixrConfigLoader.DiagnosticLog ??= s => LogLine(options, s);
+        IgdbCredentialResolver.DiagnosticLog ??= s => LogLine(options, s);
+        VoipHotkeyListener.DiagnosticLog ??= s => LogErr(options, s);
+        FirmwareUpdateCoordinator.Log = s => LogLine(options, s);
+
         var initial = MixrConfigLoader.Load(args);
         MixrRuntimeState.Config.Replace(initial);
+        LogLine(options, $"Konfiguration: {MixrConfigPaths.ConfigYamlPath}");
 
         void LogCfgHeader()
         {
@@ -43,7 +49,7 @@ public static class MixrHost
                 LogLine(options, $"Mixr → {cfg.ComPort} @ {cfg.BaudRate}");
             }
 
-            LogLine(options, "Wiederverbindung bei USB; config.yaml und optional config.secrets.yaml werden überwacht.");
+            LogLine(options, $"Wiederverbindung bei USB; {MixrConfigPaths.ConfigFileName} und optional {MixrConfigPaths.SecretsFileName} werden überwacht.");
             LogLine(options, "Taster: siehe button_mapping in config.yaml (Standard: Prev / Play / Next / Mute / Deafen).");
             LogLine(options, "Slider: 1=Main · 2=Kommunikation · 3=Media · 4=Spiele");
         }
@@ -137,7 +143,7 @@ public static class MixrHost
             if (!string.IsNullOrEmpty(dir) && Directory.Exists(dir))
             {
                 configWatchers = [];
-                foreach (var name in new[] { mainFile, "config.secrets.yaml" }.Distinct(StringComparer.OrdinalIgnoreCase))
+                foreach (var name in new[] { mainFile, MixrConfigPaths.SecretsFileName }.Distinct(StringComparer.OrdinalIgnoreCase))
                 {
                     var w = new FileSystemWatcher(dir, name)
                     {
@@ -291,6 +297,15 @@ public static class MixrHost
         espIncoming.VoipDeafenRequested += () => TriggerDiscordDeafen("ESP Debug-Menü");
         espIncoming.ShareScreenRequested += TriggerShareScreenFromEsp;
         espIncoming.MediaCommand += sub => _ = Task.Run(() => media.ExecuteMediaCommandAsync(sub));
+        espIncoming.Hello += hello =>
+        {
+            MixrRuntimeState.SetDevice(hello);
+            LogLine(
+                options,
+                $"[ESP] HELLO: Protokoll v{hello.ProtocolVersion}, Firmware {hello.FirmwareVersion}, OTA {(hello.SupportsProtocolOta ? "ja" : "nein (Download-Modus)")}");
+            if (hello.ProtocolVersion > MixrProtocol.Version)
+                LogErr(options, $"Firmware spricht Protokoll v{hello.ProtocolVersion}, diese App nur v{MixrProtocol.Version} — bitte App aktualisieren.");
+        };
 
         void OnEspPacket(int type, byte[] payload) => espIncoming.Dispatch(type, payload);
 
@@ -354,10 +369,55 @@ public static class MixrHost
             return port;
         }
 
+        MixrSerialTransport? activeConn = null;
+        var activeConnLock = new object();
+
+        void OnSerialPauseRequested()
+        {
+            MixrSerialTransport? c;
+            lock (activeConnLock)
+                c = activeConn;
+            if (c is null)
+                return;
+            LogLine(options, "Seriell: Port für Firmware-Update freigegeben.");
+            try
+            {
+                c.Dispose(); /* beendet den RX-Thread → disconnectTcs → Schleife räumt auf */
+            }
+            catch
+            {
+                /* bereits geschlossen */
+            }
+        }
+
+        MixrRuntimeState.SerialPauseRequested += OnSerialPauseRequested;
+
         try
         {
             while (!cancellationToken.IsCancellationRequested)
             {
+                if (MixrRuntimeState.SerialPaused)
+                {
+                    try
+                    {
+                        await MixrRuntimeState.WaitSerialResumedAsync(cancellationToken);
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        break;
+                    }
+
+                    LogLine(options, "Seriell: Pause beendet, verbinde neu …");
+                    try
+                    {
+                        await Task.Delay(1500, cancellationToken); /* Gerät bootet nach dem Flashen */
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        break;
+                    }
+                }
+
                 var portName = ResolveComPort();
                 if (string.IsNullOrEmpty(portName))
                 {
@@ -383,10 +443,14 @@ public static class MixrHost
                     conn = new MixrSerialTransport(portName, cfg.BaudRate);
                     conn.Open();
                     serial = conn;
+                    lock (activeConnLock)
+                        activeConn = conn;
+                    MixrRuntimeState.SetLink(new SerialLink(conn, espIncoming), portName);
                     MixrRuntimeState.SetEspConnected(true);
                     LogLine(options, $"Seriell verbunden ({portName}).");
 
                     conn.StartDrainRxThread(OnEspPacket, () => disconnectTcs.TrySetResult());
+                    conn.SendHelloRequest();
 
                     await disconnectTcs.Task.WaitAsync(cancellationToken);
                 }
@@ -401,12 +465,19 @@ public static class MixrHost
                 finally
                 {
                     serial = null;
+                    lock (activeConnLock)
+                        activeConn = null;
+                    MixrRuntimeState.SetLink(null, null);
+                    MixrRuntimeState.SetDevice(null);
                     MixrRuntimeState.SetEspConnected(false);
                     conn?.Dispose();
                 }
 
                 if (cancellationToken.IsCancellationRequested)
                     break;
+
+                if (MixrRuntimeState.SerialPaused)
+                    continue; /* Firmware-Update übernimmt den Port; oben wird auf Resume gewartet */
 
                 LogLine(options, $"USB/Seriell getrennt — nächster Versuch in {reconnectDelayMs / 1000} s …");
                 try
@@ -421,7 +492,9 @@ public static class MixrHost
         }
         finally
         {
+            MixrRuntimeState.SerialPauseRequested -= OnSerialPauseRequested;
             MixrRuntimeState.Config.Changed -= OnConfigChangedFromRuntime;
+            MixrRuntimeState.Config.Changed -= RebuildSliderLuts;
             if (configWatchers is { Count: > 0 })
             {
                 foreach (var w in configWatchers)
@@ -438,8 +511,21 @@ public static class MixrHost
                 }
             }
 
+            lock (reloadGate)
+            {
+                debounceCts?.Cancel();
+                debounceCts?.Dispose();
+                debounceCts = null;
+            }
+
+            VoipHotkeyListener.Stop();
+
             MixrRuntimeState.Audio = null;
+            audio.Dispose();
+            MixrRuntimeState.SetLink(null, null);
+            MixrRuntimeState.SetDevice(null);
             MixrRuntimeState.SetEspConnected(false);
+            LogLine(options, "MixrHost: Ressourcen freigegeben.");
         }
     }
 }

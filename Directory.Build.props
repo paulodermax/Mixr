@@ -1,0 +1,24 @@
+<Project>
+  <!--
+    Zentrale Version für alle .NET-Projekte. Die CI überschreibt sie aus dem Git-Tag:
+      dotnet publish -p:Version=1.4.2
+    Lokal bleibt die Entwicklungsversion; Velopack verlangt SemVer ohne führendes "v".
+  -->
+  <PropertyGroup>
+    <Version Condition="'$(Version)' == ''">0.0.0-dev</Version>
+    <Authors>Paul Odermax</Authors>
+    <Company>Mixr</Company>
+    <Product>Mixr</Product>
+    <Copyright>© $([System.DateTime]::Now.Year) Mixr</Copyright>
+    <RepositoryUrl>https://github.com/paulodermax/Mixr</RepositoryUrl>
+    <NeutralLanguage>de-DE</NeutralLanguage>
+
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <Deterministic>true</Deterministic>
+    <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
+    <SatelliteResourceLanguages>en;de</SatelliteResourceLanguages>
+  </PropertyGroup>
+</Project>

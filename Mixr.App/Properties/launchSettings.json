@@ -1,9 +1,6 @@
 {
   "profiles": {
-    "Mixr.App (Package)": {
-      "commandName": "MsixPackage"
-    },
-    "Mixr.App (Unpackaged)": {
+    "Mixr (Unpackaged)": {
       "commandName": "Project"
     }
   }

@@ -5,36 +5,31 @@ using System.Text;
 namespace Mixr.Services;
 
 /// <summary>
-/// Binärprotokoll wie ESP/tools/mixr_send_demo.py mit <c>--fast</c>:
-/// kein Warmup, keine Chunk-Pause, kein Post-Send; DTR/RTS aus; Nutzlast max. 255 B.
+/// Serieller Transport für das Mixr-Binärprotokoll (siehe <see cref="MixrProtocol"/>).
+/// Alle Sendeaufrufe sind über <c>_sendLock</c> serialisiert, damit sich Frames aus verschiedenen Threads
+/// (SMTC-Cover, Hotkey-Overlays, Firmware-Update) nicht verschränken.
 /// </summary>
 public sealed class MixrSerialTransport : IDisposable
 {
-    public const byte PktStartByte = 0xAA;
-    public const byte TypeSongTitle = 0x01;
-    public const byte TypeSongArtist = 0x02;
-    public const byte TypeImageChunk = 0x05;
-    /// <summary>ESP → PC: 1 Byte Nutzlast — 0 Next, 1 Play/Pause, 2 Previous (MediaSubCmd).</summary>
-    public const byte TypeMediaCmd = 0x07;
+    public const byte PktStartByte = MixrProtocol.StartByte;
+    public const byte TypeSongTitle = MixrProtocol.TypeSongTitle;
+    public const byte TypeSongArtist = MixrProtocol.TypeSongArtist;
+    public const byte TypeImageChunk = MixrProtocol.TypeImageChunk;
+    public const byte TypeMediaCmd = MixrProtocol.TypeMediaCmd;
+    public const byte TypeVoipMuteCmd = MixrProtocol.TypeVoipMuteCmd;
+    public const byte TypeVoipMuteToggleUi = MixrProtocol.TypeVoipMuteToggleUi;
+    public const byte TypeVoipDeafen = MixrProtocol.TypeVoipDeafen;
+    public const byte TypeShareScreenCmd = MixrProtocol.TypeShareScreenCmd;
 
-    /// <summary>ESP → PC: Nutzlast 0 — VoIP-/Discord-Mute am PC auslösen.</summary>
-    public const byte TypeVoipMuteCmd = 0x08;
-
-    /// <summary>PC → ESP: Nutzlast 0 — Stumm-Overlay (VK_9 / Strg+Linksshift+Alt+9).</summary>
-    public const byte TypeVoipMuteToggleUi = 0x0A;
-
-    /// <summary>
-    /// ESP → PC: Deafen-Hotkey; PC → ESP: Deafen-Overlay — gleiches Byte 0x0B (VK_0 / Strg+Linksshift+Alt+0).
-    /// </summary>
-    public const byte TypeVoipDeafen = 0x0B;
-
-    /// <summary>ESP → PC: Nutzlast 0 — Bildschirm teilen (Strg+Linksshift+Alt+8).</summary>
-    public const byte TypeShareScreenCmd = 0x0C;
-
-    public const int ChunkMax = 255;
+    public const int ChunkMax = MixrProtocol.PayloadMax;
 
     readonly SerialPort _port;
     readonly object _sendLock = new();
+    volatile bool _disposed;
+
+    public string PortName => _port.PortName;
+
+    public bool IsOpen => !_disposed && _port.IsOpen;
 
     public MixrSerialTransport(string portName, int baudRate)
     {
@@ -68,18 +63,16 @@ public sealed class MixrSerialTransport : IDisposable
 
         lock (_sendLock)
         {
-            SendPacket(TypeSongTitle, t);
+            SendPacketCore(TypeSongTitle, t);
             _port.BaseStream.Flush();
-            SendPacket(TypeSongArtist, a);
+            SendPacketCore(TypeSongArtist, a);
             _port.BaseStream.Flush();
 
             int offset = 0;
             while (offset < rgb565Full.Length)
             {
                 int n = Math.Min(ChunkMax, rgb565Full.Length - offset);
-                var chunk = new byte[n];
-                Buffer.BlockCopy(rgb565Full, offset, chunk, 0, n);
-                SendPacket(TypeImageChunk, chunk);
+                SendPacketCore(TypeImageChunk, rgb565Full.AsSpan(offset, n));
                 offset += n;
             }
 
@@ -87,11 +80,23 @@ public sealed class MixrSerialTransport : IDisposable
         }
     }
 
-    void SendPacket(byte type, byte[] payload)
+    /// <summary>Beliebigen Frame senden (Nutzlast ≤ 255 Byte). Wirft bei geschlossenem Port oder Überlänge.</summary>
+    public void Send(byte type, ReadOnlySpan<byte> payload)
     {
-        if (payload.Length > 255)
-            return;
+        if (payload.Length > MixrProtocol.PayloadMax)
+            throw new ArgumentOutOfRangeException(nameof(payload), $"Nutzlast > {MixrProtocol.PayloadMax} Byte.");
 
+        lock (_sendLock)
+        {
+            SendPacketCore(type, payload);
+            _port.BaseStream.Flush();
+        }
+    }
+
+    public void Send(byte type) => Send(type, ReadOnlySpan<byte>.Empty);
+
+    void SendPacketCore(byte type, ReadOnlySpan<byte> payload)
+    {
         byte length = (byte)payload.Length;
         byte crc = (byte)(length ^ type);
         foreach (byte b in payload)
@@ -101,34 +106,33 @@ public sealed class MixrSerialTransport : IDisposable
         packet[0] = PktStartByte;
         packet[1] = length;
         packet[2] = type;
-        Buffer.BlockCopy(payload, 0, packet, 3, payload.Length);
+        payload.CopyTo(packet.AsSpan(3));
         packet[^1] = crc;
 
         _port.Write(packet, 0, packet.Length);
     }
 
     /// <summary>Nach erfolgreichem Discord-Mute: ESP zeigt Stumm-Icon auf Slide 1.</summary>
-    public void SendVoipMuteOverlayToggle()
-    {
-        try
-        {
-            SendPacket(TypeVoipMuteToggleUi, Array.Empty<byte>());
-        }
-        catch (IOException)
-        {
-            /* seriell weg — ignorieren */
-        }
-    }
+    public void SendVoipMuteOverlayToggle() => TrySendEmpty(TypeVoipMuteToggleUi);
 
-    public void SendVoipDeafenOverlayToggle()
+    public void SendVoipDeafenOverlayToggle() => TrySendEmpty(TypeVoipDeafen);
+
+    /// <summary>Gerät um HELLO (Protokollversion, Firmware) bitten.</summary>
+    public void SendHelloRequest() => TrySendEmpty(MixrProtocol.TypeHelloReq);
+
+    void TrySendEmpty(byte type)
     {
         try
         {
-            SendPacket(TypeVoipDeafen, Array.Empty<byte>());
+            Send(type);
         }
         catch (IOException)
         {
-            /* seriell weg — ignorieren */
+            /* seriell weg — ignorieren, Reconnect-Loop kümmert sich */
+        }
+        catch (InvalidOperationException)
+        {
+            /* Port bereits geschlossen */
         }
     }
 
@@ -169,16 +173,25 @@ public sealed class MixrSerialTransport : IDisposable
             {
                 try
                 {
-                    /* ReadByte blockiert bis Timeout (s. ReadTimeout), verhindert Busy-Spin bei leerem RX */
+                    /* ReadByte blockiert bis Timeout (s. ReadTimeout), verhindert Busy-Spin bei leerem RX.
+                     * Ein Timeout mitten im Frame wirft TimeoutException → Schleife beginnt wieder bei der
+                     * Suche nach 0xAA; der halbe Frame ist damit verworfen (Resync). */
                     if (port.ReadByte() != PktStartByte)
                         continue;
 
                     int len = port.ReadByte();
                     int type = port.ReadByte();
+                    if (len < 0 || type < 0)
+                        break;
                     var payload = new byte[len];
                     int read = 0;
                     while (read < len)
-                        read += port.Read(payload, read, len - read);
+                    {
+                        int n = port.Read(payload, read, len - read);
+                        if (n <= 0)
+                            throw new IOException("Serial stream ended");
+                        read += n;
+                    }
                     int crc = port.ReadByte();
                     int calc = len ^ type;
                     foreach (byte b in payload)
@@ -199,12 +212,16 @@ public sealed class MixrSerialTransport : IDisposable
 
     public void Dispose()
     {
+        if (_disposed)
+            return;
+        _disposed = true;
         try
         {
             _port.DtrEnable = false;
             _port.RtsEnable = false;
         }
         catch (IOException) { }
+        catch (InvalidOperationException) { }
 
         _port.Dispose();
     }

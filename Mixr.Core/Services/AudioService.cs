@@ -5,9 +5,25 @@ using System.Diagnostics;
 namespace Mixr.Services;
 
 /// <summary>Master-Lautstärke + App-Sessions (AudioSwitcher 3.0.3).</summary>
-public sealed class AudioService
+public sealed class AudioService : IDisposable
 {
     private readonly CoreAudioController _controller = new();
+    bool _disposed;
+
+    public void Dispose()
+    {
+        if (_disposed)
+            return;
+        _disposed = true;
+        try
+        {
+            _controller.Dispose();
+        }
+        catch
+        {
+            /* COM bereits abgebaut */
+        }
+    }
     private Dictionary<string, List<IAudioSession>> _sessionMap = new(StringComparer.OrdinalIgnoreCase);
 
     readonly object _snapshotLock = new();

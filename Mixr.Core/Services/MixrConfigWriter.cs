@@ -4,20 +4,17 @@ using YamlDotNet.Serialization.NamingConventions;
 
 namespace Mixr.Services;
 
+/// <summary>
+/// Schreibt <c>config.yaml</c> atomar (Temp-Datei + Ersetzen), damit ein Absturz mitten im Schreiben
+/// keine halbe Datei hinterlässt. IGDB-Zugangsdaten werden bewusst nicht mitgeschrieben — sie gehören
+/// in <c>config.secrets.yaml</c> (siehe <see cref="IgdbCredentialResolver"/>).
+/// </summary>
 public static class MixrConfigWriter
 {
+    public static void Save(MixrConfig cfg) => Save(cfg, MixrConfigPaths.ConfigYamlPath);
+
     public static void Save(MixrConfig cfg, string path)
     {
-        IgdbYamlDto? igdb = null;
-        if (!string.IsNullOrWhiteSpace(cfg.IgdbClientId) || !string.IsNullOrWhiteSpace(cfg.IgdbClientSecret))
-        {
-            igdb = new IgdbYamlDto();
-            if (!string.IsNullOrWhiteSpace(cfg.IgdbClientId))
-                igdb.Client_id = cfg.IgdbClientId.Trim();
-            if (!string.IsNullOrWhiteSpace(cfg.IgdbClientSecret))
-                igdb.Client_secret = cfg.IgdbClientSecret.Trim();
-        }
-
         var dto = new MixrYamlDto
         {
             Com_port = cfg.ComPort,
@@ -28,7 +25,6 @@ public static class MixrConfigWriter
             Button_mapping = cfg.ButtonMapping.Count > 0 ? new List<string>(cfg.ButtonMapping) : null,
             Session_groups = cfg.SessionGroups.Count > 0 ? cfg.SessionGroups : null,
             Limit_system_sounds_to_20_percent = cfg.LimitSystemSoundsTo20Percent,
-            Igdb = igdb,
         };
 
         var serializer = new SerializerBuilder()
@@ -36,7 +32,7 @@ public static class MixrConfigWriter
             .Build();
 
         var yaml = serializer.Serialize(dto);
-        File.WriteAllText(path, yaml);
+        AtomicFile.WriteAllText(path, yaml);
     }
 
     sealed class MixrYamlDto
@@ -49,12 +45,5 @@ public static class MixrConfigWriter
         public List<string>? Button_mapping { get; set; }
         public Dictionary<string, List<string>>? Session_groups { get; set; }
         public bool? Limit_system_sounds_to_20_percent { get; set; }
-        public IgdbYamlDto? Igdb { get; set; }
-    }
-
-    sealed class IgdbYamlDto
-    {
-        public string? Client_id { get; set; }
-        public string? Client_secret { get; set; }
     }
 }

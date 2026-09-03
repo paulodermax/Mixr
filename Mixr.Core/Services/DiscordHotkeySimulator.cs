@@ -185,11 +185,28 @@ public static class DiscordHotkeySimulator
     [DllImport("user32.dll", SetLastError = true)]
     static extern uint SendInput(uint nInputs, INPUT[] pInputs, int cbSize);
 
-    [StructLayout(LayoutKind.Sequential)]
+    /// <summary>
+    /// Win32 <c>INPUT</c> ist eine Union aus MOUSEINPUT/KEYBDINPUT/HARDWAREINPUT; die größte Variante
+    /// (MOUSEINPUT, 32 Byte auf x64) bestimmt die Größe. Ohne die Union meldet SendInput
+    /// ERROR_INVALID_PARAMETER, weil <c>cbSize</c> nicht 40 Byte ist.
+    /// </summary>
+    [StructLayout(LayoutKind.Explicit)]
     struct INPUT
     {
-        public uint type;
-        public KEYBDINPUT ki;
+        [FieldOffset(0)] public uint type;
+        [FieldOffset(8)] public MOUSEINPUT mi;
+        [FieldOffset(8)] public KEYBDINPUT ki;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    struct MOUSEINPUT
+    {
+        public int dx;
+        public int dy;
+        public uint mouseData;
+        public uint dwFlags;
+        public uint time;
+        public UIntPtr dwExtraInfo;
     }
 
     [StructLayout(LayoutKind.Sequential)]

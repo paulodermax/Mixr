@@ -22,10 +22,32 @@ public sealed class EspIncomingDispatcher
     /// <summary>ESP Debug-Menü — Bildschirm teilen (Pkt 0x0C).</summary>
     public event Action? ShareScreenRequested;
 
+    /// <summary>HELLO vom Gerät (nach Verbindung oder HELLO_REQ).</summary>
+    public event Action<DeviceHello>? Hello;
+
+    /// <summary>FW_ACK: Status + nächster erwarteter Offset.</summary>
+    public event Action<MixrProtocol.FwStatus, uint>? FirmwareAck;
+
     public void Dispatch(int type, byte[] payload)
     {
-        const byte typeSlider = 0x03;
-        const byte typeBtn = 0x04;
+        const byte typeSlider = MixrProtocol.TypeSliderVals;
+        const byte typeBtn = MixrProtocol.TypeBtnCmd;
+
+        if (type == MixrProtocol.TypeHello && payload.Length >= 2)
+        {
+            var version = payload.Length > 2
+                ? System.Text.Encoding.UTF8.GetString(payload, 2, payload.Length - 2).TrimEnd('\0')
+                : "";
+            Hello?.Invoke(new DeviceHello(payload[0], payload[1], version));
+            return;
+        }
+
+        if (type == MixrProtocol.TypeFwAck && payload.Length >= 5)
+        {
+            var offset = System.Buffers.Binary.BinaryPrimitives.ReadUInt32LittleEndian(payload.AsSpan(1, 4));
+            FirmwareAck?.Invoke((MixrProtocol.FwStatus)payload[0], offset);
+            return;
+        }
 
         if (type == MixrSerialTransport.TypeVoipMuteCmd && payload.Length == 0)
         {

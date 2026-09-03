@@ -1,0 +1,11 @@
+# Mixr — OTA-Partitionstabelle für Module mit >= 4 MiB Flash.
+# Zwei App-Slots à 1,9 MiB; esp_ota_* schreibt in den inaktiven Slot, Bootloader wechselt nach FW_END.
+# Aktivieren: CONFIG_ESPTOOLPY_FLASHSIZE_4MB=y + CONFIG_PARTITION_TABLE_CUSTOM_FILENAME="partitions_ota.csv"
+# Optional: CONFIG_BOOTLOADER_APP_ROLLBACK_ENABLE=y (mixr_fw_update_mark_valid() bestätigt den Boot).
+#
+# Name,   Type, SubType, Offset,   Size,     Flags
+nvs,      data, nvs,     0x9000,   0x6000,
+otadata,  data, ota,     0xF000,   0x2000,
+phy_init, data, phy,     0x11000,  0x1000,
+ota_0,    app,  ota_0,   0x20000,  0x1E0000,
+ota_1,    app,  ota_1,   0x200000, 0x1E0000,

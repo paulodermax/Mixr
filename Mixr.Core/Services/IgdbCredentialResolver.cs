@@ -17,13 +17,16 @@ public static class IgdbCredentialResolver
     static string? _yamlClientId;
     static string? _yamlClientSecret;
 
+    /// <summary>Optionaler Kanal für Diagnosen (nie Secret-Inhalte).</summary>
+    public static Action<string>? DiagnosticLog { get; set; }
+
     /// <summary>Nach jedem erfolgreichen <see cref="MixrConfigLoader.Load"/> aufrufen.</summary>
-    public static void LoadFromDisk(MixrConfig mainConfig, string baseDirectory)
+    /// <param name="secretsPath">Vollständiger Pfad zu <c>config.secrets.yaml</c> (siehe <see cref="MixrConfigPaths.SecretsYamlPath"/>).</param>
+    public static void LoadFromDisk(MixrConfig mainConfig, string secretsPath)
     {
         string? id = TrimOrNull(mainConfig.IgdbClientId);
         string? sec = TrimOrNull(mainConfig.IgdbClientSecret);
 
-        var secretsPath = Path.Combine(baseDirectory, "config.secrets.yaml");
         if (File.Exists(secretsPath))
         {
             try
@@ -47,9 +50,9 @@ public static class IgdbCredentialResolver
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                /* defekt — Hauptconfig bleibt */
+                DiagnosticLog?.Invoke($"config.secrets.yaml nicht lesbar ({ex.GetType().Name}) — Werte aus config.yaml/Umgebung bleiben.");
             }
         }
 
@@ -58,6 +61,39 @@ public static class IgdbCredentialResolver
             _yamlClientId = id;
             _yamlClientSecret = sec;
         }
+    }
+
+    /// <summary>Schreibt (oder überschreibt) die Secrets-Datei atomar. Leere Werte lassen die Datei ohne igdb-Block.</summary>
+    public static void WriteSecretsFile(string secretsPath, string? clientId, string? clientSecret)
+    {
+        var root = new SecretsYamlRoot();
+        var id = TrimOrNull(clientId);
+        var sec = TrimOrNull(clientSecret);
+        if (id != null || sec != null)
+            root.Igdb = new IgdbYaml { Client_id = id, Client_secret = sec };
+
+        var serializer = new SerializerBuilder()
+            .WithNamingConvention(UnderscoredNamingConvention.Instance)
+            .ConfigureDefaultValuesHandling(DefaultValuesHandling.OmitNull)
+            .Build();
+
+        var header =
+            "# Mixr — lokale Zugangsdaten (Twitch/IGDB). Diese Datei wird nie in Updates überschrieben.\n" +
+            "# Umgebungsvariablen IGDB_CLIENT_ID / IGDB_CLIENT_SECRET haben Vorrang.\n";
+        AtomicFile.WriteAllText(secretsPath, header + serializer.Serialize(root));
+
+        lock (LockObj)
+        {
+            _yamlClientId = id;
+            _yamlClientSecret = sec;
+        }
+    }
+
+    /// <summary>Aktuell aus Dateien geladene Werte (ohne Umgebungsvariablen) — für die Settings-UI.</summary>
+    public static (string? clientId, string? clientSecret) GetFileValues()
+    {
+        lock (LockObj)
+            return (_yamlClientId, _yamlClientSecret);
     }
 
     public static (string? clientId, string? clientSecret) Resolve()

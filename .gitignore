@@ -1,16 +1,48 @@
-/PC/PC.sln
-/PC/publish
-/PC/bin
-/PC/obj
+# ---- .NET / Visual Studio ----
+**/bin/
+**/obj/
+**/publish/
+.vs/
+*.user
+*.suo
+*.userprefs
+*.swp
+TestResults/
+*.binlog
 
-/scripts/node_modules
-/ESP/tools/node_raster/node_modules
-mixr_app.log
-**/mixr_app.log
+# Velopack release output (lokal: dotnet publish + vpk pack)
+/Releases/
+/artifacts/
 
-# Lokale Twitch/IGDB-Credentials (neben config.yaml)
+# ---- Node / Python ----
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+
+# ---- Logs, Backups, temporäre Dateien ----
+*.log
+*.bak
+*.tmp
+*.orig
+
+# ---- Lokale Secrets (siehe Mixr.App/config.secrets.example.yaml) ----
 config.secrets.yaml
 **/config.secrets.yaml
 
-/searchengine/bin
-/searchengine/obj
+# ---- Lokale Firmware-Artefakte, die die App beim Debuggen einbindet ----
+/Mixr.App/firmware/*.bin
+
+# ---- ESP-IDF (Details in ESP/.gitignore) ----
+/ESP/build/
+/ESP/build-*/
+/ESP/managed_components/
+/ESP/sdkconfig
+/ESP/sdkconfig.old
+# wird nur in der Release-Pipeline aus dem Git-Tag erzeugt
+/ESP/version.txt
+
+# ---- Betriebssystem ----
+Thumbs.db
+Desktop.ini
+.DS_Store

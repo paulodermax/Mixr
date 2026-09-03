@@ -7,90 +7,63 @@
     <RootNamespace>Mixr_App</RootNamespace>
     <AssemblyName>Mixr</AssemblyName>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets\AppIcon.ico</ApplicationIcon>
     <Platforms>x64</Platforms>
-    <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
-    <PublishProfile>win-$(Platform).pubxml</PublishProfile>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <UseWinUI>true</UseWinUI>
     <WinUISDKReferences>false</WinUISDKReferences>
-    <EnableMsixTooling>true</EnableMsixTooling>
-    <!-- Self-Contained: Undocked RegFree WinRT lädt Microsoft.WindowsAppRuntime.dll aus dem App-Ordner. -->
-    <!-- NICHT gleichzeitig Bootstrap=true: der sucht die MSIX-Runtime in der Registry und zeigt „Installieren?“ (OnNoMatch_ShowUI). -->
-    <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
-    <WindowsAppSdkBootstrapInitialize Condition="'$(WindowsAppSDKSelfContained)'=='true'">false</WindowsAppSdkBootstrapInitialize>
-    <WindowsAppSdkBootstrapInitialize Condition="'$(WindowsAppSDKSelfContained)'!='true'">true</WindowsAppSdkBootstrapInitialize>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+
+    <!--
+      Vertriebsmodell: unpackaged + self-contained, ausgeliefert über Velopack (Setup.exe + Delta-Updates
+      aus GitHub Releases). Kein MSIX, keine Paket-Identität. Die Windows App Runtime liegt im App-Ordner
+      (Undocked RegFree WinRT); der Bootstrapper darf deshalb NICHT laufen, sonst sucht er die MSIX-Runtime.
+    -->
+    <WindowsPackageType>None</WindowsPackageType>
+    <!-- Ohne EnableMsixTooling scheitert `dotnet build` in der PRI-Generierung (ExpandPriContent) — auch für unpackaged Apps nötig. -->
+    <EnableMsixTooling>true</EnableMsixTooling>
+    <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+    <WindowsAppSdkBootstrapInitialize>false</WindowsAppSdkBootstrapInitialize>
+    <SelfContained>true</SelfContained>
     <PublishTrimmed>false</PublishTrimmed>
+    <PublishSingleFile>false</PublishSingleFile>
+    <PublishReadyToRun Condition="'$(Configuration)' != 'Debug'">true</PublishReadyToRun>
+
     <!-- System.Drawing.Common 10.x (NotifyIcon) asks for Metadata/Immutable v10; net9 ref is v9 — harmless, primary wins -->
     <NoWarn>$(NoWarn);MSB3277</NoWarn>
-    <!-- Eigenes Program.cs statt generiertem Main -->
+    <!-- Eigenes Program.cs (Velopack-Hooks + Logging vor XAML) statt generiertem Main -->
     <DefineConstants>$(DefineConstants);DISABLE_XAML_GENERATED_MAIN</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="Assets\SplashScreen.scale-200.png" />
-    <Content Include="Assets\LockScreenLogo.scale-200.png" />
-    <Content Include="Assets\Square150x150Logo.scale-200.png" />
-    <Content Include="Assets\Square44x44Logo.scale-200.png" />
-    <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
-    <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\AppIcon.ico" />
-    <Content Include="Assets\Wide310x150Logo.scale-200.png" />
-    <Content Include="Assets\Mixr-Modell.svg" />
-    <Content Include="Assets\general-sound.png" />
-    <Content Include="Assets\no-input.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Update="Assets\Mixr-Modell.svg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Link>Assets\Mixr-Modell.svg</Link>
-    </Content>
-    <Content Update="Assets\general-sound.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Link>Assets\general-sound.png</Link>
-    </Content>
-    <Content Update="Assets\no-input.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Link>Assets\no-input.png</Link>
-    </Content>
+    <Content Include="Assets\Mixr-Modell.svg" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\general-sound.png" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\no-input.png" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <ItemGroup>
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
 
-  <!--
-    Defining the "Msix" ProjectCapability here allows the Single-project MSIX Packaging
-    Tools extension to be activated for this project even if the Windows App SDK Nuget
-    package has not yet been restored.
-  -->
-  <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
-    <ProjectCapability Include="Msix" />
-  </ItemGroup>
-
-  <!-- This is a temporary workaround to test dotnet new template - it will block vstemplate from working -->
   <ItemGroup>
     <PackageReference Include="H.NotifyIcon.WinUI" Version="2.1.4" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.756" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.6.240829007" />
+    <PackageReference Include="Velopack" Version="1.2.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Mixr.Core\Mixr.Core.csproj" />
   </ItemGroup>
 
+  <!-- Default-Konfiguration: wird beim ersten Start nach %LOCALAPPDATA%\Mixr\config.yaml kopiert. -->
   <ItemGroup>
-    <None Include="..\Mixr.Core\config.yaml" Link="config.yaml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="config.secrets.example.yaml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="..\Mixr.Core\config.yaml" Link="config.default.yaml" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="config.secrets.example.yaml" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
-  <!-- Cover-Assets: Repository Mixr/covers (..\covers) → Ausgabe covers\; Start → %LocalAppData%\Mixr\covers -->
+  <!-- Cover-Assets: Repository Mixr/covers → Ausgabe covers\; Start → %LocalAppData%\Mixr\covers -->
   <ItemGroup Condition="Exists('$(MSBuildProjectDirectory)\..\covers')">
     <Content Include="$(MSBuildProjectDirectory)\..\covers\**\*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -99,28 +72,13 @@
   </ItemGroup>
 
   <!--
-    Defining the "HasPackageAndPublishMenuAddedByProject" property here allows the Solution
-    Explorer "Package and Publish" context menu entry to be enabled for this project even if
-    the Windows App SDK Nuget package has not yet been restored.
+    Firmware-Image für das Geräte-Update: die Release-Pipeline legt ESP/build/Mixr.bin nach
+    Mixr.App/firmware/Mixr.bin, bevor sie publiziert. Lokal optional (Ordner darf fehlen).
   -->
-  <PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
-    <HasPackageAndPublishMenu>true</HasPackageAndPublishMenu>
-  </PropertyGroup>
-
-  <!-- Publish Properties -->
-  <PropertyGroup>
-    <PublishReadyToRun Condition="'$(Configuration)' == 'Debug'">False</PublishReadyToRun>
-    <PublishReadyToRun Condition="'$(Configuration)' != 'Debug'">True</PublishReadyToRun>
-  </PropertyGroup>
-
-  <!-- Release: .NET-Runtime in den Ausgabeordner (Doppelklick auf Mixr.exe). dotnet run nutzt den SDK-Host und braucht das nicht. -->
-  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
-    <SelfContained>true</SelfContained>
-    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
-  </PropertyGroup>
-
-  <!-- Debug / dotnet watch: ohne win-x64 schlägt WindowsAppSDKSelfContained fehl -->
-  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
-    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
-  </PropertyGroup>
+  <ItemGroup Condition="Exists('$(MSBuildProjectDirectory)\firmware')">
+    <Content Include="$(MSBuildProjectDirectory)\firmware\*.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>firmware\%(Filename)%(Extension)</Link>
+    </Content>
+  </ItemGroup>
 </Project>

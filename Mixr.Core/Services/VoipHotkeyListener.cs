@@ -36,35 +36,98 @@ public static class VoipHotkeyListener
 
     delegate IntPtr LowLevelKeyboardProc(int nCode, IntPtr wParam, IntPtr lParam);
 
+    const uint WmQuit = 0x0012;
+
+    static readonly object StateLock = new();
+    static Thread? _thread;
+    static uint _threadId;
+
+    /// <summary>Optionaler Kanal für Fehlermeldungen (statt Konsole).</summary>
+    public static Action<string>? DiagnosticLog { get; set; }
+
+    public static bool IsRunning
+    {
+        get
+        {
+            lock (StateLock)
+                return _thread is { IsAlive: true };
+        }
+    }
+
     public static void Start(Action onMuteUi, Action onDeafenUi)
     {
-        _onMuteUi = onMuteUi;
-        _onDeafenUi = onDeafenUi;
-
-        var t = new Thread(HookThread)
+        lock (StateLock)
         {
-            IsBackground = true,
-            Name = "MixrVoipHotkeys",
-        };
-        t.SetApartmentState(ApartmentState.STA);
-        t.Start();
+            if (_thread is { IsAlive: true })
+                return;
+
+            _onMuteUi = onMuteUi;
+            _onDeafenUi = onDeafenUi;
+
+            var t = new Thread(HookThread)
+            {
+                IsBackground = true,
+                Name = "MixrVoipHotkeys",
+            };
+            t.SetApartmentState(ApartmentState.STA);
+            _thread = t;
+            t.Start();
+        }
+    }
+
+    /// <summary>
+    /// Entfernt den globalen Tastatur-Hook und beendet den Hook-Thread. Muss vor Prozessende aufgerufen werden,
+    /// sonst bleibt der Hook bis zum Windows-Timeout registriert.
+    /// </summary>
+    public static void Stop(TimeSpan? joinTimeout = null)
+    {
+        Thread? t;
+        uint tid;
+        lock (StateLock)
+        {
+            t = _thread;
+            tid = _threadId;
+            _thread = null;
+        }
+
+        if (t is null || !t.IsAlive)
+            return;
+
+        if (tid != 0)
+            PostThreadMessage(tid, WmQuit, UIntPtr.Zero, IntPtr.Zero);
+
+        if (!t.Join(joinTimeout ?? TimeSpan.FromSeconds(2)))
+            DiagnosticLog?.Invoke("[Mixr] VoIP-Hook-Thread hat nicht rechtzeitig beendet.");
     }
 
     static void HookThread()
     {
-        _hookId = SetWindowsHookEx(WhKeyboardLl, Proc, GetModuleHandle(IntPtr.Zero), 0);
+        lock (StateLock)
+            _threadId = GetCurrentThreadId();
+
+        _hookId = SetWindowsHookEx(WhKeyboardLl, Proc, GetModuleHandle(null), 0);
         if (_hookId == IntPtr.Zero)
         {
-            Console.Error.WriteLine(
-                "[Mixr] VoIP-Tastatur-Hook nicht gesetzt (SetWindowsHookEx fehlgeschlagen).");
+            DiagnosticLog?.Invoke(
+                $"[Mixr] VoIP-Tastatur-Hook nicht gesetzt (SetWindowsHookEx Win32={Marshal.GetLastWin32Error()}).");
             return;
         }
 
-        MSG msg;
-        while (GetMessage(out msg, IntPtr.Zero, 0, 0) > 0)
+        try
         {
-            TranslateMessage(ref msg);
-            DispatchMessage(ref msg);
+            MSG msg;
+            while (GetMessage(out msg, IntPtr.Zero, 0, 0) > 0)
+            {
+                TranslateMessage(ref msg);
+                DispatchMessage(ref msg);
+            }
+        }
+        finally
+        {
+            UnhookWindowsHookEx(_hookId);
+            _hookId = IntPtr.Zero;
+            lock (StateLock)
+                _threadId = 0;
         }
     }
 
@@ -166,8 +229,19 @@ public static class VoipHotkeyListener
     [DllImport("user32.dll", SetLastError = true)]
     static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam);
 
+    [DllImport("user32.dll", SetLastError = true)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    static extern bool UnhookWindowsHookEx(IntPtr hhk);
+
+    [DllImport("user32.dll", SetLastError = true)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    static extern bool PostThreadMessage(uint idThread, uint msg, UIntPtr wParam, IntPtr lParam);
+
+    [DllImport("kernel32.dll")]
+    static extern uint GetCurrentThreadId();
+
     [DllImport("kernel32.dll", CharSet = CharSet.Unicode)]
-    static extern IntPtr GetModuleHandle(IntPtr lpModuleName);
+    static extern IntPtr GetModuleHandle(string? lpModuleName);
 
     [DllImport("user32.dll")]
     static extern short GetAsyncKeyState(int vKey);

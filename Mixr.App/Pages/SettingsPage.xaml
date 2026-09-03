@@ -8,73 +8,135 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
+    <Page.Resources>
+        <Style x:Key="SettingsCard" TargetType="Border">
+            <Setter Property="Margin" Value="0,0,0,16" />
+            <Setter Property="Padding" Value="16" />
+            <Setter Property="Background" Value="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
+            <Setter Property="BorderBrush" Value="{ThemeResource CardStrokeColorDefaultBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="8" />
+        </Style>
+        <Style x:Key="CardTitle" TargetType="TextBlock">
+            <Setter Property="Margin" Value="0,0,0,12" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+        <Style x:Key="Hint" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{ThemeResource TextFillColorSecondaryBrush}" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
+    </Page.Resources>
+
     <ScrollViewer Padding="24,16" VerticalScrollBarVisibility="Auto">
         <StackPanel MaxWidth="720">
             <TextBlock
                 Margin="0,0,0,16"
                 FontSize="22"
                 FontWeight="SemiBold"
-                Text="Settings" />
+                Text="Einstellungen" />
 
-            <Border
-                Margin="0,0,0,16"
-                Padding="16"
-                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                BorderThickness="1"
-                CornerRadius="8">
+            <!-- App-Updates -->
+            <Border Style="{StaticResource SettingsCard}">
                 <StackPanel>
-                    <TextBlock Margin="0,0,0,12" FontWeight="SemiBold" Text="Windows" />
-                    <ToggleSwitch
-                        x:Name="StartupToggle"
-                        Header="Start with Windows"
-                        OffContent="Off"
-                        OnContent="On"
-                        Toggled="StartupToggle_Toggled" />
+                    <TextBlock Style="{StaticResource CardTitle}" Text="App-Updates" />
+                    <TextBlock x:Name="AppVersionText" Margin="0,0,0,4" />
+                    <TextBlock x:Name="UpdateStatusText" Style="{StaticResource Hint}" Margin="0,0,0,8" />
+                    <ProgressBar x:Name="UpdateProgress" Margin="0,0,0,8" Visibility="Collapsed" />
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <Button x:Name="CheckUpdatesButton" Content="Nach Updates suchen" Click="CheckUpdates_Click" />
+                        <Button
+                            x:Name="InstallUpdateButton"
+                            Content="Jetzt installieren und neu starten"
+                            Style="{StaticResource AccentButtonStyle}"
+                            Visibility="Collapsed"
+                            Click="InstallUpdate_Click" />
+                        <HyperlinkButton Content="Release-Notes" NavigateUri="https://github.com/paulodermax/Mixr/releases" />
+                    </StackPanel>
                     <TextBlock
-                        Margin="0,12,0,0"
-                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                        Text="Adds a Run entry for this app (Registry Run)."
-                        TextWrapping="Wrap" />
+                        Style="{StaticResource Hint}"
+                        Margin="0,8,0,0"
+                        Text="Updates werden automatisch alle 6 Stunden geprüft und im Hintergrund geladen. Installiert wird erst, wenn du es bestätigst — oder beim nächsten Start." />
                 </StackPanel>
             </Border>
 
-            <Border
-                Margin="0,0,0,16"
-                Padding="16"
-                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                BorderThickness="1"
-                CornerRadius="8">
+            <!-- Geräte-Firmware -->
+            <Border Style="{StaticResource SettingsCard}">
                 <StackPanel>
-                    <TextBlock Margin="0,0,0,12" FontWeight="SemiBold" Text="Audio" />
+                    <TextBlock Style="{StaticResource CardTitle}" Text="Geräte-Firmware" />
+                    <TextBlock x:Name="FirmwareStatusText" Style="{StaticResource Hint}" Margin="0,0,0,8" />
+                    <TextBlock x:Name="FirmwareStageText" Style="{StaticResource Hint}" Margin="0,0,0,4" Visibility="Collapsed" />
+                    <ProgressBar x:Name="FirmwareProgress" Margin="0,0,0,8" Visibility="Collapsed" />
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <Button x:Name="FirmwareUpdateButton" Content="Firmware aktualisieren" Click="FirmwareUpdate_Click" />
+                        <Button x:Name="FirmwareCancelButton" Content="Abbrechen" Visibility="Collapsed" Click="FirmwareCancel_Click" />
+                    </StackPanel>
+                    <TextBlock
+                        Style="{StaticResource Hint}"
+                        Margin="0,8,0,0"
+                        Text="Das Mixr-Gerät bleibt während des Updates angeschlossen. Geräte mit OTA-Partition werden direkt über die USB-Verbindung aktualisiert; ältere Platinen über den USB-Download-Modus (esptool wird dafür einmalig geladen)." />
+                </StackPanel>
+            </Border>
+
+            <!-- Windows -->
+            <Border Style="{StaticResource SettingsCard}">
+                <StackPanel>
+                    <TextBlock Style="{StaticResource CardTitle}" Text="Windows" />
+                    <ToggleSwitch
+                        x:Name="StartupToggle"
+                        Header="Mit Windows starten"
+                        OffContent="Aus"
+                        OnContent="An"
+                        Toggled="StartupToggle_Toggled" />
+                    <TextBlock
+                        Style="{StaticResource Hint}"
+                        Margin="0,12,0,0"
+                        Text="Legt einen Autostart-Eintrag für den aktuellen Benutzer an (Registry „Run“). Mixr startet dann minimiert im Tray." />
+                </StackPanel>
+            </Border>
+
+            <!-- Audio -->
+            <Border Style="{StaticResource SettingsCard}">
+                <StackPanel>
+                    <TextBlock Style="{StaticResource CardTitle}" Text="Audio" />
                     <CheckBox
                         x:Name="LimitSystemSoundsCheck"
-                        Content="Limit system sounds to 20% (notifications)"
+                        Content="Systemklänge auf 20 % begrenzen (Benachrichtigungen)"
                         Checked="LimitSystemSoundsCheck_Changed"
                         Unchecked="LimitSystemSoundsCheck_Changed" />
                     <TextBlock
+                        Style="{StaticResource Hint}"
                         Margin="0,8,0,0"
-                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                        Text="Checked once at app start: if Windows “System Sounds” is louder than 20%, it is reduced."
-                        TextWrapping="Wrap" />
+                        Text="Wird einmal beim App-Start geprüft: ist „Systemsounds“ im Windows-Mixer lauter als 20 %, wird der Wert reduziert." />
                 </StackPanel>
             </Border>
 
-            <Border
-                Padding="16"
-                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                BorderThickness="1"
-                CornerRadius="8">
+            <!-- IGDB -->
+            <Border Style="{StaticResource SettingsCard}">
                 <StackPanel>
-                    <TextBlock Margin="0,0,0,8" FontWeight="SemiBold" Text="Edit configuration" />
+                    <TextBlock Style="{StaticResource CardTitle}" Text="Spiele-Cover (IGDB / Twitch)" />
                     <TextBlock
-                        x:Name="CfgHint"
-                        Margin="0,0,0,8"
-                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                        TextWrapping="Wrap" />
-                    <HyperlinkButton Content="Open folder" Click="OpenFolder_Click" />
+                        Style="{StaticResource Hint}"
+                        Margin="0,0,0,12"
+                        Text="Optional. Mit einer eigenen Twitch-Anwendung lädt Mixr Cover für Spiele, die nicht über Steam kommen. Die Zugangsdaten werden nur lokal in config.secrets.yaml gespeichert und nie in Updates überschrieben." />
+                    <TextBox x:Name="IgdbClientIdBox" Header="Client-ID" Margin="0,0,0,8" />
+                    <PasswordBox x:Name="IgdbClientSecretBox" Header="Client-Secret" Margin="0,0,0,12" />
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <Button Content="Speichern" Click="SaveIgdb_Click" />
+                        <HyperlinkButton Content="Twitch Developer Console" NavigateUri="https://dev.twitch.tv/console/apps" />
+                    </StackPanel>
+                    <TextBlock x:Name="IgdbStatusText" Style="{StaticResource Hint}" Margin="0,8,0,0" />
+                </StackPanel>
+            </Border>
+
+            <!-- Konfiguration -->
+            <Border Style="{StaticResource SettingsCard}" Margin="0">
+                <StackPanel>
+                    <TextBlock Style="{StaticResource CardTitle}" Text="Konfiguration &amp; Daten" />
+                    <TextBlock x:Name="CfgHint" Style="{StaticResource Hint}" Margin="0,0,0,8" />
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <HyperlinkButton Content="Datenordner öffnen" Click="OpenFolder_Click" />
+                        <HyperlinkButton Content="Log-Ordner öffnen" Click="OpenLogFolder_Click" />
+                    </StackPanel>
                 </StackPanel>
             </Border>
         </StackPanel>

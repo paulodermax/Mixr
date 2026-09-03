@@ -1,60 +1,64 @@
 using System;
 using System.IO;
+using System.Linq;
 using Mixr.Services;
+using Velopack;
 
 namespace Mixr_App;
 
 /// <summary>
-/// Eigenes Main, damit sofort geloggt wird (vor App / XAML). Erfordert DISABLE_XAML_GENERATED_MAIN.
+/// Eigenes Main: Velopack-Hooks müssen als Allererstes laufen (Install/Update/Uninstall starten die EXE mit
+/// Spezialargumenten und erwarten sofortiges Beenden), danach Logging vor App / XAML.
+/// Erfordert DISABLE_XAML_GENERATED_MAIN.
 /// </summary>
 public static class Program
 {
+    public static bool StartMinimized { get; private set; }
+
     [STAThread]
     static void Main(string[] args)
     {
         try
         {
+            VelopackApp.Build()
+                .SetLogger(new VelopackAppLogger())
+                .OnFirstRun(_ => AppLog.WriteLine("Velopack: erster Start nach Installation."))
+                .OnRestarted(v => AppLog.WriteLine($"Velopack: nach Update auf {v} neu gestartet."))
+                .Run();
+
+            StartMinimized = args.Any(a => a.Equals("--minimized", StringComparison.OrdinalIgnoreCase));
+
             try
             {
                 var exe = Environment.ProcessPath;
-                if (!string.IsNullOrEmpty(exe))
-                {
-                    var dir = Path.GetDirectoryName(exe);
-                    if (!string.IsNullOrEmpty(dir))
-                        Directory.SetCurrentDirectory(dir);
-                }
+                var dir = string.IsNullOrEmpty(exe) ? null : Path.GetDirectoryName(exe);
+                if (!string.IsNullOrEmpty(dir))
+                    Directory.SetCurrentDirectory(dir);
             }
-            catch
+            catch (Exception ex)
             {
-                /* */
+                AppLog.WriteLine("SetCurrentDirectory: " + ex.Message);
             }
 
-            AppLog.WriteLine($"Main entry (args: {string.Join(" ", args)})");
+            AppLog.WriteLine($"==== Mixr {AppVersion.Display} — Main (args: {string.Join(" ", args)})");
+            AppLog.WriteLine($"Datenordner: {MixrConfigPaths.DataRoot}");
 
+            MixrConfigLoader.DiagnosticLog = AppLog.WriteLine;
+            IgdbCredentialResolver.DiagnosticLog = AppLog.WriteLine;
             IgdbCoverService.DiagnosticLog = AppLog.WriteLine;
             _ = MixrConfigLoader.Load(args);
             AppLog.WriteLine("[IGDB] " + IgdbCredentialResolver.FormatDiagnosticSummary());
 
-            AppLog.WriteLine("InitializeComWrappers …");
             global::WinRT.ComWrappersSupport.InitializeComWrappers();
-            AppLog.WriteLine("InitializeComWrappers OK");
 
-            AppLog.WriteLine("Application.Start …");
             global::Microsoft.UI.Xaml.Application.Start(_ =>
             {
                 try
                 {
-                    AppLog.WriteLine("Application.Start callback (UI thread)");
                     var dq = global::Microsoft.UI.Dispatching.DispatcherQueue.GetForCurrentThread();
-                    AppLog.WriteLine($"DispatcherQueue: {(dq is null ? "null" : "ok")}");
-
                     var context = new global::Microsoft.UI.Dispatching.DispatcherQueueSynchronizationContext(dq);
                     global::System.Threading.SynchronizationContext.SetSynchronizationContext(context);
-                    AppLog.WriteLine("SynchronizationContext gesetzt");
-
-                    AppLog.WriteLine("new App() …");
                     new App();
-                    AppLog.WriteLine("new App() zurück");
                 }
                 catch (Exception ex)
                 {
@@ -63,13 +67,23 @@ public static class Program
                     throw;
                 }
             });
-            AppLog.WriteLine("Application.Start beendet (Prozess endet normalerweise nicht hier bei WinUI)");
+            AppLog.WriteLine("Application.Start beendet.");
         }
         catch (Exception ex)
         {
             AppLog.WriteLine("Fatal in Main:");
             AppLog.WriteException(ex);
             throw;
+        }
+    }
+
+    sealed class VelopackAppLogger : Velopack.Logging.IVelopackLogger
+    {
+        public void Log(Velopack.Logging.VelopackLogLevel logLevel, string? message, Exception? exception)
+        {
+            if (logLevel < Velopack.Logging.VelopackLogLevel.Information)
+                return;
+            AppLog.WriteLine($"[Velopack/{logLevel}] {message}{(exception is null ? "" : " " + exception.Message)}");
         }
     }
 }

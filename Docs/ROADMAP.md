@@ -7,6 +7,15 @@ Kurzer Katalog für die weitere Produktentwicklung (Stand: Entwicklungsstand im 
 - Hintergrund-Host mit SMTC, Seriell, Audio-Sessions, Discord-Hotkeys.
 - USB-Wiederverbindung und COM-Erkennung über ESP32-S3 USB Serial/JTAG (VID/PID).
 - Fader-Zuordnung: Bibliothek → Fader-Karten, Speicherung in `config.yaml`, Anzeige zugeordneter Programme, Entfernen pro Eintrag, eigene Ablagefläche für Drag & Drop.
+- Release-Fundament: Velopack-Installer + Auto-Update aus GitHub Releases, zentrale Versionierung (`Directory.Build.props`, Git-Tag), CI/Release-Workflows, Daten in `%LOCALAPPDATA%\Mixr` (Config, Secrets, Logs mit Rotation), geordnetes Herunterfahren (Hook/Serial/Audio), Autostart nur als Opt-in.
+- Protokoll v2: `HELLO`-Handshake (Firmware-Version, Fähigkeiten) und Firmware-Update über `FW_*` (esp_ota) bzw. USB-Download-Modus (esptool) für die 2-MiB-Platine.
+
+## Offen aus dem Release-Umbau
+
+- **Hardware:** GPIO17 ist doppelt belegt (Display-Reset `pins_config.h` vs. Encoder-CLK `board_pins.h`) — auf der Platine oder per Pin-Map lösen.
+- **Flash ≥ 4 MiB:** mit `partitions_ota.csv` echte In-App-Updates ohne Download-Modus.
+- **Code-Signatur** (Azure Artifact Signing) vor breiter Verteilung, sonst SmartScreen-Hinweis.
+- IGDB-Client-Secret gehört nicht in Installationen — Cover-Proxy oder Nutzer-eigene Twitch-App (aktuell: Eingabe in den Einstellungen).
 
 ## Kurzfristig (nächste Iterationen)
 

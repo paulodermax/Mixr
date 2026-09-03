@@ -1603,6 +1603,17 @@ void mixr_ui_on_message(const UiMessage *msg)
                 mixr_ui_set_error_banner("Cover: kein PSRAM");
             }
             break;
+        case PktType::FW_PROGRESS_UI: {
+            char buf[40];
+            uint8_t pct = msg->payload.slider_values[0];
+            if (pct >= 100) {
+                snprintf(buf, sizeof(buf), "Firmware-Update: Neustart …");
+            } else {
+                snprintf(buf, sizeof(buf), "Firmware-Update %u %%", (unsigned)pct);
+            }
+            mixr_ui_set_error_banner(buf);
+            break;
+        }
         default:
             break;
     }

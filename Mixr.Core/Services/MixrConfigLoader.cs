@@ -10,10 +10,23 @@ public static class MixrConfigLoader
     static readonly Regex PortArg = new(@"^--(?:port|com)=?(.+)$", RegexOptions.IgnoreCase | RegexOptions.Compiled);
     static readonly Regex BaudArg = new(@"^--baud=(\d+)$", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
+    /// <summary>Optionaler Kanal für Warnungen (z. B. defekte YAML) — kein Konsolen-Zwang in der Library.</summary>
+    public static Action<string>? DiagnosticLog { get; set; }
+
     public static MixrConfig Load(string[] args)
     {
-        var baseDir = AppContext.BaseDirectory;
-        var path = Path.Combine(baseDir, "config.yaml");
+        try
+        {
+            var note = MixrConfigPaths.EnsureLayout();
+            if (note != null)
+                DiagnosticLog?.Invoke(note);
+        }
+        catch (Exception ex)
+        {
+            DiagnosticLog?.Invoke($"Konfigurationsordner konnte nicht angelegt werden: {ex.Message}");
+        }
+
+        var path = MixrConfigPaths.ConfigYamlPath;
         MixrConfig cfg;
 
         if (File.Exists(path))
@@ -21,12 +34,20 @@ public static class MixrConfigLoader
             var yaml = File.ReadAllText(path);
             if (!string.IsNullOrWhiteSpace(yaml))
             {
-                var deserializer = new DeserializerBuilder()
-                    .WithNamingConvention(UnderscoredNamingConvention.Instance)
-                    .IgnoreUnmatchedProperties()
-                    .Build();
-                var y = deserializer.Deserialize<MixrYaml>(yaml);
-                cfg = (y ?? new MixrYaml()).ToConfig();
+                try
+                {
+                    var deserializer = new DeserializerBuilder()
+                        .WithNamingConvention(UnderscoredNamingConvention.Instance)
+                        .IgnoreUnmatchedProperties()
+                        .Build();
+                    var y = deserializer.Deserialize<MixrYaml>(yaml);
+                    cfg = (y ?? new MixrYaml()).ToConfig();
+                }
+                catch (Exception ex)
+                {
+                    DiagnosticLog?.Invoke($"config.yaml ungültig, Standardwerte aktiv: {ex.Message}");
+                    cfg = new MixrConfig();
+                }
             }
             else
             {
@@ -37,6 +58,8 @@ public static class MixrConfigLoader
         {
             cfg = new MixrConfig();
         }
+
+        MigrateInlineSecretsToSecretsFile(cfg);
 
         for (var i = 0; i < args.Length; i++)
         {
@@ -66,8 +89,33 @@ public static class MixrConfigLoader
                 cfg.BaudRate = baud;
         }
 
-        IgdbCredentialResolver.LoadFromDisk(cfg, baseDir);
+        IgdbCredentialResolver.LoadFromDisk(cfg, MixrConfigPaths.SecretsYamlPath);
         return cfg;
+    }
+
+    /// <summary>
+    /// Ältere Konfigurationen hatten <c>igdb:</c>-Zugangsdaten direkt in der <c>config.yaml</c>.
+    /// Diese werden einmalig in <c>config.secrets.yaml</c> übernommen (falls dort noch nichts steht);
+    /// der Writer schreibt danach keine Secrets mehr in die Hauptdatei.
+    /// </summary>
+    static void MigrateInlineSecretsToSecretsFile(MixrConfig cfg)
+    {
+        if (string.IsNullOrWhiteSpace(cfg.IgdbClientId) && string.IsNullOrWhiteSpace(cfg.IgdbClientSecret))
+            return;
+
+        try
+        {
+            if (!File.Exists(MixrConfigPaths.SecretsYamlPath))
+            {
+                IgdbCredentialResolver.WriteSecretsFile(
+                    MixrConfigPaths.SecretsYamlPath, cfg.IgdbClientId, cfg.IgdbClientSecret);
+                DiagnosticLog?.Invoke("IGDB-Zugangsdaten aus config.yaml nach config.secrets.yaml verschoben.");
+            }
+        }
+        catch (Exception ex)
+        {
+            DiagnosticLog?.Invoke($"Secrets-Migration fehlgeschlagen: {ex.Message}");
+        }
     }
 
     sealed class MixrYaml

@@ -4,9 +4,9 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net9.0-windows10.0.22621.0</TargetFramework>
     <WindowsSdkPackageVersion>10.0.22621.38</WindowsSdkPackageVersion>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
     <RootNamespace>Mixr</RootNamespace>
+    <AssemblyName>Mixr.Console</AssemblyName>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <NoWarn>$(NoWarn);NU1701</NoWarn>
   </PropertyGroup>
 
@@ -14,8 +14,9 @@
     <ProjectReference Include="..\Mixr.Core\Mixr.Core.csproj" />
   </ItemGroup>
 
+  <!-- Gleiche Default-Konfiguration wie die App; Laufzeit-Config liegt in %LOCALAPPDATA%\Mixr. -->
   <ItemGroup>
-    <None Update="config.yaml">
+    <None Include="..\Mixr.Core\config.yaml" Link="config.default.yaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

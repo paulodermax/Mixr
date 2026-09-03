@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+    branches: [main, "release/**"]
+    paths-ignore: ["**.md", "Docs/**"]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  dotnet:
+    name: Windows-App (build + test)
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Restore
+        run: dotnet restore Mixr.sln
+
+      - name: Build
+        run: dotnet build Mixr.sln -c Release --no-restore -warnaserror:NU1701
+
+      - name: Test
+        run: dotnet test PC.Tests/PC.Tests.csproj -c Release --no-build --logger "trx;LogFileName=tests.trx"
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results
+          path: "**/TestResults/*.trx"
+
+  firmware:
+    name: Firmware (ESP-IDF)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build with ESP-IDF v5.5
+        uses: espressif/esp-idf-ci-action@v1
+        with:
+          esp_idf_version: v5.5.3
+          target: esp32s3
+          path: ESP
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: firmware-ci
+          path: |
+            ESP/build/Mixr.bin
+            ESP/build/bootloader/bootloader.bin
+            ESP/build/partition_table/partition-table.bin

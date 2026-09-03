@@ -3,10 +3,10 @@
   <PropertyGroup>
     <TargetFramework>net9.0-windows10.0.22621.0</TargetFramework>
     <WindowsSdkPackageVersion>10.0.22621.38</WindowsSdkPackageVersion>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
     <RootNamespace>Mixr</RootNamespace>
+    <!-- CsWinRT-Source-Generator (Windows-TFM) erzeugt unsafe-Code -->
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <!-- InputSimulator 1.0.4 ist ein .NET-Framework-Paket (NU1701) — läuft unter .NET 9, Ersatz steht auf der Roadmap. -->
     <NoWarn>$(NoWarn);NU1701</NoWarn>
   </PropertyGroup>
 

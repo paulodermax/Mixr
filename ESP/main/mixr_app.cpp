@@ -8,6 +8,7 @@
 
 #include "board_pins.h"
 #include "encoder_ky040.hpp"
+#include "mixr_fw_update.hpp"
 #include "protocol.h"
 #include "rm67162.h"
 #include "ui_mixr.hpp"
@@ -17,6 +18,7 @@
 #include "driver/gpio.h"
 #include "driver/spi_master.h"
 #include "driver/usb_serial_jtag.h"
+#include "esp_app_desc.h"
 #include "esp_attr.h"
 #include "esp_heap_caps.h"
 #include "esp_log.h"
@@ -24,6 +26,7 @@
 #include "esp_timer.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/queue.h"
+#include "freertos/semphr.h"
 #include "freertos/task.h"
 #include "lvgl.h"
 #include "mixr_ui_font.h"
@@ -48,6 +51,8 @@ static const uint32_t IMG_SIZE = 240 * 240 * 2;
 
 static QueueHandle_t ui_queue;
 static Ky040Encoder g_encoder;
+/** send_to_pc wird aus esp_timer-Task, comm_task und Main-Task aufgerufen — Frames dürfen sich nicht verschränken. */
+static SemaphoreHandle_t s_tx_mutex;
 
 /** USB-Slider/Buttons: vom Timer statt aus main, damit es bei langem LVGL-Cover-Draw weiterläuft */
 static uint8_t s_last_sliders[MIXR_SLIDER_COUNT] = {0};
@@ -224,7 +229,8 @@ static bool mixr_pc_link_up(void)
 
 static void send_to_pc(PktType type, const uint8_t *payload, uint8_t len)
 {
-    uint8_t packet[256];
+    /* Frame = Start + len + type + payload + crc → maximal 4 + 255 Byte. */
+    uint8_t packet[4 + MIXR_PAYLOAD_MAX];
     packet[0] = PKT_START_BYTE;
     packet[1] = len;
     packet[2] = static_cast<uint8_t>(type);
@@ -236,8 +242,36 @@ static void send_to_pc(PktType type, const uint8_t *payload, uint8_t len)
     }
     packet[3 + len] = crc;
 
-    usb_serial_jtag_write_bytes(packet, 4 + len, portMAX_DELAY);
+    const size_t frame_len = 4U + (size_t)len;
+    if (s_tx_mutex != nullptr && xSemaphoreTake(s_tx_mutex, pdMS_TO_TICKS(200)) != pdTRUE) {
+        return; /* Host hängt am USB — lieber ein Frame verlieren als alle Timer blockieren */
+    }
+    /* Timeout statt portMAX_DELAY: ein stehender Host darf Tick-/Encoder-Timer nicht einfrieren. */
+    usb_serial_jtag_write_bytes(packet, frame_len, pdMS_TO_TICKS(500));
+    if (s_tx_mutex != nullptr) {
+        xSemaphoreGive(s_tx_mutex);
+    }
     mixr_tx_led_pulse();
+}
+
+/** HELLO: [proto_ver][caps][fw_version …] — Version kommt aus esp_app_desc (PROJECT_VER / git describe). */
+static void send_hello(void)
+{
+    const esp_app_desc_t *desc = esp_app_get_description();
+    uint8_t payload[2 + sizeof(desc->version)];
+    payload[0] = MIXR_PROTOCOL_VERSION;
+    payload[1] = mixr_fw_update_supported() ? MIXR_CAP_OTA_PROTOCOL : 0;
+    size_t vlen = strnlen(desc->version, sizeof(desc->version));
+    memcpy(&payload[2], desc->version, vlen);
+    send_to_pc(PktType::HELLO, payload, (uint8_t)(2 + vlen));
+}
+
+static void fw_progress_to_ui(uint8_t percent)
+{
+    UiMessage msg;
+    msg.type = PktType::FW_PROGRESS_UI;
+    msg.payload.slider_values[0] = percent;
+    xQueueSend(ui_queue, &msg, 0);
 }
 
 void mixr_pc_send_media_cmd(uint8_t subcmd)
@@ -347,6 +381,11 @@ static void comm_task(void *pvParameters)
                             xQueueSend(ui_queue, &msg, 0);
                         } else if (msg.type == PktType::VOIP_DEAFEN && len == 0) {
                             xQueueSend(ui_queue, &msg, 0);
+                        } else if (msg.type == PktType::HELLO_REQ) {
+                            send_hello();
+                        } else if (msg.type == PktType::FW_BEGIN || msg.type == PktType::FW_CHUNK
+                                   || msg.type == PktType::FW_END || msg.type == PktType::FW_ABORT) {
+                            mixr_fw_update_handle(msg.type, payload, len, send_to_pc, fw_progress_to_ui);
                         }
                         /* andere Typen vom PC ignorieren */
                     } else {
@@ -376,7 +415,7 @@ static bool sliders_delta_over_deadband(const uint8_t *cur, const uint8_t *last)
 
 static void mixr_poll_sliders_buttons(void)
 {
-    if (!mixr_pc_link_up()) {
+    if (!mixr_pc_link_up() || mixr_fw_update_active()) {
         return;
     }
     if (mixr_sliders_send_enabled()) {
@@ -430,7 +469,10 @@ static void mixr_controls_timer_cb(void *arg)
 void mixr_app_run(void)
 {
     s_mixr_boot_count++;
-    ESP_LOGI(TAG, "Start #%lu", (unsigned long)s_mixr_boot_count);
+    ESP_LOGI(TAG, "Start #%lu, Firmware %s", (unsigned long)s_mixr_boot_count,
+             esp_app_get_description()->version);
+    mixr_fw_update_mark_valid();
+    s_tx_mutex = xSemaphoreCreateMutex();
 
     rm67162_init();
 
@@ -540,9 +582,13 @@ void mixr_app_run(void)
     ui_queue = xQueueCreate(24, sizeof(UiMessage));
     /* USB kurz stabilisieren (Enumeration), bevor große RX-Strom kommt */
     vTaskDelay(pdMS_TO_TICKS(500));
-    xTaskCreate(comm_task, "comm_task", 4096, nullptr, 5, nullptr);
-        
+    /* 8 KiB: esp_ota_write + SHA-256 brauchen mehr Stack als das reine Frame-Parsen. */
+    xTaskCreate(comm_task, "comm_task", 8192, nullptr, 5, nullptr);
+
     mixr_ui_set_usb_connected(mixr_pc_link_up());
+    if (mixr_pc_link_up()) {
+        send_hello();
+    }
 
     bool last_usb_state = usb_serial_jtag_is_connected();
     UiMessage incoming_msg;
@@ -560,8 +606,14 @@ void mixr_app_run(void)
         if (current_usb_state != last_usb_state) {
             mixr_ui_set_usb_connected(current_usb_state);
             last_usb_state = current_usb_state;
-            if (!current_usb_state && mixr_ui_is_menu_open()) {
-                mixr_ui_menu_refresh_dynamic_rows();
+            if (current_usb_state) {
+                send_hello();
+            } else {
+                mixr_fw_update_abort();
+                img_offset = 0;
+                if (mixr_ui_is_menu_open()) {
+                    mixr_ui_menu_refresh_dynamic_rows();
+                }
             }
         }
 
