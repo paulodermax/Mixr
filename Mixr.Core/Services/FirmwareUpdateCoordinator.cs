@@ -91,7 +91,6 @@ public static class FirmwareUpdateCoordinator
             // 1) Protokoll-Update über offenen Link (HID/Seriell) — bevorzugter Feld-Pfad
             if (link is not null && link.Link.IsOpen)
             {
-                // Auch ohne Cap versuchen: ältere Firmwares antworten UNSUPPORTED, neuere mit Staging OK.
                 Log($"FW: Protokoll-Update {dev?.FirmwareVersion ?? "?"} → {img.Version} über {link.Link.Id}" +
                     (dev?.SupportsProtocolOta == true ? " (Gerät meldet OTA/Staging)" : " (Versuch)"));
                 progress?.Report(new FirmwareUpdateProgress(0, "Firmware wird über USB übertragen …"));
@@ -99,15 +98,30 @@ public static class FirmwareUpdateCoordinator
                 var r = await svc.UpdateAsync(img, progress, ct).ConfigureAwait(false);
                 if (r.Outcome == FirmwareUpdateOutcome.Success)
                 {
-                    Log("FW: Protokoll-Update OK — warte auf Neustart des Geräts …");
-                    progress?.Report(new FirmwareUpdateProgress(100, "Gerät startet neu …"));
+                    Log("FW: Protokoll meldet OK — prüfe, ob das Gerät wirklich die neue Version bootet …");
+                    progress?.Report(new FirmwareUpdateProgress(100, "Gerät startet neu, prüfe Version …"));
+                    // Link stirbt beim Reboot; Host-Loop baut neu auf. Wir warten auf HELLO.
+                    try { link.Link.Dispose(); } catch { /* */ }
+                    var verified = await WaitForFirmwareVersionAsync(img.Version, TimeSpan.FromSeconds(20), ct)
+                        .ConfigureAwait(false);
+                    if (verified)
+                    {
+                        Log($"FW: Gerät meldet Firmware {img.Version} — Update bestätigt.");
+                        return r;
+                    }
+
+                    Log($"FW: Gerät bootet noch nicht {img.Version} — Fallback Download-Modus.");
+                    // frischen Link für Bootloader-Fallback holen (Host-Loop kann schon verbunden haben)
+                    link = MixrRuntimeState.Link;
+                }
+                else if (r.Outcome is FirmwareUpdateOutcome.Cancelled or FirmwareUpdateOutcome.Failed)
+                {
                     return r;
                 }
-
-                if (r.Outcome is FirmwareUpdateOutcome.Cancelled or FirmwareUpdateOutcome.Failed)
-                    return r;
-
-                Log($"FW: Protokoll-Update nicht möglich ({r.Message}) — Fallback Download-Modus.");
+                else
+                {
+                    Log($"FW: Protokoll-Update nicht möglich ({r.Message}) — Fallback Download-Modus.");
+                }
             }
 
             // 2) Fallback: ENTER_BOOTLOADER + esptool (Retries)
@@ -115,7 +129,8 @@ public static class FirmwareUpdateCoordinator
 
             using (MixrRuntimeState.PauseSerial())
             {
-                if (link is { Kind: MixrLinkKind.Hid })
+                link ??= MixrRuntimeState.Link;
+                if (link is { Kind: MixrLinkKind.Hid } || MixrHidTransport.Enumerate().Count > 0)
                 {
                     var flashed = await TryBootloaderFlashAsync(img, link, progress, ct).ConfigureAwait(false);
                     if (flashed is not null)
@@ -141,12 +156,12 @@ public static class FirmwareUpdateCoordinator
 
     static async Task<FirmwareUpdateResult?> TryBootloaderFlashAsync(
         FirmwareImage img,
-        DeviceLink link,
+        DeviceLink? link,
         IProgress<FirmwareUpdateProgress>? progress,
         CancellationToken ct)
     {
         const int maxAttempts = 3;
-        var first = true;
+        var usedExisting = false;
         for (var attempt = 1; attempt <= maxAttempts; attempt++)
         {
             ct.ThrowIfCancellationRequested();
@@ -158,9 +173,9 @@ public static class FirmwareUpdateCoordinator
             IMixrLink? opener = null;
             try
             {
-                if (first)
+                if (!usedExisting && link is { Link.IsOpen: true })
                 {
-                    first = false;
+                    usedExisting = true;
                     opener = link.Link;
                     opener.TrySend(MixrProtocol.TypeEnterBootloader);
                 }
@@ -198,6 +213,24 @@ public static class FirmwareUpdateCoordinator
         }
 
         return null;
+    }
+
+    static async Task<bool> WaitForFirmwareVersionAsync(string expectedVersion, TimeSpan timeout, CancellationToken ct)
+    {
+        var deadline = DateTime.UtcNow + timeout;
+        while (DateTime.UtcNow < deadline)
+        {
+            ct.ThrowIfCancellationRequested();
+            var d = MixrRuntimeState.Device;
+            if (MixrRuntimeState.EspConnected && d is not null
+                && string.Equals(d.FirmwareVersion, expectedVersion, StringComparison.OrdinalIgnoreCase))
+                return true;
+            await Task.Delay(400, ct).ConfigureAwait(false);
+        }
+
+        var last = MixrRuntimeState.Device?.FirmwareVersion ?? "?";
+        Log($"FW: Version nach Timeout: Gerät meldet „{last}“, erwartet „{expectedVersion}“");
+        return false;
     }
 
     static bool TryFindRomPort(out string? port, out IReadOnlyList<string> candidates)
