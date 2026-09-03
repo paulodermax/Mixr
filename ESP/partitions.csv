@@ -1,11 +1,10 @@
 # Mixr — Partitionstabelle für den 2-MiB-Flash der aktuellen Platine.
 #
-# Mit 2 MiB und ~1,7 MiB Firmware passt nur EINE App-Partition (factory). Das Protokoll-Update
-# (FW_BEGIN/FW_CHUNK, siehe main/mixr_fw_update.cpp) meldet dann FwStatus::UNSUPPORTED und die
-# Windows-App flasht stattdessen über den USB-Download-Modus (esptool).
+# Mit 2 MiB und ~1,7 MiB Firmware passt nur EINE App-Partition (factory). Feld-Updates laufen
+# trotzdem über das Mixr-Protokoll: Image → PSRAM → Factory überschreiben (mixr_fw_update.cpp).
+# Fallback bleibt ENTER_BOOTLOADER + esptool.
 #
-# Für Hardware mit >= 4 MiB Flash: partitions_ota.csv verwenden (zwei OTA-Slots, echtes
-# In-App-Update ohne Bootloader-Modus). Umschalten in sdkconfig.defaults:
+# Für Hardware mit >= 4 MiB Flash: partitions_ota.csv (zwei OTA-Slots, sicherer Rollback).
 #   CONFIG_ESPTOOLPY_FLASHSIZE_4MB=y  und  CONFIG_PARTITION_TABLE_CUSTOM_FILENAME="partitions_ota.csv"
 #
 # Name,   Type, SubType, Offset, Size, Flags

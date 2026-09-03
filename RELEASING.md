@@ -67,6 +67,20 @@ einen Signatur-Schritt ergänzen oder `vpk pack --signParams "…"` / `--azureTr
   `MixrProtocol.Version` in `Mixr.Core`. Additive Änderungen (neue Pakettypen) brauchen keine Erhöhung.
 - Die App bietet ein Firmware-Update an, wenn das mitgelieferte Image neuer ist als das auf dem Gerät.
 
+## Factory → Feld-Update (Produktablauf)
+
+1. **Werk:** Einmalig die aktuelle Release-Firmware flashen (`Mixr.bin` + Bootloader + Partitionstabelle),
+   z. B. mit `esptool` oder `idf.py flash`. Das ist die „alte“ Startversion auf dem Gerät.
+2. **Zuhause:** Nutzer installiert/aktualisiert nur die Windows-App (Velopack). In *Einstellungen →
+   Geräte-Firmware* erscheint „aktualisieren“, wenn die App ein neueres `Mixr.bin` mitbringt.
+3. **Update-Pfad (automatisch, ohne Tasten):**
+   - Primär: Image über USB-HID per `FW_*` → PSRAM → Factory überschreiben → Neustart.
+   - Fallback: `ENTER_BOOTLOADER` → Espressif-COM → `esptool`.
+4. **Notfall:** BOOT halten, RESET tippen, in der App erneut aktualisieren.
+
+Voraussetzung: PSRAM aktiv (`CONFIG_SPIRAM` in `sdkconfig.defaults`). Ohne PSRAM kein Staging und
+kein Cover — Release-Builds müssen das immer setzen.
+
 ## Checkliste vor dem Tag
 
 - [ ] `dotnet build Mixr.sln -c Release` und `dotnet test` grün

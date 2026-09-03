@@ -377,10 +377,14 @@ const char *mixr_link_name(void)
 
 void mixr_link_prepare_bootloader(void)
 {
-    /* Bus loslassen, damit der ROM-Bootloader nach dem Reset als Espressif-COM-Port enumeriert. */
+    /* Bus sauber loslassen, damit der ROM als Espressif-COM-Port enumeriert (Fallback-Pfad). */
     s_mounted = false;
+    if (tud_mounted()) {
+        tud_disconnect();
+        vTaskDelay(pdMS_TO_TICKS(100));
+    }
     tinyusb_driver_uninstall();
-    vTaskDelay(pdMS_TO_TICKS(250));
+    vTaskDelay(pdMS_TO_TICKS(400));
 }
 
 #endif /* CONFIG_MIXR_USB_HID */

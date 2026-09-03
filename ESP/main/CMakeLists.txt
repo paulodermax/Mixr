@@ -20,4 +20,4 @@ idf_component_register(
         "mic_muted_icon.c"
         "headphones_deafened_icon.c"
     INCLUDE_DIRS "."
-    PRIV_REQUIRES driver esp_timer app_update esp_app_format mbedtls z_mixr_partition)
+    PRIV_REQUIRES driver esp_timer app_update esp_app_format mbedtls spi_flash z_mixr_partition)
