@@ -301,7 +301,22 @@ public sealed partial class DashboardPage : Page
     {
         var connected = MixrRuntimeState.EspConnected;
         StatusDot.Background = connected ? ConnectedBrush : DisconnectedBrush;
-        ToolTipService.SetToolTip(StatusDot, connected ? "Mixr connected" : "Mixr not connected");
+        string tip;
+        if (!connected)
+        {
+            tip = "Mixr nicht verbunden — USB-Kabel prüfen";
+        }
+        else
+        {
+            var link = MixrRuntimeState.Link;
+            var dev = MixrRuntimeState.Device;
+            var via = link?.Kind == Mixr.Services.MixrLinkKind.Hid ? "USB-HID" : $"USB-Seriell ({link?.Link.Id})";
+            tip = dev is null
+                ? $"Mixr verbunden über {via}"
+                : $"Mixr verbunden über {via} — Firmware {dev.FirmwareVersion}, Protokoll v{dev.ProtocolVersion}";
+        }
+
+        ToolTipService.SetToolTip(StatusDot, tip);
     }
 
     void RefreshFaders() => ApplyFaderLevels(MixrRuntimeState.GetSliderLevelsSnapshot());

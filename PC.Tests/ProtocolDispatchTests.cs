@@ -50,6 +50,38 @@ public class ProtocolDispatchTests
     }
 
     [Fact]
+    public void ImageAck_AndLog_AndPong_AreDispatched()
+    {
+        var d = new EspIncomingDispatcher();
+        (MixrProtocol.ImageAckStatus, uint)? ack = null;
+        (byte, string)? log = null;
+        (uint, uint)? pong = null;
+        d.ImageAck += (s, h) => ack = (s, h);
+        d.Log += (l, t) => log = (l, t);
+        d.Pong += (u, f) => pong = (u, f);
+
+        d.Dispatch(MixrProtocol.TypeImageAck, new byte[] { (byte)MixrProtocol.ImageAckStatus.AlreadyShown, 1, 0, 0, 0 });
+        d.Dispatch(MixrProtocol.TypeLog, new byte[] { 2 }.Concat(Encoding.UTF8.GetBytes("W (12) mixr: hi")).ToArray());
+        d.Dispatch(MixrProtocol.TypePong, new byte[] { 10, 0, 0, 0, 0, 0, 1, 0 });
+
+        Assert.Equal((MixrProtocol.ImageAckStatus.AlreadyShown, 1u), ack);
+        Assert.Equal(((byte)2, "W (12) mixr: hi"), log);
+        Assert.Equal((10u, 65536u), pong);
+    }
+
+    [Fact]
+    public void Hello_V3Capabilities()
+    {
+        var h = new DeviceHello(3, (byte)(MixrProtocol.CapJpegCover | MixrProtocol.CapHidConsumer | MixrProtocol.CapBootloaderCmd), "1.2.0");
+        Assert.True(h.IsV3OrNewer);
+        Assert.True(h.SupportsJpegCover);
+        Assert.True(h.SupportsHidConsumer);
+        Assert.True(h.SupportsBootloaderCmd);
+        Assert.False(h.SupportsProtocolOta);
+        Assert.False(h.SupportsLogStream);
+    }
+
+    [Fact]
     public void SliderValues_StillDispatched()
     {
         var d = new EspIncomingDispatcher();

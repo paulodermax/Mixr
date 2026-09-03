@@ -1,0 +1,35 @@
+menu "Mixr"
+
+    config MIXR_USB_HID
+        bool "USB als HID-Composite-Gerät (TinyUSB) statt USB-Serial/JTAG"
+        default y
+        depends on SOC_USB_OTG_SUPPORTED
+        help
+            Produktmodus: Vendor-HID für das Mixr-Protokoll (treiberlos, kein COM-Port) plus
+            HID Consumer Control für Medientasten. Deaktivieren für Bench-Debugging über
+            USB-Serial/JTAG (idf.py monitor, JTAG) mit dem alten 0xAA-Framing.
+
+    config MIXR_USB_DEBUG_CDC
+        bool "Zusätzliches CDC-Interface als Debug-Konsole"
+        default n
+        depends on MIXR_USB_HID
+        help
+            Fügt dem HID-Composite ein CDC-ACM-Interface hinzu und leitet stdout/Logs dorthin.
+            Nur für Entwickler-Firmware; Kunden sehen sonst einen zusätzlichen COM-Port.
+
+    config MIXR_USB_VID
+        hex "USB Vendor ID"
+        default 0x1209
+        depends on MIXR_USB_HID
+        help
+            0x1209 = pid.codes. Zusammen mit PID 0x0001 nur für Tests erlaubt (nicht ausliefern).
+
+    config MIXR_USB_PID
+        hex "USB Product ID"
+        default 0x0001
+        depends on MIXR_USB_HID
+        help
+            Vor Auslieferung eigene PID beantragen: pid.codes (kostenlos, Open-Source-Lizenz) oder
+            Espressif-PID-Programm (VID 0x303A, kostenlos). Host: MixrHidTransport.cs anpassen.
+
+endmenu

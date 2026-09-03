@@ -87,12 +87,14 @@ public static class EsptoolFlasher
     /// <summary>
     /// Flasht <paramref name="image"/> auf <paramref name="portName"/>. Der Port darf von niemandem sonst offen sein.
     /// </summary>
+    /// <param name="alreadyInBootloader">Gerät sitzt bereits im ROM-Download-Modus (ENTER_BOOTLOADER) — keine Reset-Sequenz.</param>
     public static async Task<FirmwareUpdateResult> FlashAsync(
         FirmwareImage image,
         string portName,
         IProgress<FirmwareUpdateProgress>? progress,
         Action<string> log,
-        CancellationToken ct)
+        CancellationToken ct,
+        bool alreadyInBootloader = false)
     {
         if (!IsAvailable)
             return new FirmwareUpdateResult(FirmwareUpdateOutcome.Failed, "esptool ist nicht verfügbar.");
@@ -110,7 +112,7 @@ public static class EsptoolFlasher
                      "--chip", "esp32s3",
                      "--port", portName,
                      "--baud", "921600",
-                     "--before", "default_reset",
+                     "--before", alreadyInBootloader ? "no_reset" : "default_reset",
                      "--after", "hard_reset",
                      "write_flash",
                      "--flash_mode", "keep",

@@ -17,6 +17,21 @@ CONFIG_ESP_INT_WDT_TIMEOUT_MS=800
 # Bei Panic/Assert: Log ausgeben und neu starten (Absturz → Reboot)
 CONFIG_ESP_SYSTEM_PANIC_PRINT_REBOOT=y
 
+# ---- USB ----
+# Konsole auf UART0 (Pins 43/44). Im HID-Modus (CONFIG_MIXR_USB_HID) belegt TinyUSB den USB-PHY;
+# USB-Serial/JTAG als Sekundärkonsole muss aus sein, sonst kollidieren die Treiber.
+CONFIG_ESP_CONSOLE_UART_DEFAULT=y
+CONFIG_ESP_CONSOLE_SECONDARY_NONE=y
+# TinyUSB: zwei HID-Interfaces (Vendor + Consumer Control), CDC nur mit CONFIG_MIXR_USB_DEBUG_CDC
+CONFIG_TINYUSB_HID_COUNT=2
+CONFIG_TINYUSB_CDC_ENABLED=n
+CONFIG_MIXR_USB_HID=y
+CONFIG_MIXR_USB_DEBUG_CDC=n
+
+# ---- LVGL ----
+# JPEG-Cover vom Host (IMAGE_BEGIN Format 1) → TJpgDec aus LVGL
+CONFIG_LV_USE_TJPGD=y
+
 # UI: Montserrat (LVGL built-in, zuverlässig auf dem Display).
 CONFIG_LV_FONT_MONTSERRAT_14=y
 CONFIG_LV_FONT_MONTSERRAT_16=y

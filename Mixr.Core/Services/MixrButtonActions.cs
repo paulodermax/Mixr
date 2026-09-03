@@ -63,6 +63,36 @@ public static class MixrButtonActions
         };
     }
 
+    /// <summary>
+    /// HID-Consumer-Usage für eine Aktion — Medientasten führt das Gerät selbst aus (funktioniert ohne App),
+    /// alles andere (Discord, none) bleibt Host-Sache (0).
+    /// </summary>
+    public static ushort HidUsageFor(string action) => action switch
+    {
+        SmtcPrevious => MixrProtocol.HidUsage.ScanPrev,
+        SmtcPlayPause => MixrProtocol.HidUsage.PlayPause,
+        SmtcNext => MixrProtocol.HidUsage.ScanNext,
+        _ => MixrProtocol.HidUsage.None,
+    };
+
+    /// <summary>SET_BUTTON_MAP-Nutzlast (5 × u16 LE) aus der Konfiguration.</summary>
+    public static byte[] BuildHidButtonMap(IReadOnlyList<string>? mapping)
+    {
+        var payload = new byte[MixrProtocol.ButtonCount * 2];
+        for (var i = 0; i < MixrProtocol.ButtonCount; i++)
+        {
+            var usage = HidUsageFor(Resolve(i, mapping));
+            payload[i * 2] = (byte)(usage & 0xFF);
+            payload[i * 2 + 1] = (byte)(usage >> 8);
+        }
+
+        return payload;
+    }
+
+    /// <summary>true, wenn das Gerät diese Aktion per HID selbst ausführt und der Host sie nicht wiederholen darf.</summary>
+    public static bool IsHandledByDeviceHid(string action, DeviceHello? device) =>
+        device is { SupportsHidConsumer: true } && HidUsageFor(action) != MixrProtocol.HidUsage.None;
+
     public static void EnsureFiveEntries(List<string> list)
     {
         while (list.Count < Defaults.Length)

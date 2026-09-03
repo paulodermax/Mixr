@@ -9,9 +9,12 @@ Kurzer Katalog für die weitere Produktentwicklung (Stand: Entwicklungsstand im 
 - Fader-Zuordnung: Bibliothek → Fader-Karten, Speicherung in `config.yaml`, Anzeige zugeordneter Programme, Entfernen pro Eintrag, eigene Ablagefläche für Drag & Drop.
 - Release-Fundament: Velopack-Installer + Auto-Update aus GitHub Releases, zentrale Versionierung (`Directory.Build.props`, Git-Tag), CI/Release-Workflows, Daten in `%LOCALAPPDATA%\Mixr` (Config, Secrets, Logs mit Rotation), geordnetes Herunterfahren (Hook/Serial/Audio), Autostart nur als Opt-in.
 - Protokoll v2: `HELLO`-Handshake (Firmware-Version, Fähigkeiten) und Firmware-Update über `FW_*` (esp_ota) bzw. USB-Download-Modus (esptool) für die 2-MiB-Platine.
+- Protokoll v3 / USB-HID-Composite (TinyUSB): Vendor-HID mit CRC-16-Framing statt COM-Port, Medientasten als HID Consumer Control (funktionieren ohne App), JPEG-Cover mit Hash-Cache, Log-Stream, `ENTER_BOOTLOADER`; Serial/JTAG bleibt als Bench-Variante.
 
 ## Offen aus dem Release-Umbau
 
+- **USB-PID:** `0x1209:0x0001` ist nur eine Testkennung. Vor Weitergabe: Espressif-PID (kostenlos) oder pid.codes (Open-Source-Lizenz nötig) — siehe README „Kosten & Lizenzen“.
+- **Hardware-Test des HID-Stacks:** TinyUSB-Composite, JPEG-Decode (TJpgDec), `ENTER_BOOTLOADER` → esptool sind kompiliert, aber noch nicht auf dem Gerät verifiziert.
 - **Hardware:** GPIO17 ist doppelt belegt (Display-Reset `pins_config.h` vs. Encoder-CLK `board_pins.h`) — auf der Platine oder per Pin-Map lösen.
 - **Flash ≥ 4 MiB:** mit `partitions_ota.csv` echte In-App-Updates ohne Download-Modus.
 - **Code-Signatur** (Azure Artifact Signing) vor breiter Verteilung, sonst SmartScreen-Hinweis.

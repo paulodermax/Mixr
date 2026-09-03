@@ -56,7 +56,8 @@ public static class MixrHost
 
         LogCfgHeader();
 
-        MixrSerialTransport? serial = null;
+        IMixrLink? link = null;
+        CoverSender? coverSender = null;
 
         using var media = new WindowsNowPlayingService();
         var dedup = new SessionDedup();
@@ -64,12 +65,13 @@ public static class MixrHost
         {
             try
             {
-                if (serial is null)
+                var sender = coverSender;
+                if (sender is null)
                     return;
                 if (!dedup.ShouldSend(title, artist, cover))
                     return;
 
-                serial.SendSession(title, artist, cover);
+                sender.SendSession(title, artist, cover, MixrRuntimeState.Device);
                 var t = string.IsNullOrEmpty(title) ? "—" : title;
                 var a = string.IsNullOrEmpty(artist) ? "—" : artist;
                 LogLine(options, $"→ ESP: „{t}“ — {a}");
@@ -225,7 +227,7 @@ public static class MixrHost
             {
                 DiscordHotkeySimulator.TriggerToggleMute();
                 LogLine(options, $"→ Discord: Toggle-Mute ({quelle})");
-                serial?.SendVoipMuteOverlayToggle();
+                link?.TrySend(MixrProtocol.TypeVoipMuteToggleUi);
             }
             catch (Exception ex)
             {
@@ -239,12 +241,25 @@ public static class MixrHost
             {
                 DiscordHotkeySimulator.TriggerToggleDeafen();
                 LogLine(options, $"→ Discord: Toggle-Deafen ({quelle})");
-                serial?.SendVoipDeafenOverlayToggle();
+                link?.TrySend(MixrProtocol.TypeVoipDeafen);
             }
             catch (Exception ex)
             {
                 LogErr(options, ex.Message);
             }
+        }
+
+        /// Button-Map ans Gerät: Medientasten laufen als HID Consumer Control direkt vom Gerät,
+        /// alles andere (Discord, none) kommt als BTN_CMD zum Host.
+        void PushButtonMap()
+        {
+            var l = link;
+            var dev = MixrRuntimeState.Device;
+            if (l is null || dev is not { IsV3OrNewer: true })
+                return;
+            var map = MixrButtonActions.BuildHidButtonMap(MixrRuntimeState.Config.Current.ButtonMapping);
+            if (l.TrySend(MixrProtocol.TypeSetButtonMap, map))
+                LogLine(options, $"→ ESP: Button-Map ({(dev.SupportsHidConsumer ? "Medientasten per HID" : "alle Tasten über Host")})");
         }
 
         void TriggerShareScreenFromEsp()
@@ -262,9 +277,16 @@ public static class MixrHost
 
         espIncoming.ButtonPressed += id =>
         {
-            LogLine(options, $"[ESP] Button: {id}");
             var cfgBtn = MixrRuntimeState.Config.Current;
             var action = MixrButtonActions.Resolve(id, cfgBtn.ButtonMapping);
+            if (MixrButtonActions.IsHandledByDeviceHid(action, MixrRuntimeState.Device))
+            {
+                /* Gerät hat die Medientaste bereits als HID-Consumer-Control an Windows gegeben — nicht doppelt. */
+                LogLine(options, $"[ESP] Button {id}: {action} (per HID vom Gerät ausgeführt)");
+                return;
+            }
+
+            LogLine(options, $"[ESP] Button: {id}");
             switch (action)
             {
                 case MixrButtonActions.SmtcPrevious:
@@ -302,10 +324,22 @@ public static class MixrHost
             MixrRuntimeState.SetDevice(hello);
             LogLine(
                 options,
-                $"[ESP] HELLO: Protokoll v{hello.ProtocolVersion}, Firmware {hello.FirmwareVersion}, OTA {(hello.SupportsProtocolOta ? "ja" : "nein (Download-Modus)")}");
+                $"[ESP] HELLO: Protokoll v{hello.ProtocolVersion}, Firmware {hello.FirmwareVersion}, " +
+                $"OTA {(hello.SupportsProtocolOta ? "ja" : "nein")}, JPEG {(hello.SupportsJpegCover ? "ja" : "nein")}, " +
+                $"HID-Medientasten {(hello.SupportsHidConsumer ? "ja" : "nein")}, Bootloader-Befehl {(hello.SupportsBootloaderCmd ? "ja" : "nein")}");
             if (hello.ProtocolVersion > MixrProtocol.Version)
                 LogErr(options, $"Firmware spricht Protokoll v{hello.ProtocolVersion}, diese App nur v{MixrProtocol.Version} — bitte App aktualisieren.");
+            PushButtonMap();
+            /* Nach (Re-)Connect den aktuellen Titel erneut schicken — das Gerät hat evtl. neu gestartet. */
+            dedup.Reset();
+            _ = Task.Run(() => media.ResendCurrentAsync(CancellationToken.None));
         };
+        espIncoming.Log += (level, text) =>
+        {
+            var tag = level switch { 1 => "E", 2 => "W", 3 => "I", _ => "D" };
+            LogLine(options, $"[ESP/{tag}] {text}");
+        };
+        MixrRuntimeState.Config.Changed += PushButtonMap;
 
         void OnEspPacket(int type, byte[] payload) => espIncoming.Dispatch(type, payload);
 
@@ -325,26 +359,8 @@ public static class MixrHost
         }, cancellationToken);
 
         VoipHotkeyListener.Start(
-            () =>
-            {
-                try
-                {
-                    serial?.SendVoipMuteOverlayToggle();
-                }
-                catch (IOException)
-                {
-                }
-            },
-            () =>
-            {
-                try
-                {
-                    serial?.SendVoipDeafenOverlayToggle();
-                }
-                catch (IOException)
-                {
-                }
-            });
+            () => link?.TrySend(MixrProtocol.TypeVoipMuteToggleUi),
+            () => link?.TrySend(MixrProtocol.TypeVoipDeafen));
 
         LogLine(
             options,
@@ -369,17 +385,17 @@ public static class MixrHost
             return port;
         }
 
-        MixrSerialTransport? activeConn = null;
+        IMixrLink? activeConn = null;
         var activeConnLock = new object();
 
         void OnSerialPauseRequested()
         {
-            MixrSerialTransport? c;
+            IMixrLink? c;
             lock (activeConnLock)
                 c = activeConn;
             if (c is null)
                 return;
-            LogLine(options, "Seriell: Port für Firmware-Update freigegeben.");
+            LogLine(options, "Verbindung für Firmware-Update freigegeben.");
             try
             {
                 c.Dispose(); /* beendet den RX-Thread → disconnectTcs → Schleife räumt auf */
@@ -391,6 +407,25 @@ public static class MixrHost
         }
 
         MixrRuntimeState.SerialPauseRequested += OnSerialPauseRequested;
+        var noDeviceLogged = false;
+
+        /// HID zuerst (Produkt-Firmware), sonst COM-Port (Legacy-Firmware / config com_port).
+        IMixrLink? TryOpenLink()
+        {
+            var cfg = MixrRuntimeState.Config.Current;
+
+            var hid = MixrHidTransport.TryOpen(preferredSerial: null, log: s => LogLine(options, s));
+            if (hid != null)
+                return hid;
+
+            var portName = ResolveComPort();
+            if (string.IsNullOrEmpty(portName))
+                return null;
+
+            var serialLink = new MixrSerialTransport(portName, cfg.BaudRate);
+            serialLink.Open();
+            return serialLink;
+        }
 
         try
         {
@@ -418,39 +453,32 @@ public static class MixrHost
                     }
                 }
 
-                var portName = ResolveComPort();
-                if (string.IsNullOrEmpty(portName))
-                {
-                    LogLine(options, "Kein Mixr-USB-Gerät gefunden — Kabel prüfen, nächster Versuch in 2 s …");
-                    try
-                    {
-                        await Task.Delay(reconnectDelayMs, cancellationToken);
-                    }
-                    catch (OperationCanceledException)
-                    {
-                        break;
-                    }
-
-                    continue;
-                }
-
-                var cfg = MixrRuntimeState.Config.Current;
-                MixrSerialTransport? conn = null;
+                IMixrLink? conn = null;
                 var disconnectTcs = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
 
                 try
                 {
-                    conn = new MixrSerialTransport(portName, cfg.BaudRate);
-                    conn.Open();
-                    serial = conn;
+                    conn = TryOpenLink();
+                    if (conn is null)
+                    {
+                        if (!noDeviceLogged)
+                            LogLine(options, "Kein Mixr-Gerät gefunden (HID oder COM) — Kabel prüfen, nächster Versuch in 2 s …");
+                        noDeviceLogged = true;
+                        await Task.Delay(reconnectDelayMs, cancellationToken);
+                        continue;
+                    }
+
+                    noDeviceLogged = false;
+                    link = conn;
+                    coverSender = new CoverSender(conn, espIncoming, s => LogLine(options, s));
                     lock (activeConnLock)
                         activeConn = conn;
-                    MixrRuntimeState.SetLink(new SerialLink(conn, espIncoming), portName);
+                    MixrRuntimeState.SetLink(new DeviceLink(conn, espIncoming));
                     MixrRuntimeState.SetEspConnected(true);
-                    LogLine(options, $"Seriell verbunden ({portName}).");
+                    LogLine(options, $"Verbunden über {(conn.Kind == MixrLinkKind.Hid ? "USB-HID" : "USB-Seriell")} ({conn.Id}).");
 
-                    conn.StartDrainRxThread(OnEspPacket, () => disconnectTcs.TrySetResult());
-                    conn.SendHelloRequest();
+                    conn.Start(OnEspPacket, () => disconnectTcs.TrySetResult());
+                    conn.TrySend(MixrProtocol.TypeHelloReq);
 
                     await disconnectTcs.Task.WaitAsync(cancellationToken);
                 }
@@ -460,18 +488,22 @@ public static class MixrHost
                 }
                 catch (Exception ex)
                 {
-                    LogErr(options, $"Seriell: {ex.Message}");
+                    LogErr(options, $"Verbindung: {ex.Message}");
                 }
                 finally
                 {
-                    serial = null;
+                    link = null;
+                    coverSender = null;
                     lock (activeConnLock)
                         activeConn = null;
-                    MixrRuntimeState.SetLink(null, null);
+                    MixrRuntimeState.SetLink(null);
                     MixrRuntimeState.SetDevice(null);
                     MixrRuntimeState.SetEspConnected(false);
                     conn?.Dispose();
                 }
+
+                if (conn is null)
+                    continue;
 
                 if (cancellationToken.IsCancellationRequested)
                     break;
@@ -479,7 +511,7 @@ public static class MixrHost
                 if (MixrRuntimeState.SerialPaused)
                     continue; /* Firmware-Update übernimmt den Port; oben wird auf Resume gewartet */
 
-                LogLine(options, $"USB/Seriell getrennt — nächster Versuch in {reconnectDelayMs / 1000} s …");
+                LogLine(options, $"USB getrennt — nächster Versuch in {reconnectDelayMs / 1000} s …");
                 try
                 {
                     await Task.Delay(reconnectDelayMs, cancellationToken);
@@ -495,6 +527,7 @@ public static class MixrHost
             MixrRuntimeState.SerialPauseRequested -= OnSerialPauseRequested;
             MixrRuntimeState.Config.Changed -= OnConfigChangedFromRuntime;
             MixrRuntimeState.Config.Changed -= RebuildSliderLuts;
+            MixrRuntimeState.Config.Changed -= PushButtonMap;
             if (configWatchers is { Count: > 0 })
             {
                 foreach (var w in configWatchers)
@@ -522,7 +555,7 @@ public static class MixrHost
 
             MixrRuntimeState.Audio = null;
             audio.Dispose();
-            MixrRuntimeState.SetLink(null, null);
+            MixrRuntimeState.SetLink(null);
             MixrRuntimeState.SetDevice(null);
             MixrRuntimeState.SetEspConnected(false);
             LogLine(options, "MixrHost: Ressourcen freigegeben.");

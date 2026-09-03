@@ -2,8 +2,11 @@ using Mixr.Models;
 
 namespace Mixr.Services;
 
-/// <summary>Verbindung zum Gerät, solange der Port offen ist (vom Host gesetzt).</summary>
-public sealed record SerialLink(MixrSerialTransport Transport, EspIncomingDispatcher Dispatcher);
+/// <summary>Aktive Verbindung zum Gerät (vom Host gesetzt, solange der Link offen ist).</summary>
+public sealed record DeviceLink(IMixrLink Link, EspIncomingDispatcher Dispatcher)
+{
+    public MixrLinkKind Kind => Link.Kind;
+}
 
 /// <summary>Thread-sichere aktuelle Konfiguration + Laufzeitzustand (Verbindung, Gerät, Audio) für die UI.</summary>
 public static class MixrRuntimeState
@@ -63,8 +66,9 @@ public static class MixrRuntimeState
 
     static readonly object _deviceLock = new();
     static DeviceHello? _device;
-    static SerialLink? _link;
+    static DeviceLink? _link;
     static string? _portName;
+    static MixrLinkKind? _lastLinkKind;
 
     /// <summary>Letztes HELLO des Geräts; <c>null</c> bei alter Firmware (Protokoll v1) oder ohne Verbindung.</summary>
     public static DeviceHello? Device
@@ -76,7 +80,7 @@ public static class MixrRuntimeState
         }
     }
 
-    public static SerialLink? Link
+    public static DeviceLink? Link
     {
         get
         {
@@ -85,13 +89,23 @@ public static class MixrRuntimeState
         }
     }
 
-    /// <summary>COM-Port der letzten (oder aktuellen) Verbindung — für den esptool-Fallback.</summary>
+    /// <summary>COM-Port der letzten seriellen Verbindung — für den esptool-Fallback (HID-Geräte haben keinen).</summary>
     public static string? LastPortName
     {
         get
         {
             lock (_deviceLock)
                 return _portName;
+        }
+    }
+
+    /// <summary>Art der letzten (oder aktuellen) Verbindung — UI zeigt „USB-HID“ / „COM7“.</summary>
+    public static MixrLinkKind? LastLinkKind
+    {
+        get
+        {
+            lock (_deviceLock)
+                return _lastLinkKind;
         }
     }
 
@@ -109,13 +123,16 @@ public static class MixrRuntimeState
         DeviceChanged?.Invoke();
     }
 
-    public static void SetLink(SerialLink? link, string? portName)
+    public static void SetLink(DeviceLink? link)
     {
         lock (_deviceLock)
         {
             _link = link;
-            if (portName != null)
-                _portName = portName;
+            if (link is null)
+                return;
+            _lastLinkKind = link.Kind;
+            if (link.Link is MixrSerialTransport serial)
+                _portName = serial.PortName;
         }
     }
 

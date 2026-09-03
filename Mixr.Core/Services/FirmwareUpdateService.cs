@@ -21,16 +21,16 @@ public sealed record FirmwareUpdateProgress(int Percent, string Stage);
 /// </summary>
 public sealed class FirmwareUpdateService
 {
-    readonly MixrSerialTransport _transport;
+    readonly IMixrLink _link;
     readonly EspIncomingDispatcher _dispatcher;
     readonly Action<string> _log;
 
     static readonly TimeSpan AckTimeout = TimeSpan.FromSeconds(3);
     const int MaxRetriesPerChunk = 5;
 
-    public FirmwareUpdateService(MixrSerialTransport transport, EspIncomingDispatcher dispatcher, Action<string> log)
+    public FirmwareUpdateService(IMixrLink link, EspIncomingDispatcher dispatcher, Action<string> log)
     {
-        _transport = transport;
+        _link = link;
         _dispatcher = dispatcher;
         _log = log;
     }
@@ -52,7 +52,7 @@ public sealed class FirmwareUpdateService
             var begin = new byte[4 + 32];
             BinaryPrimitives.WriteUInt32LittleEndian(begin.AsSpan(0, 4), (uint)image.Bytes.Length);
             image.Sha256.CopyTo(begin, 4);
-            _transport.Send(MixrProtocol.TypeFwBegin, begin);
+            _link.Send(MixrProtocol.TypeFwBegin, begin);
 
             var (st, _) = await WaitAck(channel, ct).ConfigureAwait(false);
             if (st == MixrProtocol.FwStatus.Unsupported)
@@ -72,7 +72,7 @@ public sealed class FirmwareUpdateService
                 int n = (int)Math.Min((uint)MixrProtocol.FwChunkDataMax, total - offset);
                 BinaryPrimitives.WriteUInt32LittleEndian(chunk.AsSpan(0, 4), offset);
                 image.Bytes.AsSpan((int)offset, n).CopyTo(chunk.AsSpan(4));
-                _transport.Send(MixrProtocol.TypeFwChunk, chunk.AsSpan(0, 4 + n));
+                _link.Send(MixrProtocol.TypeFwChunk, chunk.AsSpan(0, 4 + n));
 
                 var (status, next) = await WaitAck(channel, ct).ConfigureAwait(false);
                 switch (status)
@@ -100,7 +100,7 @@ public sealed class FirmwareUpdateService
             }
 
             progress?.Report(new FirmwareUpdateProgress(100, "Image wird geprüft, Gerät startet neu …"));
-            _transport.Send(MixrProtocol.TypeFwEnd);
+            _link.Send(MixrProtocol.TypeFwEnd);
             var (endStatus, _) = await WaitAck(channel, ct).ConfigureAwait(false);
             if (endStatus != MixrProtocol.FwStatus.Ok)
                 return Fail(endStatus);
@@ -129,18 +129,7 @@ public sealed class FirmwareUpdateService
         }
     }
 
-    void TryAbort()
-    {
-        try
-        {
-            if (_transport.IsOpen)
-                _transport.Send(MixrProtocol.TypeFwAbort);
-        }
-        catch
-        {
-            /* Verbindung evtl. schon weg */
-        }
-    }
+    void TryAbort() => _link.TrySend(MixrProtocol.TypeFwAbort);
 
     static FirmwareUpdateResult Fail(MixrProtocol.FwStatus s) =>
         new(FirmwareUpdateOutcome.Failed, MixrProtocol.Describe(s));

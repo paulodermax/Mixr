@@ -1,0 +1,6 @@
+# Variante: HID-Composite + zusätzliches CDC als Debug-Konsole (Entwickler-Firmware).
+#   idf.py -B build-debugcdc -D SDKCONFIG=build-debugcdc/sdkconfig -D SDKCONFIG_DEFAULTS="sdkconfig.defaults;sdkconfig.variant.debugcdc" build
+CONFIG_MIXR_USB_HID=y
+CONFIG_MIXR_USB_DEBUG_CDC=y
+CONFIG_TINYUSB_CDC_ENABLED=y
+CONFIG_TINYUSB_CDC_COUNT=1

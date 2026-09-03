@@ -50,6 +50,9 @@ public sealed class WindowsNowPlayingService : IDisposable
         await PushNowPlayingAsync(cancellationToken).ConfigureAwait(false);
     }
 
+    /// <summary>Aktuellen Titel erneut an <see cref="SessionUpdated"/> melden (z. B. nach Geräte-Reconnect).</summary>
+    public Task ResendCurrentAsync(CancellationToken cancellationToken = default) => PushNowPlayingAsync(cancellationToken);
+
     void OnMediaPropertiesChanged(GlobalSystemMediaTransportControlsSession sender, object args)
     {
         _ = PushNowPlayingAsync(CancellationToken.None);

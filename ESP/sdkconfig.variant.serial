@@ -1,0 +1,4 @@
+# Variante: Legacy-Link über USB-Serial/JTAG (Bench-Debugging, Boards ohne HID-Firmware).
+#   idf.py -B build-serial -D SDKCONFIG=build-serial/sdkconfig -D SDKCONFIG_DEFAULTS="sdkconfig.defaults;sdkconfig.variant.serial" build
+CONFIG_MIXR_USB_HID=n
+CONFIG_ESP_CONSOLE_SECONDARY_USB_SERIAL_JTAG=y

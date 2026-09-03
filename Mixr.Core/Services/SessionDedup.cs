@@ -12,6 +12,17 @@ public sealed class SessionDedup
     string _lastArtist = "";
     byte[]? _lastCoverHash;
 
+    /// <summary>Vergessen, was zuletzt gesendet wurde — nach Reconnect muss das Gerät alles neu bekommen.</summary>
+    public void Reset()
+    {
+        lock (_lock)
+        {
+            _lastTitle = "";
+            _lastArtist = "";
+            _lastCoverHash = null;
+        }
+    }
+
     /// <returns><c>true</c>, wenn Titel, Artist oder Cover-Inhalt sich vom letzten erfolgreichen Senden unterscheiden.</returns>
     public bool ShouldSend(string? title, string? artist, ReadOnlySpan<byte> coverRgb565)
     {

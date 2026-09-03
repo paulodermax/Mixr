@@ -2,6 +2,12 @@ idf_component_register(
     SRCS
         "main.cpp"
         "mixr_app.cpp"
+        "mixr_proto.cpp"
+        "mixr_link_common.cpp"
+        "mixr_link_usb.cpp"
+        "mixr_link_serial.cpp"
+        "mixr_cover_jpeg.cpp"
+        "mixr_log_stream.cpp"
         "mixr_fw_update.cpp"
         "ui_mixr.cpp"
         "encoder_ky040.cpp"
@@ -14,4 +20,4 @@ idf_component_register(
         "mic_muted_icon.c"
         "headphones_deafened_icon.c"
     INCLUDE_DIRS "."
-    PRIV_REQUIRES esp_timer app_update esp_app_format mbedtls z_mixr_partition)
+    PRIV_REQUIRES driver esp_timer app_update esp_app_format mbedtls z_mixr_partition)

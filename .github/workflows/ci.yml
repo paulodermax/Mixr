@@ -38,8 +38,21 @@ jobs:
           path: "**/TestResults/*.trx"
 
   firmware:
-    name: Firmware (ESP-IDF)
+    name: Firmware (ESP-IDF, ${{ matrix.variant }})
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # Produkt-Firmware: USB-HID-Composite (Vendor-HID + Medientasten)
+          - variant: hid
+            defaults: sdkconfig.defaults
+          # Legacy/Bench: USB-Serial/JTAG mit 0xAA-Framing — darf nicht verrotten
+          - variant: serial
+            defaults: sdkconfig.defaults;sdkconfig.variant.serial
+          # Entwickler-Firmware: HID + CDC-Debugkonsole
+          - variant: debugcdc
+            defaults: sdkconfig.defaults;sdkconfig.variant.debugcdc
     steps:
       - uses: actions/checkout@v4
 
@@ -49,10 +62,11 @@ jobs:
           esp_idf_version: v5.5.3
           target: esp32s3
           path: ESP
+          command: idf.py -B build -D SDKCONFIG=build/sdkconfig -D SDKCONFIG_DEFAULTS="${{ matrix.defaults }}" build
 
       - uses: actions/upload-artifact@v4
         with:
-          name: firmware-ci
+          name: firmware-ci-${{ matrix.variant }}
           path: |
             ESP/build/Mixr.bin
             ESP/build/bootloader/bootloader.bin

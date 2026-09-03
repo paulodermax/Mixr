@@ -1,8 +1,16 @@
 # Mixr testen (ein USB-Kabel, möglichst ohne Reset)
 
+> **Diese Anleitung gilt für die Serial-Variante** (`sdkconfig.variant.serial`, USB-Serial/JTAG mit 0xAA-Framing).
+> Die Produkt-Firmware (Standard-Build) meldet sich als **USB-HID** ohne COM-Port; die Python-Skripte greifen dann
+> nicht. HID-Tests laufen über die Windows-App (Einstellungen → Geräte-Firmware / Log) — oder mit
+> `sdkconfig.variant.debugcdc`, das zusätzlich eine CDC-Konsole für Logs bereitstellt.
+>
+> Serial-Variante bauen und flashen:
+> `idf.py -B build-serial -D SDKCONFIG=build-serial/sdkconfig -D SDKCONFIG_DEFAULTS="sdkconfig.defaults;sdkconfig.variant.serial" build flash monitor`
+
 ## Voraussetzungen
 
-- Firmware gebaut und geflasht: `idf.py build flash`
+- Firmware gebaut und geflasht (siehe oben)
 - Python: `pip install pyserial pillow`
 - **Nur ein Programm** darf den COM-Port gleichzeitig öffnen — `idf.py monitor` **beenden**, bevor du das Sende-Skript startest (oder umgekehrt).
 

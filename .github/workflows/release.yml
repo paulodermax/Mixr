@@ -35,7 +35,8 @@ jobs:
           esp_idf_version: v5.5.3
           target: esp32s3
           path: ESP
-          command: idf.py build
+          # frische sdkconfig aus sdkconfig.defaults (HID-Composite-Firmware)
+          command: idf.py -B build -D SDKCONFIG=build/sdkconfig build
 
       - uses: actions/upload-artifact@v4
         with:

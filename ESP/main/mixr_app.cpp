@@ -1,23 +1,28 @@
 /*
- * USB-Serial/JTAG: Dieselbe Schnittstelle nutzt idf.py monitor (Logs) und das
- * Mixr-Binärprotokoll (send_to_pc / comm_task). Sobald Pakete gesendet werden
- * (z. B. Slider geändert, Taste), erscheinen rohe Bytes im Terminal als
- * „Krautzeichen“ — das ist keine zufällige Störung, sondern Daten + Text im
- * selben Strom. Produkt: ein USB-Kabel (native USB-Serial/JTAG) für Logs + Protokoll.
+ * Mixr — Hauptprogramm.
+ *
+ * Kommunikation mit dem PC läuft über mixr_link (Backend per Kconfig: USB-HID-Composite oder
+ * USB-Serial/JTAG) und mixr_proto (Frame-Handler). Diese Datei kümmert sich um Hardware, LVGL,
+ * Fader/Tasten/Encoder und die Hauptschleife.
+ *
+ * Threading: alle lv_*-Aufrufe laufen ausschließlich in mixr_app_run() (Main-Task). Timer-Callbacks
+ * und der comm_task des Links kommunizieren mit der UI nur über ui_queue.
  */
 
 #include "board_pins.h"
 #include "encoder_ky040.hpp"
 #include "mixr_fw_update.hpp"
+#include "mixr_link.hpp"
+#include "mixr_log_stream.hpp"
+#include "mixr_proto.hpp"
+#include "mixr_settings.hpp"
 #include "protocol.h"
 #include "rm67162.h"
 #include "ui_mixr.hpp"
-#include "mixr_settings.hpp"
 
 #include "FT3168.h"
 #include "driver/gpio.h"
 #include "driver/spi_master.h"
-#include "driver/usb_serial_jtag.h"
 #include "esp_app_desc.h"
 #include "esp_attr.h"
 #include "esp_heap_caps.h"
@@ -44,21 +49,19 @@ RTC_DATA_ATTR static uint32_t s_mixr_boot_count;
 
 FT3168 touch(I2C_SDA, I2C_SCL, -1, -1);
 static spi_device_handle_t spi_mcp;
+/** MCP3008 wird aus dem Controls-Timer (esp_timer-Task) und aus der UI (Resync) gelesen. */
+static SemaphoreHandle_t s_spi_mutex;
 
 static uint8_t *img_buf = nullptr;
-static uint32_t img_offset = 0;
-static const uint32_t IMG_SIZE = 240 * 240 * 2;
 
 static QueueHandle_t ui_queue;
 static Ky040Encoder g_encoder;
-/** send_to_pc wird aus esp_timer-Task, comm_task und Main-Task aufgerufen — Frames dürfen sich nicht verschränken. */
-static SemaphoreHandle_t s_tx_mutex;
 
 /** USB-Slider/Buttons: vom Timer statt aus main, damit es bei langem LVGL-Cover-Draw weiterläuft */
 static uint8_t s_last_sliders[MIXR_SLIDER_COUNT] = {0};
-static uint8_t s_last_buttons[5] = {1, 1, 1, 1, 1};
+static uint8_t s_last_buttons[MIXR_BUTTON_COUNT] = {1, 1, 1, 1, 1};
 /** Letzter BTN_CMD pro Taste (esp_timer_get_time, µs) — Sperre gegen Prellen/Doppeltreffer */
-static int64_t s_last_btn_cmd_us[5] = {0};
+static int64_t s_last_btn_cmd_us[MIXR_BUTTON_COUNT] = {0};
 
 #ifndef MIXR_BUTTON_DEBOUNCE_US
 #define MIXR_BUTTON_DEBOUNCE_US (50 * 1000) /* 50 ms; optional per -DMIXR_BUTTON_DEBOUNCE_US=… überschreiben */
@@ -70,6 +73,8 @@ static int64_t s_last_btn_cmd_us[5] = {0};
 
 /** 0 = aus; sonst esp_timer_get_time ab dem LED wieder aus */
 static int64_t s_tx_led_off_at_us = 0;
+
+/* ---- TX-Aktivitäts-LED ------------------------------------------------------------------------ */
 
 static void mixr_tx_led_set_level(int level_on)
 {
@@ -95,8 +100,7 @@ static void mixr_tx_led_init(void)
 static void mixr_tx_led_pulse(void)
 {
     mixr_tx_led_set_level(1);
-    int64_t now = esp_timer_get_time();
-    int64_t end = now + (int64_t)MIXR_TX_LED_PULSE_US;
+    int64_t end = esp_timer_get_time() + (int64_t)MIXR_TX_LED_PULSE_US;
     if (end > s_tx_led_off_at_us) {
         s_tx_led_off_at_us = end;
     }
@@ -112,6 +116,62 @@ static void mixr_tx_led_tick(void)
         s_tx_led_off_at_us = 0;
     }
 }
+
+/* ---- Senden an den PC (mit LED-Puls) ---------------------------------------------------------- */
+
+static void send_to_pc(PktType type, const uint8_t *payload, uint8_t len)
+{
+    mixr_link_send(type, payload, len);
+    mixr_tx_led_pulse();
+}
+
+void mixr_pc_send_media_cmd(uint8_t subcmd)
+{
+    if (!mixr_link_up()) {
+        return;
+    }
+    /* Mit HID-Link: Medientaste direkt als Consumer-Control — funktioniert auch ohne die Windows-App. */
+    uint16_t usage = MIXR_HID_USAGE_NONE;
+    switch (static_cast<MediaSubCmd>(subcmd)) {
+        case MediaSubCmd::NEXT:
+            usage = MIXR_HID_USAGE_SCAN_NEXT;
+            break;
+        case MediaSubCmd::PLAY_PAUSE:
+            usage = MIXR_HID_USAGE_PLAY_PAUSE;
+            break;
+        case MediaSubCmd::PREVIOUS:
+            usage = MIXR_HID_USAGE_SCAN_PREV;
+            break;
+    }
+    if (usage != MIXR_HID_USAGE_NONE && mixr_link_send_consumer(usage)) {
+        mixr_tx_led_pulse();
+        return;
+    }
+    send_to_pc(PktType::MEDIA_CMD, &subcmd, 1);
+}
+
+void mixr_pc_send_voip_mute(void)
+{
+    if (mixr_link_up()) {
+        send_to_pc(PktType::VOIP_MUTE_CMD, nullptr, 0);
+    }
+}
+
+void mixr_pc_send_voip_deafen(void)
+{
+    if (mixr_link_up()) {
+        send_to_pc(PktType::VOIP_DEAFEN, nullptr, 0);
+    }
+}
+
+void mixr_pc_send_share_screen(void)
+{
+    if (mixr_link_up()) {
+        send_to_pc(PktType::SHARE_SCREEN_CMD, nullptr, 0);
+    }
+}
+
+/* ---- Display / Touch / LVGL-Glue -------------------------------------------------------------- */
 
 static void my_disp_flush(lv_display_t *disp, const lv_area_t *area, uint8_t *px_map)
 {
@@ -135,9 +195,9 @@ static void my_disp_flush(lv_display_t *disp, const lv_area_t *area, uint8_t *px
 
 static void my_touchpad_read(lv_indev_t *indev, lv_indev_data_t *data)
 {
+    (void)indev;
     if (!mixr_touch_enabled()) {
         data->state = LV_INDEV_STATE_RELEASED;
-        (void)indev;
         return;
     }
     uint16_t x, y;
@@ -149,21 +209,20 @@ static void my_touchpad_read(lv_indev_t *indev, lv_indev_data_t *data)
     } else {
         data->state = LV_INDEV_STATE_RELEASED;
     }
-    (void)indev;
 }
 
-static void lv_tick_task(void *arg)
+static void lv_tick_task(void *)
 {
-    (void)arg;
     lv_tick_inc(5);
 }
 
-static void encoder_timer_cb(void *arg)
+static void encoder_timer_cb(void *)
 {
-    (void)arg;
     g_encoder.tick();
     mixr_tx_led_tick();
 }
+
+/* ---- Peripherie ------------------------------------------------------------------------------- */
 
 static void init_hardware_peripherals(void)
 {
@@ -182,6 +241,7 @@ static void init_hardware_peripherals(void)
     devcfg.spics_io_num = MIXR_PIN_SPI_CS;
     devcfg.queue_size = 1;
     ESP_ERROR_CHECK(spi_bus_add_device(MIXR_SPI_HOST, &devcfg, &spi_mcp));
+    s_spi_mutex = xSemaphoreCreateMutex();
 
     gpio_config_t io_conf = {};
     io_conf.pin_bit_mask = MIXR_BUTTON_GPIO_MASK;
@@ -216,188 +276,20 @@ static int mcp3008_read(int channel)
     t.tx_buffer = tx_data;
     t.rx_buffer = rx_data;
 
-    if (spi_device_transmit(spi_mcp, &t) != ESP_OK) {
-        return 0;
+    if (s_spi_mutex != nullptr && xSemaphoreTake(s_spi_mutex, pdMS_TO_TICKS(20)) != pdTRUE) {
+        return -1;
+    }
+    esp_err_t err = spi_device_transmit(spi_mcp, &t);
+    if (s_spi_mutex != nullptr) {
+        xSemaphoreGive(s_spi_mutex);
+    }
+    if (err != ESP_OK) {
+        return -1;
     }
     return ((rx_data[1] & 0x03) << 8) | rx_data[2];
 }
 
-static bool mixr_pc_link_up(void)
-{
-    return usb_serial_jtag_is_connected();
-}
-
-static void send_to_pc(PktType type, const uint8_t *payload, uint8_t len)
-{
-    /* Frame = Start + len + type + payload + crc → maximal 4 + 255 Byte. */
-    uint8_t packet[4 + MIXR_PAYLOAD_MAX];
-    packet[0] = PKT_START_BYTE;
-    packet[1] = len;
-    packet[2] = static_cast<uint8_t>(type);
-
-    uint8_t crc = len ^ static_cast<uint8_t>(type);
-    for (uint8_t i = 0; i < len; i++) {
-        packet[3 + i] = payload[i];
-        crc ^= payload[i];
-    }
-    packet[3 + len] = crc;
-
-    const size_t frame_len = 4U + (size_t)len;
-    if (s_tx_mutex != nullptr && xSemaphoreTake(s_tx_mutex, pdMS_TO_TICKS(200)) != pdTRUE) {
-        return; /* Host hängt am USB — lieber ein Frame verlieren als alle Timer blockieren */
-    }
-    /* Timeout statt portMAX_DELAY: ein stehender Host darf Tick-/Encoder-Timer nicht einfrieren. */
-    usb_serial_jtag_write_bytes(packet, frame_len, pdMS_TO_TICKS(500));
-    if (s_tx_mutex != nullptr) {
-        xSemaphoreGive(s_tx_mutex);
-    }
-    mixr_tx_led_pulse();
-}
-
-/** HELLO: [proto_ver][caps][fw_version …] — Version kommt aus esp_app_desc (PROJECT_VER / git describe). */
-static void send_hello(void)
-{
-    const esp_app_desc_t *desc = esp_app_get_description();
-    uint8_t payload[2 + sizeof(desc->version)];
-    payload[0] = MIXR_PROTOCOL_VERSION;
-    payload[1] = mixr_fw_update_supported() ? MIXR_CAP_OTA_PROTOCOL : 0;
-    size_t vlen = strnlen(desc->version, sizeof(desc->version));
-    memcpy(&payload[2], desc->version, vlen);
-    send_to_pc(PktType::HELLO, payload, (uint8_t)(2 + vlen));
-}
-
-static void fw_progress_to_ui(uint8_t percent)
-{
-    UiMessage msg;
-    msg.type = PktType::FW_PROGRESS_UI;
-    msg.payload.slider_values[0] = percent;
-    xQueueSend(ui_queue, &msg, 0);
-}
-
-void mixr_pc_send_media_cmd(uint8_t subcmd)
-{
-    if (!mixr_pc_link_up()) {
-        return;
-    }
-    send_to_pc(PktType::MEDIA_CMD, &subcmd, 1);
-}
-
-void mixr_pc_send_voip_mute(void)
-{
-    if (!mixr_pc_link_up()) {
-        return;
-    }
-    send_to_pc(PktType::VOIP_MUTE_CMD, nullptr, 0);
-}
-
-void mixr_pc_send_voip_deafen(void)
-{
-    if (!mixr_pc_link_up()) {
-        return;
-    }
-    send_to_pc(PktType::VOIP_DEAFEN, nullptr, 0);
-}
-
-void mixr_pc_send_share_screen(void)
-{
-    if (!mixr_pc_link_up()) {
-        return;
-    }
-    send_to_pc(PktType::SHARE_SCREEN_CMD, nullptr, 0);
-}
-
-static void comm_task(void *pvParameters)
-{
-    (void)pvParameters;
-    uint8_t rx_buf[256];
-    uint8_t state = 0;
-    uint8_t len = 0;
-    uint8_t type = 0;
-    uint8_t payload[256];
-    uint8_t payload_idx = 0;
-    uint8_t crc = 0;
-
-    while (1) {
-        int bytes_read = usb_serial_jtag_read_bytes(rx_buf, sizeof(rx_buf), portMAX_DELAY);
-
-        for (int i = 0; i < bytes_read; i++) {
-            uint8_t rx_byte = rx_buf[i];
-
-            switch (state) {
-                case 0:
-                    if (rx_byte == PKT_START_BYTE) {
-                        state = 1;
-                        crc = 0;
-                    }
-                    break;
-                case 1:
-                    len = rx_byte;
-                    crc ^= rx_byte;
-                    state = 2;
-                    break;
-                case 2:
-                    type = rx_byte;
-                    crc ^= rx_byte;
-                    payload_idx = 0;
-                    state = (len > 0) ? 3 : 4;
-                    break;
-                case 3:
-                    payload[payload_idx++] = rx_byte;
-                    crc ^= rx_byte;
-                    if (payload_idx == len) {
-                        state = 4;
-                    }
-                    break;
-                case 4:
-                    if (rx_byte == crc) {
-                        UiMessage msg;
-                        msg.type = static_cast<PktType>(type);
-
-                        if (msg.type == PktType::IMAGE_CHUNK) {
-                            if (img_buf != nullptr) {
-                                uint32_t copy_len = len;
-                                if (img_offset + copy_len > IMG_SIZE) {
-                                    copy_len = IMG_SIZE - img_offset;
-                                }
-
-                                memcpy(img_buf + img_offset, payload, copy_len);
-                                img_offset += copy_len;
-
-                                if (img_offset >= IMG_SIZE) {
-                                    msg.type = PktType::IMAGE_READY;
-                                    xQueueSend(ui_queue, &msg, 0);
-                                    img_offset = 0;
-                                }
-                            }
-                        } else if (msg.type == PktType::SONG_TITLE || msg.type == PktType::SONG_ARTIST) {
-                            /* Neuer Titel/Artist: altes halbes Cover verwerfen */
-                            img_offset = 0;
-                            uint8_t copy_len =
-                                (len < sizeof(msg.payload.text) - 1) ? len : sizeof(msg.payload.text) - 1;
-                            memcpy(msg.payload.text, payload, copy_len);
-                            msg.payload.text[copy_len] = '\0';
-                            xQueueSend(ui_queue, &msg, 0);
-                        } else if (msg.type == PktType::VOIP_MUTE_TOGGLE_UI && len == 0) {
-                            xQueueSend(ui_queue, &msg, 0);
-                        } else if (msg.type == PktType::VOIP_DEAFEN && len == 0) {
-                            xQueueSend(ui_queue, &msg, 0);
-                        } else if (msg.type == PktType::HELLO_REQ) {
-                            send_hello();
-                        } else if (msg.type == PktType::FW_BEGIN || msg.type == PktType::FW_CHUNK
-                                   || msg.type == PktType::FW_END || msg.type == PktType::FW_ABORT) {
-                            mixr_fw_update_handle(msg.type, payload, len, send_to_pc, fw_progress_to_ui);
-                        }
-                        /* andere Typen vom PC ignorieren */
-                    } else {
-                        /* CRC falsch: Frame verworfen, Cover-Reassembly nicht mehr vertrauen */
-                        img_offset = 0;
-                    }
-                    state = 0;
-                    break;
-            }
-        }
-    }
-}
+/* ---- Fader / Tasten --------------------------------------------------------------------------- */
 
 static bool sliders_delta_over_deadband(const uint8_t *cur, const uint8_t *last)
 {
@@ -413,22 +305,44 @@ static bool sliders_delta_over_deadband(const uint8_t *cur, const uint8_t *last)
     return false;
 }
 
+static void handle_button_press(int b)
+{
+    uint8_t btn_id = (uint8_t)b;
+    /* Immer an den Host melden (Konfiguration, Log, Discord-Aktionen) … */
+    send_to_pc(PktType::BTN_CMD, &btn_id, 1);
+    /* … und Medientasten zusätzlich als HID-Consumer-Control, damit sie ohne App funktionieren.
+     * Der Host weiß über HELLO (MIXR_CAP_HID_CONSUMER), dass er diese Tasten nicht doppelt ausführt. */
+    uint16_t usage = mixr_proto_button_usage(b);
+    if (usage != MIXR_HID_USAGE_NONE) {
+        mixr_link_send_consumer(usage);
+    }
+}
+
 static void mixr_poll_sliders_buttons(void)
 {
-    if (!mixr_pc_link_up() || mixr_fw_update_active()) {
+    if (mixr_fw_update_active()) {
         return;
     }
-    if (mixr_sliders_send_enabled()) {
+    const bool link_up = mixr_link_up();
+
+    if (link_up && mixr_sliders_send_enabled()) {
         uint8_t current_sliders[MIXR_SLIDER_COUNT];
+        bool ok = true;
         for (int j = 0; j < MIXR_SLIDER_COUNT; j++) {
-            current_sliders[j] = (uint8_t)(mcp3008_read(j) >> 2);
+            int v = mcp3008_read(j);
+            if (v < 0) {
+                ok = false;
+                break;
+            }
+            current_sliders[j] = (uint8_t)(v >> 2);
         }
-        if (sliders_delta_over_deadband(current_sliders, s_last_sliders)) {
+        if (ok && sliders_delta_over_deadband(current_sliders, s_last_sliders)) {
             send_to_pc(PktType::SLIDER_VALS, current_sliders, MIXR_SLIDER_COUNT);
             memcpy(s_last_sliders, current_sliders, MIXR_SLIDER_COUNT);
         }
     }
-    for (int b = 0; b < 5; b++) {
+
+    for (int b = 0; b < MIXR_BUTTON_COUNT; b++) {
         uint8_t state;
 #if MIXR_HW_BUTTON3_DISABLED
         if (b == 3) {
@@ -441,9 +355,16 @@ static void mixr_poll_sliders_buttons(void)
         if (mixr_buttons_send_enabled() && state == 0 && s_last_buttons[b] == 1) {
             int64_t now_us = esp_timer_get_time();
             if (now_us - s_last_btn_cmd_us[b] >= MIXR_BUTTON_DEBOUNCE_US) {
-                uint8_t btn_id = (uint8_t)b;
-                send_to_pc(PktType::BTN_CMD, &btn_id, 1);
                 s_last_btn_cmd_us[b] = now_us;
+                if (link_up) {
+                    handle_button_press(b);
+                } else {
+                    /* Ohne PC-Verbindung bleiben die HID-Medientasten trotzdem nutzbar (Standard-Map). */
+                    uint16_t usage = mixr_proto_button_usage(b);
+                    if (usage != MIXR_HID_USAGE_NONE) {
+                        mixr_link_send_consumer(usage);
+                    }
+                }
             }
         }
         s_last_buttons[b] = state;
@@ -453,36 +374,30 @@ static void mixr_poll_sliders_buttons(void)
 extern "C" void mixr_sliders_resync_baseline(void)
 {
     for (int j = 0; j < MIXR_SLIDER_COUNT; j++) {
-        s_last_sliders[j] = (uint8_t)(mcp3008_read(j) >> 2);
+        int v = mcp3008_read(j);
+        if (v >= 0) {
+            s_last_sliders[j] = (uint8_t)(v >> 2);
+        }
     }
-    if (mixr_sliders_send_enabled() && mixr_pc_link_up()) {
+    if (mixr_sliders_send_enabled() && mixr_link_up()) {
         send_to_pc(PktType::SLIDER_VALS, s_last_sliders, MIXR_SLIDER_COUNT);
     }
 }
 
-static void mixr_controls_timer_cb(void *arg)
+static void mixr_controls_timer_cb(void *)
 {
-    (void)arg;
     mixr_poll_sliders_buttons();
 }
+
+/* ---- Hauptprogramm ---------------------------------------------------------------------------- */
 
 void mixr_app_run(void)
 {
     s_mixr_boot_count++;
-    ESP_LOGI(TAG, "Start #%lu, Firmware %s", (unsigned long)s_mixr_boot_count,
-             esp_app_get_description()->version);
+    ESP_LOGI(TAG, "Start #%lu, Firmware %s", (unsigned long)s_mixr_boot_count, esp_app_get_description()->version);
     mixr_fw_update_mark_valid();
-    s_tx_mutex = xSemaphoreCreateMutex();
 
     rm67162_init();
-
-    /* Ein Kabel: USB-Serial/JTAG für Protokoll + Logs. Großer RX-Puffer gegen Überlauf bei Cover-Bursts. */
-    usb_serial_jtag_driver_config_t usb_config = {
-        .tx_buffer_size = 512,
-        .rx_buffer_size = 65536,
-    };
-    ESP_ERROR_CHECK(usb_serial_jtag_driver_install(&usb_config));
-
     lcd_setRotation(0);
     touch.begin();
     init_hardware_peripherals();
@@ -495,8 +410,7 @@ void mixr_app_run(void)
     const size_t buf_pixels = total_px / 8U;
     const size_t buf_size = buf_pixels;
 
-    void *disp_buf =
-        heap_caps_malloc(buf_size * sizeof(lv_color_t), MALLOC_CAP_INTERNAL | MALLOC_CAP_8BIT);
+    void *disp_buf = heap_caps_malloc(buf_size * sizeof(lv_color_t), MALLOC_CAP_INTERNAL | MALLOC_CAP_8BIT);
     if (disp_buf == nullptr) {
         ESP_LOGW(TAG, "Interner RAM voll, nutze PSRAM fuer Display Buffer");
         disp_buf = heap_caps_malloc(buf_size * sizeof(lv_color_t), MALLOC_CAP_SPIRAM);
@@ -516,8 +430,6 @@ void mixr_app_run(void)
                                               true, MIXR_UI_FONT);
     lv_display_set_theme(disp, theme);
 #endif
-    /* Default-Screen-BG = gleiche RGB565 wie screen_player (0x0e0e12), sonst minimaler Farbversatz
-     * zwischen Theme-Fill und UI → dünner Streifen an Kachelrändern (früher oft kein LVGL-Partial). */
     {
         lv_obj_t *ds = lv_display_get_screen_active(disp);
         if (ds != nullptr) {
@@ -533,13 +445,13 @@ void mixr_app_run(void)
     lv_indev_set_type(indev, LV_INDEV_TYPE_POINTER);
     lv_indev_set_read_cb(indev, my_touchpad_read);
 
-    img_buf = (uint8_t *)heap_caps_malloc(IMG_SIZE, MALLOC_CAP_SPIRAM);
+    img_buf = (uint8_t *)heap_caps_malloc(MIXR_COVER_RGB565_BYTES, MALLOC_CAP_SPIRAM);
     if (img_buf == nullptr) {
         ESP_LOGE(TAG, "PSRAM Allokation fuer Cover fehlgeschlagen");
     }
 
     mixr_ui_set_last_reset_reason(static_cast<int>(esp_reset_reason()));
-    mixr_ui_init(disp, img_buf, IMG_SIZE, s_mixr_boot_count);
+    mixr_ui_init(disp, img_buf, MIXR_COVER_RGB565_BYTES, s_mixr_boot_count);
     if (img_buf == nullptr) {
         mixr_ui_set_error_banner("Cover: PSRAM fehlt");
     }
@@ -580,37 +492,38 @@ void mixr_app_run(void)
     ESP_ERROR_CHECK(esp_timer_start_periodic(controls_timer, 10000));
 
     ui_queue = xQueueCreate(24, sizeof(UiMessage));
-    /* USB kurz stabilisieren (Enumeration), bevor große RX-Strom kommt */
-    vTaskDelay(pdMS_TO_TICKS(500));
-    /* 8 KiB: esp_ota_write + SHA-256 brauchen mehr Stack als das reine Frame-Parsen. */
-    xTaskCreate(comm_task, "comm_task", 8192, nullptr, 5, nullptr);
 
-    mixr_ui_set_usb_connected(mixr_pc_link_up());
-    if (mixr_pc_link_up()) {
-        send_hello();
+    /* Kommunikation: Frame-Handler + Link-Backend (startet comm_task) */
+    mixr_proto_init(ui_queue, img_buf);
+    mixr_log_stream_init();
+    mixr_link_init(mixr_proto_handle_frame);
+    ESP_LOGI(TAG, "Link: %s, Protokoll v%d", mixr_link_name(), MIXR_PROTOCOL_VERSION);
+
+    bool last_usb_state = mixr_link_up();
+    mixr_ui_set_usb_connected(last_usb_state);
+    if (last_usb_state) {
+        mixr_proto_send_hello();
     }
 
-    bool last_usb_state = usb_serial_jtag_is_connected();
     UiMessage incoming_msg;
-
     uint32_t last_dbg_ms = 0;
 
-    while (1) {
+    while (true) {
         uint32_t ms = esp_log_timestamp();
         if (ms - last_dbg_ms >= 1000) {
             last_dbg_ms = ms;
             mixr_ui_set_debug_overlay(s_mixr_boot_count, ms / 1000);
             mixr_ui_on_focus_timer_tick();
         }
-        bool current_usb_state = usb_serial_jtag_is_connected();
+
+        bool current_usb_state = mixr_link_up();
         if (current_usb_state != last_usb_state) {
             mixr_ui_set_usb_connected(current_usb_state);
             last_usb_state = current_usb_state;
             if (current_usb_state) {
-                send_hello();
+                mixr_proto_send_hello();
             } else {
-                mixr_fw_update_abort();
-                img_offset = 0;
+                mixr_proto_on_link_down();
                 if (mixr_ui_is_menu_open()) {
                     mixr_ui_menu_refresh_dynamic_rows();
                 }
@@ -631,7 +544,8 @@ void mixr_app_run(void)
             mixr_ui_menu_navigate(step, click);
         }
 
-        if (xQueueReceive(ui_queue, &incoming_msg, 0) == pdTRUE) {
+        /* Alle anstehenden UI-Nachrichten in einem Durchlauf abarbeiten (nicht nur eine pro 10 ms). */
+        while (xQueueReceive(ui_queue, &incoming_msg, 0) == pdTRUE) {
             mixr_ui_on_message(&incoming_msg);
         }
 
