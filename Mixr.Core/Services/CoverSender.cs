@@ -97,7 +97,7 @@ public sealed class CoverSender
                     SendCoverV3(rgb565, device with { Capabilities = (byte)(device.Capabilities & ~MixrProtocol.CapJpegCover) });
                     return;
                 case MixrProtocol.ImageAckStatus.Unsupported:
-                    _log("Cover: Gerät kann das Bild nicht annehmen.");
+                    _log("Cover: Gerät kann das Bild nicht annehmen (oft: kein PSRAM / Cover-Puffer fehlt — Firmware neu flashen).");
                     return;
                 case null:
                     _log("Cover: keine Antwort auf IMAGE_BEGIN — sende ohne Bestätigung.");

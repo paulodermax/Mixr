@@ -55,6 +55,14 @@ public partial class App : Application
         UnhandledException += App_UnhandledException;
         TaskScheduler.UnobservedTaskException += (_, e) =>
         {
+            // AudioSwitcher 3.x feuert gelegentlich ArgumentNullException („source“) aus dem
+            // Session-Observer, wenn Windows Sessions hinzufügt/entfernt — harmlos, aber laut.
+            if (IsKnownAudioSwitcherNoise(e.Exception))
+            {
+                e.SetObserved();
+                return;
+            }
+
             AppLog.WriteLine("UnobservedTaskException:");
             AppLog.WriteException(e.Exception);
             e.SetObserved();
@@ -521,5 +529,28 @@ public partial class App : Application
     {
         await PrepareShutdownAsync().ConfigureAwait(false);
         Environment.Exit(0);
+    }
+
+    static bool IsKnownAudioSwitcherNoise(Exception ex)
+    {
+        for (Exception? cur = ex; cur != null; cur = cur.InnerException)
+        {
+            if (cur is ArgumentNullException ane
+                && string.Equals(ane.ParamName, "source", StringComparison.Ordinal)
+                && (cur.StackTrace?.Contains("AudioSwitcher", StringComparison.Ordinal) == true
+                    || (cur.TargetSite?.DeclaringType?.FullName?.Contains("AudioSwitcher", StringComparison.Ordinal) == true)))
+                return true;
+
+            if (cur is AggregateException agg)
+            {
+                foreach (var inner in agg.InnerExceptions)
+                {
+                    if (IsKnownAudioSwitcherNoise(inner))
+                        return true;
+                }
+            }
+        }
+
+        return false;
     }
 }
