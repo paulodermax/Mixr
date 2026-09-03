@@ -35,7 +35,7 @@ size_t jpeg_in(JDEC *jd, uint8_t *buf, size_t len)
     return len;
 }
 
-/* TJpgDec: Ausgabe-Callback, ein Block (RGB888 bei JD_FORMAT 0). */
+/* TJpgDec (ChaN): bei JD_FORMAT 0 ist die Reihenfolge B,G,R — nicht R,G,B. */
 int jpeg_out(JDEC *jd, void *bitmap, JRECT *rect)
 {
     auto *ctx = static_cast<DecodeCtx *>(jd->device);
@@ -53,7 +53,10 @@ int jpeg_out(JDEC *jd, void *bitmap, JRECT *rect)
             if (tx < 0 || tx >= MIXR_COVER_W) {
                 continue;
             }
-            uint16_t rgb565 = (uint16_t)(((px[0] & 0xF8) << 8) | ((px[1] & 0xFC) << 3) | (px[2] >> 3));
+            const uint8_t b = px[0];
+            const uint8_t g = px[1];
+            const uint8_t r = px[2];
+            uint16_t rgb565 = (uint16_t)(((r & 0xF8) << 8) | ((g & 0xFC) << 3) | (b >> 3));
             size_t o = ((size_t)ty * MIXR_COVER_W + (size_t)tx) * 2;
             ctx->out[o] = (uint8_t)(rgb565 & 0xFF);
             ctx->out[o + 1] = (uint8_t)(rgb565 >> 8);
