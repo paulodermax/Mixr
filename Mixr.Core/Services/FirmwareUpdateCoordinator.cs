@@ -20,6 +20,14 @@ public static class FirmwareUpdateCoordinator
 
     public static event Action? BusyChanged;
 
+    const string ManualBootHint =
+        "Kein Espressif-COM-Port gefunden.\n\n" +
+        "So geht’s manuell:\n" +
+        "1. BOOT-Taste am Gerät gedrückt halten\n" +
+        "2. RESET tippen (oder USB kurz abziehen/anstecken), BOOT loslassen\n" +
+        "3. In Windows Geräte-Manager prüfen, ob ein neuer COM-Port von Espressif erscheint\n" +
+        "4. Hier erneut „Firmware aktualisieren“ klicken";
+
     /// <summary>Gerät verbunden, meldet HELLO, und das mitgelieferte Image ist neuer.</summary>
     public static bool UpdateRecommended
     {
@@ -69,6 +77,17 @@ public static class FirmwareUpdateCoordinator
             var dev = MixrRuntimeState.Device;
             var link = MixrRuntimeState.Link;
 
+            // 0) Gerät steckt vielleicht schon im ROM-Download-Modus (manuell BOOT+RESET)
+            var existingRom = MixrDevicePortResolver.TryFindComPort(out var existingCandidates);
+            if (!string.IsNullOrEmpty(existingRom) && (link is null || link.Kind == MixrLinkKind.Hid && !MixrRuntimeState.EspConnected))
+            {
+                Log($"FW: Espressif-COM schon da ({string.Join(", ", existingCandidates)}) — flashe ohne ENTER_BOOTLOADER.");
+                await EsptoolFlasher.EnsureAvailableAsync(progress, Log, ct).ConfigureAwait(false);
+                using (MixrRuntimeState.PauseSerial())
+                    return await EsptoolFlasher.FlashAsync(img, existingRom, progress, Log, ct, alreadyInBootloader: true)
+                        .ConfigureAwait(false);
+            }
+
             // 1) Protokoll-OTA über den offenen Link (HID oder Seriell)
             if (dev is { SupportsProtocolOta: true } && link is not null && link.Link.IsOpen)
             {
@@ -86,31 +105,31 @@ public static class FirmwareUpdateCoordinator
             using (MixrRuntimeState.PauseSerial())
             {
                 string? port;
-                if (link is { Kind: MixrLinkKind.Hid } && dev is { SupportsBootloaderCmd: true })
+                if (link is { Kind: MixrLinkKind.Hid } && (dev is null || dev.SupportsBootloaderCmd))
                 {
-                    // Gerät verschwindet als HID und taucht als Espressif-COM-Port (ROM-Bootloader) wieder auf.
                     progress?.Report(new FirmwareUpdateProgress(0, "Gerät wird in den Download-Modus geschickt …"));
+                    Log("FW: sende ENTER_BOOTLOADER (HID → ROM-COM-Port)");
                     link.Link.TrySend(MixrProtocol.TypeEnterBootloader);
-                    await Task.Delay(300, ct).ConfigureAwait(false);
-                    link.Link.Dispose();
-                    port = await WaitForRomPortAsync(TimeSpan.FromSeconds(12), ct).ConfigureAwait(false);
+                    // Firmware trennt TinyUSB und startet neu — Host muss den HID-Handle loslassen.
+                    await Task.Delay(400, ct).ConfigureAwait(false);
+                    try { link.Link.Dispose(); } catch { /* */ }
+
+                    progress?.Report(new FirmwareUpdateProgress(5, "Warte auf Espressif-COM-Port …"));
+                    port = await WaitForRomPortAsync(TimeSpan.FromSeconds(20), ct).ConfigureAwait(false);
                     if (port is null)
-                        return new FirmwareUpdateResult(FirmwareUpdateOutcome.Failed,
-                            "Gerät ist nicht im Download-Modus erschienen (kein Espressif-COM-Port). USB neu anstecken und erneut versuchen.");
+                        return new FirmwareUpdateResult(FirmwareUpdateOutcome.Failed, ManualBootHint);
+
                     Log($"FW: ROM-Bootloader auf {port}");
-                    return await EsptoolFlasher.FlashAsync(img, port, progress, Log, ct, alreadyInBootloader: true).ConfigureAwait(false);
+                    return await EsptoolFlasher.FlashAsync(img, port, progress, Log, ct, alreadyInBootloader: true)
+                        .ConfigureAwait(false);
                 }
 
                 port = MixrRuntimeState.LastPortName;
                 if (string.IsNullOrEmpty(port))
-                {
-                    // HID-Gerät ohne Bootloader-Befehl (alte v3-Firmware?) — vielleicht hängt es schon als COM-Port.
                     port = MixrDevicePortResolver.TryFindComPort(out _);
-                    if (string.IsNullOrEmpty(port))
-                        return new FirmwareUpdateResult(FirmwareUpdateOutcome.Failed, "Kein COM-Port bekannt — Gerät zuerst verbinden.");
-                }
+                if (string.IsNullOrEmpty(port))
+                    return new FirmwareUpdateResult(FirmwareUpdateOutcome.Failed, ManualBootHint);
 
-                // Dem Host Zeit geben, den Port wirklich zu schließen (RX-Thread endet asynchron).
                 await Task.Delay(700, ct).ConfigureAwait(false);
                 Log($"FW: esptool-Update {dev?.FirmwareVersion ?? "?"} → {img.Version} auf {port}");
                 return await EsptoolFlasher.FlashAsync(img, port, progress, Log, ct).ConfigureAwait(false);
@@ -126,17 +145,38 @@ public static class FirmwareUpdateCoordinator
     static async Task<string?> WaitForRomPortAsync(TimeSpan timeout, CancellationToken ct)
     {
         var deadline = DateTime.UtcNow + timeout;
+        var lastLog = DateTime.UtcNow;
         while (DateTime.UtcNow < deadline)
         {
             ct.ThrowIfCancellationRequested();
-            var port = MixrDevicePortResolver.TryFindComPort(out _);
-            if (!string.IsNullOrEmpty(port))
+
+            // HID weg + Espressif-COM da = Download-Modus
+            var hidStillThere = MixrHidTransport.Enumerate().Count > 0;
+            var port = MixrDevicePortResolver.TryFindComPort(out var candidates);
+            if (!string.IsNullOrEmpty(port) && !hidStillThere)
             {
-                await Task.Delay(500, ct).ConfigureAwait(false); // Treiber fertig laden lassen
+                Log($"FW: COM gefunden ({string.Join(", ", candidates)}), HID weg — warte kurz auf Treiber …");
+                await Task.Delay(800, ct).ConfigureAwait(false);
                 return port;
             }
 
-            await Task.Delay(400, ct).ConfigureAwait(false);
+            // Manchmal bleibt ein „leerer“ HID-Rest kurz hängen — COM trotzdem nehmen, wenn er da ist.
+            if (!string.IsNullOrEmpty(port))
+            {
+                Log($"FW: COM gefunden ({string.Join(", ", candidates)})" + (hidStillThere ? " (HID noch sichtbar)" : ""));
+                await Task.Delay(800, ct).ConfigureAwait(false);
+                return port;
+            }
+
+            if ((DateTime.UtcNow - lastLog).TotalSeconds >= 3)
+            {
+                lastLog = DateTime.UtcNow;
+                Log(hidStillThere
+                    ? "FW: warte … HID noch da, kein Espressif-COM"
+                    : "FW: warte … weder HID noch Espressif-COM");
+            }
+
+            await Task.Delay(350, ct).ConfigureAwait(false);
         }
 
         return null;

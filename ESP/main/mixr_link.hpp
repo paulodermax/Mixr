@@ -36,6 +36,12 @@ bool mixr_link_send_consumer(uint16_t usage);
 /** Beschreibung fürs Log / Debug-Menü, z. B. "USB-HID" oder "USB-Serial/JTAG". */
 const char *mixr_link_name(void);
 
+/**
+ * USB sauber trennen, bevor ENTER_BOOTLOADER den Chip neu startet.
+ * Ohne das bleibt TinyUSB oft am Bus — Windows sieht dann keinen Espressif-COM-Port.
+ */
+void mixr_link_prepare_bootloader(void);
+
 /* ---- CRC-16/CCITT-FALSE (poly 0x1021, init 0xFFFF) — vom HID-Backend und den Tests genutzt ---- */
 uint16_t mixr_crc16(const uint8_t *data, size_t len);
 uint16_t mixr_crc16_update(uint16_t crc, const uint8_t *data, size_t len);

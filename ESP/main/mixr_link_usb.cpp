@@ -375,4 +375,12 @@ const char *mixr_link_name(void)
     return "USB-HID";
 }
 
+void mixr_link_prepare_bootloader(void)
+{
+    /* Bus loslassen, damit der ROM-Bootloader nach dem Reset als Espressif-COM-Port enumeriert. */
+    s_mounted = false;
+    tinyusb_driver_uninstall();
+    vTaskDelay(pdMS_TO_TICKS(250));
+}
+
 #endif /* CONFIG_MIXR_USB_HID */

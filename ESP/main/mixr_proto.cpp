@@ -244,7 +244,9 @@ void handle_pong_request(void)
 void enter_bootloader(void)
 {
     ESP_LOGW(TAG, "Neustart in den ROM-Download-Modus (Host flasht mit esptool)");
-    vTaskDelay(pdMS_TO_TICKS(100)); /* Log raus */
+    /* Zuerst ACK/Frame raus und USB trennen — sonst enumeriert Windows oft keinen COM-Port. */
+    vTaskDelay(pdMS_TO_TICKS(50));
+    mixr_link_prepare_bootloader();
     REG_WRITE(RTC_CNTL_OPTION1_REG, RTC_CNTL_FORCE_DOWNLOAD_BOOT);
     esp_restart();
 }

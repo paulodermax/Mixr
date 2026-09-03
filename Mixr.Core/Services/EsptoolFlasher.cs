@@ -113,7 +113,8 @@ public static class EsptoolFlasher
                      "--port", portName,
                      "--baud", "921600",
                      "--before", alreadyInBootloader ? "no_reset" : "default_reset",
-                     "--after", "hard_reset",
+                     // S3: nach software-FORCE_DOWNLOAD_BOOT sticky bit → watchdog_reset statt hard_reset
+                     "--after", alreadyInBootloader ? "watchdog_reset" : "hard_reset",
                      "write_flash",
                      "--flash_mode", "keep",
                      "--flash_size", "keep",

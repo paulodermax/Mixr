@@ -137,4 +137,9 @@ const char *mixr_link_name(void)
     return "USB-Serial/JTAG";
 }
 
+void mixr_link_prepare_bootloader(void)
+{
+    /* Serial/JTAG: nichts zu tun — Port bleibt für esptool nutzbar. */
+}
+
 #endif /* !CONFIG_MIXR_USB_HID */
