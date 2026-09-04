@@ -8,29 +8,20 @@ if (HasFlag(args, "--help", "-h", "/?"))
 {
     Console.WriteLine(
         """
-        Mixr.FirstFlash — einmalig die Standard-Mixr-Firmware auf ein neues ESP32-S3-Display schreiben.
+        Mixr.FirstFlash — einmalig Mixr 0.0.7 (HID) auf ein neues ESP32-S3-Display schreiben.
 
-        Schreibt Bootloader + Partitionstabelle + Mixr.bin (aktuelles GitHub-Release, sonst lokaler Build).
-        Danach das Gerät per USB lassen und weitere Updates in der Mixr-App
-        (Einstellungen → Geräte-Firmware) machen.
-
-        Vorher die Mixr-App beenden — sonst ist der COM-Port belegt.
+        Standard: GitHub v0.0.7, COM-Port automatisch, Mixr-App wird beendet, sofort flashen.
 
         Aufruf:
           dotnet run --project Mixr.FirstFlash
-          Mixr.FirstFlash.exe
-          Mixr.FirstFlash.exe --port COM8
-          Mixr.FirstFlash.exe --version 0.0.7
-          Mixr.FirstFlash.exe --dir C:\pfad\zu\firmware
-          Mixr.FirstFlash.exe --yes
-          Mixr.FirstFlash.exe --already-bootloader
 
         Optionen:
           --port COM8              fester Port (sonst Espressif-USB automatisch)
           --dir PFAD               Mixr.bin + bootloader.bin + partition-table.bin
-          --version X.Y.Z          GitHub-Release statt „latest“
+          --version X.Y.Z          anderes GitHub-Release (Standard: 0.0.7)
+          --local                  ESP/build bzw. Mixr.App/firmware statt GitHub
           --repo owner/name        GitHub-Repo (Standard: paulodermax/Mixr)
-          --yes                    ohne Rückfrage flashen
+          --confirm                vor dem Flashen auf Enter warten
           --already-bootloader     Gerät steckt schon im Download-Modus (BOOT halten, RESET)
           --help
         """);
@@ -44,11 +35,12 @@ Console.CancelKeyPress += (_, e) =>
     cts.Cancel();
 };
 
-var yes = HasFlag(args, "--yes", "-y");
+var confirm = HasFlag(args, "--confirm");
 var alreadyBl = HasFlag(args, "--already-bootloader");
+var useLocal = HasFlag(args, "--local");
 var portArg = ArgValue(args, "--port");
 var dirArg = ArgValue(args, "--dir");
-var versionArg = ArgValue(args, "--version");
+var versionArg = ArgValue(args, "--version") ?? FirmwareBundle.DefaultFirmwareVersion;
 var repo = ArgValue(args, "--repo") ?? FirmwareBundle.DefaultGitHubRepo;
 
 void Log(string line) => Console.WriteLine(line);
@@ -58,17 +50,40 @@ try
     var mixrApps = Process.GetProcessesByName("Mixr");
     if (mixrApps.Length > 0)
     {
-        Console.Error.WriteLine("Mixr.exe läuft noch und hält oft den USB-Port fest.");
-        Console.Error.WriteLine("Bitte die App beenden und FirstFlash erneut starten.");
-        return 2;
+        Log($"Beende Mixr.exe ({mixrApps.Length}), damit der COM-Port frei ist …");
+        foreach (var p in mixrApps)
+        {
+            try
+            {
+                p.Kill(entireProcessTree: true);
+                p.WaitForExit(4000);
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine($"Mixr.exe ließ sich nicht beenden: {ex.Message}");
+                return 2;
+            }
+        }
+
+        await Task.Delay(1500, cts.Token);
     }
 
-    Log("Lade Standard-Firmware …");
-    var fw = await FirmwareBundle.ResolveAsync(dirArg, versionArg, repo, Log, cts.Token);
+    Log($"Lade Mixr-Firmware {versionArg} …");
+    var fw = await FirmwareBundle.ResolveAsync(dirArg, versionArg, repo, useLocal, Log, cts.Token);
 
     var port = portArg;
     if (string.IsNullOrWhiteSpace(port))
-        port = MixrDevicePortResolver.TryFindComPort(out var found);
+    {
+        for (var i = 0; i < 8 && string.IsNullOrWhiteSpace(port); i++)
+        {
+            port = MixrDevicePortResolver.TryFindComPort(out _);
+            if (!string.IsNullOrWhiteSpace(port))
+                break;
+            if (i == 0)
+                Log("Warte auf Espressif-COM-Port …");
+            await Task.Delay(500, cts.Token);
+        }
+    }
 
     if (string.IsNullOrWhiteSpace(port))
     {
@@ -90,12 +105,16 @@ try
     Log("Es wird Bootloader + Partitionstabelle + App geschrieben (Werksboard → Mixr).");
     Log("USB nicht trennen.");
 
-    if (!yes)
+    if (confirm)
     {
         Console.Write("Enter = flashen, Strg+C = abbrechen: ");
         if (Console.ReadLine() is null)
             return 0;
     }
+
+    Log(useLocal || !string.IsNullOrEmpty(dirArg)
+        ? "Starte Flash …"
+        : $"Starte Flash (GitHub v{versionArg}) …");
 
     var progress = new Progress<FirmwareUpdateProgress>(p =>
     {

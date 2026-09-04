@@ -6,17 +6,14 @@ Danach erkennt die Mixr-App das Gerät als USB-HID. Weitere Updates laufen in de
 
 ## Start
 
-Mixr-App **beenden**, Display per USB anstecken, im Repo-Root:
+Display per USB anstecken, im Repo-Root:
 
 ```powershell
 dotnet run --project Mixr.FirstFlash
 ```
 
-Ohne lokale `ESP/build`-Artefakte lädt das Tool das neueste GitHub-Release (`Mixr.bin`, `bootloader.bin`, `partition-table.bin`).
+Das lädt GitHub **v0.0.7**, beendet eine laufende Mixr-App, findet den COM-Port und flasht sofort.
 
-```powershell
-dotnet run --project Mixr.FirstFlash -- --yes
-dotnet run --project Mixr.FirstFlash -- --port COM8 --version 0.0.7
-```
+Optionen: `--version`, `--port`, `--local`, `--confirm`, `--already-bootloader` — siehe `dotnet run --project Mixr.FirstFlash -- --help`.
 
 Wenn esptool nicht verbindet: BOOT halten, RESET tippen, BOOT loslassen, dann `--already-bootloader`.

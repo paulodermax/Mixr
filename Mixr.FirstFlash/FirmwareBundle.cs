@@ -18,10 +18,14 @@ static class FirmwareBundle
 {
     public const string DefaultGitHubRepo = "paulodermax/Mixr";
 
+    /// <summary>Produkt-Firmware, die FirstFlash ohne Extra-Flags schreibt.</summary>
+    public const string DefaultFirmwareVersion = "0.0.7";
+
     public static async Task<FactoryFirmware> ResolveAsync(
         string? dirArg,
         string? versionArg,
         string repo,
+        bool useLocal,
         Action<string> log,
         CancellationToken ct)
     {
@@ -34,6 +38,10 @@ static class FirmwareBundle
                 $"In „{dirArg}“ fehlen Mixr.bin, bootloader.bin oder partition-table.bin.");
         }
 
+        // Standard: GitHub v0.0.7 (HID). --local: ESP/build, ignoriert --version.
+        if (!useLocal)
+            return await DownloadFromGitHubAsync(repo, versionArg, log, ct).ConfigureAwait(false);
+
         var local = TryFromDirectory(Path.Combine(AppContext.BaseDirectory, "firmware"), "neben dem Tool")
                     ?? TryFromRepoTree();
         if (local is not null)
@@ -42,6 +50,7 @@ static class FirmwareBundle
             return local;
         }
 
+        log("Kein lokaler Build — lade GitHub-Release.");
         return await DownloadFromGitHubAsync(repo, versionArg, log, ct).ConfigureAwait(false);
     }
 
