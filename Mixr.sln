@@ -15,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "searchengine", "searchengin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mixr.SearchEngine", "searchengine\Mixr.SearchEngine.csproj", "{D1DDF51F-B0E3-4068-9664-E88D23567F91}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mixr.FirstFlash", "Mixr.FirstFlash\Mixr.FirstFlash.csproj", "{BBD0ABC2-DEA9-4EE2-A929-20533DF45E9C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -86,6 +88,18 @@ Global
 		{D1DDF51F-B0E3-4068-9664-E88D23567F91}.Release|x64.Build.0 = Release|Any CPU
 		{D1DDF51F-B0E3-4068-9664-E88D23567F91}.Release|x86.ActiveCfg = Release|Any CPU
 		{D1DDF51F-B0E3-4068-9664-E88D23567F91}.Release|x86.Build.0 = Release|Any CPU
+		{BBD0ABC2-DEA9-4EE2-A929-20533DF45E9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBD0ABC2-DEA9-4EE2-A929-20533DF45E9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBD0ABC2-DEA9-4EE2-A929-20533DF45E9C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BBD0ABC2-DEA9-4EE2-A929-20533DF45E9C}.Debug|x64.Build.0 = Debug|Any CPU
+		{BBD0ABC2-DEA9-4EE2-A929-20533DF45E9C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BBD0ABC2-DEA9-4EE2-A929-20533DF45E9C}.Debug|x86.Build.0 = Debug|Any CPU
+		{BBD0ABC2-DEA9-4EE2-A929-20533DF45E9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBD0ABC2-DEA9-4EE2-A929-20533DF45E9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBD0ABC2-DEA9-4EE2-A929-20533DF45E9C}.Release|x64.ActiveCfg = Release|Any CPU
+		{BBD0ABC2-DEA9-4EE2-A929-20533DF45E9C}.Release|x64.Build.0 = Release|Any CPU
+		{BBD0ABC2-DEA9-4EE2-A929-20533DF45E9C}.Release|x86.ActiveCfg = Release|Any CPU
+		{BBD0ABC2-DEA9-4EE2-A929-20533DF45E9C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

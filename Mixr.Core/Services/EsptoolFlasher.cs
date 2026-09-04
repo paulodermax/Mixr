@@ -17,6 +17,12 @@ public static class EsptoolFlasher
     const string DownloadUrl = "https://github.com/espressif/esptool/releases/download/v4.9.0/esptool-v4.9.0-windows-amd64.zip";
     const string ZipSha256 = "8e66e686341eddf8c56f4df77288098680c6251e6d98750992798a5f4e87354b";
 
+    /// <summary>ESP32-S3: Bootloader sitzt am Anfang des Flash.</summary>
+    public const string BootloaderFlashOffset = "0x0";
+
+    /// <summary>Partitionstabelle laut ESP-IDF-Standard.</summary>
+    public const string PartitionTableFlashOffset = "0x8000";
+
     /// <summary>App-Offset laut partitions.csv / flasher_args.json.</summary>
     public const string AppFlashOffset = "0x10000";
 
@@ -96,8 +102,66 @@ public static class EsptoolFlasher
         CancellationToken ct,
         bool alreadyInBootloader = false)
     {
+        return await WriteFlashAsync(
+            portName,
+            [(AppFlashOffset, image.Path)],
+            progress,
+            log,
+            ct,
+            alreadyInBootloader,
+            flashSize: "keep",
+            successMessage: $"Firmware {image.Version} geflasht. Das Gerät startet neu.").ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Factory-Flash: Bootloader + Partitionstabelle + App. Für Werksboards, die noch keine Mixr-Firmware haben.
+    /// </summary>
+    public static Task<FirmwareUpdateResult> FlashFactoryAsync(
+        string portName,
+        string bootloaderPath,
+        string partitionTablePath,
+        FirmwareImage app,
+        IProgress<FirmwareUpdateProgress>? progress,
+        Action<string> log,
+        CancellationToken ct,
+        bool alreadyInBootloader = false) =>
+        WriteFlashAsync(
+            portName,
+            [
+                (BootloaderFlashOffset, bootloaderPath),
+                (PartitionTableFlashOffset, partitionTablePath),
+                (AppFlashOffset, app.Path),
+            ],
+            progress,
+            log,
+            ct,
+            alreadyInBootloader,
+            flashSize: "detect",
+            successMessage: $"Mixr {app.Version} (Bootloader + Partitionen + App) geflasht. Das Gerät startet neu.");
+
+    /// <summary>
+    /// Flasht beliebige Teile. Der Port darf von niemandem sonst offen sein.
+    /// </summary>
+    public static async Task<FirmwareUpdateResult> WriteFlashAsync(
+        string portName,
+        IReadOnlyList<(string Offset, string FilePath)> parts,
+        IProgress<FirmwareUpdateProgress>? progress,
+        Action<string> log,
+        CancellationToken ct,
+        bool alreadyInBootloader = false,
+        string flashSize = "keep",
+        string? successMessage = null)
+    {
         if (!IsAvailable)
             return new FirmwareUpdateResult(FirmwareUpdateOutcome.Failed, "esptool ist nicht verfügbar.");
+        if (parts.Count == 0)
+            return new FirmwareUpdateResult(FirmwareUpdateOutcome.Failed, "Keine Flash-Dateien angegeben.");
+
+        foreach (var (_, path) in parts)
+        {
+            if (!File.Exists(path))
+                return new FirmwareUpdateResult(FirmwareUpdateOutcome.Failed, $"Flash-Datei fehlt: {path}");
+        }
 
         var psi = new ProcessStartInfo
         {
@@ -112,19 +176,26 @@ public static class EsptoolFlasher
                      "--chip", "esp32s3",
                      "--port", portName,
                      "--baud", "921600",
+                     "--connect-attempts", "15",
                      "--before", alreadyInBootloader ? "no_reset" : "default_reset",
                      // S3: nach software-FORCE_DOWNLOAD_BOOT sticky bit → watchdog_reset statt hard_reset
                      "--after", alreadyInBootloader ? "watchdog_reset" : "hard_reset",
                      "write_flash",
                      "--flash_mode", "keep",
-                     "--flash_size", "keep",
+                     "--flash_size", flashSize,
                      "--flash_freq", "keep",
-                     AppFlashOffset, image.Path,
                  })
             psi.ArgumentList.Add(a);
 
+        foreach (var (offset, path) in parts)
+        {
+            psi.ArgumentList.Add(offset);
+            psi.ArgumentList.Add(path);
+        }
+
+        var summary = string.Join(" ", parts.Select(p => $"{p.Offset} {Path.GetFileName(p.FilePath)}"));
         progress?.Report(new FirmwareUpdateProgress(0, "Gerät wird in den Download-Modus versetzt …"));
-        log($"esptool: write_flash {AppFlashOffset} {Path.GetFileName(image.Path)} @ {portName}");
+        log($"esptool: write_flash {summary} @ {portName}");
 
         using var proc = new Process { StartInfo = psi, EnableRaisingEvents = true };
         var tail = new System.Collections.Concurrent.ConcurrentQueue<string>();
@@ -165,7 +236,8 @@ public static class EsptoolFlasher
         log("esptool: " + lastLines.Replace(Environment.NewLine, " | "));
 
         return proc.ExitCode == 0
-            ? new FirmwareUpdateResult(FirmwareUpdateOutcome.Success, $"Firmware {image.Version} geflasht. Das Gerät startet neu.")
+            ? new FirmwareUpdateResult(FirmwareUpdateOutcome.Success,
+                successMessage ?? "Firmware geflasht. Das Gerät startet neu.")
             : new FirmwareUpdateResult(FirmwareUpdateOutcome.Failed, $"esptool Exit {proc.ExitCode}: {lastLines}");
     }
 }

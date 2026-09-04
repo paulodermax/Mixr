@@ -32,6 +32,7 @@ config.secrets.yaml
 
 # ---- Lokale Firmware-Artefakte, die die App beim Debuggen einbindet ----
 /Mixr.App/firmware/*.bin
+/Mixr.FirstFlash/firmware/*.bin
 
 # ---- ESP-IDF (Details in ESP/.gitignore) ----
 /ESP/build/
