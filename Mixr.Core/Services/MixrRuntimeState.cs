@@ -111,6 +111,77 @@ public static class MixrRuntimeState
 
     public static event Action? DeviceChanged;
 
+    // ---- Now Playing / VoIP (Display-Spiegel in der App) ---------------------------------------
+
+    public sealed record NowPlayingSnapshot(string Title, string Artist, byte[]? CoverRgb565);
+
+    static readonly object _nowPlayingLock = new();
+    static NowPlayingSnapshot _nowPlaying = new("", "", null);
+    static bool _voipMuted;
+    static bool _voipDeafened;
+
+    public static NowPlayingSnapshot NowPlaying
+    {
+        get
+        {
+            lock (_nowPlayingLock)
+                return _nowPlaying;
+        }
+    }
+
+    public static bool VoipMuted
+    {
+        get
+        {
+            lock (_nowPlayingLock)
+                return _voipMuted;
+        }
+    }
+
+    public static bool VoipDeafened
+    {
+        get
+        {
+            lock (_nowPlayingLock)
+                return _voipDeafened;
+        }
+    }
+
+    public static event Action? NowPlayingChanged;
+
+    public static event Action? VoipUiChanged;
+
+    public static void SetNowPlaying(string title, string artist, byte[]? coverRgb565)
+    {
+        lock (_nowPlayingLock)
+            _nowPlaying = new NowPlayingSnapshot(title ?? "", artist ?? "", coverRgb565);
+        NowPlayingChanged?.Invoke();
+    }
+
+    /// <summary>Entspricht dem Display: Mute-Toggle nur, wenn nicht deafened.</summary>
+    public static void NotifyVoipMuteToggled()
+    {
+        lock (_nowPlayingLock)
+        {
+            if (_voipDeafened)
+                return;
+            _voipMuted = !_voipMuted;
+        }
+
+        VoipUiChanged?.Invoke();
+    }
+
+    public static void NotifyVoipDeafenToggled()
+    {
+        lock (_nowPlayingLock)
+        {
+            _voipDeafened = !_voipDeafened;
+            _voipMuted = _voipDeafened;
+        }
+
+        VoipUiChanged?.Invoke();
+    }
+
     public static void SetDevice(DeviceHello? hello)
     {
         lock (_deviceLock)

@@ -5,6 +5,7 @@ namespace Mixr.Services;
 /// <summary>
 /// Strg+Linksshift+Alt+9 (Mute) / +0 (Deafen). Ziffernreihe oder Numpad (VK 0x39/0x30 bzw. 0x69/0x60).
 /// Modifier nur links: VK_LCONTROL / VK_LSHIFT / VK_LMENU.
+/// Bei Treffer: Callback (Discord-Hotkey + Display) und Taste schlucken — sonst landet oft nur „0“ in Chats.
 /// </summary>
 public static class VoipHotkeyListener
 {
@@ -169,14 +170,19 @@ public static class VoipHotkeyListener
                     _lastDeafenMs = now;
                     _onDeafenUi?.Invoke();
                 }
+
+                return (IntPtr)1;
             }
-            else if (isMuteKey)
+
+            if (isMuteKey)
             {
                 if (now - _lastMuteMs >= DebounceMs)
                 {
                     _lastMuteMs = now;
                     _onMuteUi?.Invoke();
                 }
+
+                return (IntPtr)1;
             }
         }
 

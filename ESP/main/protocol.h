@@ -118,11 +118,12 @@ enum class PktType : uint8_t {
 };
 
 /** HELLO caps-Bits */
-#define MIXR_CAP_OTA_PROTOCOL 0x01  /* esp_ota-Partition vorhanden → FW_* nutzbar */
+#define MIXR_CAP_OTA_PROTOCOL 0x01  /* zweite OTA-Partition (esp_ota) → FW_* nutzbar; nicht PSRAM-Staging */
 #define MIXR_CAP_JPEG_COVER 0x02    /* IMAGE_BEGIN mit ImageFormat::JPEG */
 #define MIXR_CAP_HID_CONSUMER 0x04  /* Medientasten als HID Consumer Control (SET_BUTTON_MAP) */
 #define MIXR_CAP_BOOTLOADER_CMD 0x08 /* ENTER_BOOTLOADER */
 #define MIXR_CAP_LOG_STREAM 0x10    /* LOG / SET_LOG_STREAM */
+#define MIXR_CAP_OTA_SLOT 0x20      /* echter OTA-Slot (nicht Factory-Overwrite); Host darf FW_* nutzen */
 
 enum class ImageFormat : uint8_t {
     RGB565 = 0, /* 240×240×2 Byte, little endian */

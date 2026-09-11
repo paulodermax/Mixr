@@ -268,7 +268,11 @@ void mixr_proto_send_hello(void)
     const esp_app_desc_t *desc = esp_app_get_description();
     uint8_t payload[2 + sizeof(desc->version)];
     payload[0] = MIXR_PROTOCOL_VERSION;
-    payload[1] = mixr_link_caps() | (mixr_fw_update_supported() ? MIXR_CAP_OTA_PROTOCOL : 0);
+    uint8_t ota = 0;
+    if (mixr_fw_update_supported()) {
+        ota = MIXR_CAP_OTA_PROTOCOL | MIXR_CAP_OTA_SLOT;
+    }
+    payload[1] = mixr_link_caps() | ota;
     if (s_jpeg_buf == nullptr) {
         payload[1] &= (uint8_t)~MIXR_CAP_JPEG_COVER;
     }

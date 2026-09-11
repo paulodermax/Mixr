@@ -61,6 +61,8 @@ public static class MixrProtocol
     public const byte CapHidConsumer = 0x04;
     public const byte CapBootloaderCmd = 0x08;
     public const byte CapLogStream = 0x10;
+    /// <summary>Echter zweiter OTA-Slot (esp_ota). PSRAM-Factory-Overwrite von 0.0.7/0.0.8 setzt das nicht.</summary>
+    public const byte CapOtaSlot = 0x20;
 
     public const int ButtonCount = 5;
 
@@ -141,6 +143,8 @@ public sealed record DeviceHello(byte ProtocolVersion, byte Capabilities, string
     public bool SupportsHidConsumer => (Capabilities & MixrProtocol.CapHidConsumer) != 0;
     public bool SupportsBootloaderCmd => (Capabilities & MixrProtocol.CapBootloaderCmd) != 0;
     public bool SupportsLogStream => (Capabilities & MixrProtocol.CapLogStream) != 0;
+    /// <summary>Nur echter OTA-Slot — nicht das PSRAM-Staging, das 0.0.7 als OTA gemeldet hat.</summary>
+    public bool SupportsOtaSlot => (Capabilities & MixrProtocol.CapOtaSlot) != 0;
 
     /// <summary>Protokoll v3: IMAGE_BEGIN/END, SET_BUTTON_MAP, PING.</summary>
     public bool IsV3OrNewer => ProtocolVersion >= 3;

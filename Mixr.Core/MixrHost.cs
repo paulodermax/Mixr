@@ -63,6 +63,7 @@ public static class MixrHost
         var dedup = new SessionDedup();
         media.SessionUpdated += (title, artist, cover) =>
         {
+            MixrRuntimeState.SetNowPlaying(title, artist, cover);
             try
             {
                 var sender = coverSender;
@@ -226,6 +227,7 @@ public static class MixrHost
             try
             {
                 DiscordHotkeySimulator.TriggerToggleMute();
+                MixrRuntimeState.NotifyVoipMuteToggled();
                 LogLine(options, $"→ Discord: Toggle-Mute ({quelle})");
                 link?.TrySend(MixrProtocol.TypeVoipMuteToggleUi);
             }
@@ -240,6 +242,7 @@ public static class MixrHost
             try
             {
                 DiscordHotkeySimulator.TriggerToggleDeafen();
+                MixrRuntimeState.NotifyVoipDeafenToggled();
                 LogLine(options, $"→ Discord: Toggle-Deafen ({quelle})");
                 link?.TrySend(MixrProtocol.TypeVoipDeafen);
             }
@@ -325,7 +328,7 @@ public static class MixrHost
             LogLine(
                 options,
                 $"[ESP] HELLO: Protokoll v{hello.ProtocolVersion}, Firmware {hello.FirmwareVersion}, " +
-                $"OTA {(hello.SupportsProtocolOta ? "ja" : "nein")}, JPEG {(hello.SupportsJpegCover ? "ja" : "nein")}, " +
+                $"OTA {(hello.SupportsOtaSlot ? "Slot" : hello.SupportsProtocolOta ? "Staging (Host ignoriert)" : "nein")}, JPEG {(hello.SupportsJpegCover ? "ja" : "nein")}, " +
                 $"HID-Medientasten {(hello.SupportsHidConsumer ? "ja" : "nein")}, Bootloader-Befehl {(hello.SupportsBootloaderCmd ? "ja" : "nein")}");
             if (hello.ProtocolVersion > MixrProtocol.Version)
                 LogErr(options, $"Firmware spricht Protokoll v{hello.ProtocolVersion}, diese App nur v{MixrProtocol.Version} — bitte App aktualisieren.");
@@ -359,8 +362,8 @@ public static class MixrHost
         }, cancellationToken);
 
         VoipHotkeyListener.Start(
-            () => link?.TrySend(MixrProtocol.TypeVoipMuteToggleUi),
-            () => link?.TrySend(MixrProtocol.TypeVoipDeafen));
+            () => TriggerDiscordMute("Tastatur"),
+            () => TriggerDiscordDeafen("Tastatur"));
 
         LogLine(
             options,

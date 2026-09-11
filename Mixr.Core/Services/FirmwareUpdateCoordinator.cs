@@ -1,12 +1,13 @@
 namespace Mixr.Services;
 
 /// <summary>
-/// Firmware-Update-Koordinator — Ziel: Feld-Updates funktionieren ohne Tasten/COM-Port.
+/// Firmware-Update-Koordinator — Feld-Updates ohne physische BOOT-Taste.
 ///
 /// Reihenfolge:
-///  1. Protokoll-Update (FW_*) über den offenen Link (HID oder Seriell).
-///     Gerät mit OTA-Partition ODER PSRAM-Staging meldet MIXR_CAP_OTA_PROTOCOL.
-///  2. Fallback: ENTER_BOOTLOADER → Espressif-COM → esptool (mit Retries).
+///  0. Gerät steckt schon im ROM-Download → esptool.
+///  1. Nur bei echtem OTA-Slot (<see cref="DeviceHello.SupportsOtaSlot"/>): FW_* über HID.
+///     0.0.7/0.0.8 setzen MIXR_CAP_OTA_PROTOCOL für PSRAM-Factory-Overwrite — das bricht USB.
+///  2. ENTER_BOOTLOADER → Espressif-COM → esptool (Retries, watchdog_reset).
 /// </summary>
 public static class FirmwareUpdateCoordinator
 {
@@ -53,9 +54,9 @@ public static class FirmwareUpdateCoordinator
         if (dev is null)
             return $"Mitgeliefert: {img.Version} — Gerät meldet keine Version. Update über Download-Modus möglich.";
 
-        var how = dev.SupportsProtocolOta
-            ? "direkt über USB (ohne Neustart in den Bootloader)"
-            : "über USB-Download-Modus (esptool)";
+        var how = dev.SupportsOtaSlot
+            ? "direkt über USB (OTA-Partition)"
+            : "über USB-Download-Modus (esptool, ohne BOOT-Taste)";
         if (FirmwareImage.IsNewerThan(img.Version, dev.FirmwareVersion))
             return $"Gerät: {dev.FirmwareVersion} → verfügbar: {img.Version} ({how}).";
         if (string.Equals(img.Version, dev.FirmwareVersion, StringComparison.OrdinalIgnoreCase))
@@ -83,69 +84,63 @@ public static class FirmwareUpdateCoordinator
             {
                 Log($"FW: Espressif-COM schon da ({string.Join(", ", romCandidates)}) — flashe mit esptool.");
                 await EsptoolFlasher.EnsureAvailableAsync(progress, Log, ct).ConfigureAwait(false);
+                FirmwareUpdateResult romResult;
                 using (MixrRuntimeState.PauseSerial())
-                    return await EsptoolFlasher.FlashAsync(img, romPort!, progress, Log, ct, alreadyInBootloader: true)
+                    romResult = await EsptoolFlasher.FlashAsync(img, romPort!, progress, Log, ct, alreadyInBootloader: true)
                         .ConfigureAwait(false);
+                return await FinishFlashAsync(romResult, img.Version, progress, ct).ConfigureAwait(false);
             }
 
-            // 1) Protokoll-Update über offenen Link (HID/Seriell) — bevorzugter Feld-Pfad
-            if (link is not null && link.Link.IsOpen)
+            // 1) Protokoll-OTA nur bei echtem OTA-Slot — nicht bei 0.0.7/0.0.8-Staging (CapOtaProtocol ohne CapOtaSlot).
+            if (dev?.SupportsOtaSlot == true && link is { Link.IsOpen: true })
             {
-                Log($"FW: Protokoll-Update {dev?.FirmwareVersion ?? "?"} → {img.Version} über {link.Link.Id}" +
-                    (dev?.SupportsProtocolOta == true ? " (Gerät meldet OTA/Staging)" : " (Versuch)"));
+                Log($"FW: Protokoll-Update {dev.FirmwareVersion} → {img.Version} über {link.Link.Id} (OTA-Slot)");
                 progress?.Report(new FirmwareUpdateProgress(0, "Firmware wird über USB übertragen …"));
                 var svc = new FirmwareUpdateService(link.Link, link.Dispatcher, Log);
                 var r = await svc.UpdateAsync(img, progress, ct).ConfigureAwait(false);
                 if (r.Outcome == FirmwareUpdateOutcome.Success)
                 {
-                    Log("FW: Protokoll meldet OK — prüfe, ob das Gerät wirklich die neue Version bootet …");
-                    progress?.Report(new FirmwareUpdateProgress(100, "Gerät startet neu, prüfe Version …"));
-                    // Link stirbt beim Reboot; Host-Loop baut neu auf. Wir warten auf HELLO.
                     try { link.Link.Dispose(); } catch { /* */ }
-                    var verified = await WaitForFirmwareVersionAsync(img.Version, TimeSpan.FromSeconds(20), ct)
-                        .ConfigureAwait(false);
-                    if (verified)
-                    {
-                        Log($"FW: Gerät meldet Firmware {img.Version} — Update bestätigt.");
-                        return r;
-                    }
-
-                    Log($"FW: Gerät bootet noch nicht {img.Version} — Fallback Download-Modus.");
-                    // frischen Link für Bootloader-Fallback holen (Host-Loop kann schon verbunden haben)
-                    link = MixrRuntimeState.Link;
+                    return await FinishFlashAsync(r, img.Version, progress, ct).ConfigureAwait(false);
                 }
-                else if (r.Outcome is FirmwareUpdateOutcome.Cancelled or FirmwareUpdateOutcome.Failed)
-                {
+
+                if (r.Outcome is FirmwareUpdateOutcome.Cancelled)
                     return r;
+
+                Log($"FW: Protokoll-Update nicht möglich ({r.Message}) — Fallback Download-Modus.");
+            }
+            else if (dev?.SupportsProtocolOta == true)
+            {
+                Log("FW: Gerät meldet OTA ohne Slot (PSRAM-Staging) — überspringe, nutze esptool.");
+            }
+
+            // 2) ENTER_BOOTLOADER + esptool (Retries)
+            await EsptoolFlasher.EnsureAvailableAsync(progress, Log, ct).ConfigureAwait(false);
+
+            FirmwareUpdateResult flashed;
+            using (MixrRuntimeState.PauseSerial())
+            {
+                link = MixrRuntimeState.Link ?? link;
+                if (link is { Kind: MixrLinkKind.Hid } || MixrHidTransport.Enumerate().Count > 0)
+                {
+                    var viaBootloader = await TryBootloaderFlashAsync(img, link, progress, ct).ConfigureAwait(false);
+                    if (viaBootloader is null)
+                        return new FirmwareUpdateResult(FirmwareUpdateOutcome.Failed, ManualBootHint);
+                    flashed = viaBootloader;
                 }
                 else
                 {
-                    Log($"FW: Protokoll-Update nicht möglich ({r.Message}) — Fallback Download-Modus.");
+                    var port = MixrRuntimeState.LastPortName ?? MixrDevicePortResolver.TryFindComPort(out _);
+                    if (string.IsNullOrEmpty(port))
+                        return new FirmwareUpdateResult(FirmwareUpdateOutcome.Failed, ManualBootHint);
+
+                    await Task.Delay(700, ct).ConfigureAwait(false);
+                    Log($"FW: esptool-Update {dev?.FirmwareVersion ?? "?"} → {img.Version} auf {port}");
+                    flashed = await EsptoolFlasher.FlashAsync(img, port, progress, Log, ct).ConfigureAwait(false);
                 }
             }
 
-            // 2) Fallback: ENTER_BOOTLOADER + esptool (Retries)
-            await EsptoolFlasher.EnsureAvailableAsync(progress, Log, ct).ConfigureAwait(false);
-
-            using (MixrRuntimeState.PauseSerial())
-            {
-                link ??= MixrRuntimeState.Link;
-                if (link is { Kind: MixrLinkKind.Hid } || MixrHidTransport.Enumerate().Count > 0)
-                {
-                    var flashed = await TryBootloaderFlashAsync(img, link, progress, ct).ConfigureAwait(false);
-                    if (flashed is not null)
-                        return flashed;
-                    return new FirmwareUpdateResult(FirmwareUpdateOutcome.Failed, ManualBootHint);
-                }
-
-                var port = MixrRuntimeState.LastPortName ?? MixrDevicePortResolver.TryFindComPort(out _);
-                if (string.IsNullOrEmpty(port))
-                    return new FirmwareUpdateResult(FirmwareUpdateOutcome.Failed, ManualBootHint);
-
-                await Task.Delay(700, ct).ConfigureAwait(false);
-                Log($"FW: esptool-Update {dev?.FirmwareVersion ?? "?"} → {img.Version} auf {port}");
-                return await EsptoolFlasher.FlashAsync(img, port, progress, Log, ct).ConfigureAwait(false);
-            }
+            return await FinishFlashAsync(flashed, img.Version, progress, ct).ConfigureAwait(false);
         }
         finally
         {
@@ -213,6 +208,30 @@ public static class FirmwareUpdateCoordinator
         }
 
         return null;
+    }
+
+    static async Task<FirmwareUpdateResult> FinishFlashAsync(
+        FirmwareUpdateResult flashed,
+        string expectedVersion,
+        IProgress<FirmwareUpdateProgress>? progress,
+        CancellationToken ct)
+    {
+        if (flashed.Outcome != FirmwareUpdateOutcome.Success)
+            return flashed;
+
+        progress?.Report(new FirmwareUpdateProgress(100, "Gerät startet neu, prüfe Version …"));
+        var verified = await WaitForFirmwareVersionAsync(expectedVersion, TimeSpan.FromSeconds(25), ct)
+            .ConfigureAwait(false);
+        if (verified)
+        {
+            Log($"FW: Gerät meldet Firmware {expectedVersion} — Update bestätigt.");
+            return flashed;
+        }
+
+        Log($"FW: esptool/OTA OK, HELLO {expectedVersion} noch nicht gesehen — USB ggf. neu stecken.");
+        return new FirmwareUpdateResult(
+            FirmwareUpdateOutcome.Success,
+            flashed.Message + " Falls das Display nicht kommt: USB kurz trennen und neu stecken.");
     }
 
     static async Task<bool> WaitForFirmwareVersionAsync(string expectedVersion, TimeSpan timeout, CancellationToken ct)

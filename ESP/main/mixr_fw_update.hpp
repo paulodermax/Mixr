@@ -9,16 +9,13 @@
 /**
  * Firmware-Update über das Mixr-Protokoll (FW_BEGIN / FW_CHUNK / FW_END).
  *
- * Zwei Wege (automatisch gewählt):
- *  1. OTA-Partition vorhanden (≥ 4 MiB, partitions_ota.csv) → esp_ota_* (sicher, Rollback möglich).
- *  2. Sonst (2-MiB factory-only): Image komplett in PSRAM puffern, SHA prüfen, dann die laufende
- *     Factory-Partition überschreiben und neu starten. Funktioniert über USB-HID ohne COM-Port /
- *     BOOT-Taste — Voraussetzung für zuverlässige Feld-Updates.
- *
- * Stromausfall mitten im Flashen kann das Gerät „stumm“ machen → dann einmalig BOOT+RESET + esptool.
+ * Nur wenn eine zweite OTA-Partition existiert (partitions_ota.csv, ≥ 4 MiB):
+ * esp_ota_* mit Rollback. Factory-only (aktuelles partitions.csv): FW_* → UNSUPPORTED.
+ * Feld-Updates dann über ENTER_BOOTLOADER + esptool — PSRAM-Overwrite der laufenden
+ * Factory hat USB nach dem 0.0.7→0.0.8-Update totgemacht.
  */
 
-/** true, wenn FW_*-Updates möglich sind (OTA-Slot oder genug PSRAM zum Zwischenspeichern). */
+/** true, wenn ein echter OTA-Slot existiert (FW_* nutzbar). */
 bool mixr_fw_update_supported(void);
 
 /** true, solange ein Update läuft (Slider/Buttons pausieren, UI zeigt Fortschritt). */

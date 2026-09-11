@@ -78,7 +78,20 @@ public class ProtocolDispatchTests
         Assert.True(h.SupportsHidConsumer);
         Assert.True(h.SupportsBootloaderCmd);
         Assert.False(h.SupportsProtocolOta);
+        Assert.False(h.SupportsOtaSlot);
         Assert.False(h.SupportsLogStream);
+    }
+
+    [Fact]
+    public void Hello_OtaSlot_IsDistinctFromLegacyOtaCap()
+    {
+        var staging = new DeviceHello(3, MixrProtocol.CapOtaProtocol, "0.0.7");
+        Assert.True(staging.SupportsProtocolOta);
+        Assert.False(staging.SupportsOtaSlot);
+
+        var dual = new DeviceHello(3, (byte)(MixrProtocol.CapOtaProtocol | MixrProtocol.CapOtaSlot), "1.2.0");
+        Assert.True(dual.SupportsProtocolOta);
+        Assert.True(dual.SupportsOtaSlot);
     }
 
     [Fact]

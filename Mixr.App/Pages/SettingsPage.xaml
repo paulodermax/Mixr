@@ -73,7 +73,7 @@
                     <TextBlock
                         Style="{StaticResource Hint}"
                         Margin="0,8,0,0"
-                        Text="Das Mixr-Gerät bleibt während des Updates angeschlossen. Geräte mit OTA-Partition werden direkt über die USB-Verbindung aktualisiert; ältere Platinen über den USB-Download-Modus (esptool wird dafür einmalig geladen)." />
+                        Text="Das Mixr-Gerät bleibt während des Updates angeschlossen. Die App wechselt selbst in den Download-Modus (ohne BOOT-Taste) und schreibt die Firmware mit esptool (wird einmalig geladen)." />
                 </StackPanel>
             </Border>
 
